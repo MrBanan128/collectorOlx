@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOL-EX collector</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
+</head>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Sawarabi+Gothic:wght@100;300;400;500;700;800;900&display=swap');
+
+
+
+  *{
+  text-decoration: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-family: 'Sawarabi Gothic', sans-serif;
+  box-sizing: border-box;
+  color: rgb(210, 210, 210);
+  }
+  section{
+    min-width: 700px;
+    min-height: 500px;
+    margin: 1rem;
+    border-radius: 10px;
+    background-color: rgb(35, 35, 35);
+  }
+  img{
+    object-fit: cover;
+    width: 100%;
+    
+    /* height: 100%; */
+  }
+  h2, h1{
+    text-align: center;
+  }
+  h3{
+    color: #dac9b0;
+    font-weight: 400;
+  }
+  nav{
+    display: flex;
+    padding: 1rem 1.5rem .5rem;
+    justify-content: space-between;
+  }
+  ul{
+    display: flex;
+  }
+  li{
+      margin: 0 1rem;
+   
+  }
+ li:nth-child(1){
+   border-bottom: rgb(95, 123, 145) solid 2px ; 
+ }
+
+  .main{
+
+  }
+
+  .main-row{
+    display: flex;
+    justify-content: space-around;
+
+  }
+  .mainImage-box{
+    height: 305px;
+    background-color: #b6b29f;
+    overflow: hidden;
+    position: relative;
+  }
+  .text-Image{
+    font-weight: 900;
+    position: absolute;
+    top: 50px;
+    left: 220px;
+ 
+  }
+  .text-Image span{
+    font-size: 1.2rem;
+  }
+  .box-item{
+    display: flex; 
+    justify-content: space-between; 
+    align-self: center; 
+    z-index: 1; position: 
+    absolute; width: 100%;
+    padding: .5rem 5%;
+    text-align: center;
+  }
+  .box-item div p{
+  color:rgb(35, 35, 35) ;
+  font-size: .8rem;
+  font-weight: 700;
+  }
+  .box-item img {
+   width: 90px;
+   height: 100px;
+  }
+  .pro-ofert-box img{
+    width: 150px;
+   height: 150px;
+  }
+  .pro-ofert-box{
+    display: grid;
+     grid-template-columns: auto auto auto auto;
+     gap: 5px; 
+     margin: 1rem 0 2rem;
+  }
+  .pro-ofert-box div{
+    background-color: rgb(25, 25, 25);
+    padding: .6rem 0;
+    border-radius: 5px;
+  }
+  .most-viewed-box p{
+   font-size: .7rem;
+  }
+  .footer-contener{
+    background-color:  rgb(95, 123, 145); 
+    padding: .4rem 5% ;
+     display: flex; 
+     align-content: center;
+     justify-content: space-between;
+  }
+  .footer-contener div{
+    display: flex;
+  }
+  .footer-contener div p{
+    display: flex;
+    align-items: center;
+  }
+  .footer-contener div p:nth-child(-n+1){
+    margin-right: .6rem;
+  }
+  .footer-contener div p, .footer-contener div p a{
+    color: black;
+    font-size: .65rem;
+    font-weight: 600;
+  }
+  .footer-contener div p a:nth-child(1){
+   margin-right: .2rem;
+  }
+  .footer-contener div p a:nth-child(2){
+   margin-left: .2rem;
+  }
+  .link-contents{
+    text-align: end;
+    padding: 1rem 15%;
+  }
+  .link-contents a, .link-contents img{
+    margin-left: .5rem;
+  }
+  .add-text p{
+   font-size: .6rem;
+   padding: 4px 0;
+   background-image: linear-gradient(to top, rgb(179, 179, 179) 0.01px, transparent 0.5px);
+   width: fit-content;
+  }
+
+</style>
+<body>
+    <h1>BOL-EX collector</h1>
+    <div class="main">
+    
+        <div class="main-row">
+
+            <div>
+                <h2>Main Page</h2>
+                <section>
+                   <div>
+                      <nav><a><img style="width: 70px; background-color: rgb(0, 65, 151); border-radius: 10px;" src="bol-ex.png"></a><div><ul><li>Home</li><li>Message</li><li>Czat</li><li>New account</li></ul><div></nav>
+                   </div>
+                   <div class = "mainImage-box">
+                     <h2 class = "text-Image">COLLECTORS BARTER<br><span>Exchange</span></h2>
+                     <img  src="mainImg.jpg">
+                     <div>
+                      <button style="background-color: rgb(35, 35, 35);z-index: 99999; position: absolute; color: rgb(210, 210, 210); font-weight: 600;
+                      bottom:20px; left: 2.5rem; border-radius: 1rem; padding: .4rem 1.5rem; font-size: .8rem; border: solid rgb(210, 210, 210) 1px;">Search/hide</button>
+                       <!-- <button style="background-color: rgb(35, 35, 35) ;z-index: 99999; position: absolute; color: white; font-weight: 600;
+                      bottom:20px; left: 150px; border-radius: 1rem; padding: .4rem 1.5rem; font-size: .8rem; border: solid white 1px;">Add item</button> -->
+                      
+                      <button style="background-color:rgb(210, 210, 210);z-index: 99999; position: absolute;font-weight: 600; border: rgb(35, 35, 35) solid  1px;
+                      bottom:20px; right: 2.5rem; border-radius: 1rem; padding: .4rem 1.5rem; font-size: .8rem; color:rgb(35, 35, 35)">Add item</button>
+                      </div>
+                   </div>
+
+                   <div style="padding: 1rem; text-align: center;">
+                      <form style=""><input type="text" style="color: black; padding: .5rem 1rem; font-size: 1rem;" placeholder="Search items">
+                        <select name="categoris" id="categoris" style="color: black;  padding: .54rem 1rem; font-size: 1rem; margin-left: -5px;" >
+                          <option value="Select">Select Categoris</option>
+                          <option value="Znaczki">Znaczki</option>
+                          <option value="Monety">Monety</option>
+                          <option value="Figurki">Figurki</option>
+                        </select>
+                        <input type="button" value="Search" style="padding: .5rem 1rem; font-size: 1rem; 
+                        margin-left: -5px; background-color: rgb(95, 123, 145)">
+                      </form>
+                   </div>
+
+                   <div> 
+                     <div style="display: flex; justify-content: space-between; padding: 15px;"><p><< Before item</p><h3>Main Category</h3><p>Next item >></p></div>
+                     <div style="position: relative;">
+                        <img style="mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+                        height: 140px; border-radius: 10px; position: absolute;" src="bacground-categoris.jpg">
+                        <div class = "box-item">
+                          <div><img src="item1.png"><p>Category name</p></div>
+                          <div><img src="item8.png"><p>Category name</p></div>
+                          <div><img src="item3.png"><p>Category name</p></div>
+                          <div><img src="item4.png"><p>Category name</p></div>
+                          <div><img src="item9.png"><p>Category name</p></div>
+                        </diV>
+                    </div>
+                    
+                  <div style="margin-top:180px; padding: 0 5%; text-align: start;">
+                    <div><h3>Most viewed</h3></div>
+
+                  <div class="pro-ofert-box">
+                      <div><img src="item11.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item22.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item33.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item44.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item11.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item22.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item33.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item44.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item11.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item22.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item33.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                      <div><img src="item44.jpg"><div class="most-viewed-box"><p>Item Name</p><p>Item info</p></p><p>Item market value(opcjonal)</p><p></p><p>opinie (47)*****</p></div></div>
+                   </div>
+                  </div>
+
+                  
+
+                <div style="background-color: rgb(210, 210, 210);">  
+                  <div style="text-align: start; background-color: rgb(35, 35, 35); padding: 1rem 0;">
+                     <h3 style="margin-left: 5%;">Collector's zone</h3>
+                     <div style="display: flex; background-color: rgb(25, 25, 25); gap: 32px; margin: 1rem 0; padding: 5px 5%;">
+                        <div style=" position: relative;"><img src="image-shop.jpg"style="width: 190px;">
+                          <div style="width: 100%; bottom: 0; background-color:rgb(0, 0, 0, 0.7); position: absolute; padding: .4rem;">
+                            <p style="color: #dac9b0; font-size: .7rem;">Data: 45.54.6585</p><p style="color: #dac9b0; font-size: .8rem; font-weight: 600;">Tytle: asdasda</p>
+                            <p style="color: #dac9b0; font-size: .8rem; font-weight: 600;">Text: asdjasdjsdjasdjashja djajasdhajdhjsas</p></div></div>
+                        <div style="transform:scale(1.3); position: relative;"><img src="image-car.jpg"style="width: 190px;">
+                          <div style="width: 100%; bottom: 0; background-color:rgb(0, 0, 0, 0.7); position: absolute; padding: .3rem;">
+                            <p style="color: #dac9b0; font-size: .7rem;">Data: 45.54.6585</p><p style="color: #dac9b0; font-size: .8rem; font-weight: 600;">Tytle: asdasda</p>
+                            <p style="color: #dac9b0; font-size: .8rem; font-weight: 600;">Text: asdjasdjsdjasdjas hjadjaj</p></div></div>
+                        <div style=" position: relative;"><img src="image-city.jpg"style="width: 190px;">
+                          <div style="width: 100%; bottom: 0; background-color:rgb(0, 0, 0, 0.7); position: absolute; padding: .3rem;">
+                            <p style="color: #dac9b0; font-size: .7rem;">Data: 45.54.6585</p><p style="color: #dac9b0; font-size: .8rem; font-weight: 600;">Tytle: asdasda</p>
+                            <p style="color: #dac9b0; font-size: .8rem; font-weight: 600;">Text: asdjasdjsdjasdja sh</p></div></div>
+                     </div>
+                  </div>               
+               
+                 <div style="background-color: rgb(210, 210, 210); border-bottom: 1px solid black; padding: 5% 15% ; text-align: center;">
+                     
+                  <img style="width: 100px; margin-bottom: 1.5rem;" src="bol-ex-black.png">
+                   <p style=" color: rgb(35, 35, 35); font-size: .7rem; text-align: center;" >
+                    BOL-EX collector to miejsce stworzone z myślą o kolekcjonerach, którzy chcą wymieniać się swoimi przedmiotami bez konieczności sprzedaży. 
+                    Łączymy pasjonatów różnych dziedzin, umożliwiając im znalezienie unikalnych przedmiotów i nawiązanie kontaktu z innymi kolekcjonerami. 
+                    Dzięki intuicyjnej platformie każdy może łatwo dodać swoją ofertę, przeglądać propozycje innych i uzgadniać 
+                    wymiany w bezpieczny sposób. Naszym celem jest budowanie społeczności opartej na pasji i wzajemnym zaufaniu, 
+                    gdzie każdy może rozwijać swoją kolekcję.</p>
+                 </div>
+
+
+                 <div class="link-contents" style="display: flex; justify-content: end;">
+                                        
+                  <a href="#" target="_blank">
+                      <span class="flag-icon flag-icon-pl" style="font-size: 10px;"></span><span style="color:rgb(35, 35, 35); font-size: 10px; margin-right: .4rem;"> Pl</span>
+                  </a>
+                  <a href="#" target="_blank">
+                      <span class="flag-icon flag-icon-gb" style="font-size: 10px;"></span><span style="color:rgb(35, 35, 35); font-size: 10px; margin-right: .4rem;"> En</span>
+                  </a>
+                  <a href="#" target="_blank">
+                      <span class="flag-icon flag-icon-de" style="font-size: 10px;"></span><span style="color:rgb(35, 35, 35); font-size: 10px; margin-right: .4rem;"> Gr</span>
+                  </a>
+                  <a href="#" target="_blank">
+                      <span class="flag-icon flag-icon-es" style="font-size: 10px;"></span><span style="color:rgb(35, 35, 35); font-size: 10px; margin-right: .4rem;"> Sp</span>
+                  </a>             
+              </div>
+
+                 </div>  
+
+
+
+                   <div style="display: flex; padding: 2rem 5% 1rem; justify-content: space-between">
+
+                      <div class="add-text">
+                        <p>Pomoc</p>
+                        <p>Wyróżnione ogłoszenia</p>
+                        <p>Blog</p>
+                        <p>Regulamin</p>
+                        <p>Polityka prywatności</p>
+                        <p>Reklama</p>
+                        <p>tryb nocny (</p>
+                        
+                      </div>
+
+                      <div class="add-text">
+                        <p>Zasady bezpieczeństwa</p>
+                        <p>Mapa kategorii</p>
+                        <p>Mapa miejscowości</p>
+                        <p>Mapa ministron</p>
+                        <p>Popularne wyszukiwania</p>
+                        <p>Kariera</p>
+                        <p>Jak działa BLO-EX Collectors</p>
+                      </div>
+
+                      <div class="add-text">
+                        <p>Ustawienia plików cookie</p>
+                        <p>Google Play</p>
+                        <p>App Store</p>
+                        <p>Darmowa aplikacja na Twój telefon</p>
+                        <p>Cennik</p>
+                        <p>Polityka cookies</p>
+                      </div>
+
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between;">
+                    
+                      <div class="link-contents" style="padding-left: 1.7rem;" >
+                        <img src="App store.png" style="width: 50px;">
+                        <img src="google.png" style="width: 50px;">
+                        <a href="https://x.com" target="_blank">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.linkedin.com" target="_blank">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="https://www.instagram.com" target="_blank">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com" target="_blank">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com" target="_blank">
+                          <i class="fa-brands fa-youtube"></i>
+                      </a>
+                    </div>
+                    </div>
+
+            <footer>
+              <div class="footer-contener">
+                <div><p>&copy; 2025</p><img style="width: 50px;" src="bol-ex-black.png"></div><div><p>All rights reserved</p> 
+                <p><a href="/polityka-prywatnosci">Privacy Preferences </a>|<a href="/regulamin"> Regulations</a></p></div> 
+              </div>
+            </footer>
+
+                   
+
+                </section>
+            </div>
+
+
+
+
+            <div>
+                <h2>Create Account</h2>
+                <section>
+                     <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </section>
+            </div>
+           
+            
+            
+        </div>
+
+        <div class="main-row">
+            <section></section>
+            <section></section>
+        </div>
+
+        <div class="main-row">
+            <section></section>
+            <section></section>
+        </div>
+              
+    </div>
+
+
+
+
+
+
+
+    <img src="./main Page.webp" alt="">
+    
+</body>
+</html>
