@@ -17,7 +17,7 @@ const AppLink = ({ children, to }) => {
       _focus={{ outline: 'none' }}
       fontWeight={'bold'}
       fontSize={25}
-      color={active ? 'rgba(14, 7, 217, 0.67)' : 'rgba(222, 222, 224, 0.67)'}
+      color={active ? 'rgba(14, 7, 217, 0.5)' : 'rgba(222, 222, 224, 0.5)'}
       borderBottom={active ? '2px solid ' : 'none'}
       cursor={'pointer'}
       _hover={{
