@@ -7,71 +7,65 @@ import Logo from './Logo';
 import AppLink from './AppLink';
 import Sidebar from './Sidebar';
 
-const Navbar = () => {
+// eslint-disable-next-line react/prop-types
+const Navbar = ({ background, height }) => {
   const [isVisible, setVisible] = useState(false);
   const handleClick = () => {
     setVisible(!isVisible);
   };
 
   return (
-    <>
+    <Flex>
       <Flex
-        width={'100%'}
-        alignItems={'center'}
-        justifyContent={'space-between'}
-        height={'80px'}
-        position={'fixed'}
-        backgroundColor={'rgb(63,64,66)'}
-        background={
-          'radial-gradient(circle, rgba(63,64,66,1) 1%, rgba(102,109,125,1) 50%, rgba(63,64,66,1) 100%)'
-        }
+        width="100%"
+        alignItems="center"
+        justifyContent="space-between"
+        height={height} // Dynamiczna wysokość
+        position="fixed"
+        background={background} // Dynamiczne tło
         px={4}
-        // Ustawienie dla urządzeń > 480px (smartfony i większych)
-        sm={{ px: 4, height: '100px' }}
-        // Ustawienie dla urządzeń > 768px (tablety i większe)
-        md={{ px: 6, height: '120px' }}
-        // Ustawienie dla urządzeń > 1024px (laptopy i większe)
+        transition="height 0.5s ease, background 0.5s ease" // Płynna animacja wysokości i tła
+        sm={{ px: 4 }}
+        md={{ px: 6 }}
         lg={{ px: 8 }}
       >
-        <Link to={'/'}>
+        <Link to="/">
           <Logo />
         </Link>
-        <Flex justifyContent={'start'} gap={3} float={'right'} px={4}>
-          <AppLink to={'/'}>Home</AppLink>
-          <AppLink to={'/message'}>Message </AppLink>
-          <AppLink to={'/chat'}>Chat </AppLink>
-          <AppLink to={'/sign-up'}>Account </AppLink>
+        <Flex justifyContent="start" gap={3} float="right" px={4}>
+          <AppLink to="/">Home</AppLink>
+          <AppLink to="/message">Message</AppLink>
+          <AppLink to="/chat">Chat</AppLink>
+          <AppLink to="/sign-up">Account</AppLink>
           <MenuButton onClick={handleClick} />
         </Flex>
       </Flex>
-      {/* Sidebar wyświetlany warunkowo */}
       {isVisible && (
         <Flex
-          direction={'column'}
-          alignItems={'start'}
-          justifyContent={'start'}
-          position={'fixed'}
+          direction="column"
+          alignItems="start"
+          justifyContent="start"
+          position="fixed"
           top={0}
           right={0}
-          height={'100vh'}
-          width={'50%'}
+          height="100vh"
+          width="50%"
           zIndex={999}
-          background={'rgba(255, 255, 255, 0.2)'}
-          backdropFilter={'blur(10px)'}
-          boxShadow={'-10px 0 10px rgba(0, 0, 0, 0.1)'}
+          background="rgba(255, 255, 255, 0.2)"
+          backdropFilter="blur(10px)"
+          boxShadow="-10px 0 10px rgba(0, 0, 0, 0.1)"
         >
           <CloseButton
             onClick={handleClick}
-            variant={'ghost'}
-            size={'xl'}
-            color={'rgb(255, 255, 255)'}
-            fontWeight={'bold'}
+            variant="ghost"
+            size="xl"
+            color="rgb(255, 255, 255)"
+            fontWeight="bold"
           />
           <Sidebar />
         </Flex>
       )}
-      {/* Renderuj Sidebar tylko, jeśli isVisible jest true */}
-    </>
+    </Flex>
   );
 };
 
