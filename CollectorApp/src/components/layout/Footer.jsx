@@ -24,7 +24,7 @@ const Footer = () => {
         wrap={'wrap'}
         margin={10}
       >
-        <Flex direction="column" paddingTop={5} marginLeft={20} gap={4}>
+        <Flex direction="column" paddingTop={5} gap={4}>
           <FooterLink>Pomoc</FooterLink>
           <FooterLink
             to={'/higlighted-offerts'}
@@ -66,7 +66,7 @@ const Footer = () => {
             Popularne wyszukiwania
           </FooterLink>
         </Flex>
-        <Flex direction="column" paddingRight={125} paddingTop={5} gap={4}>
+        <Flex direction="column" paddingTop={5} gap={4}>
           <FooterLink to={'/career'}>Kariera</FooterLink>
           <FooterLink to={'/how-BLO-EX-works'}>
             Jak działa BLO-EX Collectors
@@ -142,7 +142,7 @@ const Footer = () => {
           <Text
             marginLeft={10}
             marginTop={2}
-            fontSize={20}
+            fontSize={15}
             color={'black'}
             alignItems={'center'}
             fontWeight={'bold'}
@@ -150,7 +150,7 @@ const Footer = () => {
             &copy; 2025
           </Text>
           <Image
-            marginLeft={3}
+            marginLeft={5}
             width={81}
             height={28.25}
             objectFit={'cover'}
@@ -166,9 +166,7 @@ const Footer = () => {
             color={'black'}
             alignItems={'center'}
             fontWeight={'bold'}
-            sm={{ fontSize: 5 }}
-            md={{ fontSize: 10 }}
-            lg={{ fontSize: 17 }}
+            fontSize={15}
           >
             All rights reserved
           </Text>
@@ -178,7 +176,7 @@ const Footer = () => {
               style={{
                 marginLeft: 10,
                 marginTop: 6,
-                fontSize: 'auto',
+                fontSize: 15,
                 color: 'black',
                 alignItems: 'center',
                 fontWeight: 'bold',
@@ -189,7 +187,7 @@ const Footer = () => {
             </Link>
             <Text
               marginTop={2}
-              fontSize={'auto'}
+              fontSize={15}
               color={'black'}
               alignItems={'center'}
               fontWeight={'bold'}
@@ -201,7 +199,7 @@ const Footer = () => {
               style={{
                 marginLeft: 8,
                 marginTop: 6,
-                fontSize: 'auto',
+                fontSize: 15,
                 color: 'black',
                 alignItems: 'center',
                 fontWeight: 'bold',
