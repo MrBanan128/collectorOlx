@@ -3,15 +3,37 @@ import { Link } from 'react-router';
 
 const Footer = () => {
   return (
-    <Flex gap="2" backgroundColor={'gray.800'} direction="column">
+    <Flex
+      gap="2"
+      backgroundColor={'gray.800'}
+      direction="column"
+      width={'100%'}
+      height={'auto'}
+    >
       <Flex
         gap="2"
         align="center"
         justify="space-between"
         backgroundColor={'gray.800'}
       >
-        <Flex direction="column" paddingLeft={125} paddingTop={5}>
-          <Link to={'/help'}>Pomoc</Link>
+        <Flex
+          direction="column"
+          paddingTop={5}
+          marginLeft={20}
+          sm={{ fontSize: 1 }}
+          md={{ fontSize: 3 }}
+          lg={{ fontSize: 15 }}
+        >
+          <Link
+            to={'/help'}
+            style={{
+              backgroundImage:
+                'linear-gradient(to top, rgb(179, 179, 179) 0.01px, transparent 0.5px)',
+              hover: { backgroundColor: 'blue' }
+            }}
+          >
+            Pomoc
+          </Link>
           <Link to={'/higlighted-offerts'}>Wyróżnione ogłoszenia</Link>
           <Link to={'/blog'}>Blog</Link>
           <Link to={'/policy'}>Regulamin</Link>
@@ -117,58 +139,64 @@ const Footer = () => {
           </Text>
           <Image
             marginLeft={3}
-            width={20}
-            height={10}
+            width={81}
+            height={28.25}
             objectFit={'cover'}
+            marginTop={2}
             src="/bol-ex-black.png"
           ></Image>
         </Flex>
-        <Flex>
+        <Flex marginRight={5}>
           <Text
-            marginLeft={10}
+            marginRight={2}
             marginTop={2}
-            fontSize={20}
+            // fontSize={'auto'}
             color={'black'}
             alignItems={'center'}
             fontWeight={'bold'}
+            sm={{ fontSize: 5 }}
+            md={{ fontSize: 10 }}
+            lg={{ fontSize: 17 }}
           >
             All rights reserved
           </Text>
           <Flex>
-            <Link to={'/privacy-preferences'}>
-              <Text
-                marginLeft={10}
-                marginTop={2}
-                fontSize={20}
-                color={'black'}
-                alignItems={'center'}
-                fontWeight={'bold'}
-              >
-                Privacy Preferences
-              </Text>
+            <Link
+              to={'/privacy-preferences'}
+              style={{
+                marginLeft: 10,
+                marginTop: 8,
+                fontSize: 'auto',
+                color: 'black',
+                alignItems: 'center',
+                fontWeight: 'bold',
+                marginRight: 8
+              }}
+            >
+              Privacy Preferences
             </Link>
             <Text
-              marginLeft={10}
               marginTop={2}
-              fontSize={20}
+              fontSize={'auto'}
               color={'black'}
               alignItems={'center'}
               fontWeight={'bold'}
             >
               |
             </Text>
-            <Link to={'/regulations'}>
-              <Text
-                marginLeft={10}
-                marginTop={2}
-                fontSize={20}
-                color={'black'}
-                alignItems={'center'}
-                fontWeight={'bold'}
-                marginRight={5}
-              >
-                Regulations
-              </Text>
+            <Link
+              to={'/regulations'}
+              style={{
+                marginLeft: 8,
+                marginTop: 8,
+                fontSize: 'auto',
+                color: 'black',
+                alignItems: 'center',
+                fontWeight: 'bold',
+                marginRight: 5
+              }}
+            >
+              Regulations
             </Link>
           </Flex>
         </Flex>

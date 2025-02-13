@@ -3,6 +3,7 @@ import { Flex, Image, Box } from '@chakra-ui/react';
 
 import Navbar from './Navbar/Navbar';
 import Category from './Category/Category';
+import Footer from './Footer';
 
 const Layout = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -49,6 +50,7 @@ const Layout = () => {
       >
         <Category alt={'Znaczek'} src={'/item2.png'}></Category>
       </Flex>
+      <Footer></Footer>
     </Flex>
   );
 };
