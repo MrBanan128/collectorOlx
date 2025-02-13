@@ -1,4 +1,4 @@
-import { Flex, Image } from '@chakra-ui/react';
+import { Flex, Image, Text } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
 const Footer = () => {
@@ -33,21 +33,145 @@ const Footer = () => {
           <Link to={'/cookie-policy'}>Polityka cookies</Link>
         </Flex>
       </Flex>
-      <Flex direction={'row'}>
-        <Image
-          paddingLeft={3}
-          width={100}
-          height={100}
-          objectFit={'cover'}
-          src="/app-store.png"
-        ></Image>
-        <Image
-          paddingLeft={3}
-          width={100}
-          height={100}
-          objectFit={'cover'}
-          src="/google-play.png"
-        ></Image>
+      <Flex direction={'row'} alignItems={'center'} justify="evenly">
+        <Link to={'https://www.apple.com/app-store/'}>
+          <Image
+            paddingLeft={3}
+            width={100}
+            height={100}
+            objectFit={'cover'}
+            src="/app-store.png"
+          ></Image>
+        </Link>
+        <Link to={'https://play.google.com/'}>
+          <Image
+            paddingLeft={3}
+            width={100}
+            height={100}
+            objectFit={'cover'}
+            src="/google-play.png"
+          ></Image>
+        </Link>
+        <Link to={'https://x.com/'}>
+          <Image
+            marginLeft={5}
+            width={8}
+            height={8}
+            objectFit={'cover'}
+            src="/x_logo.png"
+          ></Image>
+        </Link>
+        <Link to={'https://linkedin.com/'}>
+          <Image
+            marginLeft={3}
+            width={8}
+            height={8}
+            objectFit={'cover'}
+            src="/linkedin_logo.png"
+          ></Image>
+        </Link>
+        <Link to={'https://instagram.com/'}>
+          <Image
+            marginLeft={3}
+            width={10}
+            height={10}
+            objectFit={'cover'}
+            src="/instagram_logo.png"
+          ></Image>
+        </Link>
+        <Link to={'https://tiktok.com/'}>
+          <Image
+            marginLeft={3}
+            width={8}
+            height={8}
+            objectFit={'cover'}
+            src="/tiktok_logo.png"
+          ></Image>
+        </Link>
+        <Link to={'https://youtube.com/'}>
+          <Image
+            marginLeft={3}
+            width={10}
+            height={10}
+            objectFit={'cover'}
+            src="/youtube_logo.png"
+          ></Image>
+        </Link>
+      </Flex>
+      <Flex
+        backgroundColor={'#5f7b91'}
+        direction={'row'}
+        paddingBottom={3}
+        justifyContent={'space-between'}
+      >
+        <Flex>
+          <Text
+            marginLeft={10}
+            marginTop={2}
+            fontSize={20}
+            color={'black'}
+            alignItems={'center'}
+            fontWeight={'bold'}
+          >
+            &copy; 2025
+          </Text>
+          <Image
+            marginLeft={3}
+            width={20}
+            height={10}
+            objectFit={'cover'}
+            src="/bol-ex-black.png"
+          ></Image>
+        </Flex>
+        <Flex>
+          <Text
+            marginLeft={10}
+            marginTop={2}
+            fontSize={20}
+            color={'black'}
+            alignItems={'center'}
+            fontWeight={'bold'}
+          >
+            All rights reserved
+          </Text>
+          <Flex>
+            <Link to={'/privacy-preferences'}>
+              <Text
+                marginLeft={10}
+                marginTop={2}
+                fontSize={20}
+                color={'black'}
+                alignItems={'center'}
+                fontWeight={'bold'}
+              >
+                Privacy Preferences
+              </Text>
+            </Link>
+            <Text
+              marginLeft={10}
+              marginTop={2}
+              fontSize={20}
+              color={'black'}
+              alignItems={'center'}
+              fontWeight={'bold'}
+            >
+              |
+            </Text>
+            <Link to={'/regulations'}>
+              <Text
+                marginLeft={10}
+                marginTop={2}
+                fontSize={20}
+                color={'black'}
+                alignItems={'center'}
+                fontWeight={'bold'}
+                marginRight={5}
+              >
+                Regulations
+              </Text>
+            </Link>
+          </Flex>
+        </Flex>
       </Flex>
     </Flex>
   );
