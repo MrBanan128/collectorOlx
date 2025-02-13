@@ -2,24 +2,21 @@ import { Link } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 import { useLocation } from 'react-router';
 
-import ShinyText from '../ui/ShinyText/shinytext';
-
 // eslint-disable-next-line react/prop-types
-const AppLink = ({ children, to }) => {
+const SideLink = ({ children, to }) => {
   const location = useLocation();
   const active = location.pathname === to;
   return (
     <Link
       as={NavLink}
       to={to}
-      size="xl"
       textDecoration={'none'}
       _focus={{ outline: 'none' }}
       fontWeight={'bold'}
-      fontSize={25}
-      color={active ? 'rgba(14, 7, 217, 0.5)' : 'rgba(222, 222, 224, 0.5)'}
+      color={active ? 'rgba(44, 101, 175, 0.8)' : 'rgba(0, 0, 0, 0.8)'}
       borderBottom={active ? '2px solid ' : 'none'}
       cursor={'pointer'}
+      width={'100%'}
       _hover={{
         color: 'blue.200',
         borderBottom: '2px solid',
@@ -27,16 +24,11 @@ const AppLink = ({ children, to }) => {
       }}
       transition={'all ease-in-out 0.3s'}
       role="navigation"
+      fontSize={24}
     >
-      <ShinyText
-        text={children}
-        disabled={false}
-        speed={4}
-        color
-        className="ShinyNavLink"
-      />
+      {children}
     </Link>
   );
 };
 
-export default AppLink;
+export default SideLink;
