@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Flex, Image, Box } from '@chakra-ui/react';
 
 import Navbar from './Navbar/Navbar';
-import Category from './Category/Category';
-import Footer from './Footer';
+import MostViewed from './MostViewed/MostViewed';
+import Carousel from './CategoryCarousel/Carousel';
 
 const Layout = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -48,9 +48,9 @@ const Layout = () => {
             'radial-gradient(circle, rgba(11,11,11,1) 0%, rgba(193,186,186,1) 50%, rgba(9,9,9,1) 100%)'
         }}
       >
-        <Category alt={'Znaczek'} src={'/item2.png'}></Category>
+        <MostViewed alt={'Znaczek'} src={'/item2.png'}></MostViewed>
       </Flex>
-      <Footer></Footer>
+      <Carousel />
     </Flex>
   );
 };
