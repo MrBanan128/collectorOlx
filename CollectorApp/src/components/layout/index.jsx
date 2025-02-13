@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Flex, Image, Box } from '@chakra-ui/react';
+
 import Navbar from './Navbar/Navbar';
+import Category from './Category/Category';
 
 const Layout = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -35,11 +37,18 @@ const Layout = () => {
       </Box>
 
       <Image src="/background.jpg" alt="background" height={'1000px'} />
-
-      {/* Dodatkowa treść do przewinięcia */}
-      <div style={{ height: '150vh', textAlign: 'center', paddingTop: '50px' }}>
-        <h1>Scroll Down</h1>
-      </div>
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+        className="container"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(11,11,11,1) 0%, rgba(193,186,186,1) 50%, rgba(9,9,9,1) 100%)'
+        }}
+      >
+        <Category alt={'Znaczek'} src={'/item2.png'}></Category>
+      </Flex>
     </Flex>
   );
 };
