@@ -1,4 +1,5 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
+import FooterLink from './Navbar/FooterLink';
 import { Link } from 'react-router';
 
 const Footer = () => {
@@ -9,71 +10,82 @@ const Footer = () => {
       direction="column"
       width={'100%'}
       height={'auto'}
+      w="100%" // Ensures full width
+      minHeight="60px" // Ensures it doesn’t collapse
+      py={0} // Keeps vertical padding only
+      px={[0, 0, 0]} // Adjusts horizontal padding
+      mt={6}
     >
       <Flex
         gap="2"
         align="center"
         justify="space-between"
         backgroundColor={'gray.800'}
+        wrap={'wrap'}
+        margin={10}
       >
-        <Flex
-          direction="column"
-          paddingTop={5}
-          marginLeft={20}
-          sm={{ fontSize: 1 }}
-          md={{ fontSize: 3 }}
-          lg={{ fontSize: 15 }}
-        >
-          <Link
-            to={'/help'}
-            style={{
-              backgroundImage:
-                'linear-gradient(to top, rgb(179, 179, 179) 0.01px, transparent 0.5px)',
-              hover: { backgroundColor: 'blue' }
-            }}
+        <Flex direction="column" paddingTop={5} marginLeft={20} gap={4}>
+          <FooterLink>Pomoc</FooterLink>
+          <FooterLink
+            to={'/higlighted-offerts'}
+            style={{ color: 'white', fontWeight: 'bold' }}
           >
-            Pomoc
-          </Link>
-          <Link to={'/higlighted-offerts'}>Wyróżnione ogłoszenia</Link>
-          <Link to={'/blog'}>Blog</Link>
-          <Link to={'/policy'}>Regulamin</Link>
-          <Link to={'/privacy-policy'}>Polityka prywatności</Link>
-          <Link to={'/advertisement'}>Reklama</Link>
+            Wyróżnione ogłoszenia
+          </FooterLink>
+          <FooterLink
+            to={'/blog'}
+            style={{ color: 'white', fontWeight: 'bold' }}
+          >
+            Blog
+          </FooterLink>
+          <FooterLink
+            to={'/policy'}
+            style={{ color: 'white', fontWeight: 'bold' }}
+          >
+            Regulamin
+          </FooterLink>
+          <FooterLink
+            to={'/privacy-policy'}
+            style={{ color: 'white', fontWeight: 'bold' }}
+          >
+            Polityka prywatności
+          </FooterLink>
+          <FooterLink
+            to={'/advertisement'}
+            style={{ color: 'white', fontWeight: 'bold' }}
+          >
+            Reklama
+          </FooterLink>
         </Flex>
-        <Flex direction="column" paddingTop={5}>
-          <Link to={'/safety-rules'}>Zasady bezpieczeństwa</Link>
-          <Link to={'/categories-map'}>Mapa kategorii</Link>
-          <Link to={'/locations-map'}>Mapa miejscowości</Link>
-          <Link to={'/minipages-map'}>Mapa ministron</Link>
-          <Link to={'/popular-searches'}>Popularne wyszukiwania</Link>
+        <Flex direction="column" paddingTop={5} gap={4}>
+          <FooterLink to={'/safety-rules'}>Zasady bezpieczeństwa</FooterLink>
+          <FooterLink to={'/categories-map'}>Mapa kategorii</FooterLink>
+          <FooterLink to={'/locations-map'}>Mapa miejscowości</FooterLink>
+          <FooterLink to={'/minipages-map'}>Mapa ministron</FooterLink>
+          <FooterLink to={'/popular-searches'}>
+            Popularne wyszukiwania
+          </FooterLink>
         </Flex>
-        <Flex direction="column" paddingRight={125} paddingTop={5}>
-          <Link to={'/career'}>Kariera</Link>
-          <Link to={'/how-BLO-EX-works'}>Jak działa BLO-EX Collectors</Link>
-          <Link to={'/cookie-files-settings'}>Ustawienia plików cookie</Link>
-          <Link to={'/prices'}>Cennik</Link>
-          <Link to={'/cookie-policy'}>Polityka cookies</Link>
+        <Flex direction="column" paddingRight={125} paddingTop={5} gap={4}>
+          <FooterLink to={'/career'}>Kariera</FooterLink>
+          <FooterLink to={'/how-BLO-EX-works'}>
+            Jak działa BLO-EX Collectors
+          </FooterLink>
+          <FooterLink to={'/cookie-files-settings'}>
+            Ustawienia plików cookie
+          </FooterLink>
+          <FooterLink to={'/prices'}>Cennik</FooterLink>
+          <FooterLink to={'/cookie-policy'}>Polityka cookies</FooterLink>
         </Flex>
       </Flex>
-      <Flex direction={'row'} alignItems={'center'} justify="evenly">
-        <Link to={'https://www.apple.com/app-store/'}>
-          <Image
-            paddingLeft={3}
-            width={100}
-            height={100}
-            objectFit={'cover'}
-            src="/app-store.png"
-          ></Image>
-        </Link>
-        <Link to={'https://play.google.com/'}>
-          <Image
-            paddingLeft={3}
-            width={100}
-            height={100}
-            objectFit={'cover'}
-            src="/google-play.png"
-          ></Image>
-        </Link>
+      <Flex
+        marginLeft={5}
+        marginBottom={5}
+        marginTop={5}
+        direction={'row'}
+        alignItems={'center'}
+        justify="evenly"
+      >
         <Link to={'https://x.com/'}>
           <Image
             marginLeft={5}
@@ -165,7 +177,7 @@ const Footer = () => {
               to={'/privacy-preferences'}
               style={{
                 marginLeft: 10,
-                marginTop: 8,
+                marginTop: 6,
                 fontSize: 'auto',
                 color: 'black',
                 alignItems: 'center',
@@ -188,7 +200,7 @@ const Footer = () => {
               to={'/regulations'}
               style={{
                 marginLeft: 8,
-                marginTop: 8,
+                marginTop: 6,
                 fontSize: 'auto',
                 color: 'black',
                 alignItems: 'center',
