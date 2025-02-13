@@ -33,7 +33,7 @@ const Layout = () => {
               ? 'radial-gradient(circle, rgba(11,11,11,0) 0%, rgba(193,186,186,0) 50%, rgba(9,9,9,0) 100%)'
               : 'radial-gradient(circle, rgba(11,11,11,1) 0%, rgba(193,186,186,1) 50%, rgba(9,9,9,1) 100%)'
           }
-          height={scrolled ? '88px' : '80px'} // Wysokość zmieniona o 10%
+          height={scrolled ? '84px' : '80px'} // Wysokość zmieniona o 10%
         />
       </Box>
 
