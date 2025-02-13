@@ -8,7 +8,7 @@ import AppLink from './AppLink';
 import Sidebar from './Sidebar';
 
 // eslint-disable-next-line react/prop-types
-const Navbar = ({ background, height }) => {
+const Navbar = ({ background, height, zIndex }) => {
   const [isVisible, setVisible] = useState(false);
   const handleClick = () => {
     setVisible(!isVisible);
@@ -24,6 +24,7 @@ const Navbar = ({ background, height }) => {
         position="fixed"
         background={background} // Dynamiczne tło
         px={4}
+        zIndex={zIndex}
         transition="height 0.5s ease, background 0.5s ease" // Płynna animacja wysokości i tła
         sm={{ px: 4 }}
         md={{ px: 6 }}

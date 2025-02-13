@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Flex, Image, Box } from '@chakra-ui/react';
+import { Flex, Box } from '@chakra-ui/react';
 
 import Navbar from './Navbar/Navbar';
 import Category from './Category/Category';
+import Slider from './Slider';
 
 const Layout = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -27,6 +28,7 @@ const Layout = () => {
       {/* Navbar z dynamiczną wysokością i tłem */}
       <Box>
         <Navbar
+          zIndex={1}
           background={
             scrolled
               ? 'radial-gradient(circle, rgba(11,11,11,0) 0%, rgba(193,186,186,0) 50%, rgba(9,9,9,0) 100%)'
@@ -36,7 +38,7 @@ const Layout = () => {
         />
       </Box>
 
-      <Image src="/background.jpg" alt="background" height={'1000px'} />
+      <Slider></Slider>
       <Flex
         justifyContent="center"
         alignItems="center"
