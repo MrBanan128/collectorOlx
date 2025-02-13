@@ -1,4 +1,4 @@
-import './Category.css';
+import './MostViewed.css';
 import BlurText from '../../ui/blur-text';
 
 // Przykładowe dane do kategorii rzadkich przedmiotów
@@ -33,7 +33,7 @@ const categories = [
   }
 ];
 
-const RareItemsCategories = () => {
+const MostViewed = () => {
   const handleAnimationComplete = () => {
     console.log('Animation completed!');
   };
@@ -41,7 +41,7 @@ const RareItemsCategories = () => {
     <div className="categories-container" width="100%">
       <div className="heading-container">
         <BlurText
-          text="Kategorie"
+          text="Most Viewed Items"
           fontSize="2.5rem"
           delay={50}
           animateBy="words"
@@ -68,4 +68,4 @@ const RareItemsCategories = () => {
   );
 };
 
-export default RareItemsCategories;
+export default MostViewed;
