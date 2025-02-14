@@ -52,7 +52,7 @@ const Navbar = ({ background, height }) => {
           height="100vh"
           width="50%"
           zIndex={999}
-          background="rgba(255, 255, 255, 0.2)"
+          background="rgba(255, 255, 255, 0)"
           backdropFilter="blur(10px)"
           boxShadow="-10px 0 10px rgba(0, 0, 0, 0.1)"
         >

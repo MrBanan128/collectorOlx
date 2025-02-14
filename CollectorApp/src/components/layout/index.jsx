@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Flex, Image, Box } from '@chakra-ui/react';
+import { Flex, Image, Box, Text } from '@chakra-ui/react';
+import DecryptedText from '../ui/decrypted';
 
 import Navbar from './Navbar/Navbar';
 import MostViewed from './MostViewed/MostViewed';
@@ -31,13 +32,61 @@ const Layout = () => {
           background={
             scrolled
               ? 'radial-gradient(circle, rgba(11,11,11,0) 0%, rgba(193,186,186,0) 50%, rgba(9,9,9,0) 100%)'
-              : 'radial-gradient(circle, rgba(11,11,11,1) 0%, rgba(193,186,186,1) 50%, rgba(9,9,9,1) 100%)'
+              : 'radial-gradient(circle, rgba(11,11,11,0) 0%, rgba(193,186,186,0) 50%, rgba(9,9,9,0) 100%)'
           }
           height={scrolled ? '84px' : '80px'} // Wysokość zmieniona o 10%
         />
       </Box>
+      <Box position="relative" width="100%">
+        <Box
+          position="absolute"
+          zIndex={999}
+          left={{ base: '15%', sm: '20%', md: '20%' }}
+          top={{ base: '35%', sm: '35%', md: '30%' }}
+          width={{ base: '50%', sm: '41%', md: '35%', lg: '33%', xl: '35%' }}
+        >
+          <Text
+            fontSize={{
+              base: '1.5rem',
+              sm: '2rem',
+              md: '2.5rem',
+              lg: '3.1rem',
+              xl: '4.1rem'
+            }}
+            color="white"
+            fontWeight="bold"
+          >
+            <DecryptedText
+              text="BARTER COLLECTORS EXCHANGE"
+              animateOn="view"
+              fontSize={{
+                base: '1rem',
+                sm: '2.0rem',
+                md: '2.5rem',
+                lg: '3.1rem',
+                xl: '4.1rem'
+              }} // Responsywny fontSize
+              color="white" // Kolor
+              fontWeight="bold" // Font weight
+            />
+          </Text>
+        </Box>
 
-      <Image src="/background.jpg" alt="background" height={'1000px'} />
+        <Image
+          src="/background.jpg"
+          alt="background"
+          width="100%"
+          objectFit="cover"
+          height={{
+            base: '200px',
+            sm: '250px',
+            md: '300px',
+            lg: '400px',
+            xl: '500px'
+          }}
+        />
+      </Box>
+
       <Flex
         justifyContent="center"
         alignItems="center"
