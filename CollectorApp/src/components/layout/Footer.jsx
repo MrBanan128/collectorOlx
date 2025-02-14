@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 const Footer = () => {
   return (
     <Flex
-      gap="2"
       backgroundColor={'gray.800'}
       direction="column"
       width={'100%'}
@@ -17,7 +16,6 @@ const Footer = () => {
       mt={6}
     >
       <Flex
-        // gap="2"
         align="center"
         justify="space-between"
         backgroundColor={'gray.800'}
@@ -28,16 +26,12 @@ const Footer = () => {
         <Flex gap={2} direction={'row'} align={'center'}>
           <Flex
             direction={{ base: 'column', md: 'row' }}
-            borderRight={{ base: '1px solid gray', md: 'none' }} // Hide borders on small screens
-            borderLeft={{ base: '1px solid gray', md: 'none' }}
+            borderLeft={'1px solid gray'}
           >
             <FooterLink>Regulamin</FooterLink>
             <FooterLink>Jak działa BLO-EX Collectors</FooterLink>
           </Flex>
-          <Flex
-            direction={{ base: 'column', md: 'row' }}
-            borderRight={{ base: '1px solid gray', md: 'none' }}
-          >
+          <Flex direction={{ base: 'column', md: 'row' }}>
             <FooterLink>Polityka prywatności</FooterLink>
             <FooterLink>Ustawienia plików cookie</FooterLink>
           </Flex>
@@ -99,85 +93,6 @@ const Footer = () => {
           </Text>
         </Flex>
       </Flex>
-      {/* <Flex
-        backgroundColor={'#5f7b91'}
-        direction={'row'}
-        paddingBottom={3}
-        justifyContent={'space-between'}
-      >
-        <Flex>
-          <Text
-            marginLeft={10}
-            marginTop={2}
-            fontSize={15}
-            color={'black'}
-            alignItems={'center'}
-            fontWeight={'bold'}
-          >
-            &copy; 2025
-          </Text>
-          <Image
-            marginLeft={5}
-            width={81}
-            height={28.25}
-            objectFit={'cover'}
-            marginTop={2}
-            src="/bol-ex-black.png"
-          ></Image>
-        </Flex>
-        <Flex marginRight={5}>
-          <Text
-            marginRight={2}
-            marginTop={2}
-            // fontSize={'auto'}
-            color={'black'}
-            alignItems={'center'}
-            fontWeight={'bold'}
-            fontSize={15}
-          >
-            All rights reserved
-          </Text>
-          <Flex>
-            <Link
-              to={'/privacy-preferences'}
-              style={{
-                marginLeft: 10,
-                marginTop: 6,
-                fontSize: 15,
-                color: 'black',
-                alignItems: 'center',
-                fontWeight: 'bold',
-                marginRight: 8
-              }}
-            >
-              Privacy Preferences
-            </Link>
-            <Text
-              marginTop={2}
-              fontSize={15}
-              color={'black'}
-              alignItems={'center'}
-              fontWeight={'bold'}
-            >
-              |
-            </Text>
-            <Link
-              to={'/regulations'}
-              style={{
-                marginLeft: 8,
-                marginTop: 6,
-                fontSize: 15,
-                color: 'black',
-                alignItems: 'center',
-                fontWeight: 'bold',
-                marginRight: 5
-              }}
-            >
-              Regulations
-            </Link>
-          </Flex>
-        </Flex>
-      </Flex> */}
     </Flex>
   );
 };

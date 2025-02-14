@@ -21,6 +21,7 @@ const FooterLink = ({ children }) => {
       fontWeight={'bold'}
       color={'white'}
       fontSize={{ base: '12px', sm: '16px', md: '20px' }}
+      borderRight={{ base: '1px solid gray', md: '1px solid gray' }}
       // margin={1}
     >
       {children}
