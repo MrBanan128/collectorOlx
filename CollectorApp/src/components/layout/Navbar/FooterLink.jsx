@@ -10,8 +10,8 @@ const FooterLink = ({ children }) => {
       //   backgroundImage={
       //     'linear-gradient(to top, rgb(179, 179, 179) 0.01px, transparent 0.5px)'
       //   }
-      paddingBottom={2}
-      borderBottom="1px solid gray"
+      paddingRight={4}
+      marginLeft={4}
       backgroundPosition="center center"
       _focus={{ outline: 'none' }}
       _hover={{
@@ -20,6 +20,8 @@ const FooterLink = ({ children }) => {
       transition={'all ease-in-out 0.4s'}
       fontWeight={'bold'}
       color={'white'}
+      fontSize={12}
+      // margin={1}
     >
       {children}
     </Link>

@@ -17,122 +17,86 @@ const Footer = () => {
       mt={6}
     >
       <Flex
-        gap="2"
+        // gap="2"
         align="center"
         justify="space-between"
         backgroundColor={'gray.800'}
-        wrap={'wrap'}
-        margin={10}
+        // wrap={'wrap'}
+        direction={'Column'}
+        margin={8}
       >
-        <Flex direction="column" paddingTop={5} gap={4}>
-          <FooterLink>Pomoc</FooterLink>
-          <FooterLink
-            to={'/higlighted-offerts'}
-            style={{ color: 'white', fontWeight: 'bold' }}
+        <Flex gap={2} direction={'row'} align={'center'}>
+          <Flex
+            direction={'column'}
+            borderRight="1px solid gray"
+            borderLeft="1px solid gray"
           >
-            Wyróżnione ogłoszenia
-          </FooterLink>
-          <FooterLink
-            to={'/blog'}
-            style={{ color: 'white', fontWeight: 'bold' }}
-          >
-            Blog
-          </FooterLink>
-          <FooterLink
-            to={'/policy'}
-            style={{ color: 'white', fontWeight: 'bold' }}
-          >
-            Regulamin
-          </FooterLink>
-          <FooterLink
-            to={'/privacy-policy'}
-            style={{ color: 'white', fontWeight: 'bold' }}
-          >
-            Polityka prywatności
-          </FooterLink>
-          <FooterLink
-            to={'/advertisement'}
-            style={{ color: 'white', fontWeight: 'bold' }}
-          >
-            Reklama
-          </FooterLink>
-        </Flex>
-        <Flex direction="column" paddingTop={5} gap={4}>
-          <FooterLink to={'/safety-rules'}>Zasady bezpieczeństwa</FooterLink>
-          <FooterLink to={'/categories-map'}>Mapa kategorii</FooterLink>
-          <FooterLink to={'/locations-map'}>Mapa miejscowości</FooterLink>
-          <FooterLink to={'/minipages-map'}>Mapa ministron</FooterLink>
-          <FooterLink to={'/popular-searches'}>
-            Popularne wyszukiwania
-          </FooterLink>
-        </Flex>
-        <Flex direction="column" paddingTop={5} gap={4}>
-          <FooterLink to={'/career'}>Kariera</FooterLink>
-          <FooterLink to={'/how-BLO-EX-works'}>
-            Jak działa BLO-EX Collectors
-          </FooterLink>
-          <FooterLink to={'/cookie-files-settings'}>
-            Ustawienia plików cookie
-          </FooterLink>
-          <FooterLink to={'/prices'}>Cennik</FooterLink>
-          <FooterLink to={'/cookie-policy'}>Polityka cookies</FooterLink>
+            <FooterLink>Regulamin</FooterLink>
+            <FooterLink>Jak działa BLO-EX Collectors</FooterLink>
+          </Flex>
+          <Flex direction={'column'} borderRight="1px solid gray">
+            <FooterLink>Polityka prywatności</FooterLink>
+            <FooterLink>Ustawienia plików cookie</FooterLink>
+          </Flex>
         </Flex>
       </Flex>
       <Flex
-        marginLeft={5}
-        marginBottom={5}
-        marginTop={5}
+        // marginLeft={5}
+        // marginBottom={3}
         direction={'row'}
         alignItems={'center'}
-        justify="evenly"
+        justifyContent={'space-between'}
+        bgGradient="to-r"
+        gradientFrom="blue.600"
+        gradientTo="green.400"
       >
-        <Link to={'https://x.com/'}>
-          <Image
-            marginLeft={5}
-            width={8}
-            height={8}
-            objectFit={'cover'}
-            src="/x_logo.png"
-          ></Image>
-        </Link>
-        <Link to={'https://linkedin.com/'}>
-          <Image
-            marginLeft={3}
-            width={8}
-            height={8}
-            objectFit={'cover'}
-            src="/linkedin_logo.png"
-          ></Image>
-        </Link>
-        <Link to={'https://instagram.com/'}>
-          <Image
-            marginLeft={3}
-            width={10}
-            height={10}
-            objectFit={'cover'}
-            src="/instagram_logo.png"
-          ></Image>
-        </Link>
-        <Link to={'https://tiktok.com/'}>
-          <Image
-            marginLeft={3}
-            width={8}
-            height={8}
-            objectFit={'cover'}
-            src="/tiktok_logo.png"
-          ></Image>
-        </Link>
-        <Link to={'https://youtube.com/'}>
-          <Image
-            marginLeft={3}
-            width={10}
-            height={10}
-            objectFit={'cover'}
-            src="/youtube_logo.png"
-          ></Image>
-        </Link>
+        <Flex alignItems={'center'} marginLeft={3}>
+          <Link to={'https://x.com/'}>
+            <Image
+              marginRight={1}
+              marginBottom={0.4}
+              width={4}
+              height={4}
+              objectFit={'cover'}
+              src="/x_logo.png"
+            ></Image>
+          </Link>
+          <Link to={'https://linkedin.com/'}>
+            <Image
+              marginLeft={3}
+              marginRight={1}
+              marginBottom={0.4}
+              width={4}
+              height={4}
+              objectFit={'cover'}
+              src="/linkedin_logo.png"
+            ></Image>
+          </Link>
+          <Link to={'https://instagram.com/'}>
+            <Image
+              marginLeft={3}
+              marginRight={1}
+              width={5}
+              height={5}
+              objectFit={'cover'}
+              src="/instagram_logo.png"
+            ></Image>
+          </Link>
+        </Flex>
+        <Flex>
+          <Text
+            marginRight={5}
+            paddingTop={0}
+            fontSize={10}
+            color={'white'}
+            alignItems={'center'}
+            // fontWeight={'bold'}
+          >
+            &copy; BOL-EX TEAM 2025
+          </Text>
+        </Flex>
       </Flex>
-      <Flex
+      {/* <Flex
         backgroundColor={'#5f7b91'}
         direction={'row'}
         paddingBottom={3}
@@ -210,7 +174,7 @@ const Footer = () => {
             </Link>
           </Flex>
         </Flex>
-      </Flex>
+      </Flex> */}
     </Flex>
   );
 };
