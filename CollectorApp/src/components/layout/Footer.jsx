@@ -27,14 +27,17 @@ const Footer = () => {
       >
         <Flex gap={2} direction={'row'} align={'center'}>
           <Flex
-            direction={'column'}
-            borderRight="1px solid gray"
-            borderLeft="1px solid gray"
+            direction={{ base: 'column', md: 'row' }}
+            borderRight={{ base: '1px solid gray', md: 'none' }} // Hide borders on small screens
+            borderLeft={{ base: '1px solid gray', md: 'none' }}
           >
             <FooterLink>Regulamin</FooterLink>
             <FooterLink>Jak działa BLO-EX Collectors</FooterLink>
           </Flex>
-          <Flex direction={'column'} borderRight="1px solid gray">
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            borderRight={{ base: '1px solid gray', md: 'none' }}
+          >
             <FooterLink>Polityka prywatności</FooterLink>
             <FooterLink>Ustawienia plików cookie</FooterLink>
           </Flex>

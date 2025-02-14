@@ -20,7 +20,7 @@ const FooterLink = ({ children }) => {
       transition={'all ease-in-out 0.4s'}
       fontWeight={'bold'}
       color={'white'}
-      fontSize={12}
+      fontSize={{ base: '12px', sm: '16px', md: '20px' }}
       // margin={1}
     >
       {children}
