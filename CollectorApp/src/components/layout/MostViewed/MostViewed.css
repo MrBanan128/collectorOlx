@@ -1,0 +1,76 @@
+/* Style dla kontenera z kategoriami */
+.categories-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 40px;
+  background: rgb(11, 11, 11);
+  background: radial-gradient(
+    circle,
+    rgba(11, 11, 11, 1) 0%,
+    rgba(193, 186, 186, 1) 50%,
+    rgba(9, 9, 9, 1) 100%
+  );
+}
+
+/* Container for the heading to center it */
+.heading-container {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px; /* Space between heading and the category cards */
+}
+
+/* Style dla pojedynczej karty */
+.category-card {
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.category-card:hover {
+  transform: scale(1.1);
+}
+
+/* Styl obrazu na karcie z wykorzystaniem object-fit */
+.category-image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain; /* Zapewnia, że obraz wypełnia przestrzeń bez zniekształceń */
+  padding: 5%;
+}
+
+/* Styl tytułu */
+.category-title {
+  font-size: 1.5rem;
+  color: #cacaca;
+  margin: 15px 0 10px;
+}
+
+/* Styl opisu */
+.category-description {
+  font-size: 1rem;
+  color: #ececec;
+  padding: 0 10px 20px;
+  margin: 0;
+}
+
+/* Styl linku */
+.category-link {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+.category-link:hover {
+  background-color: #0056b3;
+}
