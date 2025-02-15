@@ -24,7 +24,8 @@ const Navbar = () => {
         <AppLink to={'/message'}>Message </AppLink>
         <AppLink to={'/chat'}>Chat </AppLink>
         <AppLink to={'/sign-up'}>New Account </AppLink>
-        </Flex>
+        <AppLink to={'/test'}>Test </AppLink>
+      </Flex>
     </Flex>
   );
 };

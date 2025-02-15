@@ -115,7 +115,7 @@
 
 import { useState, useEffect } from 'react';
 import { Flex, Button, Input, Textarea, Image, Box } from '@chakra-ui/react';
-import AppLink from './../components/layout/AppLink';
+import AppLink from './../components/layout/Navbar/AppLink';
 
 const Test = () => {
     const [notes, setNotes] = useState([]);
