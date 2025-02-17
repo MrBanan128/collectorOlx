@@ -181,36 +181,37 @@ const Test = () => {
         try {
             const response = await fetch(`http://localhost:10000/notes/${id}`, { method: 'DELETE' });
             if (!response.ok) throw new Error('Błąd usuwania notatki');
-
             setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
         } catch (error) {
             console.error(error.message);
         }
     };
 
-
     const handleDeleteImage = async (id) => {
-    try {
-        const response = await fetch(`http://localhost:10000/notes/${id}/image`, { method: 'DELETE' });
-
-        if (!response.ok) {
-            const errorDetails = await response.json(); // Pobieramy szczegóły błędu
-            console.error('Błąd odpowiedzi z serwera:', errorDetails);
-            throw new Error('Błąd usuwania zdjęcia');
+        try {
+            const response = await fetch(`http://localhost:10000/notes/${id}/image`, { method: 'DELETE' });
+            if (!response.ok) throw new Error('Błąd usuwania zdjęcia');
+            setNotes(prevNotes => prevNotes.map(note => note._id === id ? { ...note, image: '' } : note));
+        } catch (error) {
+            console.error(error.message);
         }
+    };
 
-        const data = await response.json();
-        console.log('Odpowiedź z serwera:', data); // Zobaczmy, co zwraca serwer
+    // const handleClearNoteText = (id) => {
+        
+        
+    //     setNotes(prevNotes => prevNotes.map(note => note._id === id ? { ...note, title: '', body: '' } : note));
+    // };
 
-        // Aktualizujemy notatki po usunięciu zdjęcia
-        setNotes(prevNotes => prevNotes.map(note =>
-            note._id === id ? { ...note, image: '' } : note
-        ));
-    } catch (error) {
-        console.error('Błąd podczas usuwania zdjęcia:', error.message);
-    }
-};
-
+    const handleClearNoteText= async (id) => {
+        try {
+            const response = await fetch(`http://localhost:10000/notes/${id}/clear-text`, { method: 'DELETE' });
+             if (!response.ok) throw new Error('Błąd usuwania notatki');
+            setNotes(prevNotes => prevNotes.map(note => note._id === id ? { ...note, title: '', body: '' } : note));
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
     
 
     return (
@@ -218,25 +219,11 @@ const Test = () => {
             <AppLink to="/">Home</AppLink>
             <Flex margin="50px" direction="column" align="center">
                 <h1>Test bazy danych</h1>
-
                 {loading && <p>Ładowanie danych...</p>}
                 {error && <p style={{ color: 'red' }}>Błąd: {error}</p>}
-
                 <form onSubmit={handleSubmit} style={{ maxWidth: '400px', width: '100%' }}>
-                    <Input
-                        name="title"
-                        value={newNote.title}
-                        onChange={handleInputChange}
-                        placeholder="Tytuł notatki"
-                        mb={2}
-                    />
-                    <Textarea
-                        name="body"
-                        value={newNote.body}
-                        onChange={handleInputChange}
-                        placeholder="Treść notatki"
-                        mb={2}
-                    />
+                    <Input name="title" value={newNote.title} onChange={handleInputChange} placeholder="Tytuł notatki" mb={2} />
+                    <Textarea name="body" value={newNote.body} onChange={handleInputChange} placeholder="Treść notatki" mb={2} />
                     <Input type="file" onChange={handleFileChange} mb={2} />
                     {preview && <Image src={preview} alt="Podgląd" width="100px" mb={2} />}
                     <Button type="submit" colorScheme="blue">Dodaj notatkę</Button>
@@ -247,21 +234,18 @@ const Test = () => {
                         <h2>Załadowane notatki:</h2>
                         {notes.map(note => (
                             <Box key={note._id} p={4} borderWidth="1px" borderRadius="md" mt={2}>
-                                <h3>{note.title}</h3>
-                                <p>{note.body}</p>
+                                <h3>{note.title || 'Brak tytułu'}</h3>
+                                <p>{note.body || 'Brak treści'}</p>
                                 {note.image ? (
                                     <>
                                         <Image src={note.image} alt={note.title} width="200px" mt={2} />
-                                        <Button onClick={() => handleDeleteImage(note._id)} colorScheme="yellow" mt={2}>
-                                            Usuń zdjęcie
-                                        </Button>
+                                        <Button onClick={() => handleDeleteImage(note._id)} colorScheme="yellow" mt={2}>Usuń zdjęcie</Button>
                                     </>
                                 ) : (
                                     <p>Brak zdjęcia</p>
                                 )}
-                                <Button onClick={() => handleDeleteNote(note._id)} colorScheme="red" mt={2}>
-                                    Usuń notatkę
-                                </Button>
+                                <Button onClick={() => handleClearNoteText(note._id)} colorScheme="gray" mt={2}>Usuń tekst</Button>
+                                <Button onClick={() => handleDeleteNote(note._id)} colorScheme="red" mt={2}>Usuń notatkę</Button>
                             </Box>
                         ))}
                     </Box>
