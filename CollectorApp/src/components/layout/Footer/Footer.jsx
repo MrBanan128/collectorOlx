@@ -47,13 +47,18 @@ const Footer = () => {
         gradientFrom="blue.600"
         gradientTo="green.400"
       >
-        <Flex alignItems={'center'} marginLeft={3}>
+        <Flex
+          alignItems={'center'}
+          marginLeft={3}
+          marginTop={1}
+          marginBottom={1}
+        >
           <Link to={'https://x.com/'}>
             <Image
               marginRight={1}
               marginBottom={0.4}
-              width={4}
-              height={4}
+              width={8}
+              height={8}
               objectFit={'cover'}
               src="/x_logo.png"
             ></Image>
@@ -63,8 +68,8 @@ const Footer = () => {
               marginLeft={3}
               marginRight={1}
               marginBottom={0.4}
-              width={4}
-              height={4}
+              width={8}
+              height={8}
               objectFit={'cover'}
               src="/linkedin_logo.png"
             ></Image>
@@ -73,8 +78,9 @@ const Footer = () => {
             <Image
               marginLeft={3}
               marginRight={1}
-              width={5}
-              height={5}
+              marginBottom={0.4}
+              width={10}
+              height={10}
               objectFit={'cover'}
               src="/instagram_logo.png"
             ></Image>
@@ -84,7 +90,7 @@ const Footer = () => {
           <Text
             marginRight={5}
             paddingTop={0}
-            fontSize={10}
+            fontSize={12}
             color={'white'}
             alignItems={'center'}
             // fontWeight={'bold'}
