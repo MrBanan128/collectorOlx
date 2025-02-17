@@ -197,11 +197,6 @@ const Test = () => {
         }
     };
 
-    // const handleClearNoteText = (id) => {
-        
-        
-    //     setNotes(prevNotes => prevNotes.map(note => note._id === id ? { ...note, title: '', body: '' } : note));
-    // };
 
     const handleClearNoteText= async (id) => {
         try {
