@@ -8,7 +8,7 @@ import AppLink from './AppLink';
 import Sidebar from './Sidebar';
 
 // eslint-disable-next-line react/prop-types
-const Navbar = ({ background, height }) => {
+const Navbar = ({ background, height, position = 'fixed' }) => {
   const [isVisible, setVisible] = useState(false);
   const handleClick = () => {
     setVisible(!isVisible);
@@ -22,7 +22,7 @@ const Navbar = ({ background, height }) => {
         alignItems="center"
         justifyContent="space-between"
         height={height} // Dynamiczna wysokość
-        position="fixed"
+        position={position}
         background={background} // Dynamiczne tło
         px={4}
         transition="height 0.5s ease, background 0.5s ease" // Płynna animacja wysokości i tła
@@ -52,7 +52,7 @@ const Navbar = ({ background, height }) => {
           right={0}
           height="100vh"
           width="50%"
-          zIndex={999}
+          zIndex={1000}
           background="rgba(255, 255, 255, 0)"
           backdropFilter="blur(10px)"
           boxShadow="-10px 0 10px rgba(0, 0, 0, 0.1)"
@@ -64,7 +64,7 @@ const Navbar = ({ background, height }) => {
             color="rgb(255, 255, 255)"
             fontWeight="bold"
           />
-          <Sidebar />
+          <Sidebar zIndex={1} />
         </Flex>
       )}
     </Flex>

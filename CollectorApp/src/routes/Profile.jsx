@@ -1,8 +1,15 @@
+import { Flex } from '@chakra-ui/react';
+import Navbar from '@/components/layout/Navbar/Navbar';
+import MyProducts from '@/components/layout/Profile/MyProducts';
+import Footer from '@/components/layout/Footer';
+
 const Profile = () => {
   return (
-    <div>
-      <h1>Profile</h1>
-    </div>
+    <Flex flexDir="column" background="gray.500" overflow="hidden">
+      <Navbar position="static" />
+      <MyProducts height="100vh" />
+      <Footer />
+    </Flex>
   );
 };
 

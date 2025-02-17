@@ -4,23 +4,19 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 
 import { Provider } from './components/ui/Provider';
 
-import Layout from './components/layout';
-
-import Home from './routes/Home';
-
 import Test from './testBackend/test';
+import Profile from './routes/Profile';
 
 import './index.css';
+import Home from './routes/Home';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-          </Route>
-          <Route path="/profile"></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
           <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>

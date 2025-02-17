@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Flex, Image, Box, Text } from '@chakra-ui/react';
-import DecryptedText from '../components/ui/decrypted';
 
-import Navbar from '../components/layout/Navbar/Navbar';
-import MostViewed from '../components/layout/MostViewed/MostViewed';
-import Carousel from '../components/layout/CategoryCarousel/Carousel';
-import Footer from '../components/layout/Footer';
+import Navbar from '@/components/layout/Navbar/Navbar';
+import DecryptedText from '@/components/ui/decrypted';
+import MostViewed from '@/components/layout/MostViewed/MostViewed';
+import Carousel from '@/components/layout/CategoryCarousel/Carousel';
+import Footer from '@/components/layout/Footer';
 
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
-
   const handleScroll = () => {
     if (window.scrollY > window.innerHeight * 0.2) {
       setScrolled(true);
