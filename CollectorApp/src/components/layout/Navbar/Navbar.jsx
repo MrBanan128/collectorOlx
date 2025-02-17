@@ -30,15 +30,15 @@ const Navbar = ({ background, height }) => {
         md={{ px: 6 }}
         lg={{ px: 8 }}
       >
-        <Link to="/">
+        <Link to={'/'}>
           <Logo />
         </Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Home</AppLink>
           <AppLink to="/message">Message</AppLink>
-          <AppLink to="/chat">Chat</AppLink>
+          <AppLink to="/profile">Profile</AppLink>
           <AppLink to="/sign-up">Account</AppLink>
-           <AppLink to={'/test'}>Test </AppLink>
+          <AppLink to={'/test'}>Test </AppLink>
           <MenuButton onClick={handleClick} />
         </Flex>
       </Flex>

@@ -10,7 +10,6 @@ import Home from './routes/Home';
 
 import Test from './testBackend/test';
 
-
 import './index.css';
 
 createRoot(document.getElementById('root')).render(
@@ -18,12 +17,13 @@ createRoot(document.getElementById('root')).render(
     <Provider>
       <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />   
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
           </Route>
-            <Route path="/test" element={<Test />} />
+          <Route path="/profile"></Route>
+          <Route path="/test" element={<Test />} />
         </Routes>
-        </BrowserRouter>
+      </BrowserRouter>
     </Provider>
   </StrictMode>
 );
