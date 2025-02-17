@@ -13,6 +13,7 @@ import Test from './testBackend/test';
 import './index.css';
 import Regulamin from './routes/Regulamin';
 import PolitykaPrywatnosci from './routes/PolitykaPrywatnosci';
+import JakDzialaBOLEX from './routes/JakDzialaBOL-EX';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -26,6 +27,10 @@ createRoot(document.getElementById('root')).render(
           <Route
             path="/Polityka prywatności"
             element={<PolitykaPrywatnosci />}
+          />
+          <Route
+            path="/Jak Działa BOL-EX Collectors"
+            element={<JakDzialaBOLEX />}
           />
           <Route path="/test" element={<Test />} />
         </Routes>
