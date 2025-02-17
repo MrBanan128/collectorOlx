@@ -5,6 +5,7 @@ import DecryptedText from '../ui/decrypted';
 import Navbar from './Navbar/Navbar';
 import MostViewed from './MostViewed/MostViewed';
 import Carousel from './CategoryCarousel/Carousel';
+import Footer from './Footer';
 
 const Layout = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -100,6 +101,7 @@ const Layout = () => {
         <MostViewed alt={'Znaczek'} src={'/item2.png'}></MostViewed>
       </Flex>
       <Carousel />
+      <Footer />
     </Flex>
   );
 };

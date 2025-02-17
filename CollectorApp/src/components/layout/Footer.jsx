@@ -1,176 +1,96 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
+import FooterLink from './Navbar/FooterLink';
 import { Link } from 'react-router';
 
 const Footer = () => {
   return (
-    <Flex gap="2" backgroundColor={'gray.800'} direction="column">
+    <Flex
+      backgroundColor={'gray.800'}
+      direction="column"
+      width={'100%'}
+      height={'auto'}
+      w="100%" // Ensures full width
+      minHeight="60px" // Ensures it doesn’t collapse
+      py={0} // Keeps vertical padding only
+      px={[0, 0, 0]} // Adjusts horizontal padding
+      mt={6}
+    >
       <Flex
-        gap="2"
         align="center"
         justify="space-between"
         backgroundColor={'gray.800'}
+        // wrap={'wrap'}
+        direction={'Column'}
+        margin={8}
       >
-        <Flex direction="column" paddingLeft={125} paddingTop={5}>
-          <Link to={'/help'}>Pomoc</Link>
-          <Link to={'/higlighted-offerts'}>Wyróżnione ogłoszenia</Link>
-          <Link to={'/blog'}>Blog</Link>
-          <Link to={'/policy'}>Regulamin</Link>
-          <Link to={'/privacy-policy'}>Polityka prywatności</Link>
-          <Link to={'/advertisement'}>Reklama</Link>
+        <Flex gap={2} direction={'row'} align={'center'}>
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            borderLeft={'1px solid gray'}
+          >
+            <FooterLink>Regulamin</FooterLink>
+            <FooterLink>Jak działa BLO-EX Collectors</FooterLink>
+          </Flex>
+          <Flex direction={{ base: 'column', md: 'row' }}>
+            <FooterLink>Polityka prywatności</FooterLink>
+            <FooterLink>Ustawienia plików cookie</FooterLink>
+          </Flex>
         </Flex>
-        <Flex direction="column" paddingTop={5}>
-          <Link to={'/safety-rules'}>Zasady bezpieczeństwa</Link>
-          <Link to={'/categories-map'}>Mapa kategorii</Link>
-          <Link to={'/locations-map'}>Mapa miejscowości</Link>
-          <Link to={'/minipages-map'}>Mapa ministron</Link>
-          <Link to={'/popular-searches'}>Popularne wyszukiwania</Link>
-        </Flex>
-        <Flex direction="column" paddingRight={125} paddingTop={5}>
-          <Link to={'/career'}>Kariera</Link>
-          <Link to={'/how-BLO-EX-works'}>Jak działa BLO-EX Collectors</Link>
-          <Link to={'/cookie-files-settings'}>Ustawienia plików cookie</Link>
-          <Link to={'/prices'}>Cennik</Link>
-          <Link to={'/cookie-policy'}>Polityka cookies</Link>
-        </Flex>
-      </Flex>
-      <Flex direction={'row'} alignItems={'center'} justify="evenly">
-        <Link to={'https://www.apple.com/app-store/'}>
-          <Image
-            paddingLeft={3}
-            width={100}
-            height={100}
-            objectFit={'cover'}
-            src="/app-store.png"
-          ></Image>
-        </Link>
-        <Link to={'https://play.google.com/'}>
-          <Image
-            paddingLeft={3}
-            width={100}
-            height={100}
-            objectFit={'cover'}
-            src="/google-play.png"
-          ></Image>
-        </Link>
-        <Link to={'https://x.com/'}>
-          <Image
-            marginLeft={5}
-            width={8}
-            height={8}
-            objectFit={'cover'}
-            src="/x_logo.png"
-          ></Image>
-        </Link>
-        <Link to={'https://linkedin.com/'}>
-          <Image
-            marginLeft={3}
-            width={8}
-            height={8}
-            objectFit={'cover'}
-            src="/linkedin_logo.png"
-          ></Image>
-        </Link>
-        <Link to={'https://instagram.com/'}>
-          <Image
-            marginLeft={3}
-            width={10}
-            height={10}
-            objectFit={'cover'}
-            src="/instagram_logo.png"
-          ></Image>
-        </Link>
-        <Link to={'https://tiktok.com/'}>
-          <Image
-            marginLeft={3}
-            width={8}
-            height={8}
-            objectFit={'cover'}
-            src="/tiktok_logo.png"
-          ></Image>
-        </Link>
-        <Link to={'https://youtube.com/'}>
-          <Image
-            marginLeft={3}
-            width={10}
-            height={10}
-            objectFit={'cover'}
-            src="/youtube_logo.png"
-          ></Image>
-        </Link>
       </Flex>
       <Flex
-        backgroundColor={'#5f7b91'}
+        // marginLeft={5}
+        // marginBottom={3}
         direction={'row'}
-        paddingBottom={3}
+        alignItems={'center'}
         justifyContent={'space-between'}
+        bgGradient="to-r"
+        gradientFrom="blue.600"
+        gradientTo="green.400"
       >
-        <Flex>
-          <Text
-            marginLeft={10}
-            marginTop={2}
-            fontSize={20}
-            color={'black'}
-            alignItems={'center'}
-            fontWeight={'bold'}
-          >
-            &copy; 2025
-          </Text>
-          <Image
-            marginLeft={3}
-            width={20}
-            height={10}
-            objectFit={'cover'}
-            src="/bol-ex-black.png"
-          ></Image>
+        <Flex alignItems={'center'} marginLeft={3}>
+          <Link to={'https://x.com/'}>
+            <Image
+              marginRight={1}
+              marginBottom={0.4}
+              width={4}
+              height={4}
+              objectFit={'cover'}
+              src="/x_logo.png"
+            ></Image>
+          </Link>
+          <Link to={'https://linkedin.com/'}>
+            <Image
+              marginLeft={3}
+              marginRight={1}
+              marginBottom={0.4}
+              width={4}
+              height={4}
+              objectFit={'cover'}
+              src="/linkedin_logo.png"
+            ></Image>
+          </Link>
+          <Link to={'https://instagram.com/'}>
+            <Image
+              marginLeft={3}
+              marginRight={1}
+              width={5}
+              height={5}
+              objectFit={'cover'}
+              src="/instagram_logo.png"
+            ></Image>
+          </Link>
         </Flex>
         <Flex>
           <Text
-            marginLeft={10}
-            marginTop={2}
-            fontSize={20}
-            color={'black'}
+            marginRight={5}
+            paddingTop={0}
+            fontSize={10}
+            color={'white'}
             alignItems={'center'}
-            fontWeight={'bold'}
+            // fontWeight={'bold'}
           >
-            All rights reserved
+            &copy; BOL-EX TEAM 2025
           </Text>
-          <Flex>
-            <Link to={'/privacy-preferences'}>
-              <Text
-                marginLeft={10}
-                marginTop={2}
-                fontSize={20}
-                color={'black'}
-                alignItems={'center'}
-                fontWeight={'bold'}
-              >
-                Privacy Preferences
-              </Text>
-            </Link>
-            <Text
-              marginLeft={10}
-              marginTop={2}
-              fontSize={20}
-              color={'black'}
-              alignItems={'center'}
-              fontWeight={'bold'}
-            >
-              |
-            </Text>
-            <Link to={'/regulations'}>
-              <Text
-                marginLeft={10}
-                marginTop={2}
-                fontSize={20}
-                color={'black'}
-                alignItems={'center'}
-                fontWeight={'bold'}
-                marginRight={5}
-              >
-                Regulations
-              </Text>
-            </Link>
-          </Flex>
         </Flex>
       </Flex>
     </Flex>
