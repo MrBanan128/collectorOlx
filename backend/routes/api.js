@@ -214,6 +214,9 @@ cloudinary.config({
     cloud_name: 'ddiqfnzow', // Zastąp swoją nazwą chmury
     api_key: '491356446112172', // Zastąp swoim kluczem API
     api_secret: 'RwwRWyeWFgWiDEAzW1_wqYNNC5g' // Zastąp swoim sekretami API
+   
+    // api_key: '655897763651234',
+    // api_secret: 'kDCQiv30C-YX1n7eiPG16CkLusE' 
 });
 
 // Konfiguracja Multer + Cloudinary
@@ -253,29 +256,71 @@ router.post('/notes', upload.single('image'), async (req, res) => {
 });
 
 
+router.post('/notes', upload.single('image'), async (req, res) => {
+    try {
+        const { title, body } = req.body;
+        const imageUrl = req.file ? cloudinary.url(req.file.public_id, { // Korzystamy z ID obrazu
+            transformation: [
+                { quality: 'auto' },
+                { fetch_format: 'auto' }
+            ]
+        }) : ''; // Przekształcony URL obrazu
+
+        const note = new Note({ title, body, image: imageUrl });
+        await note.save();
+        res.status(201).send(note);
+    } catch (error) {
+        res.status(400).send({ error: 'Błąd podczas dodawania notatki', details: error });
+    }
+});
+
+
+router.delete('/notes/:id', async (req, res) => {
+    try {
+        const note = await Note.findByIdAndDelete(req.params.id);
+        if (!note) {
+            return res.status(404).send({ error: 'Notatka nie znaleziona' });
+        }
+        res.send({ message: 'Notatka usunięta', note });
+    } catch (error) {
+        res.status(500).send({ error: 'Błąd podczas usuwania notatki', details: error });
+    }
+});
+
+
+router.delete('/notes/:id/clear-text', async (req, res) => {
+    try {
+        const note = await Note.findByIdAndUpdate(
+            req.params.id,
+            { title: '', body: '' },
+            { new: true } // Zwraca zaktualizowaną notatkę
+        );
+        if (!note) {
+            return res.status(404).send({ error: 'Notatka nie znaleziona' });
+        }
+        res.send(note);
+    } catch (error) {
+        res.status(500).send({ error: 'Błąd podczas czyszczenia tekstu', details: error });
+    }
+});
 
 
 
+
+// Usuwanie zdjęcia z notatki
 router.delete('/notes/:id/image', async (req, res) => {
     try {
         const note = await Note.findById(req.params.id);
-
         if (!note) {
-            console.log('Notatka nie znaleziona:', req.params.id);
             return res.status(404).send({ error: 'Notatka nie znaleziona' });
         }
 
         if (note.image) {
-            // Usunięcie public_id z pełnej ścieżki Cloudinary (obsługuje różne formaty)
             const imageUrlParts = note.image.split('/');
             const imagePublicId = imageUrlParts[imageUrlParts.length - 2] + '/' + imageUrlParts[imageUrlParts.length - 1].split('.')[0];
             
-            console.log('Public ID obrazu do usunięcia:', imagePublicId); // Debugowanie public_id
-
             // Usunięcie zdjęcia z Cloudinary
             const cloudinaryResponse = await cloudinary.uploader.destroy(imagePublicId);
-            console.log('Odpowiedź z Cloudinary:', cloudinaryResponse); // Sprawdzamy odpowiedź z Cloudinary
-
             if (cloudinaryResponse.result !== 'ok') {
                 return res.status(500).send({ error: 'Błąd podczas usuwania zdjęcia z Cloudinary', details: cloudinaryResponse });
             }
@@ -285,13 +330,14 @@ router.delete('/notes/:id/image', async (req, res) => {
             await note.save();
         }
 
-        console.log('Usunięto zdjęcie z notatki:', note);
         res.send({ message: 'Zdjęcie usunięte', note });
     } catch (error) {
-        console.error('Błąd podczas usuwania zdjęcia:', error);
         res.status(500).send({ error: 'Błąd podczas usuwania zdjęcia', details: error });
     }
 });
+
+
+
 
 
 module.exports = router;
