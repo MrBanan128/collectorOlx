@@ -87,7 +87,7 @@ const Layout = () => {
           }}
         />
       </Box>
-
+      <Carousel />
       <Flex
         justifyContent="center"
         alignItems="center"
@@ -100,7 +100,7 @@ const Layout = () => {
       >
         <MostViewed alt={'Znaczek'} src={'/item2.png'}></MostViewed>
       </Flex>
-      <Carousel />
+
       <Footer />
     </Flex>
   );

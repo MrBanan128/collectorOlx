@@ -42,12 +42,13 @@ const MostViewed = () => {
       <div className="heading-container">
         <BlurText
           text="Most Viewed Items"
-          fontSize="2.5rem"
           delay={50}
           animateBy="words"
           direction="top"
           onAnimationComplete={handleAnimationComplete}
           mb={8}
+          display="flex"
+          flexWrap="nowrap"
         ></BlurText>
       </div>
       {categories.map((category, index) => (

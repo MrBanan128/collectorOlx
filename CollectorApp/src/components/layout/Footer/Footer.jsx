@@ -13,7 +13,6 @@ const Footer = () => {
       minHeight="60px" // Ensures it doesn’t collapse
       py={0} // Keeps vertical padding only
       px={[0, 0, 0]} // Adjusts horizontal padding
-      mt={6}
     >
       <Flex
         align="center"
