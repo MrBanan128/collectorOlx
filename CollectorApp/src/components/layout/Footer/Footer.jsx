@@ -28,7 +28,7 @@ const Footer = () => {
             borderLeft={'1px solid gray'}
           >
             <FooterLink>Regulamin</FooterLink>
-            <FooterLink>Jak działa BLO-EX Collectors</FooterLink>
+            <FooterLink>Jak działa BOL-EX Collectors</FooterLink>
           </Flex>
           <Flex direction={{ base: 'column', md: 'row' }}>
             <FooterLink>Polityka prywatności</FooterLink>

@@ -2,95 +2,92 @@ import { Flex, Text } from '@chakra-ui/react';
 
 const PolitykaPrywatnosci = () => {
   return (
-    <Flex direction={'column'}>
-      <Flex>
-        <Text>POLITYKA PRYWATNOŚCI SERWISU BOL-EX</Text>
-        <Text>§1. Postanowienia ogólne</Text>
+    <Flex
+      direction={'column'}
+      paddingTop={5}
+      gap={20}
+      paddingBottom={5}
+      paddingLeft={10}
+    >
+      <Flex direction={'column'} gap={2}>
+        <Flex justify={'center'} paddingBottom={20}>
+          <Text fontSize={20} fontWeight={'bold'}>
+            POLITYKA PRYWATNOŚCI SERWISU BOL-EX
+          </Text>
+        </Flex>
+        <Flex justify={'center'} paddingBottom={5}>
+          <Text fontWeight={'bold'}>§1. Postanowienia ogólne</Text>
+        </Flex>
         <Text>
           1. Niniejsza Polityka Prywatności określa zasady przetwarzania i
           ochrony danych osobowych użytkowników serwisu BOL-EX (zwanego dalej
           „Serwisem”).
         </Text>
         <Text>
-          2. Administratorem danych osobowych jest [nazwa firmy lub podmiotu], z
-          siedzibą pod adresem [adres], NIP: [numer NIP], REGON: [numer REGON].
+          2. Administratorem danych osobowych jest [nazwa firmy], z siedzibą pod
+          adresem [adres], NIP: [numer NIP], REGON: [numer REGON].
         </Text>
         <Text>
           3. Kontakt z Administratorem możliwy jest pod adresem e-mail: [adres
           e-mail] lub telefonicznie pod numerem [numer telefonu].
         </Text>
       </Flex>
-      <Flex>
-        <Text>§2. Zakres zbieranych danych</Text>
+      <Flex direction={'column'}>
+        <Flex justify={'center'} paddingBottom={5}>
+          <Text fontWeight={'bold'}>§2. Zakres zbieranych danych</Text>
+        </Flex>
         <Text>
           1. Serwis zbiera dane osobowe niezbędne do świadczenia usług, w tym:
-          imię i nazwisko, adres e-mail, numer telefonu, adres zamieszkania (w
-          przypadku wymiany towarów).
         </Text>
+        <Flex paddingLeft={5} direction={'column'} paddingBottom={2}>
+          <Text>- imię i nazwisko,</Text>
+          <Text>- adres e-mail,</Text>
+          <Text>- numer telefonu (opcjonalnie),</Text>
+          <Text>- adres zamieszkania (w przypadku wymiany towarów),</Text>
+          <Text>- inne dane podane dobrowolnie przez użytkownika.</Text>
+        </Flex>
         <Text>
-          2. Serwis może także zbierać dane techniczne, takie jak adres IP, typ
-          przeglądarki czy informacje o urządzeniu.
-        </Text>
-      </Flex>
-      <Flex>
-        <Text>§3. Cel przetwarzania danych</Text>
-        <Text>
-          1. Dane osobowe są przetwarzane w celu realizacji usług Serwisu, w tym
-          umożliwienia wymian barterowych, kontaktu z użytkownikami i
-          zapewnienia bezpieczeństwa.
-        </Text>
-        <Text>
-          2. Dane techniczne są zbierane w celu analizy ruchu oraz poprawy
-          funkcjonalności Serwisu.
+          2. Serwis może również zbierać dane techniczne, takie jak adres IP,
+          typ przeglądarki, czas korzystania z Serwisu czy informacje o
+          urządzeniu.
         </Text>
       </Flex>
-      <Flex>
-        <Text>§4. Prawa użytkowników</Text>
+      <Flex direction={'column'}>
+        <Flex justify={'center'} paddingBottom={5}>
+          <Text fontWeight={'bold'}>§3. Cel przetwarzania danych</Text>
+        </Flex>
+        <Text>1. Dane osobowe są przetwarzane w celu:</Text>
+        <Flex paddingLeft={5} direction={'column'} paddingBottom={2}>
+          <Text>- umożliwienia korzystania z usług Serwisu,</Text>
+          <Text>- realizacji wymian barterowych,</Text>
+          <Text>- kontaktu z użytkownikami,</Text>
+          <Text>- zapewnienia bezpieczeństwa usług,</Text>
+          <Text>
+            - wysyłki informacji marketingowych (za zgodą użytkownika).
+          </Text>
+        </Flex>
         <Text>
-          1. Użytkownik ma prawo dostępu do swoich danych, ich sprostowania,
-          usunięcia, ograniczenia przetwarzania, przenoszenia danych oraz
-          wniesienia sprzeciwu wobec przetwarzania.
+          2. Dane techniczne są zbierane w celu poprawy funkcjonalności Serwisu
+          oraz analizy ruchu na stronie.
         </Text>
+      </Flex>
+      <Flex direction={'column'}>
+        <Flex justify={'center'} paddingBottom={5}>
+          <Text fontWeight={'bold'}>§4. Prawa użytkowników</Text>
+        </Flex>
+        <Text>1. Użytkownik ma prawo do:</Text>
+        <Flex paddingLeft={5} direction={'column'} paddingBottom={2}>
+          <Text>- dostępu do swoich danych,</Text>
+          <Text>- sprostowania danych,</Text>
+          <Text>- usunięcia danych („prawo do bycia zapomnianym”),</Text>
+          <Text>- ograniczenia przetwarzania,</Text>
+          <Text>- przenoszenia danych,</Text>
+          <Text>- wniesienia sprzeciwu wobec przetwarzania.</Text>
+        </Flex>
         <Text>
-          2. Aby skorzystać z tych praw, użytkownik może skontaktować się z
+          2. Aby skorzystać z powyższych praw, należy skontaktować się z
           Administratorem.
         </Text>
-      </Flex>
-      <Flex>
-        <Text>§5. Pliki cookies</Text>
-        <Text>
-          1. Serwis wykorzystuje pliki cookies do analizy ruchu oraz poprawy
-          funkcjonalności.
-        </Text>
-        <Text>
-          2. Użytkownik może zarządzać ustawieniami cookies w swojej
-          przeglądarce.
-        </Text>
-      </Flex>
-      <Flex>
-        <Text>§6. Bezpieczeństwo danych</Text>
-        <Text>
-          1. Administrator stosuje odpowiednie środki techniczne i organizacyjne
-          w celu ochrony danych osobowych użytkowników.
-        </Text>
-      </Flex>
-      <Flex>
-        <Text>§7. Zmiany w Polityce Prywatności</Text>
-        <Text>
-          1. Administrator zastrzega sobie prawo do zmiany Polityki Prywatności.
-          Informacje o zmianach będą publikowane w Serwisie.
-        </Text>
-        <Text>
-          2. Korzystanie z Serwisu po zmianach oznacza ich akceptację.
-        </Text>
-      </Flex>
-      <Flex>
-        <Text>§8. Postanowienia końcowe</Text>
-        <Text>
-          1. W sprawach nieuregulowanych niniejszą Polityką Prywatności
-          zastosowanie mają przepisy prawa polskiego oraz RODO.
-        </Text>
-        <Text>2. Polityka wchodzi w życie z dniem [data wejścia w życie].</Text>
       </Flex>
     </Flex>
   );

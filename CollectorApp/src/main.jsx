@@ -12,6 +12,7 @@ import Test from './testBackend/test';
 
 import './index.css';
 import Regulamin from './routes/Regulamin';
+import PolitykaPrywatnosci from './routes/PolitykaPrywatnosci';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -22,6 +23,10 @@ createRoot(document.getElementById('root')).render(
             <Route index element={<Home />} />
           </Route>
           <Route path="/Regulamin" element={<Regulamin />} />
+          <Route
+            path="/Polityka prywatności"
+            element={<PolitykaPrywatnosci />}
+          />
           <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>

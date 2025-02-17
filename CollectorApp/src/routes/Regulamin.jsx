@@ -9,7 +9,7 @@ const Regulamin = () => {
       paddingBottom={5}
       paddingLeft={10}
     >
-      <Flex direction={'column'}>
+      <Flex direction={'column'} gap={2}>
         <Flex justify={'center'} paddingBottom={20}>
           <Text fontSize={20} fontWeight={'bold'}>
             REGULAMIN SERWISU BARTEROWEGO BOL-EX
@@ -31,7 +31,7 @@ const Regulamin = () => {
           regulaminu.
         </Text>
       </Flex>
-      <Flex direction={'column'}>
+      <Flex direction={'column'} gap={2}>
         <Flex justify={'center'} paddingBottom={5}>
           <Text fontWeight={'bold'}>§2. Warunki korzystania z Serwisu</Text>
         </Flex>
@@ -48,7 +48,7 @@ const Regulamin = () => {
           danych podczas rejestracji.
         </Text>
       </Flex>
-      <Flex direction={'column'}>
+      <Flex direction={'column'} gap={2}>
         <Flex justify={'center'} paddingBottom={5}>
           <Text fontWeight={'bold'}>§3. Zasady wymiany barterowej</Text>
         </Flex>
@@ -66,7 +66,7 @@ const Regulamin = () => {
           trzecich.
         </Text>
       </Flex>
-      <Flex direction={'column'}>
+      <Flex direction={'column'} gap={2}>
         <Flex justify={'center'} paddingBottom={5}>
           <Text fontWeight={'bold'}>§4. Odpowiedzialność użytkowników</Text>
         </Flex>
@@ -84,7 +84,7 @@ const Regulamin = () => {
           polubownie.
         </Text>
       </Flex>
-      <Flex direction={'column'}>
+      <Flex direction={'column'} gap={2}>
         <Flex justify={'center'} paddingBottom={5}>
           <Text fontWeight={'bold'}>§5. Bezpieczeństwo i ochrona danych</Text>
         </Flex>
@@ -98,7 +98,7 @@ const Regulamin = () => {
           logowania osobom trzecim.
         </Text>
       </Flex>
-      <Flex direction={'column'}>
+      <Flex direction={'column'} gap={2}>
         <Flex justify={'center'} paddingBottom={5}>
           <Text fontWeight={'bold'}>§6. Zmiany w regulaminie</Text>
         </Flex>
@@ -112,7 +112,7 @@ const Regulamin = () => {
           ich akceptację.
         </Text>
       </Flex>
-      <Flex direction={'column'}>
+      <Flex direction={'column'} gap={2}>
         <Flex justify={'center'} paddingBottom={5}>
           <Text fontWeight={'bold'}>§7. Postanowienia końcowe</Text>
         </Flex>
