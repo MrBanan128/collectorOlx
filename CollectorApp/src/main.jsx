@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
 
 import { Provider } from './components/ui/Provider';
+import SingUp from './routes/Sign-up';
 
 import Layout from './components/layout';
 
@@ -20,19 +21,9 @@ createRoot(document.getElementById('root')).render(
     <Provider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-          </Route>
-          <Route path="/Regulamin" element={<Regulamin />} />
-          <Route
-            path="/Polityka prywatności"
-            element={<PolitykaPrywatnosci />}
-          />
-          <Route
-            path="/Jak Działa BOL-EX Collectors"
-            element={<JakDzialaBOLEX />}
-          />
+          <Route path="/" element={<Layout />}></Route>
           <Route path="/test" element={<Test />} />
+          <Route path="/Sign-up" element={<SingUp />} />
         </Routes>
       </BrowserRouter>
     </Provider>
