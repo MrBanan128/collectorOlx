@@ -1,6 +1,5 @@
 .embla {
-  max-width: 44rem;
-  margin: auto;
+  max-width: 64rem;
   --slide-height: 19rem;
   --slide-spacing: 1rem;
   --slide-size: 50%;
@@ -9,12 +8,13 @@
 
 .embla__viewport {
   overflow: hidden;
+  width: 100vw;
 }
 
 .embla__container {
   display: flex;
   touch-action: pan-y pinch-zoom;
-  margin-left: calc(var(--slide-spacing) * -1);
+  width: 100%;
 }
 
 .embla__slide {
@@ -104,8 +104,19 @@
 
 @media (min-width: 768px) {
   .embla {
-    max-width: 48rem;
-    margin: auto;
+    max-width: 66rem;
+    --slide-height: 19rem;
+    --slide-spacing: 1rem;
+    --slide-size: 30%;
+    color: black;
+  }
+  .embla__slide__image {
+    height: 130px; /* Stała wysokość dla wszystkich zdjęć */
+  }
+}
+@media (min-width: 1024px) {
+  .embla {
+    max-width: 77rem;
     --slide-height: 19rem;
     --slide-spacing: 1rem;
     --slide-size: 30%;
