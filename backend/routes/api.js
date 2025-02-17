@@ -202,142 +202,360 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+// const express = require('express');
+// const multer = require('multer');
+// const router = express.Router();
+// const Note = require('../db/models/note');
+// const cloudinary = require('cloudinary').v2;
+// const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+// // Konfiguracja Cloudinary
+// cloudinary.config({
+//     cloud_name: 'ddiqfnzow', // Zastąp swoją nazwą chmury
+//     api_key: '491356446112172', // Zastąp swoim kluczem API
+//     api_secret: 'RwwRWyeWFgWiDEAzW1_wqYNNC5g' // Zastąp swoim sekretami API
+   
+//     // api_key: '655897763651234',
+//     // api_secret: 'kDCQiv30C-YX1n7eiPG16CkLusE' 
+// });
+
+// // Konfiguracja Multer + Cloudinary
+// const storage = new CloudinaryStorage({
+//     cloudinary: cloudinary,
+//     params: {
+//         folder: 'notatki',
+//         format: async (req, file) => 'png', // Format zdjęcia
+//         public_id: (req, file) => file.originalname.split('.')[0], // Public ID
+//     },
+// });
+
+// const upload = multer({ storage });
+
+// // Pobieranie notatek
+// router.get('/notes', async (req, res) => {
+//     try {
+//         const notes = await Note.find({});
+//         res.send(notes);
+//     } catch (error) {
+//         res.status(500).send({ error: 'Błąd ładowania notatek', details: error });
+//     }
+// });
+
+// // Dodawanie notatek z obrazami
+// router.post('/notes', upload.single('image'), async (req, res) => {
+//     try {
+//         const { title, body } = req.body;
+//         const imageUrl = req.file ? req.file.path : ''; // Ścieżka do zdjęcia
+
+//         const note = new Note({ title, body, image: imageUrl });
+//         await note.save();
+//         res.status(201).send(note);
+//     } catch (error) {
+//         res.status(400).send({ error: 'Błąd podczas dodawania notatki', details: error });
+//     }
+// });
+
+
+// router.post('/notes', upload.single('image'), async (req, res) => {
+//     try {
+//         const { title, body } = req.body;
+//         const imageUrl = req.file ? cloudinary.url(req.file.public_id, { // Korzystamy z ID obrazu
+//             transformation: [
+//                 { quality: 'auto' },
+//                 { fetch_format: 'auto' }
+//             ]
+//         }) : ''; // Przekształcony URL obrazu
+
+//         const note = new Note({ title, body, image: imageUrl });
+//         await note.save();
+//         res.status(201).send(note);
+//     } catch (error) {
+//         res.status(400).send({ error: 'Błąd podczas dodawania notatki', details: error });
+//     }
+// });
+
+
+// router.delete('/notes/:id', async (req, res) => {
+//     try {
+//         const note = await Note.findByIdAndDelete(req.params.id);
+//         if (!note) {
+//             return res.status(404).send({ error: 'Notatka nie znaleziona' });
+//         }
+//         res.send({ message: 'Notatka usunięta', note });
+//     } catch (error) {
+//         res.status(500).send({ error: 'Błąd podczas usuwania notatki', details: error });
+//     }
+// });
+
+
+// router.delete('/notes/:id/clear-text', async (req, res) => {
+//     try {
+//         const note = await Note.findByIdAndUpdate(
+//             req.params.id,
+//             { title: '', body: '' },
+//             { new: true } // Zwraca zaktualizowaną notatkę
+//         );
+//         if (!note) {
+//             return res.status(404).send({ error: 'Notatka nie znaleziona' });
+//         }
+//         res.send(note);
+//     } catch (error) {
+//         res.status(500).send({ error: 'Błąd podczas czyszczenia tekstu', details: error });
+//     }
+// });
+
+
+
+
+// // Usuwanie zdjęcia z notatki
+// router.delete('/notes/:id/image', async (req, res) => {
+//     try {
+//         const note = await Note.findById(req.params.id);
+//         if (!note) {
+//             return res.status(404).send({ error: 'Notatka nie znaleziona' });
+//         }
+
+//         if (note.image) {
+//             const imageUrlParts = note.image.split('/');
+//             const imagePublicId = imageUrlParts[imageUrlParts.length - 2] + '/' + imageUrlParts[imageUrlParts.length - 1].split('.')[0];
+            
+//             // Usunięcie zdjęcia z Cloudinary
+//             const cloudinaryResponse = await cloudinary.uploader.destroy(imagePublicId);
+//             if (cloudinaryResponse.result !== 'ok') {
+//                 return res.status(500).send({ error: 'Błąd podczas usuwania zdjęcia z Cloudinary', details: cloudinaryResponse });
+//             }
+
+//             // Usunięcie ścieżki do zdjęcia z bazy danych
+//             note.image = '';
+//             await note.save();
+//         }
+
+//         res.send({ message: 'Zdjęcie usunięte', note });
+//     } catch (error) {
+//         res.status(500).send({ error: 'Błąd podczas usuwania zdjęcia', details: error });
+//     }
+// });
+
+
+
+
+
+// module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const multer = require('multer');
-const router = express.Router();
-const Note = require('../db/models/note');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const { Note, User } = require('../db/models/note');
+
+const router = express.Router();
+const JWT_SECRET =  'domyslny_sekret';
 
 // Konfiguracja Cloudinary
 cloudinary.config({
     cloud_name: 'ddiqfnzow', // Zastąp swoją nazwą chmury
     api_key: '491356446112172', // Zastąp swoim kluczem API
     api_secret: 'RwwRWyeWFgWiDEAzW1_wqYNNC5g' // Zastąp swoim sekretami API
-   
-    // api_key: '655897763651234',
-    // api_secret: 'kDCQiv30C-YX1n7eiPG16CkLusE' 
 });
 
 // Konfiguracja Multer + Cloudinary
 const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
+    cloudinary,
     params: {
         folder: 'notatki',
-        format: async (req, file) => 'png', // Format zdjęcia
-        public_id: (req, file) => file.originalname.split('.')[0], // Public ID
+        format: async () => 'png',
+        public_id: (req, file) => file.originalname.split('.')[0],
     },
 });
 
 const upload = multer({ storage });
 
-// Pobieranie notatek
-router.get('/notes', async (req, res) => {
+// ==================== AUTORYZACJA ====================
+
+// Rejestracja użytkownika
+router.post('/register', async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) return res.status(400).json({ message: 'Użytkownik już istnieje' });
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new User({ username, email, password: hashedPassword });
+        await user.save();
+
+        res.status(201).json({ message: 'Rejestracja zakończona sukcesem' });
+    } catch (error) {
+        res.status(500).json({ error: 'Błąd serwera', details: error });
+    }
+});
+
+// Logowanie użytkownika
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+        if (!user) return res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
+
+        const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
+        res.json({ token, user: { id: user._id, username: user.username, email: user.email } });
+    } catch (error) {
+        res.status(500).json({ error: 'Błąd serwera', details: error });
+    }
+});
+
+
+
+// Middleware do autoryzacji
+const authMiddleware = async (req, res, next) => {
+    const token = req.header('Authorization');
+    if (!token) return res.status(401).json({ message: 'Brak tokena, autoryzacja odmówiona' });
+
+    try {
+        const decoded = jwt.verify(token.replace('Bearer ', ''), JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (error) {
+        res.status(401).json({ message: 'Token jest nieprawidłowy' });
+    }
+};
+
+// ==================== NOTATKI ====================
+
+// Pobieranie notatek (tylko dla zalogowanych użytkowników)
+router.get('/notes', authMiddleware, async (req, res) => {
     try {
         const notes = await Note.find({});
-        res.send(notes);
+        res.json(notes);
     } catch (error) {
-        res.status(500).send({ error: 'Błąd ładowania notatek', details: error });
+        res.status(500).json({ error: 'Błąd ładowania notatek', details: error });
     }
 });
 
-// Dodawanie notatek z obrazami
-router.post('/notes', upload.single('image'), async (req, res) => {
+// Dodawanie notatek z obrazem
+router.post('/notes', authMiddleware, upload.single('image'), async (req, res) => {
     try {
         const { title, body } = req.body;
-        const imageUrl = req.file ? req.file.path : ''; // Ścieżka do zdjęcia
+        const imageUrl = req.file ? req.file.path : '';
 
         const note = new Note({ title, body, image: imageUrl });
         await note.save();
-        res.status(201).send(note);
+        res.status(201).json(note);
     } catch (error) {
-        res.status(400).send({ error: 'Błąd podczas dodawania notatki', details: error });
+        res.status(400).json({ error: 'Błąd podczas dodawania notatki', details: error });
     }
 });
 
-
-router.post('/notes', upload.single('image'), async (req, res) => {
-    try {
-        const { title, body } = req.body;
-        const imageUrl = req.file ? cloudinary.url(req.file.public_id, { // Korzystamy z ID obrazu
-            transformation: [
-                { quality: 'auto' },
-                { fetch_format: 'auto' }
-            ]
-        }) : ''; // Przekształcony URL obrazu
-
-        const note = new Note({ title, body, image: imageUrl });
-        await note.save();
-        res.status(201).send(note);
-    } catch (error) {
-        res.status(400).send({ error: 'Błąd podczas dodawania notatki', details: error });
-    }
-});
-
-
-router.delete('/notes/:id', async (req, res) => {
+// Usuwanie notatki
+router.delete('/notes/:id', authMiddleware, async (req, res) => {
     try {
         const note = await Note.findByIdAndDelete(req.params.id);
-        if (!note) {
-            return res.status(404).send({ error: 'Notatka nie znaleziona' });
-        }
-        res.send({ message: 'Notatka usunięta', note });
+        if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona' });
+
+        res.json({ message: 'Notatka usunięta', note });
     } catch (error) {
-        res.status(500).send({ error: 'Błąd podczas usuwania notatki', details: error });
+        res.status(500).json({ error: 'Błąd podczas usuwania notatki', details: error });
     }
 });
 
-
-router.delete('/notes/:id/clear-text', async (req, res) => {
+// Czyszczenie tekstu w notatce
+router.delete('/notes/:id/clear-text', authMiddleware, async (req, res) => {
     try {
         const note = await Note.findByIdAndUpdate(
             req.params.id,
             { title: '', body: '' },
-            { new: true } // Zwraca zaktualizowaną notatkę
+            { new: true }
         );
-        if (!note) {
-            return res.status(404).send({ error: 'Notatka nie znaleziona' });
-        }
-        res.send(note);
+        if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona' });
+
+        res.json(note);
     } catch (error) {
-        res.status(500).send({ error: 'Błąd podczas czyszczenia tekstu', details: error });
+        res.status(500).json({ error: 'Błąd podczas czyszczenia tekstu', details: error });
     }
 });
 
-
-
-
 // Usuwanie zdjęcia z notatki
-router.delete('/notes/:id/image', async (req, res) => {
+router.delete('/notes/:id/image', authMiddleware, async (req, res) => {
     try {
         const note = await Note.findById(req.params.id);
-        if (!note) {
-            return res.status(404).send({ error: 'Notatka nie znaleziona' });
-        }
+        if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona' });
 
         if (note.image) {
-            const imageUrlParts = note.image.split('/');
-            const imagePublicId = imageUrlParts[imageUrlParts.length - 2] + '/' + imageUrlParts[imageUrlParts.length - 1].split('.')[0];
-            
-            // Usunięcie zdjęcia z Cloudinary
-            const cloudinaryResponse = await cloudinary.uploader.destroy(imagePublicId);
-            if (cloudinaryResponse.result !== 'ok') {
-                return res.status(500).send({ error: 'Błąd podczas usuwania zdjęcia z Cloudinary', details: cloudinaryResponse });
-            }
-
-            // Usunięcie ścieżki do zdjęcia z bazy danych
+            const imagePublicId = note.image.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(imagePublicId);
             note.image = '';
             await note.save();
         }
 
-        res.send({ message: 'Zdjęcie usunięte', note });
+        res.json({ message: 'Zdjęcie usunięte', note });
     } catch (error) {
-        res.status(500).send({ error: 'Błąd podczas usuwania zdjęcia', details: error });
+        res.status(500).json({ error: 'Błąd podczas usuwania zdjęcia', details: error });
     }
 });
 
+// google facebook logo registr
 
+router.get('/auth/google', passport.authenticate('google', { scope: ['email'] }));
 
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    res.redirect('/');
+  }
+);
 
+// Facebook authentication routes
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+
+router.get('/auth/facebook/callback', 
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  (req, res) => {
+    res.redirect('/');
+  }
+);
+
+// Sprawdzenie, czy użytkownik jest zalogowany
+router.get('/auth/check', (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.json({ message: 'Zalogowano', user: req.user });
+  } else {
+    return res.json({ message: 'Nie zalogowano' });
+  }
+});
 
 module.exports = router;
