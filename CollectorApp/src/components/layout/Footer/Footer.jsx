@@ -1,5 +1,5 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
-import FooterLink from './Navbar/FooterLink';
+import FooterLink from './FooterLink';
 import { Link } from 'react-router';
 
 const Footer = () => {

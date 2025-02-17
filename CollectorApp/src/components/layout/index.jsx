@@ -5,7 +5,7 @@ import DecryptedText from '../ui/decrypted';
 import Navbar from './Navbar/Navbar';
 import MostViewed from './MostViewed/MostViewed';
 import Carousel from './CategoryCarousel/Carousel';
-import Footer from './Footer';
+import Footer from './Footer/Footer';
 
 const Layout = () => {
   const [scrolled, setScrolled] = useState(false);
