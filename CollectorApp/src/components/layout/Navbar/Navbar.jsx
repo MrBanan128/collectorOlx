@@ -35,8 +35,7 @@ const Navbar = ({ background, height }) => {
         </Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Home</AppLink>
-          <AppLink to="/message">Message</AppLink>
-          <AppLink to="/chat">Chat</AppLink>
+          <AppLink to="/dashboard">Dashboard</AppLink>
           <AppLink to={'/Sign-up'}>Account</AppLink>
           <AppLink to={'/test'}>Test </AppLink>
           <AppLink to={'/admin'}>Admin </AppLink>
