@@ -1,11 +1,13 @@
 import { Flex, Button, Input, Box } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 
 const SignUp = () => {
     const [registerForm, setRegisterForm] = useState({ username: '', email: '', password: '' });
     const [loginForm, setLoginForm] = useState({ email: '', password: '' });
     const [message, setMessage] = useState('');
     const [token, setToken] = useState(null);
+    const navigate = useNavigate(); // Hook do nawigacji
 
     // Obsługa zmian w formularzu rejestracji
     const handleRegisterChange = (e) => {
@@ -49,6 +51,7 @@ const SignUp = () => {
               setToken(data.token);
               localStorage.setItem('token', data.token);
               setMessage('Zalogowano pomyślnie');
+              navigate('/dashboard'); // Przekierowanie do panelu użytkownika
           } else {
               setMessage(data.message || 'Błąd logowania');
           }
@@ -58,6 +61,13 @@ const SignUp = () => {
   };
 
   
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:10000/auth/google';
+  };
+  
+  const handleFacebookLogin = () => {
+    window.location.href = 'http://localhost:10000/auth/facebook';
+  };
 
 
     return (
@@ -86,7 +96,14 @@ const SignUp = () => {
             {/* Komunikat */}
             {message && <p>{message}</p>}
             {token && <p>Token: {token}</p>}
+
+            <Flex direction="column" align="center">
+    <Button colorScheme="red" onClick={handleGoogleLogin}>Zaloguj się przez Google</Button>
+    <Button colorScheme="blue" onClick={handleFacebookLogin} mt="10px">Zaloguj się przez Facebooka</Button>
+  </Flex>
+
         </Flex>
+        
     );
 };
 
