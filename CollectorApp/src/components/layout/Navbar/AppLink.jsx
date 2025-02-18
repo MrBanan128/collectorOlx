@@ -15,7 +15,8 @@ const AppLink = ({ children, to }) => {
       textDecoration={'none'}
       _focus={{ outline: 'none' }}
       fontWeight={'bold'}
-      color={active ? 'rgba(77, 134, 209, 0.5)' : 'rgba(222, 222, 224, 0.5)'}
+      color={active ? 'rgba(147,8,7,1)' : 'rgba(255, 255, 255,1)'}
+      fontSize={'large'}
       borderBottom={active ? '2px solid ' : 'none'}
       cursor={'pointer'}
       _hover={{
@@ -25,10 +26,9 @@ const AppLink = ({ children, to }) => {
       }}
       transition={'all ease-in-out 0.3s'}
       role="navigation"
-      fontSize={14}
       display={'none'}
       // Ustawienie dla urządzeń > 480px (smartfony i większych)
-      sm={{ px: 2, display: 'block' }}
+      sm={{ px: 2, display: 'block', fontSize: 12 }}
       // Ustawienie dla urządzeń > 768px (tablety i większe)
       md={{ px: 3, fontSize: 18 }}
       // Ustawienie dla urządzeń > 1024px (laptopy i większe)
@@ -38,7 +38,6 @@ const AppLink = ({ children, to }) => {
         text={children}
         disabled={false}
         speed={4}
-        color
         className="ShinyNavLink"
       />
     </Link>

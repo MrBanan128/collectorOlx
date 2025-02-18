@@ -36,9 +36,9 @@ const Navbar = ({ background, height }) => {
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Home</AppLink>
           <AppLink to="/dashboard">Dashboard</AppLink>
-          <AppLink to={'/Sign-up'}>Account</AppLink>
-          <AppLink to={'/test'}>Test </AppLink>
-          <AppLink to={'/admin'}>Admin </AppLink>
+          <AppLink to="/Sign-up">Account</AppLink>
+          <AppLink to="/test">Test </AppLink>
+          <AppLink to="/admin">Admin </AppLink>
           <MenuButton onClick={handleClick} />
         </Flex>
       </Flex>
@@ -51,7 +51,7 @@ const Navbar = ({ background, height }) => {
           top={0}
           right={0}
           height="100vh"
-          width="50%"
+          width="40%"
           zIndex={999}
           background="rgba(255, 255, 255, 0)"
           backdropFilter="blur(10px)"
@@ -61,7 +61,7 @@ const Navbar = ({ background, height }) => {
             onClick={handleClick}
             variant="ghost"
             size="xl"
-            color="rgb(255, 255, 255)"
+            color="rgb(143, 4, 2,56)"
             fontWeight="bold"
           />
           <Sidebar />

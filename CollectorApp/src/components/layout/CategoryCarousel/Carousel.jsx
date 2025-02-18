@@ -1,9 +1,9 @@
 import EmblaCarousel from './EmblaCarousel';
 import Header from './Header';
 
-import './base.css';
 import './sandbox.css';
 import './embla.css';
+import { Box } from '@chakra-ui/react';
 
 const slides = [
   { id: 1, imageUrl: '/item1.png', title: 'Figurka' },
@@ -16,14 +16,14 @@ const OPTIONS = { dragFree: true };
 
 const Carousel = () => {
   return (
-    <div className="carousel">
+    <Box className="carousel" bgColor={'#afa794'}>
       <Header />
       <EmblaCarousel
         slides={slides}
         options={OPTIONS}
         backgroundImage={slides.imageUrl}
       />
-    </div>
+    </Box>
   );
 };
 

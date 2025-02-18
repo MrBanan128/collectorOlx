@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import {
   PrevButton,
   NextButton,
@@ -27,25 +28,28 @@ const EmblaCarousel = ({ slides = [], options }) => {
         <div className="embla__container">
           {slides.length > 0 ? (
             slides.map((slide, index) => (
-              <div
+              <Box
                 className="embla__slide"
                 key={index}
                 style={{
-                  minHeight: '200px',
                   width: '100%',
                   margin: '20px',
                   boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.1)' // Przykład cienia
                 }}
               >
-                <div className="embla__slide__content">
+                <Box
+                  className="embla__slide__content"
+                  bgImage="url('/categories.jpg')"
+                  bgSize={'cover'}
+                >
                   <h2 className="embla__slide__title">{slide.title}</h2>
                   <img
                     className="embla__slide__image"
                     src={slide.imageUrl}
                     alt={slide.title}
                   />
-                </div>
-              </div>
+                </Box>
+              </Box>
             ))
           ) : (
             <p className="embla__empty">Brak dostępnych slajdów</p>

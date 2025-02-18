@@ -11,7 +11,7 @@ const Home = () => {
   const [scrolled, setScrolled] = useState(false);
 
   const handleScroll = () => {
-    if (window.scrollY > window.innerHeight * 0.2) {
+    if (window.scrollY > window.innerHeight * 0.3) {
       setScrolled(true);
     } else {
       setScrolled(false);
@@ -33,9 +33,9 @@ const Home = () => {
           background={
             scrolled
               ? 'radial-gradient(circle, rgba(11,11,11,0) 0%, rgba(193,186,186,0) 50%, rgba(9,9,9,0) 100%)'
-              : 'radial-gradient(circle, rgba(11,11,11,0) 0%, rgba(193,186,186,0) 50%, rgba(9,9,9,0) 100%)'
+              : 'radial-gradient(circle, rgba(11,11,11,0.1) 0%, rgba(193,186,186,0.1) 50%, rgba(9,9,9,0.1) 100%)'
           }
-          height={scrolled ? '84px' : '80px'} // Wysokość zmieniona o 10%
+          height={scrolled ? '90px' : '90px'} // Wysokość zmieniona o 10%
         />
       </Box>
       <Box position="relative" width="100%">
@@ -46,7 +46,7 @@ const Home = () => {
           top={{ base: '35%', sm: '35%', md: '30%' }}
           width={{ base: '50%', sm: '41%', md: '35%', lg: '33%', xl: '35%' }}
         >
-          <Text
+          {/* <Text
             fontSize={{
               base: '1.5rem',
               sm: '2rem',
@@ -70,20 +70,20 @@ const Home = () => {
               color="white" // Kolor
               fontWeight="bold" // Font weight
             />
-          </Text>
+          </Text> */}
         </Box>
 
         <Image
           src="/background.jpg"
           alt="background"
           width="100%"
-          objectFit="cover"
+          objectFit="fill"
           height={{
             base: '200px',
-            sm: '250px',
-            md: '300px',
-            lg: '400px',
-            xl: '500px'
+            sm: '350px',
+            md: '500px',
+            lg: '600px',
+            xl: '600px'
           }}
         />
       </Box>

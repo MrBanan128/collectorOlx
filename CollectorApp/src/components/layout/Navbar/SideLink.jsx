@@ -13,18 +13,18 @@ const SideLink = ({ children, to }) => {
       textDecoration={'none'}
       _focus={{ outline: 'none' }}
       fontWeight={'bold'}
-      color={active ? 'rgba(44, 101, 175, 0.8)' : 'rgba(0, 0, 0, 0.8)'}
+      color={active ? 'rgba(147,8,7,1)' : 'rgba(0, 0, 0, 1)'}
       borderBottom={active ? '2px solid ' : 'none'}
       cursor={'pointer'}
       width={'100%'}
       _hover={{
-        color: 'blue.200',
+        color: 'rgba(147,8,7,1)',
         borderBottom: '2px solid',
-        borderColor: 'blue.200'
+        borderColor: 'rgba(147,8,7,1)'
       }}
       transition={'all ease-in-out 0.3s'}
       role="navigation"
-      fontSize={24}
+      fontSize={20}
     >
       {children}
     </Link>
