@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 
 import { Provider } from './components/ui/Provider';
 import SingUp from './routes/Sign-up'
+import Dashboard from './routes/Dashboard';
 
 import Layout from './components/layout';
 
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
           </Route>
             <Route path="/test" element={<Test />} />
             <Route path="/Sign-up" element={<SingUp/>} />  
+            <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         </BrowserRouter>
     </Provider>
