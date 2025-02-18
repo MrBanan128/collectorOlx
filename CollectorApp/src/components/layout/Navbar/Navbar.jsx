@@ -38,7 +38,8 @@ const Navbar = ({ background, height }) => {
           <AppLink to="/message">Message</AppLink>
           <AppLink to="/chat">Chat</AppLink>
           <AppLink to={'/Sign-up'}>Account</AppLink>
-           <AppLink to={'/test'}>Test </AppLink>
+          <AppLink to={'/test'}>Test </AppLink>
+          <AppLink to={'/admin'}>Admin </AppLink>
           <MenuButton onClick={handleClick} />
         </Flex>
       </Flex>
