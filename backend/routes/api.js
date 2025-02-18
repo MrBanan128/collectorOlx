@@ -482,6 +482,19 @@ router.get('/auth/facebook/callback',
 
 
 
+// Pobieranie danych zalogowanego użytkownika
+router.get('/user', authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId).select('-password'); // Bez hasła
+        if (!user) {
+            return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+        }
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd serwera', details: error });
+    }
+});
+
 
 
 
