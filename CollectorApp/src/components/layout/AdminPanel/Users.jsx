@@ -30,14 +30,14 @@ const Users = () => {
   const hasSelection = selection.length > 0;
   const indeterminate = hasSelection && selection.length < adminItems.length;
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:10000/users')
-      .then((users) => setUsers(users.data))
-      .catch((error) => console.error(error));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:10000/api/users', { withCredentials: true })
+  //     .then((response) => setUsers(response.data))
+  //     .catch((error) => console.error(error));
+  // }, []);
 
-  console.log(users.data);
+  // console.log(users);
 
   const adminRows = adminItems.map((item) => (
     <Table.Row
@@ -48,6 +48,7 @@ const Users = () => {
       <Table.Cell backgroundColor="white" color={'black'}>
         <Checkbox
           variant="subtle"
+          style={{ padding: '1rem' }}
           colorPalette="orange"
           size="lg"
           top="1"
@@ -81,6 +82,7 @@ const Users = () => {
           <Table.Row backgroundColor="gray.300">
             <Table.ColumnHeader>
               <Checkbox
+                style={{ padding: '1rem' }}
                 variant="subtle"
                 top="1"
                 aria-label="Select all rows"
@@ -118,7 +120,7 @@ const Users = () => {
             Delete <Kbd>⌫</Kbd>
           </Button>
           <Button variant="outline" size="sm">
-            Share <Kbd>T</Kbd>
+            Edit <Kbd>E</Kbd>
           </Button>
         </ActionBarContent>
       </ActionBarRoot>
