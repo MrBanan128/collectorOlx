@@ -7,7 +7,7 @@ import { TbArrowBackUp } from 'react-icons/tb';
 const ArrowBack = () => {
   return (
     <div>
-      <NavLink to="/" zIndex={1}>
+      <NavLink to="/">
         <IconButton
           aria-label="Back"
           position="absolute"
@@ -18,6 +18,7 @@ const ArrowBack = () => {
           variant="solid"
           color={'white'}
           size={'2xl'}
+          style={{ zIndex: '10' }}
         >
           <TbArrowBackUp />
         </IconButton>

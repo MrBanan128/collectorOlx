@@ -5,14 +5,12 @@ import {
   Input,
   Button,
   Heading,
-  IconButton,
-  Image
+  Image,
+  Text
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../Navbar/Logo';
 import { NavLink } from 'react-router-dom'; // Corrected import path for NavLink
 import { FaGoogle, FaFacebook } from 'react-icons/fa'; // Added FaArrowLeft
-import { TbArrowBackUp } from 'react-icons/tb';
 
 import Aurora from '../../ui/Aurora/Aurora';
 import ArrowBack from '../ArrowBack';
@@ -29,6 +27,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setMessage('');
     try {
       const response = await fetch('http://localhost:10000/login', {
         method: 'POST',
@@ -66,10 +65,10 @@ const Login = () => {
         left="0"
         width="100%"
         height="100%"
-        zIndex={0}
+        style={{ zIndex: '0' }}
       >
         <Aurora
-          colorStops={['rgb(134,136,136)', '#FFFFFF', 'rgb(134,136,136)']}
+          colorStops={['#d5d6d6', '#FFFFFF', '#d5d6d6']}
           speed={0.5}
           amplitude={10}
         />
@@ -81,7 +80,6 @@ const Login = () => {
         justifyContent="center"
         alignItems="center"
         position="relative"
-        zIndex={1}
         width="100%"
         padding={5}
         height="100vh"
@@ -93,7 +91,7 @@ const Login = () => {
           rounded={10}
           overflow={'hidden'}
           border={'5px solid rgb(35, 35, 35)'}
-          height={{ base: 'auto', md: '600px' }}
+          height={{ base: 'auto', md: '600px', lg: '650px', xl: '700px' }}
           maxWidth={{ base: '60%', md: '500px' }} // Ustawiłem maxWidth
           width="100%"
         >
@@ -148,6 +146,18 @@ const Login = () => {
             >
               Logowanie
             </Heading>
+            {message && (
+              <Text
+                color="red"
+                fontWeight={'bold'}
+                fontSize={{ base: '16px', sm: '20px' }}
+                textAlign="center"
+                mt={2}
+              >
+                {message}
+              </Text>
+            )}{' '}
+            {/* Komunikat błędu */}
             <Flex justifyContent="center">
               <form
                 onSubmit={handleLogin}
@@ -171,6 +181,7 @@ const Login = () => {
                     width="80%"
                     color={'rgba(2,9,17,255)'}
                   />
+
                   <Input
                     type="password"
                     name="password"
