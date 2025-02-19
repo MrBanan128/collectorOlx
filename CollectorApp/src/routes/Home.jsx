@@ -79,11 +79,11 @@ const Home = () => {
           width="100%"
           objectFit="cover"
           height={{
-            base: '200px',
-            sm: '250px',
-            md: '300px',
-            lg: '400px',
-            xl: '500px'
+            base: '300px',
+            sm: '350px',
+            md: '400px',
+            lg: '500px',
+            xl: '700px'
           }}
         />
       </Box>

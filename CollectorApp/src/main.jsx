@@ -12,6 +12,7 @@ import Test from './testBackend/test';
 
 import './index.css';
 import Admin from './routes/Admin';
+import Login from './components/layout/Login/Login';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/" element={<Home />}></Route>
           <Route path="/test" element={<Test />} />
           <Route path="/Sign-up" element={<SingUp />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>

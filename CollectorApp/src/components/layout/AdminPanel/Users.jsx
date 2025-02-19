@@ -24,21 +24,21 @@ const adminItems = [
 ];
 
 const Users = () => {
-  // const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const [selection, setSelection] = useState([]);
 
   const hasSelection = selection.length > 0;
   const indeterminate = hasSelection && selection.length < adminItems.length;
 
-  // useEffect(() => {
-  //   axios
-  //     .get('http://localhost:10000/users')
-  //     .then((users) => setUsers(users.data))
-  //     .catch((error) => console.error(error));
-  // }, []);
+  useEffect(() => {
+    axios
+      .get('http://localhost:10000/users')
+      .then((users) => setUsers(users.data))
+      .catch((error) => console.error(error));
+  }, []);
 
-  // console.log(users.data);
-  //TODO pobieranie danych z bazy
+  console.log(users.data);
+
   const adminRows = adminItems.map((item) => (
     <Table.Row
       key={item.id}
