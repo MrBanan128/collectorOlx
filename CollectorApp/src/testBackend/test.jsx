@@ -130,7 +130,10 @@ const Test = () => {
 
     const fetchNotes = async () => {
         try {
-            const response = await fetch('http://localhost:10000/notes');
+            const token = localStorage.getItem('token'); // Pobierz token
+            const response = await fetch('http://localhost:10000/notes', {
+                headers: { 'Authorization': `Bearer ${token}` } // Dodaj token
+            });
             if (!response.ok) throw new Error('Błąd ładowania notatek');
             const data = await response.json();
             setNotes(data);
@@ -140,7 +143,7 @@ const Test = () => {
             setLoading(false);
         }
     };
-
+    
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewNote(prev => ({ ...prev, [name]: value }));
@@ -155,27 +158,30 @@ const Test = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('title', newNote.title);
-        formData.append('body', newNote.body);
-        if (newNote.image) formData.append('image', newNote.image);
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', newNote.title);
+    formData.append('body', newNote.body);
+    if (newNote.image) formData.append('image', newNote.image);
 
-        try {
-            const response = await fetch('http://localhost:10000/notes', {
-                method: 'POST',
-                body: formData,
-            });
-            if (!response.ok) throw new Error('Błąd dodawania notatki');
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:10000/notes', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}` }, // Dodaj token
+            body: formData,
+        });
+        if (!response.ok) throw new Error('Błąd dodawania notatki');
 
-            const data = await response.json();
-            setNotes(prevNotes => [...prevNotes, data]);
-            setNewNote({ title: '', body: '', image: null });
-            setPreview(null);
-        } catch (error) {
-            setError(error.message);
-        }
-    };
+        const data = await response.json();
+        setNotes(prevNotes => [...prevNotes, data]);
+        setNewNote({ title: '', body: '', image: null });
+        setPreview(null);
+    } catch (error) {
+        setError(error.message);
+    }
+};
+
 
     const handleDeleteNote = async (id) => {
         try {

@@ -214,6 +214,302 @@
 
 
 
+// const express = require('express');
+// const bcrypt = require('bcryptjs');
+// const jwt = require('jsonwebtoken');
+// const passport = require('../passport');
+
+// const multer = require('multer');
+// const cloudinary = require('cloudinary').v2;
+// const { CloudinaryStorage } = require('multer-storage-cloudinary');
+// const { Note, User } = require('../db/models/note');
+
+
+// const router = express.Router();
+// const JWT_SECRET =  'domyslny_sekret';
+
+// // Konfiguracja Cloudinary
+// cloudinary.config({
+//     cloud_name: 'ddiqfnzow', // Zastąp swoją nazwą chmury
+//     api_key: '491356446112172', // Zastąp swoim kluczem API
+//     api_secret: 'RwwRWyeWFgWiDEAzW1_wqYNNC5g' // Zastąp swoim sekretami API
+// });
+
+// // Konfiguracja Multer + Cloudinary
+// const storage = new CloudinaryStorage({
+//     cloudinary,
+//     params: {
+//         folder: 'notatki',
+//         format: async () => 'png',
+//         public_id: (req, file) => file.originalname.split('.')[0],
+//     },
+// });
+
+// const upload = multer({ storage });
+
+// // ==================== AUTORYZACJA ====================
+
+// // Rejestracja użytkownika
+// router.post('/register', async (req, res) => {
+//     try {
+//         const { username, email, password } = req.body;
+
+//         const existingUser = await User.findOne({ email });
+//         if (existingUser) return res.status(400).json({ message: 'Użytkownik już istnieje' });
+
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         const user = new User({ username, email, password: hashedPassword });
+//         await user.save();
+
+//         res.status(201).json({ message: 'Rejestracja zakończona sukcesem' });
+//     } catch (error) {
+//         res.status(500).json({ error: 'Błąd serwera', details: error });
+//     }
+// });
+
+// // Logowanie użytkownika
+// router.post('/login', async (req, res) => {
+//     try {
+//         const { email, password } = req.body;
+
+//         const user = await User.findOne({ email });
+//         if (!user) return res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
+
+//         const isMatch = await bcrypt.compare(password, user.password);
+//         if (!isMatch) return res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
+
+//         const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
+//         res.json({ token, user: { id: user._id, username: user.username, email: user.email } });
+//     } catch (error) {
+//         res.status(500).json({ error: 'Błąd serwera', details: error });
+//     }
+// });
+
+
+
+// // Middleware do autoryzacji
+// const authMiddleware = async (req, res, next) => {
+//     const token = req.header('Authorization');
+//     if (!token) return res.status(401).json({ message: 'Brak tokena, autoryzacja odmówiona' });
+
+//     try {
+//         const decoded = jwt.verify(token.replace('Bearer ', ''), JWT_SECRET);
+//         req.user = decoded;
+//         next();
+//     } catch (error) {
+//         res.status(401).json({ message: 'Token jest nieprawidłowy' });
+//     }
+// };
+
+// // ==================== NOTATKI ====================
+
+// // Pobieranie notatek (tylko dla zalogowanych użytkowników)
+// // router.get('/notes', authMiddleware, async (req, res) => {
+// //     try {
+// //         const notes = await Note.find({});
+// //         res.json(notes);
+// //     } catch (error) {
+// //         res.status(500).json({ error: 'Błąd ładowania notatek', details: error });
+// //     }
+// // });
+
+// router.get('/notes', authMiddleware, async (req, res) => {
+//     try {
+//         console.log("Użytkownik:", req.user.userId);
+//         const notes = await Note.find({ user: req.user.userId }); // Szukamy tylko notatek dla tego użytkownika
+//         res.json(notes);
+//     } catch (error) {
+//         res.status(500).json({ error: 'Błąd ładowania notatek', details: error });
+//     }
+// });
+
+
+
+
+// // Dodawanie notatek z obrazem
+// // router.post('/notes', authMiddleware, upload.single('image'), async (req, res) => {
+// //     try {
+// //         const { title, body } = req.body;
+// //         const imageUrl = req.file ? req.file.path : '';
+
+// //         const note = new Note({ title, body, image: imageUrl });
+// //         await note.save();
+// //         res.status(201).json(note);
+// //     } catch (error) {
+// //         res.status(400).json({ error: 'Błąd podczas dodawania notatki', details: error });
+// //     }
+// // });
+
+// router.post('/notes', authMiddleware, upload.single('image'), async (req, res) => {
+//     try {
+//         const { title, body } = req.body;
+//         const imageUrl = req.file ? req.file.path : '';
+
+//         const note = new Note({
+//             title,
+//             body,
+//             image: imageUrl,
+//             user: req.user.userId, // Powiązanie notatki z użytkownikiem
+//         });
+//         await note.save();
+//         res.status(201).json(note);
+//     } catch (error) {
+//         res.status(400).json({ error: 'Błąd podczas dodawania notatki', details: error });
+//     }
+// });
+
+
+
+
+// // Usuwanie notatki
+// // router.delete('/notes/:id', authMiddleware, async (req, res) => {
+// //     try {
+// //         const note = await Note.findByIdAndDelete(req.params.id);
+// //         if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona' });
+
+// //         res.json({ message: 'Notatka usunięta', note });
+// //     } catch (error) {
+// //         res.status(500).json({ error: 'Błąd podczas usuwania notatki', details: error });
+// //     }
+// // });
+// router.delete('/notes/:id', authMiddleware, async (req, res) => {
+//     try {
+//         const note = await Note.findOneAndDelete({ _id: req.params.id, user: req.user.userId }); // Usuwamy tylko notatki tego użytkownika
+//         if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona lub brak dostępu' });
+
+//         res.json({ message: 'Notatka usunięta', note });
+//     } catch (error) {
+//         res.status(500).json({ error: 'Błąd podczas usuwania notatki', details: error });
+//     }
+// });
+
+
+
+
+
+// // Czyszczenie tekstu w notatce
+// // router.delete('/notes/:id/clear-text', authMiddleware, async (req, res) => {
+// //     try {
+// //         const note = await Note.findByIdAndUpdate(
+// //             req.params.id,
+// //             { title: '', body: '' },
+// //             { new: true }
+// //         );
+// //         if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona' });
+
+// //         res.json(note);
+// //     } catch (error) {
+// //         res.status(500).json({ error: 'Błąd podczas czyszczenia tekstu', details: error });
+// //     }
+// // });
+// router.delete('/notes/:id/clear-text', authMiddleware, async (req, res) => {
+//     try {
+//         const note = await Note.findOneAndUpdate(
+//             { _id: req.params.id, user: req.user.userId }, // Tylko użytkownik może edytować swoje notatki
+//             { title: '', body: '' },
+//             { new: true }
+//         );
+//         if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona lub brak dostępu' });
+
+//         res.json(note);
+//     } catch (error) {
+//         res.status(500).json({ error: 'Błąd podczas czyszczenia tekstu', details: error });
+//     }
+// });
+
+
+
+
+
+
+// // Usuwanie zdjęcia z notatki
+// // router.delete('/notes/:id/image', authMiddleware, async (req, res) => {
+// //     try {
+// //         const note = await Note.findById(req.params.id);
+// //         if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona' });
+
+// //         if (note.image) {
+// //             const imagePublicId = note.image.split('/').pop().split('.')[0];
+// //             await cloudinary.uploader.destroy(imagePublicId);
+// //             note.image = '';
+// //             await note.save();
+// //         }
+
+// //         res.json({ message: 'Zdjęcie usunięte', note });
+// //     } catch (error) {
+// //         res.status(500).json({ error: 'Błąd podczas usuwania zdjęcia', details: error });
+// //     }
+// // });
+// router.delete('/notes/:id/image', authMiddleware, async (req, res) => {
+//     try {
+//         const note = await Note.findOne({ _id: req.params.id, user: req.user.userId }); // Tylko użytkownik może usunąć swoje zdjęcie
+//         if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona lub brak dostępu' });
+
+//         if (note.image) {
+//             const imagePublicId = note.image.split('/').pop().split('.')[0];
+//             await cloudinary.uploader.destroy(imagePublicId);
+//             note.image = '';
+//             await note.save();
+//         }
+
+//         res.json({ message: 'Zdjęcie usunięte', note });
+//     } catch (error) {
+//         res.status(500).json({ error: 'Błąd podczas usuwania zdjęcia', details: error });
+//     }
+// });
+
+
+
+
+
+// // google facebook logo registr
+
+// router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
+
+// router.get('/auth/google/callback', 
+//   passport.authenticate('google', { failureRedirect: '/' }),
+//   (req, res) => {
+//     res.redirect('http://localhost:3000/dashboard'); // Przekierowanie do frontendu
+//   }
+// );
+
+// // Facebook OAuth
+// router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+
+// router.get('/auth/facebook/callback', 
+//   passport.authenticate('facebook', { failureRedirect: '/' }),
+//   (req, res) => {
+//     res.redirect('http://localhost:3000/dashboard');
+//   }
+// );
+
+
+
+
+// module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -245,7 +541,25 @@ const storage = new CloudinaryStorage({
     },
 });
 
+
 const upload = multer({ storage });
+
+
+// Middleware do autoryzacji
+const authMiddleware = async (req, res, next) => {
+    const authHeader = req.header('Authorization');
+    if (!authHeader) return res.status(401).json({ message: 'Brak tokena, autoryzacja odmówiona' });
+
+    const token = authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : authHeader;
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (error) {
+        res.status(401).json({ message: 'Token jest nieprawidłowy' });
+    }
+};
+
 
 // ==================== AUTORYZACJA ====================
 
@@ -288,174 +602,6 @@ router.post('/login', async (req, res) => {
 
 
 
-// Middleware do autoryzacji
-const authMiddleware = async (req, res, next) => {
-    const token = req.header('Authorization');
-    if (!token) return res.status(401).json({ message: 'Brak tokena, autoryzacja odmówiona' });
-
-    try {
-        const decoded = jwt.verify(token.replace('Bearer ', ''), JWT_SECRET);
-        req.user = decoded;
-        next();
-    } catch (error) {
-        res.status(401).json({ message: 'Token jest nieprawidłowy' });
-    }
-};
-
-// ==================== NOTATKI ====================
-
-// Pobieranie notatek (tylko dla zalogowanych użytkowników)
-// router.get('/notes', authMiddleware, async (req, res) => {
-//     try {
-//         const notes = await Note.find({});
-//         res.json(notes);
-//     } catch (error) {
-//         res.status(500).json({ error: 'Błąd ładowania notatek', details: error });
-//     }
-// });
-router.get('/notes', authMiddleware, async (req, res) => {
-    try {
-        const notes = await Note.find({ user: req.user.userId }); // Szukamy tylko notatek dla tego użytkownika
-        res.json(notes);
-    } catch (error) {
-        res.status(500).json({ error: 'Błąd ładowania notatek', details: error });
-    }
-});
-
-
-// Dodawanie notatek z obrazem
-// router.post('/notes', authMiddleware, upload.single('image'), async (req, res) => {
-//     try {
-//         const { title, body } = req.body;
-//         const imageUrl = req.file ? req.file.path : '';
-
-//         const note = new Note({ title, body, image: imageUrl });
-//         await note.save();
-//         res.status(201).json(note);
-//     } catch (error) {
-//         res.status(400).json({ error: 'Błąd podczas dodawania notatki', details: error });
-//     }
-// });
-
-router.post('/notes', authMiddleware, upload.single('image'), async (req, res) => {
-    try {
-        const { title, body } = req.body;
-        const imageUrl = req.file ? req.file.path : '';
-
-        const note = new Note({
-            title,
-            body,
-            image: imageUrl,
-            user: req.user.userId, // Powiązanie notatki z użytkownikiem
-        });
-        await note.save();
-        res.status(201).json(note);
-    } catch (error) {
-        res.status(400).json({ error: 'Błąd podczas dodawania notatki', details: error });
-    }
-});
-
-
-
-
-// Usuwanie notatki
-// router.delete('/notes/:id', authMiddleware, async (req, res) => {
-//     try {
-//         const note = await Note.findByIdAndDelete(req.params.id);
-//         if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona' });
-
-//         res.json({ message: 'Notatka usunięta', note });
-//     } catch (error) {
-//         res.status(500).json({ error: 'Błąd podczas usuwania notatki', details: error });
-//     }
-// });
-router.delete('/notes/:id', authMiddleware, async (req, res) => {
-    try {
-        const note = await Note.findOneAndDelete({ _id: req.params.id, user: req.user.userId }); // Usuwamy tylko notatki tego użytkownika
-        if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona lub brak dostępu' });
-
-        res.json({ message: 'Notatka usunięta', note });
-    } catch (error) {
-        res.status(500).json({ error: 'Błąd podczas usuwania notatki', details: error });
-    }
-});
-
-
-
-
-
-// Czyszczenie tekstu w notatce
-// router.delete('/notes/:id/clear-text', authMiddleware, async (req, res) => {
-//     try {
-//         const note = await Note.findByIdAndUpdate(
-//             req.params.id,
-//             { title: '', body: '' },
-//             { new: true }
-//         );
-//         if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona' });
-
-//         res.json(note);
-//     } catch (error) {
-//         res.status(500).json({ error: 'Błąd podczas czyszczenia tekstu', details: error });
-//     }
-// });
-router.delete('/notes/:id/clear-text', authMiddleware, async (req, res) => {
-    try {
-        const note = await Note.findOneAndUpdate(
-            { _id: req.params.id, user: req.user.userId }, // Tylko użytkownik może edytować swoje notatki
-            { title: '', body: '' },
-            { new: true }
-        );
-        if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona lub brak dostępu' });
-
-        res.json(note);
-    } catch (error) {
-        res.status(500).json({ error: 'Błąd podczas czyszczenia tekstu', details: error });
-    }
-});
-
-
-
-
-
-
-// Usuwanie zdjęcia z notatki
-// router.delete('/notes/:id/image', authMiddleware, async (req, res) => {
-//     try {
-//         const note = await Note.findById(req.params.id);
-//         if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona' });
-
-//         if (note.image) {
-//             const imagePublicId = note.image.split('/').pop().split('.')[0];
-//             await cloudinary.uploader.destroy(imagePublicId);
-//             note.image = '';
-//             await note.save();
-//         }
-
-//         res.json({ message: 'Zdjęcie usunięte', note });
-//     } catch (error) {
-//         res.status(500).json({ error: 'Błąd podczas usuwania zdjęcia', details: error });
-//     }
-// });
-router.delete('/notes/:id/image', authMiddleware, async (req, res) => {
-    try {
-        const note = await Note.findOne({ _id: req.params.id, user: req.user.userId }); // Tylko użytkownik może usunąć swoje zdjęcie
-        if (!note) return res.status(404).json({ error: 'Notatka nie znaleziona lub brak dostępu' });
-
-        if (note.image) {
-            const imagePublicId = note.image.split('/').pop().split('.')[0];
-            await cloudinary.uploader.destroy(imagePublicId);
-            note.image = '';
-            await note.save();
-        }
-
-        res.json({ message: 'Zdjęcie usunięte', note });
-    } catch (error) {
-        res.status(500).json({ error: 'Błąd podczas usuwania zdjęcia', details: error });
-    }
-});
-
-
 
 
 
@@ -482,14 +628,109 @@ router.get('/auth/facebook/callback',
 
 
 
-// Pobieranie danych zalogowanego użytkownika
-router.get('/user', authMiddleware, async (req, res) => {
+
+
+// ==================== Users ====================//
+
+
+
+
+
+
+// Pobieranie danych użytkownika
+router.get('/users', authMiddleware, async (req, res) => {
     try {
-        const user = await User.findById(req.user.userId).select('-password'); // Bez hasła
-        if (!user) {
-            return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+        const user = await User.findById(req.user.userId);
+        if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+
+        res.json({
+            username: user.username,
+            email: user.email,
+            avatar: user.avatar || '',
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd serwera', details: error });
+    }
+});
+
+
+router.get('/users/entries', authMiddleware, async (req, res) => {
+    try {
+        const notes = await Note.find({ userId: req.user.userId }); // Filtrujemy po userId
+        res.json(notes);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd pobierania notatek', details: error });
+    }
+});
+
+
+
+// Aktualizacja użytkownika (email, username)
+router.put('/users', authMiddleware, upload.single('avatar'), async (req, res) => {
+    try {
+        const { username, email } = req.body;
+        const user = await User.findById(req.user.userId);
+        if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+
+        if (username) user.username = username;
+        if (email) user.email = email;
+        if (req.file) {
+            if (user.avatar) {
+                const imagePublicId = user.avatar.split('/').pop().split('.')[0];
+                await cloudinary.uploader.destroy(imagePublicId);
+            }
+            user.avatar = req.file.path;
         }
-        res.json(user);
+
+        await user.save();
+        res.json({ message: 'Dane użytkownika zaktualizowane', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas aktualizacji', details: error });
+    }
+});
+
+
+
+
+// Przesyłanie awatara
+// Tworzenie nowej notatki przypisanej do zalogowanego użytkownika
+// router.post('/users/entries', authMiddleware, upload.single('image'), async (req, res) => {
+//     try {
+//         const { title, body, phoneNumber } = req.body; // ➕ Odbieramy numer telefonu
+//         const imageUrl = req.file ? req.file.path : '';
+
+//         if (!title || !body) {
+//             return res.status(400).json({ message: 'Tytuł i treść są wymagane' });
+//         }
+
+//         const newNote = new Note({
+//             userId: req.user.userId,
+//             title,
+//             body,
+//             image: imageUrl,
+//             phoneNumber, // ➕ Zapisujemy numer telefonu
+//         });
+
+//         await newNote.save();
+//         res.status(201).json({ message: 'Notatka dodana', note: newNote });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Błąd podczas dodawania notatki', details: error });
+//     }
+// });
+
+router.post('/users/entries', authMiddleware, upload.single('image'), async (req, res) => {
+    try {
+        const newNote = new Note({
+            userId: req.user.userId,
+            title: req.body.title,
+            body: req.body.body,
+            phoneNumber: req.body.phoneNumber,
+            image: req.file.path, // Zapisujemy URL
+            imageId: req.file.filename, // Zapisujemy public_id
+        });
+
+        await newNote.save();
+        res.status(201).json({ note: newNote });
     } catch (error) {
         res.status(500).json({ message: 'Błąd serwera', details: error });
     }
@@ -498,4 +739,160 @@ router.get('/user', authMiddleware, async (req, res) => {
 
 
 
+
+
+
+
+
+
+// Usuwanie całej notatki
+router.delete('/users/entries/:noteId', authMiddleware, async (req, res) => {
+    try {
+        const { noteId } = req.params;
+        const note = await Note.findById(noteId);
+
+        if (!note) return res.status(404).json({ message: 'Notatka nie znaleziona' });
+
+        // Jeśli notatka zawiera obraz, usuń go z Cloudinary
+        if (note.image) {
+            const publicId = note.image.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`notatki/${publicId}`);
+        }
+
+        // Usuń notatkę z bazy danych
+        await Note.findByIdAndDelete(noteId);
+
+        res.json({ message: 'Notatka usunięta' });
+    } catch (error) {
+        console.error('Błąd usuwania notatki:', error);
+        res.status(500).json({ message: 'Błąd serwera' });
+    }
+});
+
+
+
+// Usuwanie zdjęcia z notatki
+router.delete('/users/entries/image/:noteId', authMiddleware, async (req, res) => {
+    try {
+        const { noteId } = req.params;
+        const note = await Note.findById(noteId);
+
+        if (!note) return res.status(404).json({ message: 'Notatka nie znaleziona' });
+        
+        // Sprawdzenie, czy notatka ma obraz
+        if (note.image) {
+            // Wydobycie public_id z URL-a obrazu
+            const imageUrl = note.image;
+            const publicId = imageUrl.split('/').pop().split('.')[0]; // Pobiera nazwę pliku bez rozszerzenia
+            
+            // Usunięcie obrazu z Cloudinary
+            await cloudinary.uploader.destroy(`notatki/${publicId}`);
+            // await cloudinary.uploader.destroy(publicId);
+
+            console.log(`Obraz ${publicId} usunięty z Cloudinary`);
+        }
+
+        // Usunięcie obrazu z bazy danych
+        await Note.findByIdAndUpdate(noteId, { image: null });
+
+        res.json({ message: 'Zdjęcie usunięte' });
+    } catch (error) {
+        console.error('Błąd usuwania zdjęcia:', error);
+        res.status(500).json({ message: 'Błąd serwera' });
+    }
+});
+
+
+
+
+// Usuwanie awatara
+router.delete('/users/avatar', authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user || !user.avatar) return res.status(404).json({ message: 'Avatar nie znaleziony' });
+
+        // Wyciągnij public_id zdjęcia z URL Cloudinary
+        const imagePublicId = user.avatar.split('/').pop().split('.')[0];
+
+        // Usuń zdjęcie z Cloudinary
+        await cloudinary.uploader.destroy(imagePublicId);
+
+        // Usuń ścieżkę do zdjęcia w bazie danych
+        user.avatar = '';
+        await user.save();
+
+        res.json({ message: 'Avatar usunięty' });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas usuwania avatara', details: error });
+    }
+});
+
+
+
+
+// Usuwanie konta użytkownika
+router.delete('/users', authMiddleware, async (req, res) => {
+    try {
+        await Note.deleteMany({ userId: req.user.userId }); // Usunięcie wszystkich notatek użytkownika
+        const user = await User.findByIdAndDelete(req.user.userId);
+        if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+
+        res.json({ message: 'Konto użytkownika i wszystkie jego notatki zostały usunięte' });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas usuwania konta', details: error });
+    }
+});
+
+
+// // Usuwanie konta użytkownika wraz z jego zdjęciami z Cloudinary
+// router.delete('/users', authMiddleware, async (req, res) => {
+//     try {
+//         const notes = await Note.find({ userId: req.user.userId });
+
+//         // Usuwanie zdjęć z Cloudinary dla każdej notatki
+//         for (const note of notes) {
+//             if (note.image) {
+//                 const imagePublicId = note.image.split('/').pop().split('.')[0];
+//                 await cloudinary.uploader.destroy(imagePublicId);
+//             }
+//         }
+
+//         // Usuwanie wszystkich notatek użytkownika
+//         await Note.deleteMany({ userId: req.user.userId });
+
+//         // Usunięcie awatara użytkownika, jeśli istnieje
+//         const user = await User.findById(req.user.userId);
+//         if (user?.avatar) {
+//             const avatarPublicId = user.avatar.split('/').pop().split('.')[0];
+//             await cloudinary.uploader.destroy(avatarPublicId);
+//         }
+
+//         // Usunięcie konta użytkownika
+//         await User.findByIdAndDelete(req.user.userId);
+
+//         res.json({ message: 'Konto użytkownika i wszystkie jego notatki oraz zdjęcia zostały usunięte' });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Błąd podczas usuwania konta', details: error });
+//     }
+// });
+
+
+
+
+
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
