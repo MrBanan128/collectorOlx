@@ -21,7 +21,7 @@ const [editData, setEditData] = useState({ title: '', note: '', phoneNumber: '' 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            navigate('/Sign-up');
+            navigate('/login');
             return;
         }
         fetchUserData();
@@ -35,16 +35,21 @@ const [editData, setEditData] = useState({ title: '', note: '', phoneNumber: '' 
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${token}` },
             });
-
-            if (!response.ok) throw new Error('Błąd pobierania danych użytkownika');
+            // if (!response.ok) throw new Error('Token wygasł lub jest niepoprawny');
+            if (!response.ok) {
+                throw new Error('Token wygasł lub jest niepoprawny');
+            }
             const data = await response.json();
             setUserData(data);
         } catch (error) {
-            setError(error.message);
-        } finally {
+            console.error('Błąd pobierania danych użytkownika:', error);
+            localStorage.removeItem('token'); // Usuń token jeśli jest nieważny
+            navigate('/login');
+        }finally {
             setLoading(false);
         }
     };
+    
 
     const fetchUserNotes = async () => {
         try {
@@ -59,6 +64,7 @@ const [editData, setEditData] = useState({ title: '', note: '', phoneNumber: '' 
             const data = await response.json();
             setEntries(data);
         } catch (error) {
+            console.error('Błąd pobierania notatek:', error);
             setError(error.message);
         }
     };
@@ -68,6 +74,7 @@ const [editData, setEditData] = useState({ title: '', note: '', phoneNumber: '' 
         const { name, value } = e.target;
         setNewData(prev => ({ ...prev, [name]: value }));
     };
+
 
 
 
@@ -185,7 +192,7 @@ const [editData, setEditData] = useState({ title: '', note: '', phoneNumber: '' 
             if (!response.ok) throw new Error('Błąd usuwania konta');
     
             localStorage.removeItem('token');
-            navigate('/Sign-up');
+            navigate('/login');
         } catch (error) {
             setError(error.message);
         }
@@ -223,7 +230,7 @@ const [editData, setEditData] = useState({ title: '', note: '', phoneNumber: '' 
                 headers: { 'Authorization': `Bearer ${token}` },
             });
     
-            if (!response.ok) throw new Error('Błąd usuwania zdjęcia');
+            if (!response.ok) throw new Error('Błąd usuwania zdjęcia');nin
     
             setEntries(prevEntries =>
                 prevEntries.map(entry =>
@@ -349,14 +356,42 @@ const [editData, setEditData] = useState({ title: '', note: '', phoneNumber: '' 
     </Box>
 ))}
 
-                    
-
-
-
-
             </Box>
         </Flex>
     );
 };
 
 export default Dashboard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
