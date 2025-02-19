@@ -1,23 +1,12 @@
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
-
-// const NoteSchema = new Schema({
-//     title: String,
-//     image: String,
-//     body: Schema.Types.Mixed, // Zmiana typu pola body
-// });
-// const Note = mongoose.model('Note', NoteSchema);
-
-// module.exports = Note;
-
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Model dla notatek
 const NoteSchema = new Schema({
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Dodaj powiązanie z użytkownikiem
     title: String,
     image: String,
+    phoneNumber: String,
     body: Schema.Types.Mixed, 
 });
 const Note = mongoose.model('Note', NoteSchema);
