@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import {
   Flex,
@@ -39,6 +40,7 @@ const Login = () => {
         setToken(data.token);
         localStorage.setItem('token', data.token);
         setMessage('Zalogowano pomyślnie');
+        console.log('Zalogowano pomyślnie' + data.token);
         navigate('/dashboard');
       } else {
         setMessage(data.message || 'Błąd logowania');
@@ -134,6 +136,7 @@ const Login = () => {
           {/* Formularz logowania */}
           <Flex
             bgImage={'url(/tapeta.jpg)'}
+            bgSize="none"
             p={10}
             direction="column"
             width="100%"
@@ -141,7 +144,7 @@ const Login = () => {
           >
             <Heading
               color="white"
-              fontSize={{ base: '24px', md: '30px' }}
+              fontSize={{ base: '20px', md: '30px' }}
               textAlign="center"
             >
               Logowanie
