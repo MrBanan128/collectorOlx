@@ -136,7 +136,6 @@ const Login = () => {
           {/* Formularz logowania */}
           <Flex
             bgImage={'url(/tapeta.jpg)'}
-            bgSize="none"
             p={10}
             direction="column"
             width="100%"

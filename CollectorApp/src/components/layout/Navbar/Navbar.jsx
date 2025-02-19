@@ -17,6 +17,7 @@ const Navbar = ({ background, height }) => {
   return (
     <Flex>
       <Flex
+        marginTop={'0.5rem'}
         zIndex={999}
         width="100%"
         alignItems="center"
