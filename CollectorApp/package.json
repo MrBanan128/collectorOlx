@@ -14,6 +14,7 @@
     "@emotion/react": "^11.14.0",
     "@react-oauth/google": "^0.12.1",
     "@react-spring/web": "^9.7.5",
+    "axios": "^1.7.9",
     "embla-carousel": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "framer-motion": "^12.4.3",

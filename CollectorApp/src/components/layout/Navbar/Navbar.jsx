@@ -35,10 +35,10 @@ const Navbar = ({ background, height }) => {
         </Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Home</AppLink>
-          <AppLink to="/message">Message</AppLink>
-          <AppLink to="/chat">Chat</AppLink>
+          <AppLink to="/dashboard">Dashboard</AppLink>
           <AppLink to={'/Sign-up'}>Account</AppLink>
-           <AppLink to={'/test'}>Test </AppLink>
+          <AppLink to={'/test'}>Test </AppLink>
+          <AppLink to={'/admin'}>Admin </AppLink>
           <MenuButton onClick={handleClick} />
         </Flex>
       </Flex>
@@ -51,10 +51,10 @@ const Navbar = ({ background, height }) => {
           top={0}
           right={0}
           height="100vh"
-          width="50%"
+          width="40%"
           zIndex={999}
           background="rgba(255, 255, 255, 0)"
-          backdropFilter="blur(10px)"
+          backdropFilter="blur(6px)"
           boxShadow="-10px 0 10px rgba(0, 0, 0, 0.1)"
         >
           <CloseButton
