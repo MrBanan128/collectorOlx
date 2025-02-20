@@ -420,8 +420,8 @@
 
 
 
-import { Flex} from '@chakra-ui/react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Flex,Link, Box} from '@chakra-ui/react';
+import { Route, Routes, Link as RouterLink } from 'react-router-dom';
 import Products from './userComponents/Products'; // Importuj Products
 import Profile from './userComponents/Profile';
 import Message from './userComponents/Message';
@@ -434,9 +434,12 @@ const Dashboard = () => {
         <Flex margin="50px" direction="column" align="center">
             <h1>Panel użytkownika</h1>
             <Flex>
-                <Link to="/dashboard/profile">Profil</Link> | 
-                <Link to="/dashboard/products">Produkty</Link> | 
-                <Link to="/dashboard/message">Wiadomości</Link>
+                <Box as={RouterLink} to="/dashboard/profile"
+                border = {"solid #ffffff 2px"} padding = {".5rem 1rem"}>Profil</Box> | 
+                <Box as={RouterLink} to="/dashboard/products" 
+                border = {"solid #ffffff 2px"} padding = {".5rem 1rem"} margin = {".5rem 1rem"}
+                >Produkty</Box> | 
+                <Box as={RouterLink} to="/dashboard/message" border = {"solid #ffffff 2px"} padding = {".5rem 1rem"}>Wiadomości</Box>
             </Flex>
             <Routes>
                 <Route path="profile" element={<Profile />} />
