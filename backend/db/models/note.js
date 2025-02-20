@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
     username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    status: { type: String, enum: ['user', 'admin'], default: 'user' } // Domyślny status: 'user'
+    status: { type: String, enum: ['user', 'admin', 'expert'], default: 'user' } // Domyślny status: 'user'
 });
 const User = mongoose.model('User', UserSchema);
 

@@ -395,31 +395,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { Flex,Link, Box} from '@chakra-ui/react';
 import { Route, Routes, Link as RouterLink } from 'react-router-dom';
 import Products from './userComponents/Products'; // Importuj Products
