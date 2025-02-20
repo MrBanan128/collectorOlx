@@ -3,7 +3,7 @@
   --slide-height: 19rem;
   --slide-spacing: 1rem;
   --slide-size: 50%;
-  color: black;
+  color: white;
 }
 
 .embla__viewport {
@@ -39,6 +39,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: black;
 }
 
 .embla__slide__image {

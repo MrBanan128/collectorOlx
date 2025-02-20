@@ -32,6 +32,14 @@ body {
   font-size: 1.6rem;
   line-height: 1.65;
 }
+.carousel {
+  background: rgb(255, 254, 212);
+  background: linear-gradient(
+    143deg,
+    rgba(255, 254, 212, 1) 0%,
+    rgba(255, 247, 215, 0.9809173669467787) 50%
+  );
+}
 .theme-light {
   --brand-primary: rgb(47, 112, 193);
   --brand-secondary: rgb(116, 97, 195);

@@ -8,12 +8,13 @@ const SideLink = ({ children, to }) => {
   const active = location.pathname === to;
   return (
     <Link
+      zIndex={9999}
       as={NavLink}
       to={to}
       textDecoration={'none'}
       _focus={{ outline: 'none' }}
       fontWeight={'bold'}
-      color={active ? 'rgba(44, 101, 175, 0.8)' : 'rgba(0, 0, 0, 0.8)'}
+      color={active ? 'rgba(44, 101, 175, 1)' : 'rgba(255, 255, 255, 1)'}
       borderBottom={active ? '2px solid ' : 'none'}
       cursor={'pointer'}
       width={'100%'}

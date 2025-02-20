@@ -5,13 +5,40 @@
   gap: 20px;
   justify-content: center;
   padding: 40px;
-  background: rgb(11, 11, 11);
-  background: radial-gradient(
-    circle,
-    rgba(11, 11, 11, 1) 0%,
-    rgba(193, 186, 186, 1) 50%,
-    rgba(9, 9, 9, 1) 100%
+  margin: 0;
+  background: linear-gradient(
+    143deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(87, 87, 87, 1) 10%,
+    rgba(87, 87, 87, 1) 17%,
+    rgba(121, 121, 121, 0.98) 20%,
+    rgba(83, 83, 83, 1) 28%,
+    rgba(102, 102, 102, 1) 35%,
+    rgba(79, 79, 79, 1) 37%,
+    rgba(99, 99, 99, 1) 42%,
+    rgba(125, 125, 125, 1) 47%,
+    rgba(85, 85, 85, 1) 53%,
+    rgba(111, 111, 111, 1) 57%,
+    rgba(88, 87, 87, 1) 60%,
+    rgba(110, 110, 110, 1) 65%,
+    rgba(110, 107, 107, 1) 70%,
+    rgba(57, 57, 57, 1) 75%,
+    rgba(66, 66, 66, 1) 82%,
+    rgba(36, 36, 36, 0.98) 88%,
+    rgba(64, 63, 63, 0.98) 94%,
+    rgba(83, 83, 83, 0.98) 98%
   );
+  background-size: 200% 200%;
+  animation: gradientAnimation 20s ease-in-out infinite alternate;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 /* Container for the heading to center it */

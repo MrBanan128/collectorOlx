@@ -17,7 +17,7 @@ const Navbar = ({ background, height }) => {
   return (
     <Flex>
       <Flex
-        zIndex={999}
+        zIndex={2222}
         width="100%"
         alignItems="center"
         justifyContent="space-between"
@@ -29,6 +29,8 @@ const Navbar = ({ background, height }) => {
         sm={{ px: 4 }}
         md={{ px: 6 }}
         lg={{ px: 8 }}
+        roundedBottom={'xl'}
+        // borderBottom={'5px solid gray'}
       >
         <Link to="/">
           <Logo />
@@ -44,27 +46,32 @@ const Navbar = ({ background, height }) => {
       </Flex>
       {isVisible && (
         <Flex
-          direction="column"
-          alignItems="start"
-          justifyContent="start"
+          // direction="column"
+          // alignItems="start"
+          // justifyContent="start"
           position="fixed"
           top={0}
           right={0}
           height="100vh"
-          width="40%"
-          zIndex={999}
+          width="100%"
+          zIndex={9999}
           background="rgba(255, 255, 255, 0)"
           backdropFilter="blur(6px)"
           boxShadow="-10px 0 10px rgba(0, 0, 0, 0.1)"
+          backgroundColor={'black'}
         >
-          <CloseButton
-            onClick={handleClick}
-            variant="ghost"
-            size="xl"
-            color="rgb(255, 255, 255)"
-            fontWeight="bold"
-          />
-          <Sidebar />
+          <Flex>
+            <CloseButton
+              onClick={handleClick}
+              variant="ghost"
+              size="xl"
+              color="rgb(255, 255, 255)"
+              fontWeight="bold"
+            />
+          </Flex>
+          <Flex justifyContent={'center'} alignItems={'center'}>
+            <Sidebar />
+          </Flex>
         </Flex>
       )}
     </Flex>

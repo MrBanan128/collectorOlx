@@ -32,7 +32,7 @@ const Home = () => {
         <Navbar
           background={
             scrolled
-              ? 'radial-gradient(circle, rgba(11,11,11,0) 0%, rgba(193,186,186,0) 50%, rgba(9,9,9,0) 100%)'
+              ? 'radial-gradient(circle, rgba(11,11,11,1) 0%, rgba(193,186,186,1) 50%, rgba(9,9,9,1) 100%)'
               : 'radial-gradient(circle, rgba(11,11,11,0) 0%, rgba(193,186,186,0) 50%, rgba(9,9,9,0) 100%)'
           }
           height={scrolled ? '84px' : '80px'} // Wysokość zmieniona o 10%
@@ -58,7 +58,7 @@ const Home = () => {
             fontWeight="bold"
           >
             <DecryptedText
-              text="BARTER COLLECTORS EXCHANGE"
+              text="ANTIQUE VALUE"
               animateOn="view"
               fontSize={{
                 base: '1rem',
@@ -74,7 +74,7 @@ const Home = () => {
         </Box>
 
         <Image
-          src="/background.jpg"
+          src="./src/assets/main-page-img.jpeg"
           alt="background"
           width="100%"
           objectFit="cover"
