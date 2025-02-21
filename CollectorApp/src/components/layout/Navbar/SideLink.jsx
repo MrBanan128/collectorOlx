@@ -14,7 +14,7 @@ const SideLink = ({ children, to }) => {
       textDecoration={'none'}
       _focus={{ outline: 'none' }}
       fontWeight={'bold'}
-      color={active ? 'rgba(44, 101, 175, 1)' : 'rgba(255, 255, 255, 1)'}
+      color={active ? 'rgba(44, 101, 175, 1)' : 'rgba(0, 0, 0, 1)'}
       borderBottom={active ? '2px solid ' : 'none'}
       cursor={'pointer'}
       width={'100%'}
