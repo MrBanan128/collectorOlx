@@ -13,7 +13,7 @@ const App = () => {
     >
       <Navbar />
       <Flex flexDir={'column'} padding={'1rem'} marginTop={'10rem'}>
-        <Heading
+        {/* <Heading
           fontSize="2rem"
           fontWeight="bold"
           padding="1rem"
@@ -21,7 +21,7 @@ const App = () => {
         >
           Product Management
         </Heading>
-        <Products />
+        <Products /> */}
         <Heading
           fontSize="2rem"
           fontWeight="bold"
