@@ -1,17 +1,19 @@
 import {
   DrawerBackdrop,
   DrawerBody,
-  DrawerCloseTrigger,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerRoot,
-  DrawerTitle,
-  DrawerTrigger,
-  DrawerActionTrigger
+  DrawerTitle
 } from '../../ui/drawer';
-import { Button, Flex, Grid } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Button, Flex, Grid, Box, Text } from '@chakra-ui/react';
+import {
+  House,
+  MessageCircleMore,
+  MessagesSquare,
+  UserRound
+} from 'lucide-react';
 
 const Sidebar = ({ open, setOpen }) => {
   return (
@@ -26,29 +28,80 @@ const Sidebar = ({ open, setOpen }) => {
           <DrawerTitle>Antique Value</DrawerTitle>
         </DrawerHeader>
         <DrawerBody>
-          <Grid
-            templateRows="repeat(2, 1fr)"
-            templateColumns="repeat(2, 1fr)"
-            gap={4}
+          {/* Use Flex to center the Grid */}
+          <Flex
+            width="100%"
+            height="100%"
+            alignItems="center"
+            justifyContent="center"
           >
-            <Button>test</Button>
-            <Button>test</Button>
-            <Button>test</Button>
-          </Grid>
+            <Grid
+              templateRows="repeat(2, 1fr)"
+              templateColumns="repeat(2, 1fr)"
+              gap={4}
+              width="100%" // Ensure Grid takes full width
+            >
+              <Box
+                width="100%"
+                height="80px"
+                fontSize="xl"
+                backgroundColor={'white'}
+                color={'black'}
+                rounded={'xl'}
+                justifyItems={'center'}
+                alignContent={'center'}
+              >
+                <House />
+                <Text>Home</Text>
+              </Box>
+              <Box
+                width="100%"
+                height="80px"
+                fontSize="xl"
+                backgroundColor={'white'}
+                color={'black'}
+                rounded={'xl'}
+                justifyItems={'center'}
+                alignContent={'center'}
+              >
+                <MessageCircleMore />
+                <Text>Message</Text>
+              </Box>
+              <Box
+                width="100%"
+                height="80px"
+                fontSize="xl"
+                backgroundColor={'white'}
+                color={'black'}
+                rounded={'xl'}
+                justifyItems={'center'}
+                alignContent={'center'}
+              >
+                <MessagesSquare />
+                <Text>Chat</Text>
+              </Box>
+              <Box
+                width="100%"
+                height="80px"
+                fontSize="xl"
+                backgroundColor={'white'}
+                color={'black'}
+                rounded={'xl'}
+                justifyItems={'center'}
+                alignContent={'center'}
+                direction={'row'}
+              >
+                <UserRound />
+                <Text>Account</Text>
+              </Box>
+            </Grid>
+          </Flex>
         </DrawerBody>
         <DrawerFooter>
-          {/* <DrawerActionTrigger asChild>
-            <Button></Button>
-          </DrawerActionTrigger> */}
           <Button onClick={() => setOpen(false)} fontWeight={'bold'}>
             X
           </Button>
         </DrawerFooter>
-        {/* <DrawerCloseTrigger asChild>
-          <Button variant="outline" onClick={() => setOpen(false)}>
-            Close
-          </Button>
-        </DrawerCloseTrigger> */}
       </DrawerContent>
     </DrawerRoot>
   );
