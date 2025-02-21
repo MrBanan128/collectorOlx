@@ -82,17 +82,28 @@ const authMiddleware = async (req, res, next) => {
 // Rejestracja użytkownika
 router.post('/register', async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        console.log("Dane z frontendu:", req.body);  // Debug: sprawdź, czy `status` dociera do backendu
+
+        const { username, email, password, status } = req.body;
 
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: 'Użytkownik już istnieje' });
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({ username, email, password: hashedPassword, status: 'user' });
+        const user = new User({ 
+            username, 
+            email, 
+            password: hashedPassword, 
+            status: status ? status : 'user'  // Jeśli `status` nie został przesłany, ustaw 'user'
+        });
+
         await user.save();
 
-        res.status(201).json({ message: 'Rejestracja zakończona sukcesem' });
+        console.log("Nowy użytkownik zapisany:", user);  // Debug: sprawdź, jaki status ma użytkownik
+
+        res.status(201).json({ message: 'Rejestracja zakończona sukcesem', user });
     } catch (error) {
+        console.error("Błąd rejestracji:", error);
         res.status(500).json({ error: 'Błąd serwera', details: error });
     }
 });
@@ -344,6 +355,51 @@ router.delete('/users/entries/image/:noteId', authMiddleware, async (req, res) =
         res.status(500).json({ message: 'Błąd serwera' });
     }
 });
+
+
+
+
+// ======================================= ADMIN ====================================== //
+
+
+// Middleware do sprawdzania, czy użytkownik jest administratorem
+const adminMiddleware = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user || user.status !== 'admin') {
+            return res.status(403).json({ message: 'Brak uprawnień' });
+        }
+        next();
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd serwera', details: error });
+    }
+};
+
+// Endpoint dla administratora do pobierania wszystkich użytkowników
+router.get('/admin/users', authMiddleware, adminMiddleware, async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd pobierania użytkowników', details: error });
+    }
+});
+
+// Endpoint dla administratora do usuwania użytkownika
+router.delete('/admin/users/:userId', authMiddleware, adminMiddleware, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+
+        await User.findByIdAndDelete(userId);
+        res.json({ message: 'Użytkownik usunięty' });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas usuwania użytkownika', details: error });
+    }
+});
+
+
 
 
 module.exports = router;
