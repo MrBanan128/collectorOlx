@@ -77,6 +77,7 @@ const authMiddleware = async (req, res, next) => {
 
 
 
+
 // ==================== AUTORYZACJA ====================
 
 // Rejestracja użytkownika
@@ -400,21 +401,23 @@ router.delete('/admin/users/:userId', authMiddleware, adminMiddleware, async (re
 });
 
 
+router.get('/user-info', authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+
+        res.json({
+            username: user.username,
+            email: user.email,
+            status: user.status // Przekazujemy status użytkownika
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd pobierania danych użytkownika', details: error });
+    }
+});
+
 
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
