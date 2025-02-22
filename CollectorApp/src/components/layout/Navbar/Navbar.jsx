@@ -11,6 +11,7 @@ const Navbar = ({ background, height }) => {
   const [isVisible, setVisible] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false); // Stan do przechowywania informacji o adminie
   const [isExpert, setIsExpert] = useState(false); // Stan do przechowywania informacji o ekspercie
+  const [isLogged, setIsLogged] = useState(false); // Stan do przechowywania informacji o zalogowaniu
 
   useEffect(() => {
     // Odczytujemy dane z localStorage, np. rolę użytkownika
@@ -23,6 +24,10 @@ const Navbar = ({ background, height }) => {
     if (userData && userData.role === 'expert') {
       setIsExpert(true);
       console.log('expert');
+    }
+    if (userData !== null) {
+      setIsLogged(true);
+      console.log('logged');
     }
   }, []);
 
@@ -51,13 +56,13 @@ const Navbar = ({ background, height }) => {
           <Logo />
         </Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
-          <AppLink to="/">Home</AppLink>
-          <AppLink to="/dashboard">Dashboard</AppLink>
-          <AppLink to={'/Sign-up'}>Account</AppLink>
-          <AppLink to={'/test'}>Test </AppLink>
+          <AppLink to="/">Strona Główna</AppLink>
+          <AppLink to="/dashboard">Profil</AppLink>
+          {isLogged && <AppLink to={'/login'}>Zaloguj</AppLink>}
 
           {/* Warunkowe renderowanie linku Admin, jeśli użytkownik jest administratorem */}
           {isAdmin && <AppLink to={'/admin'}>Admin</AppLink>}
+          {isExpert && <AppLink to={'/expert'}>Expert</AppLink>}
 
           <MenuButton onClick={handleClick} />
         </Flex>
