@@ -1,14 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import {
-  Flex,
-  Box,
-  Input,
-  Button,
-  Heading,
-  Image,
-  Text
-} from '@chakra-ui/react';
+import { Flex, Box, Input, Button, Heading, Image, Text} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'; // Corrected import path for NavLink
 import { FaGoogle, FaFacebook } from 'react-icons/fa'; // Added FaArrowLeft

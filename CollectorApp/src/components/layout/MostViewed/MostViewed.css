@@ -43,6 +43,11 @@
 
 /* Container for the heading to center it */
 .heading-container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
   width: 100%;
   text-align: center;
   margin-bottom: 20px; /* Space between heading and the category cards */
