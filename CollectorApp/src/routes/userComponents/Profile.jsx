@@ -1,13 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Flex,
-  Button,
-  Image,
-  Box,
-  Heading,
-  Stack,
-  Text
-} from '@chakra-ui/react';
+import { Flex, Button, Heading, Stack, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Avatar } from '@chakra-ui/react';
 
@@ -72,12 +64,14 @@ const Profile = () => {
   return (
     <Flex
       direction="column"
+      height="100%"
+      minH={'80vh'} // Zapewnia pełną wysokość okna
       bgImage={'url(/coinFlip.png)'}
-      height={'100%'} // Zapewnia pełną wysokość okna
       width={'100%'}
       backgroundSize={'cover'}
       justifyContent={'center'} // Centruj elementy w pionie
       alignItems={'center'} // Centruj elementy w poziomie
+      overflow={'auto'} // Zapobiega pojawianiu się pasków przewijania
     >
       <Flex
         className="container"

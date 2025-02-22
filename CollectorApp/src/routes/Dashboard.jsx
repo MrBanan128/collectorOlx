@@ -6,6 +6,7 @@ import Profile from './userComponents/Profile';
 import Message from './userComponents/Message';
 import Admin from '../components/layout/AdminPanel/Users';
 import PanelExpert from './userComponents/PanelExpert';
+import AddProduct from './userComponents/AddProduct';
 
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -42,16 +43,22 @@ const Dashboard = () => {
 
   return (
     <Flex
+      marginTop={'0'}
       direction="column"
       align="flex-start"
-      background={'gray.500'}
-      height="100vh"
-      width={'100vw'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      width={'100%'}
+      minW={'100vw'}
+      minH={'100vh'}
+      bgGradient="linear-gradient(90deg, #4a90e2 0%, #2c3e50 50%, #34495e 100%)"
+      className="dashboard"
     >
       <Flex
         direction="column"
         align="center"
         width="100%"
+        height={'100%'}
         bgImage={
           'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
         }
@@ -107,6 +114,7 @@ const Dashboard = () => {
       <Routes>
         <Route path="profile" element={<Profile />} />
         <Route path="products" element={<Products />} />
+        <Route path="add-product" element={<AddProduct />} />
         <Route path="message" element={<Message />} />
         {isExpert && <Route path="expert" element={<PanelExpert />} />}
         {isAdmin && <Route path="admin-users" element={<Admin />} />}

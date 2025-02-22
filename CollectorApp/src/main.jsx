@@ -12,6 +12,7 @@ import Admin from './routes/Admin';
 import Login from './components/layout/Login/Login';
 import Register from './components/layout/Login/Register';
 import Expert from './components/layout/AdminPanel/Expert';
+import NotFound from './components/layout/404';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/expert" element={<Expert />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </Provider>
