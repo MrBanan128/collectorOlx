@@ -254,6 +254,7 @@ router.delete('/users', authMiddleware, async (req, res) => {
 
 // ======================================== Entries ======================================== //
 
+
 router.get('/users/entries', authMiddleware, async (req, res) => {
     try {
         const notes = await Note.find({ userId: req.user.userId }); // Filtrujemy po userId
@@ -263,11 +264,30 @@ router.get('/users/entries', authMiddleware, async (req, res) => {
     }
 });
 
-// Pobieranie pojedynczej notatki po ID
-router.get('/users/entries/:noteId', authMiddleware, async (req, res) => {
+
+router.get('/entries', async (req, res) => {
+  try {
+    const notes = await Note.find()
+      .sort({ views: -1 }) // Sortowanie po views w kolejności malejącej
+      .limit(9); // Ograniczenie do 9 elementów
+
+    res.json(notes);
+  } catch (error) {
+    res.status(500).json({ message: 'Błąd pobierania notatek', details: error });
+  }
+});
+
+
+router.get('/users/entries/:noteId', async (req, res) => {
     try {
         const { noteId } = req.params;
-        const note = await Note.findById(noteId);
+        
+        // Znalezienie i zwiększenie liczby wyświetleń
+        const note = await Note.findByIdAndUpdate(
+            noteId,
+            { $inc: { views: 1 } }, // Inkrementacja views o 1
+            { new: true } // Zwrócenie zaktualizowanego dokumentu
+        );
 
         if (!note) return res.status(404).json({ message: 'Notatka nie znaleziona' });
 
@@ -276,7 +296,6 @@ router.get('/users/entries/:noteId', authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Błąd pobierania notatki', details: error });
     }
 });
-
 
 router.post('/users/entries', authMiddleware, upload.single('image'), async (req, res) => {
     try {

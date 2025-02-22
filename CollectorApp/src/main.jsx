@@ -11,8 +11,8 @@ import './index.css';
 import Admin from './routes/Admin';
 import Login from './components/layout/Login/Login';
 import Register from './components/layout/Login/Register';
-import Products from './routes/userComponents/Products';
 import ProductsPanel from './routes/userComponents/ProductsPanel';
+import CategorySide from './components/layout/CategoryCarousel/CategorySide';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,8 +25,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
-          <Route path="/products" element={<Products />} />
           <Route path="/entry/:id" element={<ProductsPanel />} />
+          <Route path="/:category" element={<CategorySide />} />
+          <Route path="/:category/:subcategory" element={<CategorySide />} />
         </Routes>
       </BrowserRouter>
     </Provider>

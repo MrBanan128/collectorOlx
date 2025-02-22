@@ -1,30 +1,43 @@
 
+
 import { useState, useEffect } from 'react';
 import { Flex, Button, Input, Textarea, Image, Box } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
     const [categories, setCategories] = useState([
-        { value: 'kategoria1', label: 'Kategoria 1' },
-        { value: 'kategoria2', label: 'Kategoria 2' },
-        { value: 'kategoria3', label: 'Kategoria 3' }
+        { value: 'Figurka', label: 'Figurka' },
+        { value: 'Znaczek', label: 'Znaczek' },
+        { value: 'Moneta', label: 'Moneta' },
+        { value: 'Karta', label: 'Karta' },
+        { value: 'Inne', label: 'Inne' },
     ]);
 
     const [subcategories, setSubcategories] = useState({
-        kategoria1: [
-            { value: 'subcategory1', label: 'Podkategoria 1' },
-            { value: 'subcategory2', label: 'Podkategoria 2' },
-            { value: 'subcategory3', label: 'Podkategoria 3' }
+        Figurka: [
+            { value: 'fantasy', label: 'fantasy' },
+            { value: 'miedziana', label: 'Miedziana' },
+            { value: 'porcelanowa', label: 'Porcelanowe' }
         ],
-        kategoria2: [
-            { value: 'subcategory4', label: 'Podkategoria 4' },
-            { value: 'subcategory5', label: 'Podkategoria 5' },
-            { value: 'subcategory6', label: 'Podkategoria 6' }
+        Znaczek: [
+            { value: 'wojskowy', label: 'Wojskowy' },
+            { value: 'wersonalizowany', label: 'Personalizowany' },
+            { value: 'urzędowy', label: 'Urzędowy' }
         ],
-        kategoria3: [
-            { value: 'subcategory7', label: 'Podkategoria 7' },
-            { value: 'subcategory8', label: 'Podkategoria 8' },
-            { value: 'subcategory9', label: 'Podkategoria 9' }
+        Moneta: [
+            { value: 'złota', label: 'Złota' },
+            { value: 'srebrna', label: 'Srebrna' },
+            { value: 'zabytkowa', label: 'Zabytkowa' }
+        ],
+        Karta: [
+            { value: 'fantasy', label: 'Fantasy' },
+            { value: 'sportowa', label: 'Sportowa' },
+            { value: 'muzyczna', label: 'Muzyczna' }
+        ],
+        Inne: [
+            { value: 'samochody', label: 'Samochody' },
+            { value: 'dzieła sztuki', label: 'Dzieła sztuki' },
+            { value: 'Zastawa stołowa', label: 'Zastawa stołowa' }
         ]
     });
 
@@ -290,9 +303,11 @@ const Products = () => {
                                 </Button>
                             </>
                         ) : (
-                            <Box  key={index} border="1px solid #ccc" padding="10px" marginBottom="10px"
+                            <Box  
+                            key={index} border="1px solid #ccc" padding="10px" marginBottom="10px"
                             _hover={{ background: "#f0f0f0", cursor: "pointer" }}
-                            onClick={() => navigate(`/entry/${entry._id}`)}>
+                            onClick={() => navigate(`/entry/${entry._id}`)}
+                            >
                                 
                                 <h4>{entry.title || 'Bez tytułu'}</h4>
                                 <p>{entry.body || 'Brak treści'}</p>

@@ -39,7 +39,7 @@ const EntryPanel = () => {
         </Box>
 
         <Box padding="20px" border="1px solid #ccc" maxWidth="500px" margin="auto">
-        <Text fontSize="xl" fontWeight="bold">{entry.title}</Text>
+           <Text fontSize="xl" fontWeight="bold">{entry.title}</Text>
             <Text>{entry.body}</Text>
             <Text fontSize="sm" color="gray">Cena: {entry.price}</Text>
             <Text fontSize="sm" color="gray">Kategoria: {entry.category}</Text>

@@ -1,16 +1,16 @@
-import {
-  PrevButton,
-  NextButton,
-  usePrevNextButtons
-} from './EmblaCarouselArrowButtons';
-import {
-  SelectedSnapDisplay,
-  useSelectedSnapDisplay
-} from './EmblaCarouselSelectedSnapDisplay';
+import React, { useState } from 'react';
+import { PrevButton, NextButton, usePrevNextButtons } from './EmblaCarouselArrowButtons';
+import { SelectedSnapDisplay, useSelectedSnapDisplay } from './EmblaCarouselSelectedSnapDisplay';
 import useEmblaCarousel from 'embla-carousel-react';
+import CategorySelector from './CategorySelector';
 
 const EmblaCarousel = ({ slides = [], options }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
 
   const {
     prevBtnDisabled,
@@ -19,7 +19,8 @@ const EmblaCarousel = ({ slides = [], options }) => {
     onNextButtonClick
   } = usePrevNextButtons(emblaApi || null);
 
-  const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi || null);
+  const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi || null);console.log("Aktualnie wybrana kategoria:", selectedCategory);
+
 
   return (
     <section className="embla">
@@ -34,10 +35,13 @@ const EmblaCarousel = ({ slides = [], options }) => {
                   minHeight: '200px',
                   width: '100%',
                   margin: '20px',
-                  boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.1)' // Przykład cienia
+                  boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.1)',
                 }}
               >
-                <div className="embla__slide__content">
+                <div
+                  className="embla__slide__content"
+                  onClick={() => handleCategoryClick(slide.title)}
+                >
                   <h2 className="embla__slide__title">{slide.title}</h2>
                   <img
                     className="embla__slide__image"
@@ -53,16 +57,17 @@ const EmblaCarousel = ({ slides = [], options }) => {
         </div>
       </div>
 
+      {/* Komponent wyboru kategorii */}
+      <CategorySelector selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+     
+
       <div className="embla__controls">
         <div className="embla__buttons">
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
 
-        <SelectedSnapDisplay
-          selectedSnap={selectedSnap}
-          snapCount={snapCount}
-        />
+        <SelectedSnapDisplay selectedSnap={selectedSnap} snapCount={snapCount} />
       </div>
     </section>
   );
