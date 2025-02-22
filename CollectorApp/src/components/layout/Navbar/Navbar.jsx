@@ -1,7 +1,6 @@
 import { Flex, CloseButton } from '@chakra-ui/react';
 import { Link } from 'react-router';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import MenuButton from './MenuButton';
 import Logo from './Logo';
 import AppLink from './AppLink';
@@ -10,6 +9,23 @@ import Sidebar from './Sidebar';
 // eslint-disable-next-line react/prop-types
 const Navbar = ({ background, height }) => {
   const [isVisible, setVisible] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false); // Stan do przechowywania informacji o adminie
+  const [isExpert, setIsExpert] = useState(false); // Stan do przechowywania informacji o ekspercie
+
+  useEffect(() => {
+    // Odczytujemy dane z localStorage, np. rolę użytkownika
+    const userData = JSON.parse(localStorage.getItem('user')); // Zakładamy, że dane użytkownika są zapisane w localStorage pod kluczem 'user'
+
+    if (userData && userData.role === 'admin') {
+      setIsAdmin(true);
+      console.log('admin');
+    }
+    if (userData && userData.role === 'expert') {
+      setIsExpert(true);
+      console.log('expert');
+    }
+  }, []);
+
   const handleClick = () => {
     setVisible(!isVisible);
   };
@@ -39,7 +55,10 @@ const Navbar = ({ background, height }) => {
           <AppLink to="/dashboard">Dashboard</AppLink>
           <AppLink to={'/Sign-up'}>Account</AppLink>
           <AppLink to={'/test'}>Test </AppLink>
-          <AppLink to={'/admin'}>Admin </AppLink>
+
+          {/* Warunkowe renderowanie linku Admin, jeśli użytkownik jest administratorem */}
+          {isAdmin && <AppLink to={'/admin'}>Admin</AppLink>}
+
           <MenuButton onClick={handleClick} />
         </Flex>
       </Flex>
