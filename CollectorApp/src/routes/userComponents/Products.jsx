@@ -1,33 +1,57 @@
 import { useState, useEffect } from 'react';
-import {
-  Flex,
-  Button,
-  Input,
-  Textarea,
-  Image,
-  Box,
-  Heading
-} from '@chakra-ui/react';
+import { Flex, Button, Input, Textarea, Image, Box } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { NavLink } from 'react-router';
 
 const Products = () => {
+  const [categories, setCategories] = useState([
+    { value: 'Figurka', label: 'Figurka' },
+    { value: 'Znaczek', label: 'Znaczek' },
+    { value: 'Moneta', label: 'Moneta' },
+    { value: 'Karta', label: 'Karta' },
+    { value: 'Inne', label: 'Inne' }
+  ]);
+
+  const [subcategories, setSubcategories] = useState({
+    Figurka: [
+      { value: 'fantasy', label: 'fantasy' },
+      { value: 'miedziana', label: 'Miedziana' },
+      { value: 'porcelanowa', label: 'Porcelanowe' }
+    ],
+    Znaczek: [
+      { value: 'wojskowy', label: 'Wojskowy' },
+      { value: 'wersonalizowany', label: 'Personalizowany' },
+      { value: 'urzędowy', label: 'Urzędowy' }
+    ],
+    Moneta: [
+      { value: 'złota', label: 'Złota' },
+      { value: 'srebrna', label: 'Srebrna' },
+      { value: 'zabytkowa', label: 'Zabytkowa' }
+    ],
+    Karta: [
+      { value: 'fantasy', label: 'Fantasy' },
+      { value: 'sportowa', label: 'Sportowa' },
+      { value: 'muzyczna', label: 'Muzyczna' }
+    ],
+    Inne: [
+      { value: 'samochody', label: 'Samochody' },
+      { value: 'dzieła sztuki', label: 'Dzieła sztuki' },
+      { value: 'Zastawa stołowa', label: 'Zastawa stołowa' }
+    ]
+  });
+
   const [newData, setNewData] = useState({
     title: '',
     note: '',
-    phoneNumber: '',
+    price: '',
+    category: '',
+    subcategory: '',
     avatar: null
   });
   const [preview, setPreview] = useState(null);
   const [entries, setEntries] = useState([]);
   const [editMode, setEditMode] = useState(null);
+  const [editData, setEditData] = useState({ title: '', note: '', price: '' });
   const [error, setError] = useState(null);
-  const [editData, setEditData] = useState({
-    title: '',
-    note: '',
-    phoneNumber: ''
-  });
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,6 +81,15 @@ const Products = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === 'category') {
+      setNewData((prev) => ({ ...prev, subcategory: '' }));
+    }
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -65,15 +98,47 @@ const Products = () => {
     }
   };
 
-  // ====================================== Edit ====================================//
+  const handleAddEntry = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+
+    const formData = new FormData();
+    formData.append('title', newData.title);
+    formData.append('body', newData.note);
+    formData.append('price', newData.price);
+    formData.append('category', newData.category);
+    formData.append('subcategory', newData.subcategory);
+    if (newData.avatar) formData.append('image', newData.avatar);
+
+    try {
+      const response = await fetch('http://localhost:10000/users/entries', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData
+      });
+
+      if (!response.ok) throw new Error('Błąd dodawania wpisu');
+
+      const { note } = await response.json();
+      setEntries((prevEntries) => [...prevEntries, note]);
+
+      setNewData({
+        title: '',
+        note: '',
+        price: '',
+        category: '',
+        subcategory: '',
+        avatar: null
+      });
+      setPreview(null);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   const handleEditClick = (entry) => {
     setEditMode(entry._id);
-    setEditData({
-      title: entry.title,
-      note: entry.body,
-      phoneNumber: entry.phoneNumber
-    });
+    setEditData({ title: entry.title, note: entry.body, price: entry.price });
   };
 
   const handleEditInputChange = (e) => {
@@ -93,7 +158,7 @@ const Products = () => {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ ...editData, body: editData.note }) // Zamiana note na body przy wysyłaniu
+          body: JSON.stringify({ ...editData, body: editData.note })
         }
       );
 
@@ -101,7 +166,6 @@ const Products = () => {
 
       const updatedNote = await response.json();
 
-      // Aktualizacja stanu z body przypisanym do note
       setEntries((prevEntries) =>
         prevEntries.map((entry) =>
           entry._id === noteId
@@ -110,13 +174,11 @@ const Products = () => {
         )
       );
 
-      setEditMode(null); // Wyłącz tryb edycji
+      setEditMode(null);
     } catch (error) {
       console.error('Błąd aktualizacji notatki:', error);
     }
   };
-
-  // ============================================== DELETED ============================================== //
 
   const handleDeleteEntry = async (noteId) => {
     const token = localStorage.getItem('token');
@@ -126,9 +188,7 @@ const Products = () => {
         `http://localhost:10000/users/entries/${noteId}`,
         {
           method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` }
         }
       );
 
@@ -168,47 +228,84 @@ const Products = () => {
   };
 
   return (
-    <Flex
-      margin="30px"
-      direction="column"
-      align="center"
-      color={'white'}
-      width={'100%'}
-      height={'100%'}
-      overflow={'hidden'}
-      xl={{ minHeight: '100vh' }}
-    >
-      <Button
-        as={NavLink}
-        to="/dashboard/add-product"
-        bgGradient="linear(to-r, #4a90e2, #2c3e50)" // Gradient z niebieskiego do szarego
-        color="white" // Kolor tekstu biały
-        _hover={{
-          bgGradient: 'linear(to-r, #5a9bd5, #34495e)', // Jaśniejszy gradient na hover
-          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)', // Efekt cienia przy hoverze
-          transform: 'scale(1.05)' // Lekkie powiększenie przy hoverze
-        }}
-        _active={{
-          bgGradient: 'linear(to-r, #2c3e50, #4a90e2)', // Gradient przy aktywnym stanie
-          transform: 'scale(0.98)' // Zmniejszenie przy kliknięciu
-        }}
-        borderRadius="md" // Zaokrąglone rogi
-        paddingX={6} // Szerokość przycisku
-        paddingY={4} // Wysokość przycisku
-        fontSize="lg" // Rozmiar czcionki
-        transition="all 0.3s ease" // Płynna animacja przy zmianie stanu
+    <Flex margin="50px" direction="column" align="center">
+      <form
+        onSubmit={handleAddEntry}
+        style={{ maxWidth: '400px', width: '100%' }}
       >
-        Dodaj Ogłoszenie
-      </Button>
+        <Input
+          name="title"
+          value={newData.title}
+          onChange={handleInputChange}
+          placeholder="Tytuł wpisu"
+          mb={2}
+        />
+        <Textarea
+          name="note"
+          value={newData.note}
+          onChange={handleInputChange}
+          placeholder="Dodaj notatkę"
+          mb={2}
+        />
+        <Input
+          name="price"
+          type="number"
+          value={newData.price}
+          onChange={handleInputChange}
+          placeholder="Cena"
+          mb={2}
+        />
+        <select
+          name="category"
+          value={newData.category}
+          onChange={handleInputChange}
+          placeholder="Wybierz kategorię"
+          mb={2}
+        >
+          <option value="">Wybierz kategorię</option>
+          {categories.map((category) => (
+            <option key={category.value} value={category.value}>
+              {category.label}
+            </option>
+          ))}
+        </select>
+
+        {newData.category && (
+          <select
+            name="subcategory"
+            value={newData.subcategory}
+            onChange={handleInputChange}
+            placeholder="Wybierz podkategorię"
+            mb={2}
+          >
+            <option value="">Wybierz podkategorię</option>
+            {subcategories[newData.category]?.map((subcategory) => (
+              <option key={subcategory.value} value={subcategory.value}>
+                {subcategory.label}
+              </option>
+            ))}
+          </select>
+        )}
+
+        <Input type="file" onChange={handleFileChange} mb={2} />
+        {preview && <Image src={preview} alt="Podgląd" width="100px" mb={2} />}
+        <Button type="submit" colorScheme="blue">
+          Dodaj wpis
+        </Button>
+      </form>
 
       <Box mt={5} width="100%">
-        <Heading fontSize={'18px'} paddingBottom={'10px'} textAlign={'center'}>
-          Twoje ogłoszenia:
-        </Heading>
+        <h3>Wpisy:</h3>
+
         {entries.map((entry, index) => (
-          <Box key={index} padding="10px" marginBottom="10px">
+          <Box
+            key={index}
+            border="1px solid #ccc"
+            padding="10px"
+            marginBottom="10px"
+          >
             {editMode === entry._id ? (
-              <Flex flexDir={'column'}>
+              <>
                 <Input
                   name="title"
                   value={editData.title}
@@ -224,17 +321,13 @@ const Products = () => {
                   mb={2}
                 />
                 <Input
-                  name="phoneNumber"
+                  name="price"
                   type="number"
-                  value={editData.phoneNumber}
+                  value={editData.price}
                   onChange={handleEditInputChange}
                   placeholder="Edytuj numer telefonu"
                   mb={2}
                 />
-                <Input type="file" onChange={handleFileChange} mb={2} />
-                {preview && (
-                  <Image src={preview} alt="Podgląd" width="100px" mb={2} />
-                )}
                 <Button
                   onClick={() => handleSaveEdit(entry._id)}
                   colorScheme="green"
@@ -250,97 +343,47 @@ const Products = () => {
                 >
                   Anuluj
                 </Button>
-              </Flex>
+              </>
             ) : (
-              <Flex direction="column">
-                <Flex
-                  justifyContent="space-around"
-                  alignItems="center"
-                  textAlign="center"
-                  mb={2}
-                >
-                  {(entry.image && (
-                    <Image
-                      src={entry.image}
-                      alt="Obraz"
-                      width="150px"
-                      rounded="10px"
-                      boxShadow={'2xl'}
-                      sm={{ width: '150px' }}
-                      md={{ width: '200px' }}
-                      lg={{ width: '250px' }}
-                    />
-                  )) ||
-                    'Brak zdjęcia'}
-                  <Flex
-                    alignItems="center"
-                    justifyContent="center"
-                    flexDir={'column'}
-                  >
-                    <Heading mr="0%" fontSize="20px">
-                      {entry.title || 'Bez tytułu'}
-                    </Heading>
-
-                    <p>{entry.body || 'Brak treści'}</p>
-                    <p>{entry.phoneNumber || 'Brak numeru telefonu'}</p>
-                  </Flex>
-                </Flex>
-
+              <Box
+                key={index}
+                border="1px solid #ccc"
+                padding="10px"
+                marginBottom="10px"
+                _hover={{ background: '#f0f0f0', cursor: 'pointer' }}
+                onClick={() => navigate(`/entry/${entry._id}`)}
+              >
+                <h4>{entry.title || 'Bez tytułu'}</h4>
+                <p>{entry.body || 'Brak treści'}</p>
+                <p>{entry.price || 'Brak numeru telefonu'}</p>
                 {entry.image && (
-                  <Flex justifyContent="center">
+                  <>
+                    <Image src={entry.image} alt="Obraz" width="100px" />
                     <Button
                       onClick={() => handleDeleteImage(entry._id)}
                       colorScheme="red"
                       mt={2}
-                      borderRadius="8px"
-                      boxShadow="md"
-                      width={'100px'}
-                      px={4}
-                      py={2}
-                      _hover={{ bg: 'red.600', transform: 'scale(1.05)' }}
-                      _active={{ bg: 'red.700', transform: 'scale(0.98)' }}
                     >
-                      🗑 Usuń zdjęcie
+                      Usuń zdjęcie
                     </Button>
-                  </Flex>
+                  </>
                 )}
-                <Flex
-                  justifyContent={'center'}
-                  flexDir={'row'}
-                  alignItems={'center'}
-                  gap={4}
+                <Button
+                  onClick={() => handleEditClick(entry)}
+                  colorScheme="blue"
+                  mt={2}
                 >
-                  <Button
-                    onClick={() => handleEditClick(entry)}
-                    colorScheme="blue"
-                    mt={2}
-                    borderRadius="8px"
-                    boxShadow="md"
-                    width={'100px'}
-                    px={4}
-                    py={2}
-                    _hover={{ bg: 'blue.600', transform: 'scale(1.05)' }}
-                    _active={{ bg: 'blue.700', transform: 'scale(0.98)' }}
-                  >
-                    ✏️ Edytuj
-                  </Button>
-
-                  <Button
-                    onClick={() => handleDeleteEntry(entry._id)}
-                    colorScheme="red"
-                    mt={2}
-                    width={'100px'}
-                    borderRadius="8px"
-                    boxShadow="md"
-                    px={4}
-                    py={2}
-                    _hover={{ bg: 'red.600', transform: 'scale(1.05)' }}
-                    _active={{ bg: 'red.700', transform: 'scale(0.98)' }}
-                  >
-                    ❌ Usuń
-                  </Button>
-                </Flex>
-              </Flex>
+                  Edytuj
+                </Button>
+                <Button
+                  onClick={() => handleDeleteEntry(entry._id)}
+                  colorScheme="red"
+                  mt={2}
+                  ml={2}
+                >
+                  Usuń notatkę
+                </Button>
+              </Box>
             )}
           </Box>
         ))}

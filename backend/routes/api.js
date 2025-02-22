@@ -3,7 +3,6 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('../passport');
-
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
@@ -32,11 +31,8 @@ async function createAdminUser() {
         console.log("Admin już istnieje.");
     }
 }
-
 // Wywołanie funkcji przy uruchomieniu serwera
 createAdminUser();
-
-
 
 
 // Konfiguracja Cloudinary
@@ -75,6 +71,19 @@ const authMiddleware = async (req, res, next) => {
     }
 };
 
+
+// Middleware do sprawdzania, czy użytkownik jest administratorem
+const adminMiddleware = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user || user.status !== 'admin') {
+            return res.status(403).json({ message: 'Brak uprawnień' });
+        }
+        next();
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd serwera', details: error });
+    }
+};
 
 
 
@@ -129,10 +138,6 @@ router.post('/login', async (req, res) => {
 });
 
 
-
-
-
-
 // google facebook logo registr
 
 router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
@@ -154,16 +159,24 @@ router.get('/auth/facebook/callback',
   }
 );
 
+router.get('/user-info', authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+
+        res.json({
+            username: user.username,
+            email: user.email,
+            status: user.status // Przekazujemy status użytkownika
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd pobierania danych użytkownika', details: error });
+    }
+});
 
 
 
-
-// ==================== Users ====================//
-
-
-
-
-
+// =========================================== Users ===========================================//
 
 // Pobieranie danych użytkownika
 router.get('/users', authMiddleware, async (req, res) => {
@@ -180,10 +193,6 @@ router.get('/users', authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Błąd serwera', details: error });
     }
 });
-
-
-
-
 
 
 // Aktualizacja użytkownika (email, username)
@@ -209,61 +218,6 @@ router.put('/users', authMiddleware, upload.single('avatar'), async (req, res) =
         res.status(500).json({ message: 'Błąd podczas aktualizacji', details: error });
     }
 });
-
-router.get('/users/entries', authMiddleware, async (req, res) => {
-    try {
-        const notes = await Note.find({ userId: req.user.userId }); // Filtrujemy po userId
-        res.json(notes);
-    } catch (error) {
-        res.status(500).json({ message: 'Błąd pobierania notatek', details: error });
-    }
-});
-
-router.put('/users/entries/:noteId', authMiddleware, async (req, res) => {
-    try {
-        const { noteId } = req.params;
-        const { title, body, phoneNumber } = req.body;
-
-        const updatedNote = await Note.findByIdAndUpdate(
-            noteId,
-            { title, body, phoneNumber },
-            { new: true }
-        );
-
-        if (!updatedNote) return res.status(404).json({ message: 'Notatka nie znaleziona' });
-
-        res.json(updatedNote);
-    } catch (error) {
-        res.status(500).json({ message: 'Błąd podczas aktualizacji notatki', details: error });
-    }
-});
-
-
-router.post('/users/entries', authMiddleware, upload.single('image'), async (req, res) => {
-    try {
-        const newNote = new Note({
-            userId: req.user.userId,
-            title: req.body.title,
-            body: req.body.body,
-            phoneNumber: req.body.phoneNumber,
-            image: req.file.path, // Zapisujemy URL
-            imageId: req.file.filename, // Zapisujemy public_id
-        });
-
-        await newNote.save();
-        res.status(201).json({ note: newNote });
-    } catch (error) {
-        res.status(500).json({ message: 'Błąd serwera', details: error });
-    }
-});
-
-
-
-
-
-
-
-
 
 // Usuwanie konta użytkownika wraz z jego zdjęciami z Cloudinary
 router.delete('/users', authMiddleware, async (req, res) => {
@@ -294,6 +248,95 @@ router.delete('/users', authMiddleware, async (req, res) => {
         res.json({ message: 'Konto użytkownika i wszystkie jego notatki oraz zdjęcia zostały usunięte' });
     } catch (error) {
         res.status(500).json({ message: 'Błąd podczas usuwania konta', details: error });
+    }
+});
+
+
+// ======================================== Entries ======================================== //
+
+
+router.get('/users/entries', authMiddleware, async (req, res) => {
+    try {
+        const notes = await Note.find({ userId: req.user.userId }); // Filtrujemy po userId
+        res.json(notes);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd pobierania notatek', details: error });
+    }
+});
+
+
+router.get('/entries', async (req, res) => {
+  try {
+    const notes = await Note.find()
+      .sort({ views: -1 }) // Sortowanie po views w kolejności malejącej
+      .limit(9); // Ograniczenie do 9 elementów
+
+    res.json(notes);
+  } catch (error) {
+    res.status(500).json({ message: 'Błąd pobierania notatek', details: error });
+  }
+});
+
+
+router.get('/users/entries/:noteId', async (req, res) => {
+    try {
+        const { noteId } = req.params;
+        
+        // Znalezienie i zwiększenie liczby wyświetleń
+        const note = await Note.findByIdAndUpdate(
+            noteId,
+            { $inc: { views: 1 } }, // Inkrementacja views o 1
+            { new: true } // Zwrócenie zaktualizowanego dokumentu
+        );
+
+        if (!note) return res.status(404).json({ message: 'Notatka nie znaleziona' });
+
+        res.json(note);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd pobierania notatki', details: error });
+    }
+});
+
+router.post('/users/entries', authMiddleware, upload.single('image'), async (req, res) => {
+    try {
+        const newNote = new Note({
+            userId: req.user.userId,
+            title: req.body.title,
+            body: req.body.body,
+            description: req.body.description,
+            price: req.body.price,
+            image: req.file.path, // Zapisujemy URL
+            imageId: req.file.filename, // Zapisujemy public_id
+            category: req.body.category, // Zapisujemy kategorię
+            subcategory: req.body.subcategory, // Zapisujemy podkategorię
+            createdAt: new Date(),  // Ustawienie bieżącej daty i godziny
+            views: 0,  // Domyślnie 0 wyświetleń
+            isPromoted: req.body.isPromoted || false,  // Flaga promowania, jeśli nie podano, to domyślnie false
+        });
+
+        await newNote.save();
+        res.status(201).json({ note: newNote });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd serwera', details: error });
+    }
+});
+
+router.put('/users/entries/:noteId', authMiddleware, async (req, res) => {
+    try {
+        const { noteId } = req.params;
+        const { title, body, price } = req.body;
+
+        const updatedNote = await Note.findByIdAndUpdate(
+            noteId,
+            { title, body, price },
+            { new: true }
+        );
+
+        if (!updatedNote) return res.status(404).json({ message: 'Notatka nie znaleziona' });
+
+        res.json(updatedNote);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas aktualizacji notatki', details: error });
     }
 });
 
@@ -357,20 +400,6 @@ router.delete('/users/entries/image/:noteId', authMiddleware, async (req, res) =
 
 // ======================================= ADMIN ====================================== //
 
-
-// Middleware do sprawdzania, czy użytkownik jest administratorem
-const adminMiddleware = async (req, res, next) => {
-    try {
-        const user = await User.findById(req.user.userId);
-        if (!user || user.status !== 'admin') {
-            return res.status(403).json({ message: 'Brak uprawnień' });
-        }
-        next();
-    } catch (error) {
-        res.status(500).json({ message: 'Błąd serwera', details: error });
-    }
-};
-
 // Endpoint dla administratora do pobierania wszystkich użytkowników
 router.get('/admin/users', authMiddleware, adminMiddleware, async (req, res) => {
     try {
@@ -380,8 +409,6 @@ router.get('/admin/users', authMiddleware, adminMiddleware, async (req, res) => 
         res.status(500).json({ message: 'Błąd pobierania użytkowników', details: error });
     }
 });
-
-
 
 router.put('/admin/users/:userId', authMiddleware, adminMiddleware, async (req, res) => {
     try {
@@ -418,8 +445,6 @@ router.put('/admin/users/:userId', authMiddleware, adminMiddleware, async (req, 
 });
 
 
-
-
 router.delete('/admin/users/:userId', authMiddleware, adminMiddleware, async (req, res) => {
     try {
         const { userId } = req.params;
@@ -452,24 +477,58 @@ router.delete('/admin/users/:userId', authMiddleware, adminMiddleware, async (re
 });
 
 
+// ============================================ Message ==================================== //
 
-
-
-
-router.get('/user-info', authMiddleware, async (req, res) => {
+// Pobieranie wiadomości dla użytkownika
+router.get('/messages/:userId', async (req, res) => {
+    const { userId } = req.params;
     try {
-        const user = await User.findById(req.user.userId);
-        if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+        // Pobierz wiadomości dla użytkownika (wysłane i odebrane)
+        const messages = await Message.find({
+            $or: [{ senderId: userId }, { receiverId: userId }]
+        }).populate('senderId receiverId', 'username email'); // Opcjonalnie: Dodaj dane nadawcy i odbiorcy
 
-        res.json({
-            username: user.username,
-            email: user.email,
-            status: user.status // Przekazujemy status użytkownika
-        });
+        res.status(200).json(messages);
     } catch (error) {
-        res.status(500).json({ message: 'Błąd pobierania danych użytkownika', details: error });
+        res.status(500).json({ message: 'Wystąpił błąd podczas pobierania wiadomości', error });
     }
 });
+
+router.post('/messages', async (req, res) => {
+    const { senderId, receiverId, content } = req.body;
+
+    const message = new Message({
+        senderId,
+        receiverId,
+        content,
+        timestamp: new Date(),
+        status: 'unread'
+    });
+
+    try {
+        await message.save();
+        res.status(201).json(message);
+    } catch (error) {
+        res.status(500).json({ message: 'Wystąpił błąd podczas wysyłania wiadomości', error });
+    }
+});
+
+// Usuwanie wiadomości
+router.delete('/messages/:messageId', async (req, res) => {
+    const { messageId } = req.params;
+    try {
+        const deletedMessage = await Message.findByIdAndDelete(messageId);
+        if (!deletedMessage) {
+            return res.status(404).json({ message: 'Wiadomość nie została znaleziona' });
+        }
+        res.status(200).json({ message: 'Wiadomość została usunięta' });
+    } catch (error) {
+        res.status(500).json({ message: 'Wystąpił błąd podczas usuwania wiadomości', error });
+    }
+});
+
+
+
 
 
 
