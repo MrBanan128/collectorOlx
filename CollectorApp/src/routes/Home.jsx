@@ -1,11 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Flex, Image, Box, Text } from '@chakra-ui/react';
-import DecryptedText from '../components/ui/decrypted';
-
+import { keyframes } from '@emotion/react'; // Import keyframes from @emotion/react
 import Navbar from '../components/layout/Navbar/Navbar';
 import MostViewed from '../components/layout/MostViewed/MostViewed';
 import Carousel from '../components/layout/CategoryCarousel/Carousel';
 import Footer from '../components/layout/Footer';
+
+// Animation for letter-by-letter reveal
+const revealAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -27,23 +38,22 @@ const Home = () => {
 
   return (
     <Flex flexDirection="column" background="white" overflow="hidden">
-      {/* Navbar z dynamiczną wysokością i tłem */}
+      {/* Navbar */}
       <Box>
         <Navbar
-          background={
-            scrolled
-              ? 'radial-gradient(circle, rgba(11,11,11,1) 0%, rgba(193,186,186,1) 50%, rgba(9,9,9,1) 100%)'
-              : 'radial-gradient(circle, rgba(11,11,11,0) 0%, rgba(193,186,186,0) 50%, rgba(9,9,9,0) 100%)'
-          }
-          height={scrolled ? '84px' : '80px'} // Wysokość zmieniona o 10%
+          background={scrolled ? 'rgba(92, 92, 92,1)' : 'rgba(92, 92, 92,0)'}
+          height={scrolled ? '84px' : '80px'}
         />
       </Box>
+
+      {/* Hero Section */}
       <Box position="relative" width="100%">
+        {/* Text with Animation */}
         <Box
           position="absolute"
           zIndex={999}
           left={{ base: '15%', sm: '20%', md: '20%' }}
-          top={{ base: '35%', sm: '35%', md: '30%' }}
+          top={{ base: '45%', sm: '45%', md: '40%' }} // Adjusted to position text lower
           width={{ base: '50%', sm: '41%', md: '35%', lg: '33%', xl: '35%' }}
         >
           <Text
@@ -57,22 +67,22 @@ const Home = () => {
             color="white"
             fontWeight="bold"
           >
-            <DecryptedText
-              text="ANTIQUE VALUE"
-              animateOn="view"
-              fontSize={{
-                base: '1rem',
-                sm: '2.0rem',
-                md: '2.5rem',
-                lg: '3.1rem',
-                xl: '4.1rem'
-              }} // Responsywny fontSize
-              color="white" // Kolor
-              fontWeight="bold" // Font weight
-            />
+            {'ANTIQUE VALUE'.split('').map((letter, index) => (
+              <Box
+                key={index}
+                as="span"
+                display="inline-block"
+                opacity={0}
+                animation={`${revealAnimation} 0.8s ease forwards ${index * 0.3}s`} // Increased delay to 0.2s per letter
+                whiteSpace="pre" // Preserve spacing between letters
+              >
+                {letter}
+              </Box>
+            ))}
           </Text>
         </Box>
 
+        {/* Background Image */}
         <Image
           src="./src/assets/main-page-img.jpeg"
           alt="background"
@@ -87,6 +97,8 @@ const Home = () => {
           }}
         />
       </Box>
+
+      {/* Other Sections */}
       <Carousel />
       <Flex
         justifyContent="center"
@@ -101,6 +113,7 @@ const Home = () => {
         <MostViewed alt={'Znaczek'} src={'/item2.png'}></MostViewed>
       </Flex>
 
+      {/* Footer */}
       <Footer />
     </Flex>
   );

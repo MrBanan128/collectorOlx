@@ -33,6 +33,7 @@
   height: 100%;
   padding: 1rem;
   text-align: center;
+  background-color: rgb(144, 140, 159);
 }
 
 .embla__slide__title {
@@ -114,6 +115,9 @@
   .embla__slide__image {
     height: 130px; /* Stała wysokość dla wszystkich zdjęć */
   }
+  .embla__controls {
+    width: 760px;
+  }
 }
 @media (min-width: 1024px) {
   .embla {
@@ -125,5 +129,8 @@
   }
   .embla__slide__image {
     height: 130px; /* Stała wysokość dla wszystkich zdjęć */
+  }
+  .embla__controls {
+    width: 1020px;
   }
 }

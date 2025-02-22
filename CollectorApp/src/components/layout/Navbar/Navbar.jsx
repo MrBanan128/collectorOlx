@@ -7,11 +7,12 @@ import Logo from './Logo';
 import AppLink from './AppLink';
 import Sidebar from './Sidebar';
 
-// eslint-disable-next-line react/prop-types
+// Ensure Navbar is correctly defined and exported
 const Navbar = ({ background, height }) => {
   const [isVisible, setVisible] = useState(false);
+
   const handleClick = () => {
-    setVisible(!isVisible);
+    setVisible((prev) => !prev);
   };
 
   return (
@@ -21,61 +22,28 @@ const Navbar = ({ background, height }) => {
         width="100%"
         alignItems="center"
         justifyContent="space-between"
-        height={height} // Dynamiczna wysokość
+        height={height}
         position="fixed"
-        background={background} // Dynamiczne tło
+        background={background}
         px={4}
-        transition="height 0.5s ease, background 0.5s ease" // Płynna animacja wysokości i tła
-        sm={{ px: 4 }}
-        md={{ px: 6 }}
-        lg={{ px: 8 }}
+        transition="height 0.5s ease, background 0.5s ease"
         roundedBottom={'xl'}
-        // borderBottom={'5px solid gray'}
       >
-        <Link to="/">
-          <Logo />
-        </Link>
+        <Link to="/">{!isVisible && <Logo />}</Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Home</AppLink>
           <AppLink to="/dashboard">Dashboard</AppLink>
           <AppLink to={'/Sign-up'}>Account</AppLink>
-          <AppLink to={'/test'}>Test </AppLink>
-          <AppLink to={'/admin'}>Admin </AppLink>
-          <MenuButton onClick={handleClick} />
+          <AppLink to={'/test'}>Test</AppLink>
+          <AppLink to={'/admin'}>Admin</AppLink>
+          {!isVisible && <MenuButton onClick={handleClick} />}
         </Flex>
       </Flex>
-      {isVisible && (
-        <Flex
-          // direction="column"
-          // alignItems="start"
-          // justifyContent="start"
-          position="fixed"
-          top={0}
-          right={0}
-          height="100vh"
-          width="100%"
-          zIndex={9999}
-          background="rgba(255, 255, 255, 0)"
-          backdropFilter="blur(6px)"
-          boxShadow="-10px 0 10px rgba(0, 0, 0, 0.1)"
-          backgroundColor={'black'}
-        >
-          <Flex>
-            <CloseButton
-              onClick={handleClick}
-              variant="ghost"
-              size="xl"
-              color="rgb(255, 255, 255)"
-              fontWeight="bold"
-            />
-          </Flex>
-          <Flex justifyContent={'center'} alignItems={'center'}>
-            <Sidebar />
-          </Flex>
-        </Flex>
-      )}
+
+      <Sidebar open={isVisible} setOpen={setVisible} />
     </Flex>
   );
 };
 
+// ✅ Make sure this export is present at the end of the file
 export default Navbar;
