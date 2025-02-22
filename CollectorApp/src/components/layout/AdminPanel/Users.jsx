@@ -1,191 +1,3 @@
-
-// import { useState, useEffect } from "react";
-// import { Checkbox } from "../../ui/checkbox";
-// import axios from "axios";
-
-// const Users = () => {
-//   const [users, setUsers] = useState([]);
-//   const [selection, setSelection] = useState([]);
-
-//   const [registerUsername, setRegisterUsername] = useState("");
-//   const [registerEmail, setRegisterEmail] = useState("");
-//   const [registerPassword, setRegisterPassword] = useState("");
-
-//   const [isAdmin, setIsAdmin] = useState(false);
-
-//   // Pobieranie użytkowników i sprawdzanie uprawnień administratora
-//   useEffect(() => {
-//     const token = localStorage.getItem("token");
-//     if (!token) {
-//       alert("Brak tokenu użytkownika.");
-//       return;
-//     }
-
-//     axios
-//       .get("http://localhost:10000/user-info", {
-//         headers: { Authorization: `Bearer ${token}` },
-//       })
-//       .then((response) => {
-//         if (response.data.status === "admin") {
-//           setIsAdmin(true);
-//           return axios.get("http://localhost:10000/admin/users", {
-//             headers: { Authorization: `Bearer ${token}` },
-//           });
-//         } else {
-//           alert("Nie masz uprawnień administratora.");
-//           return Promise.reject();
-//         }
-//       })
-//       .then((res) => setUsers(res.data))
-//       .catch((error) => {
-//         if (error?.response?.status === 401) {
-//           alert("Sesja wygasła. Zaloguj się ponownie.");
-//         }
-//         console.error("Błąd pobierania użytkowników", error);
-//       });
-//   }, []);
-
-//   // Usuwanie pojedynczego użytkownika
-//   const deleteUser = async (userId) => {
-//     const token = localStorage.getItem("token");
-//     if (!token) {
-//       alert("Brak tokenu użytkownika.");
-//       return;
-//     }
-
-//     if (!window.confirm("Czy na pewno chcesz usunąć tego użytkownika?")) {
-//       return;
-//     }
-
-//     try {
-//       await axios.delete(`http://localhost:10000/admin/users/${userId}`, {
-//         headers: { Authorization: `Bearer ${token}` },
-//       });
-
-//       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
-//       alert("Użytkownik został usunięty.");
-//     } catch (error) {
-//       console.error("Błąd usuwania użytkownika", error);
-//       alert(error.response?.data?.message || "Nie udało się usunąć użytkownika.");
-//     }
-//   };
-
-//   // Usuwanie wielu użytkowników
-//   const handleBulkDelete = async () => {
-//     const token = localStorage.getItem("token");
-//     if (!token) {
-//       alert("Brak tokenu użytkownika.");
-//       return;
-//     }
-
-//     if (!window.confirm("Czy na pewno chcesz usunąć zaznaczonych użytkowników?")) {
-//       return;
-//     }
-
-//     try {
-//       await axios.post(
-//         "http://localhost:10000/admin/users/bulk-delete",
-//         { userIds: selection },
-//         { headers: { Authorization: `Bearer ${token}` } }
-//       );
-
-//       setUsers((prevUsers) => prevUsers.filter((user) => !selection.includes(user._id)));
-//       setSelection([]);
-//       alert("Zaznaczeni użytkownicy zostali usunięci.");
-//     } catch (error) {
-//       console.error("Błąd usuwania użytkowników", error);
-//       alert("Nie udało się usunąć użytkowników.");
-//     }
-//   };
-
-//   // Rejestracja użytkownika jako ekspert
-//   const handleRegisterAsExpert = async () => {
-//     try {
-//       const response = await axios.post(
-//         "http://localhost:10000/register",
-//         {
-//           username: registerUsername,
-//           email: registerEmail,
-//           password: registerPassword,
-//           status: "expert",
-//         },
-//         {
-//           headers: { "Content-Type": "application/json" },
-//         }
-//       );
-
-//       console.log("Rejestracja zakończona:", response.data);
-//       alert("Rejestracja zakończona sukcesem jako ekspert.");
-//     } catch (error) {
-//       console.error("Błąd rejestracji:", error.response?.data);
-//       alert(error.response?.data?.message || "Błąd serwera, spróbuj ponownie.");
-//     }
-//   };
-
-//   if (!isAdmin) {
-//     return <div>Nie masz uprawnień administratora.</div>;
-//   }
-
-//   return (
-//     <>
-//       <h2>Lista użytkowników</h2>
-//       <button onClick={handleBulkDelete} disabled={selection.length === 0}>
-//         Usuń zaznaczonych użytkowników
-//       </button>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>
-//               <Checkbox
-//                 checked={selection.length > 0 && selection.length === users.length}
-//                 onChange={() =>
-//                   setSelection(selection.length === users.length ? [] : users.map((u) => u._id))
-//                 }
-//               />
-//             </th>
-//             <th style={{ color: "blue" }}>Użytkownik</th>
-//             <th style={{ color: "blue" }}>Email</th>
-//             <th style={{ color: "blue" }}>Akcje</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {users.map((user) => (
-//             <tr style={{ color: "red" }} key={user._id}>
-//               <td>
-//                 <Checkbox
-//                   checked={selection.includes(user._id)}
-//                   onChange={() =>
-//                     setSelection(
-//                       selection.includes(user._id)
-//                         ? selection.filter((id) => id !== user._id)
-//                         : [...selection, user._id]
-//                     )
-//                   }
-//                 />
-//               </td>
-//               <td style={{ color: "green" }}>{user.username}</td>
-//               <td style={{ color: "green" }}>{user.email}</td>
-//               <td>
-//                 <button onClick={() => deleteUser(user._id)}>Usuń</button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </>
-//   );
-// };
-
-// export default Users;
-
-
-
-
-
-
-
-
-
 import { useState, useEffect } from "react";
 import { Checkbox } from "../../ui/checkbox";
 import axios from "axios";
@@ -198,11 +10,6 @@ const Users = () => {
   const [editEmail, setEditEmail] = useState("");
   const [editPassword, setEditPassword] = useState("");
   const [editStatus, setEditStatus] = useState("");
-
-  // const [registerUsername, setRegisterUsername] = useState("");
-  // const [registerEmail, setRegisterEmail] = useState("");
-  // const [registerPassword, setRegisterPassword] = useState("");
-
   const [isAdmin, setIsAdmin] = useState(false);
 
   // Pobieranie użytkowników i sprawdzanie uprawnień administratora
@@ -237,6 +44,7 @@ const Users = () => {
       });
   }, []);
 
+
   // Usuwanie pojedynczego użytkownika
   const deleteUser = async (userId) => {
     const token = localStorage.getItem("token");
@@ -261,6 +69,7 @@ const Users = () => {
       alert(error.response?.data?.message || "Nie udało się usunąć użytkownika.");
     }
   };
+
 
   // Usuwanie wielu użytkowników
   const handleBulkDelete = async () => {
@@ -290,29 +99,6 @@ const Users = () => {
     }
   };
 
-  // Rejestracja użytkownika jako ekspert
-  // const handleRegisterAsExpert = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:10000/register",
-  //       {
-  //         username: registerUsername,
-  //         email: registerEmail,
-  //         password: registerPassword,
-  //         status: "expert",
-  //       },
-  //       {
-  //         headers: { "Content-Type": "application/json" },
-  //       }
-  //     );
-
-  //     console.log("Rejestracja zakończona:", response.data);
-  //     alert("Rejestracja zakończona sukcesem jako ekspert.");
-  //   } catch (error) {
-  //     console.error("Błąd rejestracji:", error.response?.data);
-  //     alert(error.response?.data?.message || "Błąd serwera, spróbuj ponownie.");
-  //   }
-  // };
 
   // Edytowanie użytkownika
   const handleEditUser = (user) => {
@@ -320,7 +106,7 @@ const Users = () => {
     setEditUsername(user.username);
     setEditEmail(user.email);
     setEditStatus(user.status);
-    setEditPassword(""); // Nie wysyłamy starego hasła
+    setEditPassword(""); 
   };
 
   // Aktualizowanie danych użytkownika
@@ -330,7 +116,6 @@ const Users = () => {
       alert("Brak tokenu użytkownika.");
       return;
     }
-
     const updatedUser = {
       username: editUsername,
       email: editEmail,

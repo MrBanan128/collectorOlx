@@ -9,7 +9,8 @@ const slides = [
   { id: 1, imageUrl: '/item1.png', title: 'Figurka' },
   { id: 2, imageUrl: '/item2.png', title: 'Znaczek' },
   { id: 3, imageUrl: '/item5.png', title: 'Moneta' },
-  { id: 4, imageUrl: '/item44.jpg', title: 'Karta' }
+  { id: 4, imageUrl: '/item44.jpg', title: 'Karta' },
+  { id: 5, imageUrl: '/item44.jpg', title: 'Inne' }
 ];
 // Loop: true;
 const OPTIONS = { dragFree: true };
