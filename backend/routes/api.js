@@ -77,6 +77,7 @@ const authMiddleware = async (req, res, next) => {
 
 
 
+
 // ==================== AUTORYZACJA ====================
 
 // Rejestracja użytkownika
@@ -238,11 +239,6 @@ router.put('/users/entries/:noteId', authMiddleware, async (req, res) => {
 });
 
 
-
-
-
-
-
 router.post('/users/entries', authMiddleware, upload.single('image'), async (req, res) => {
     try {
         const newNote = new Note({
@@ -385,15 +381,71 @@ router.get('/admin/users', authMiddleware, adminMiddleware, async (req, res) => 
     }
 });
 
-// Endpoint dla administratora do usuwania użytkownika
+
+
+router.put('/admin/users/:userId', authMiddleware, adminMiddleware, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { username, email, password, status } = req.body;
+
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+
+        // Debug: Sprawdzamy dane przed zapisaniem
+        console.log("Dane użytkownika przed edycją:", user);
+
+        // Aktualizowanie danych użytkownika
+        if (username) user.username = username;
+        if (email) user.email = email;
+        if (status) user.status = status;
+
+        // Jeśli podano nowe hasło, musimy je zahaszować
+        if (password) {
+            console.log("Hasło do zaktualizowania:", password);  // Debug
+            const hashedPassword = await bcrypt.hash(password, 10); // Haszowanie hasła
+            user.password = hashedPassword;
+        }
+
+        await user.save();
+
+        // Debug: Sprawdzamy dane po zapisaniu
+        console.log("Zaktualizowany użytkownik:", user);
+
+        res.json({ message: 'Dane użytkownika zostały zaktualizowane', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas aktualizacji danych użytkownika', details: error });
+    }
+});
+
+
+
+
 router.delete('/admin/users/:userId', authMiddleware, adminMiddleware, async (req, res) => {
     try {
         const { userId } = req.params;
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
 
+        // Usunięcie notatek użytkownika i zdjęć z Cloudinary
+        const notes = await Note.find({ userId });
+        for (const note of notes) {
+            if (note.image) {
+                const publicId = note.image.split('/').pop().split('.')[0];
+                await cloudinary.uploader.destroy(`notatki/${publicId}`);
+            }
+        }
+        await Note.deleteMany({ userId });
+
+        // Usunięcie awatara użytkownika
+        if (user.avatar) {
+            const avatarPublicId = user.avatar.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`avatary/${avatarPublicId}`);
+        }
+
+        // Usunięcie użytkownika
         await User.findByIdAndDelete(userId);
-        res.json({ message: 'Użytkownik usunięty' });
+
+        res.json({ message: 'Użytkownik i wszystkie jego dane zostały usunięte' });
     } catch (error) {
         res.status(500).json({ message: 'Błąd podczas usuwania użytkownika', details: error });
     }
@@ -402,19 +454,25 @@ router.delete('/admin/users/:userId', authMiddleware, adminMiddleware, async (re
 
 
 
+
+
+router.get('/user-info', authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
+
+        res.json({
+            username: user.username,
+            email: user.email,
+            status: user.status // Przekazujemy status użytkownika
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd pobierania danych użytkownika', details: error });
+    }
+});
+
+
+
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
