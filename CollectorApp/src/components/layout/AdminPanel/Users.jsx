@@ -412,19 +412,19 @@ const Users = () => {
                 <button
                   onClick={() => setEditingUser(null)}
                   style={{
-                    backgroundColor: 'blue', // Tło na niebiesko
-                    color: 'white', // Kolor tekstu na biały
-                    border: 'none', // Brak obramowania
-                    padding: '0.5rem 1rem', // Wygodne wypełnienie
-                    borderRadius: '8px', // Zaokrąglone rogi
-                    cursor: 'pointer', // Kursor wskazujący
-                    transition: 'background-color 0.3s ease', // Płynne przejście
-                    fontSize: '1rem' // Wielkość czcionki
+                    backgroundColor: 'blue',
+                    color: 'white',
+                    border: 'none',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.3s ease',
+                    fontSize: '1rem'
                   }}
                   onMouseOver={(e) =>
                     (e.target.style.backgroundColor = 'darkblue')
-                  } // Zmiana koloru tła na ciemniejszy na hover
-                  onMouseOut={(e) => (e.target.style.backgroundColor = 'blue')} // Powrót do początkowego koloru
+                  }
+                  onMouseOut={(e) => (e.target.style.backgroundColor = 'blue')}
                 >
                   Anuluj
                 </button>

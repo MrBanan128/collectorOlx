@@ -344,15 +344,15 @@ const Products = () => {
                     onChange={handleEditInputChange}
                     placeholder="Edytuj tytuł"
                     mb={2}
-                    fontSize={{ base: '1rem', md: '2rem' }} // Dostosowanie rozmiaru czcionki na różnych ekranach
-                    backgroundColor="#333" // ciemne tło
-                    color="white" // biały tekst
-                    padding="0.5rem" // wewnętrzne odstępy
-                    borderRadius="8px" // zaokrąglone rogi
-                    border="1px solid #555" // subtelne obramowanie
-                    width="100%" // szerokość na 100%
+                    fontSize={{ base: '1rem', md: '2rem' }}
+                    backgroundColor="#333"
+                    color="white"
+                    padding="0.5rem"
+                    borderRadius="8px"
+                    border="1px solid #555"
+                    width="100%"
                     _hover={{
-                      borderColor: '#888' // Kolor obramowania przy najechaniu
+                      borderColor: '#888'
                     }}
                   />
 
@@ -362,15 +362,15 @@ const Products = () => {
                     onChange={handleEditInputChange}
                     placeholder="Edytuj treść"
                     mb={2}
-                    fontSize={{ base: '1rem', md: '1.5rem' }} // Dostosowanie rozmiaru czcionki na różnych ekranach
-                    backgroundColor="#333" // ciemne tło
-                    color="white" // biały tekst
-                    padding="0.5rem" // wewnętrzne odstępy
-                    borderRadius="8px" // zaokrąglone rogi
-                    border="1px solid #555" // subtelne obramowanie
-                    width="100%" // szerokość na 100%
+                    fontSize={{ base: '1rem', md: '1.5rem' }}
+                    backgroundColor="#333"
+                    color="white"
+                    padding="0.5rem"
+                    borderRadius="8px"
+                    border="1px solid #555"
+                    width="100%"
                     _hover={{
-                      borderColor: '#888' // Kolor obramowania przy najechaniu
+                      borderColor: '#888'
                     }}
                   />
 
@@ -381,15 +381,15 @@ const Products = () => {
                     onChange={handleEditInputChange}
                     placeholder="Edytuj numer telefonu"
                     mb={2}
-                    fontSize={{ base: '1rem', md: '1.5rem' }} // Dostosowanie rozmiaru czcionki na różnych ekranach
-                    backgroundColor="#333" // ciemne tło
-                    color="white" // biały tekst
-                    padding="0.5rem" // wewnętrzne odstępy
-                    borderRadius="8px" // zaokrąglone rogi
-                    border="1px solid #555" // subtelne obramowanie
-                    width="100%" // szerokość na 100%
+                    fontSize={{ base: '1rem', md: '1.5rem' }}
+                    backgroundColor="#333"
+                    color="white"
+                    padding="0.5rem"
+                    borderRadius="8px"
+                    border="1px solid #555"
+                    width="100%"
                     _hover={{
-                      borderColor: '#888' // Kolor obramowania przy najechaniu
+                      borderColor: '#888'
                     }}
                   />
 
@@ -481,7 +481,7 @@ const Products = () => {
                     <Button
                       onClick={() => handleDeleteImage(entry._id)}
                       mt={2}
-                      sm={{ fontSize: '14px', width: '100px' }}
+                      sm={{ fontSize: '14px', width: '150px' }}
                       style={{
                         background: '#ff4d4d', // Czerwony kolor tła dla usuwania
                         color: '#fff', // Biały kolor tekstu
@@ -501,7 +501,7 @@ const Products = () => {
                   <Button
                     onClick={() => handleEditClick(entry)}
                     mt={2}
-                    sm={{ fontSize: '14px', width: '100px' }}
+                    sm={{ fontSize: '14px', width: '150px' }}
                     style={{
                       background: '#4CAF50', // Zielone tło dla edycji
                       color: '#fff', // Biały kolor tekstu
@@ -521,7 +521,7 @@ const Products = () => {
                   <Button
                     onClick={() => handleDeleteEntry(entry._id)}
                     mt={2}
-                    sm={{ fontSize: '14px', width: '100px' }}
+                    sm={{ fontSize: '14px', width: '150px' }}
                     style={{
                       background: '#ff7043', // Pomarańczowe tło dla usuwania notatki
                       color: '#fff', // Biały kolor tekstu
@@ -535,7 +535,7 @@ const Products = () => {
                       background: '#e64a19' // Zmiana tła na ciemniejszy pomarańczowy po najechaniu
                     }}
                   >
-                    Usuń notatkę
+                    Usuń Ogłoszenie
                   </Button>
                 </Flex>
               </Flex>
