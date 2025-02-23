@@ -7,10 +7,12 @@ import CategorySelector from './CategorySelector';
 const EmblaCarousel = ({ slides = [], options }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false); // Dodajemy stan do rozwijania/zwijania
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-  };
+const handleCategoryClick = (category) => {
+  setSelectedCategory(category);
+  setIsExpanded((prev) => (prev === category ? null : category)); // Jeśli ten sam element, zamykamy, w przeciwnym razie otwieramy nowy
+};
 
   const {
     prevBtnDisabled,
@@ -19,8 +21,8 @@ const EmblaCarousel = ({ slides = [], options }) => {
     onNextButtonClick
   } = usePrevNextButtons(emblaApi || null);
 
-  const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi || null);console.log("Aktualnie wybrana kategoria:", selectedCategory);
-
+  const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi || null);
+  console.log("Aktualnie wybrana kategoria:", selectedCategory);
 
   return (
     <section className="embla">
@@ -58,9 +60,8 @@ const EmblaCarousel = ({ slides = [], options }) => {
       </div>
 
       {/* Komponent wyboru kategorii */}
-      <CategorySelector selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+      {isExpanded && <CategorySelector selectedCategory={selectedCategory} />}
      
-
       <div className="embla__controls">
         <div className="embla__buttons">
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
