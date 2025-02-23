@@ -19,7 +19,7 @@ const Products = () => {
     ],
     Znaczek: [
       { value: 'wojskowy', label: 'Wojskowy' },
-      { value: 'wersonalizowany', label: 'Personalizowany' },
+      { value: 'personalizowany', label: 'Personalizowany' },
       { value: 'urzędowy', label: 'Urzędowy' }
     ],
     Moneta: [
@@ -350,7 +350,6 @@ const Products = () => {
                 border="1px solid #ccc"
                 padding="10px"
                 marginBottom="10px"
-                _hover={{ background: '#f0f0f0', cursor: 'pointer' }}
                 onClick={() => navigate(`/entry/${entry._id}`)}
               >
                 <h4>{entry.title || 'Bez tytułu'}</h4>
