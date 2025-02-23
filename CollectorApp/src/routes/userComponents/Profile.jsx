@@ -67,11 +67,10 @@ const Profile = () => {
       height="100%"
       minH={'80vh'} // Zapewnia pełną wysokość okna
       bgImage={'url(/coinFlip.png)'}
-      width={'100%'}
+      width={'100vw'}
       backgroundSize={'cover'}
       justifyContent={'center'} // Centruj elementy w pionie
       alignItems={'center'} // Centruj elementy w poziomie
-      overflow={'auto'} // Zapobiega pojawianiu się pasków przewijania
     >
       <Flex
         className="container"

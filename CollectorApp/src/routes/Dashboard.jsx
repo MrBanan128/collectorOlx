@@ -49,10 +49,14 @@ const Dashboard = () => {
       justifyContent={'center'}
       alignItems={'center'}
       width={'100%'}
-      minW={'100vw'}
-      minH={'100vh'}
-      bgGradient="linear-gradient(90deg, #4a90e2 0%, #2c3e50 50%, #34495e 100%)"
+      height={'100%'}
+      minHeight={'100%'}
+      bgImage={
+        'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
+      }
       className="dashboard"
+      overflow="auto"
+      overflowX={'hidden'}
     >
       <Flex
         direction="column"
@@ -103,7 +107,10 @@ const Dashboard = () => {
                 transition="transform 0.3s ease, background 0.3s ease"
                 padding={'10px 10px 0 10px'}
                 rounded={'lg'}
-                _hover={{ transform: 'scale(1.2)', background: 'gray.600' }}
+                _hover={{
+                  transform: 'scale(1.2)',
+                  background: 'rgba(0,0,0,0.4)'
+                }}
               >
                 {label}
               </Box>
