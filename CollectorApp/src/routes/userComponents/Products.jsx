@@ -1,5 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Flex, Button, Input, Textarea, Image, Box } from '@chakra-ui/react';
+import {
+  Flex,
+  Button,
+  Input,
+  Textarea,
+  Image,
+  Box,
+  Heading,
+  Text
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
@@ -228,8 +237,8 @@ const Products = () => {
   };
 
   return (
-    <Flex margin="50px" direction="column" align="center">
-      <form
+    <Flex direction="column" align="center" width={'100%'}>
+      {/* <form
         onSubmit={handleAddEntry}
         style={{ maxWidth: '400px', width: '100%' }}
       >
@@ -260,7 +269,6 @@ const Products = () => {
           value={newData.category}
           onChange={handleInputChange}
           placeholder="Wybierz kategorię"
-          mb={2}
         >
           <option value="">Wybierz kategorię</option>
           {categories.map((category) => (
@@ -276,7 +284,6 @@ const Products = () => {
             value={newData.subcategory}
             onChange={handleInputChange}
             placeholder="Wybierz podkategorię"
-            mb={2}
           >
             <option value="">Wybierz podkategorię</option>
             {subcategories[newData.category]?.map((subcategory) => (
@@ -292,99 +299,248 @@ const Products = () => {
         <Button type="submit" colorScheme="blue">
           Dodaj wpis
         </Button>
-      </form>
+      </form> */}
 
       <Box mt={5} width="100%">
-        <h3>Wpisy:</h3>
+        <Heading size={'4xl'} padding={'1rem'} color={'white'}>
+          Moje Ogłoszenia:
+        </Heading>
 
         {entries.map((entry, index) => (
-          <Box
+          <Flex
             key={index}
-            border="1px solid #ccc"
             padding="10px"
             marginBottom="10px"
+            justifyContent={'center'}
+            alignItems={'center'}
+            flexDir={'column'}
+            width={'100%'}
+            rounded={'lg'}
           >
             {editMode === entry._id ? (
-              <>
-                <Input
-                  name="title"
-                  value={editData.title}
-                  onChange={handleEditInputChange}
-                  placeholder="Edytuj tytuł"
-                  mb={2}
-                />
-                <Textarea
-                  name="note"
-                  value={editData.note}
-                  onChange={handleEditInputChange}
-                  placeholder="Edytuj treść"
-                  mb={2}
-                />
-                <Input
-                  name="price"
-                  type="number"
-                  value={editData.price}
-                  onChange={handleEditInputChange}
-                  placeholder="Edytuj numer telefonu"
-                  mb={2}
-                />
-                <Button
-                  onClick={() => handleSaveEdit(entry._id)}
-                  colorScheme="green"
-                  mt={2}
-                >
-                  Zapisz
-                </Button>
-                <Button
-                  onClick={() => setEditMode(null)}
-                  colorScheme="gray"
-                  mt={2}
-                  ml={2}
-                >
-                  Anuluj
-                </Button>
-              </>
+              <Flex
+                flexDir={'row'}
+                width={'300px'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
+                padding={'10px'}
+                rounded={'xl'}
+                md={{ width: '500px' }}
+              >
+                <Flex>
+                  <Image
+                    src={entry.image}
+                    alt="Obraz"
+                    width="100px"
+                    sm={{ width: '150px' }}
+                    md={{ width: '200px' }}
+                  />
+                </Flex>
+                <Flex flexDir={'column'} ml={8}>
+                  <Input
+                    name="title"
+                    value={editData.title}
+                    onChange={handleEditInputChange}
+                    placeholder="Edytuj tytuł"
+                    mb={2}
+                    fontSize={{ base: '1rem', md: '2rem' }} // Dostosowanie rozmiaru czcionki na różnych ekranach
+                    backgroundColor="#333" // ciemne tło
+                    color="white" // biały tekst
+                    padding="0.5rem" // wewnętrzne odstępy
+                    borderRadius="8px" // zaokrąglone rogi
+                    border="1px solid #555" // subtelne obramowanie
+                    width="100%" // szerokość na 100%
+                    _hover={{
+                      borderColor: '#888' // Kolor obramowania przy najechaniu
+                    }}
+                  />
+
+                  <Textarea
+                    name="note"
+                    value={editData.note}
+                    onChange={handleEditInputChange}
+                    placeholder="Edytuj treść"
+                    mb={2}
+                    fontSize={{ base: '1rem', md: '1.5rem' }} // Dostosowanie rozmiaru czcionki na różnych ekranach
+                    backgroundColor="#333" // ciemne tło
+                    color="white" // biały tekst
+                    padding="0.5rem" // wewnętrzne odstępy
+                    borderRadius="8px" // zaokrąglone rogi
+                    border="1px solid #555" // subtelne obramowanie
+                    width="100%" // szerokość na 100%
+                    _hover={{
+                      borderColor: '#888' // Kolor obramowania przy najechaniu
+                    }}
+                  />
+
+                  <Input
+                    name="price"
+                    type="number"
+                    value={editData.price}
+                    onChange={handleEditInputChange}
+                    placeholder="Edytuj numer telefonu"
+                    mb={2}
+                    fontSize={{ base: '1rem', md: '1.5rem' }} // Dostosowanie rozmiaru czcionki na różnych ekranach
+                    backgroundColor="#333" // ciemne tło
+                    color="white" // biały tekst
+                    padding="0.5rem" // wewnętrzne odstępy
+                    borderRadius="8px" // zaokrąglone rogi
+                    border="1px solid #555" // subtelne obramowanie
+                    width="100%" // szerokość na 100%
+                    _hover={{
+                      borderColor: '#888' // Kolor obramowania przy najechaniu
+                    }}
+                  />
+
+                  <Button
+                    onClick={() => handleSaveEdit(entry._id)}
+                    mt={2}
+                    width={'100%'}
+                    style={{
+                      backgroundColor: '#28a745', // Zielony kolor tła (np. dla "Zapisz")
+                      color: 'white', // Biały tekst
+                      border: 'none', // Brak obramowania
+                      borderRadius: '8px', // Zaokrąglone rogi
+                      padding: '0.5rem', // Wewnętrzne odstępy
+                      fontSize: '1rem', // Rozmiar czcionki
+                      cursor: 'pointer', // Zmieniany kursor przy najechaniu
+                      transition: 'all 0.3s ease' // Płynne przejście dla efektów
+                    }}
+                    _hover={{
+                      backgroundColor: '#218838', // Ciemniejszy zielony przy hover
+                      boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Dodany cień przy hover
+                    }}
+                  >
+                    Zapisz
+                  </Button>
+
+                  <Button
+                    onClick={() => setEditMode(null)}
+                    mt={2}
+                    style={{
+                      backgroundColor: '#dc3545', // Czerwony kolor tła (np. dla "Anuluj")
+                      color: 'white', // Biały tekst
+                      border: 'none', // Brak obramowania
+                      borderRadius: '8px', // Zaokrąglone rogi
+                      padding: '0.5rem', // Wewnętrzne odstępy
+                      fontSize: '1rem', // Rozmiar czcionki
+                      cursor: 'pointer', // Zmieniany kursor przy najechaniu
+                      transition: 'all 0.3s ease' // Płynne przejście dla efektów
+                    }}
+                    _hover={{
+                      backgroundColor: '#c82333', // Ciemniejszy czerwony przy hover
+                      boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Dodany cień przy hover
+                    }}
+                  >
+                    Anuluj
+                  </Button>
+                </Flex>
+              </Flex>
             ) : (
-              <Box
+              <Flex
                 key={index}
-                border="1px solid #ccc"
+                flexDir={'column'}
+                width={'100%'}
                 padding="10px"
                 marginBottom="10px"
-                onClick={() => navigate(`/entry/${entry._id}`)}
+                rounded={'lg'}
+                style={{
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)'
+                }}
               >
-                <h4>{entry.title || 'Bez tytułu'}</h4>
-                <p>{entry.body || 'Brak treści'}</p>
-                <p>{entry.price || 'Brak numeru telefonu'}</p>
-                {entry.image && (
-                  <>
-                    <Image src={entry.image} alt="Obraz" width="100px" />
+                <Flex onClick={() => navigate(`/entry/${entry._id}`)}>
+                  <Flex>
+                    <Image
+                      src={entry.image}
+                      alt="Obraz"
+                      width="100px"
+                      sm={{ width: '150px' }}
+                    />
+                  </Flex>
+                  <Flex flexDir={'column'} ml={2}>
+                    <Heading size={'3xl'} mb={2} sm={{ fontSize: '4xl' }}>
+                      {entry.title || 'Bez tytułu'}
+                    </Heading>
+                    <Flex flexDir={'column'} sm={{ fontSize: '18px' }}>
+                      <Text>{entry.body || 'Brak treści'}</Text>
+                      <Text>
+                        {entry.price + ' PLN' || 'Brak numeru telefonu'}{' '}
+                      </Text>
+                    </Flex>
+                  </Flex>
+                </Flex>
+                <Flex
+                  mt={2}
+                  justifyContent={'space-between'}
+                  alignItems={'center'}
+                  flexDir={'row'}
+                  sm={{ flexDir: 'row' }}
+                >
+                  {entry.image && (
                     <Button
                       onClick={() => handleDeleteImage(entry._id)}
-                      colorScheme="red"
                       mt={2}
+                      sm={{ fontSize: '14px', width: '100px' }}
+                      style={{
+                        background: '#ff4d4d', // Czerwony kolor tła dla usuwania
+                        color: '#fff', // Biały kolor tekstu
+                        padding: '0.5rem 1rem', // Wygodne wypełnienie
+                        borderRadius: '5px', // Zaokrąglone rogi
+                        border: 'none', // Brak obramowania
+                        cursor: 'pointer', // Kursor wskazujący na kliknięcie
+                        transition: 'background 0.3s ease' // Przejście dla tła
+                      }}
+                      _hover={{
+                        background: '#ff1a1a' // Zmiana tła na ciemniejszy czerwony po najechaniu
+                      }}
                     >
                       Usuń zdjęcie
                     </Button>
-                  </>
-                )}
-                <Button
-                  onClick={() => handleEditClick(entry)}
-                  colorScheme="blue"
-                  mt={2}
-                >
-                  Edytuj
-                </Button>
-                <Button
-                  onClick={() => handleDeleteEntry(entry._id)}
-                  colorScheme="red"
-                  mt={2}
-                  ml={2}
-                >
-                  Usuń notatkę
-                </Button>
-              </Box>
+                  )}
+                  <Button
+                    onClick={() => handleEditClick(entry)}
+                    mt={2}
+                    sm={{ fontSize: '14px', width: '100px' }}
+                    style={{
+                      background: '#4CAF50', // Zielone tło dla edycji
+                      color: '#fff', // Biały kolor tekstu
+                      padding: '0.5rem 1rem', // Wygodne wypełnienie
+                      borderRadius: '5px', // Zaokrąglone rogi
+                      border: 'none', // Brak obramowania
+                      cursor: 'pointer', // Kursor wskazujący na kliknięcie
+                      transition: 'background 0.3s ease' // Przejście dla tła
+                    }}
+                    _hover={{
+                      background: '#45a049' // Zmiana tła na ciemniejszy zielony po najechaniu
+                    }}
+                  >
+                    Edytuj
+                  </Button>
+
+                  <Button
+                    onClick={() => handleDeleteEntry(entry._id)}
+                    mt={2}
+                    sm={{ fontSize: '14px', width: '100px' }}
+                    style={{
+                      background: '#ff7043', // Pomarańczowe tło dla usuwania notatki
+                      color: '#fff', // Biały kolor tekstu
+                      padding: '0.5rem 1rem', // Wygodne wypełnienie
+                      borderRadius: '5px', // Zaokrąglone rogi
+                      border: 'none', // Brak obramowania
+                      cursor: 'pointer', // Kursor wskazujący na kliknięcie
+                      transition: 'background 0.3s ease' // Przejście dla tła
+                    }}
+                    _hover={{
+                      background: '#e64a19' // Zmiana tła na ciemniejszy pomarańczowy po najechaniu
+                    }}
+                  >
+                    Usuń notatkę
+                  </Button>
+                </Flex>
+              </Flex>
             )}
-          </Box>
+          </Flex>
         ))}
       </Box>
     </Flex>

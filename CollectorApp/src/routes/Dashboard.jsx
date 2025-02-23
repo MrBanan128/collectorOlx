@@ -7,6 +7,7 @@ import Message from './userComponents/Message';
 import Admin from '../components/layout/AdminPanel/Users';
 import PanelExpert from './userComponents/PanelExpert';
 import AddProduct from './userComponents/AddProduct';
+import ArrowBack from '../components/layout/ArrowBack';
 
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -27,6 +28,7 @@ const Dashboard = () => {
         });
 
         const data = await response.json();
+        console.log(data);
 
         if (data.status === 'admin') {
           setIsAdmin(true);
@@ -58,6 +60,9 @@ const Dashboard = () => {
       overflow="auto"
       overflowX={'hidden'}
     >
+      <Box size>
+        <ArrowBack />
+      </Box>
       <Flex
         direction="column"
         align="center"

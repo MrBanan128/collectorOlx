@@ -196,6 +196,9 @@ const Users = () => {
       flexDir={'column'}
       backgroundColor={'white'}
       textAlign={'center'}
+      bgImage={
+        'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
+      }
     >
       <Flex
         justifyContent="center"
@@ -203,6 +206,7 @@ const Users = () => {
         flexDir={'column'}
         gap={'2rem'}
         padding={'2rem'}
+        color={'white'}
       >
         <Heading
           fontSize={'30px'}
@@ -263,7 +267,7 @@ const Users = () => {
                     fontSize: '1rem', // Wielkość czcionki
                     fontWeight: 'bold', // Pogrubienie etykiety
                     marginRight: '10px', // Odstęp między etykietą a polem tekstowym
-                    color: '#333' // Kolor tekstu etykiety
+                    color: '#FFFFFF' // Kolor tekstu etykiety
                   }}
                 >
                   Nazwa:
@@ -294,7 +298,7 @@ const Users = () => {
                     fontSize: '1rem', // Wielkość czcionki
                     fontWeight: 'bold', // Pogrubienie etykiety
                     marginRight: '10px', // Odstęp między etykietą a polem tekstowym
-                    color: '#333' // Kolor tekstu etykiety
+                    color: '#FFFFFF' // Kolor tekstu etykiety
                   }}
                 >
                   Email:
@@ -325,7 +329,7 @@ const Users = () => {
                     fontSize: '1rem', // Wielkość czcionki
                     fontWeight: 'bold', // Pogrubienie etykiety
                     marginRight: '10px', // Odstęp między etykietą a polem tekstowym
-                    color: '#333' // Kolor tekstu etykiety
+                    color: '#FFFFFF' // Kolor tekstu etykiety
                   }}
                 >
                   Hasło:
@@ -356,7 +360,7 @@ const Users = () => {
                     fontSize: '1rem', // Wielkość czcionki
                     fontWeight: 'bold', // Pogrubienie etykiety
                     marginRight: '10px', // Odstęp między etykietą a polem tekstowym
-                    color: '#333' // Kolor tekstu etykiety
+                    color: '#FFFFFF' // Kolor tekstu etykiety
                   }}
                 >
                   Status:
@@ -366,11 +370,12 @@ const Users = () => {
                   onChange={(e) => setEditStatus(e.target.value)}
                   style={{
                     margin: '.2rem .5rem', // Odstęp od innych elementów
-                    backgroundColor: 'lightgray', // Jasnoszare tło
+                    background: '#f4f4f4', // Jasnoszare tło
                     color: 'black', // Czarny kolor tekstu
-                    padding: '0.5rem 1rem', // Większe wypełnienie
+                    padding: '0.5rem ', // Większe wypełnienie
+                    marginBottom: '1rem', // Odstęp od dolnego elementu
                     border: '2px solid #ccc', // Jasnoszare obramowanie
-                    borderRadius: '12px', // Zaokrąglone rogi
+                    borderRadius: '4px', // Zaokrąglone rogi
                     fontSize: '1rem', // Wielkość czcionki
                     cursor: 'pointer', // Kursor wskazujący
                     width: '200px', // Szerokość selecta
@@ -494,7 +499,7 @@ const Users = () => {
             <tr
               style={{
                 margin: '1rem',
-                color: 'black',
+                color: 'white',
                 borderBottom: '1px solid gray',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' // Cień na dolnej krawędzi
               }}

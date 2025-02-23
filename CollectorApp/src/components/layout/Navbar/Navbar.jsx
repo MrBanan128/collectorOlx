@@ -16,6 +16,7 @@ const Navbar = ({ background, height }) => {
   useEffect(() => {
     // Odczytujemy dane z localStorage, np. rolę użytkownika
     const userData = JSON.parse(localStorage.getItem('user')); // Zakładamy, że dane użytkownika są zapisane w localStorage pod kluczem 'user'
+    console.log(userData); //TODO WYSWIETLA NULL
 
     if (userData && userData.role === 'admin') {
       setIsAdmin(true);
@@ -57,10 +58,8 @@ const Navbar = ({ background, height }) => {
         </Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Strona Główna</AppLink>
-          <AppLink to="/dashboard">Profil</AppLink>
-          {isLogged && <AppLink to={'/login'}>Zaloguj</AppLink>}
-
-          {/* Warunkowe renderowanie linku Admin, jeśli użytkownik jest administratorem */}
+          {isLogged && <AppLink to="/dashboard">Profil</AppLink>}
+          {!isLogged && <AppLink to={'/login'}>Zaloguj</AppLink>}
           {isAdmin && <AppLink to={'/admin'}>Admin</AppLink>}
           {isExpert && <AppLink to={'/expert'}>Expert</AppLink>}
 

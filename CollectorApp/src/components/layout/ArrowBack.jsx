@@ -19,6 +19,7 @@ const ArrowBack = () => {
           color={'white'}
           size={'2xl'}
           style={{ zIndex: '10' }}
+          sm={{ size: '2xl' }}
         >
           <TbArrowBackUp />
         </IconButton>

@@ -8,7 +8,7 @@ import Home from './routes/Home';
 
 import Test from './testBackend/test';
 import './index.css';
-import Admin from './routes/Admin';
+
 import Login from './components/layout/Login/Login';
 import Register from './components/layout/Login/Register';
 import ProductsPanel from './routes/userComponents/ProductsPanel';
@@ -23,7 +23,6 @@ createRoot(document.getElementById('root')).render(
           <Route path="/test" element={<Test />} />
           <Route path="/Sign-up" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/entry/:id" element={<ProductsPanel />} />
           <Route path="/:category" element={<CategorySide />} />
