@@ -45,7 +45,6 @@ const EntryPanel = () => {
             <Text fontSize="sm" color="gray">Kategoria: {entry.category}</Text>
             <Text fontSize="sm" color="gray">Podkategoria: {entry.subcategory}</Text>
             {entry.image && <Image src={entry.image} alt="Obraz" width="100%" />}
-            <Button onClick={() => navigate(-1)} colorScheme="blue" mt={4}>Wróć</Button>
         </Box>
         
         </>

@@ -61,8 +61,7 @@ const CategorySide = () => {
             entries.map((entry, index) => (
               <Box key={index} border="1px solid #ccc" padding="10px" marginBottom="10px">
                 <Box
-                  _hover={{ background: "#f0f0f0", cursor: "pointer" }}
-                  onClick={() => navigate(`/entry/${entry._id}`)} // Nawigowanie do szczegółów notatki
+                   onClick={() => navigate(`/entry/${entry._id}`)} // Nawigowanie do szczegółów notatki
                 >
                   <h4>{entry.title || 'Bez tytułu'}</h4>
                   <p>{entry.body || 'Brak treści'}</p>

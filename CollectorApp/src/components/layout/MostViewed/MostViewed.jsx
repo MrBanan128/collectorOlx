@@ -65,7 +65,6 @@ const MostViewed = () => {
             entries.map((entry, index) => (
               <div key={index} className="category-card">
                 <Box
-                  _hover={{ background: "#f0f0f0", cursor: "pointer" }}
                   onClick={() => navigate(`/entry/${entry._id}`)} // Nawigowanie do szczegółów notatki
                 > 
                   {entry.image && <Image src={entry.image} alt="Obraz" className="category-image" />}
