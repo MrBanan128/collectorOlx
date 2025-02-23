@@ -6,7 +6,7 @@ const passport = require('../passport');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const { Note, User } = require('../db/models/note');
+const { Note, User, Message } = require('../db/models/note');
 
 
 const router = express.Router();
@@ -59,17 +59,22 @@ const upload = multer({ storage });
 // Middleware do autoryzacji
 const authMiddleware = async (req, res, next) => {
     const authHeader = req.header('Authorization');
-    if (!authHeader) return res.status(401).json({ message: 'Brak tokena, autoryzacja odmówiona' });
+    if (!authHeader) {
+        return res.status(401).json({ message: 'Brak tokena, autoryzacja odmówiona' });
+    }
 
     const token = authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : authHeader;
+    
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        req.user = decoded;
+        // console.log('Decoded user data in middleware: ', decoded); // Logowanie w middleware
+        req.user = decoded; // Przypisanie danych użytkownika
         next();
     } catch (error) {
         res.status(401).json({ message: 'Token jest nieprawidłowy' });
     }
 };
+
 
 
 // Middleware do sprawdzania, czy użytkownik jest administratorem
@@ -92,13 +97,10 @@ const adminMiddleware = async (req, res, next) => {
 // Rejestracja użytkownika
 router.post('/register', async (req, res) => {
     try {
-        console.log("Dane z frontendu:", req.body);  // Debug: sprawdź, czy `status` dociera do backendu
-
+        // console.log("Dane z frontendu:", req.body);  // Debug: sprawdź, czy `status` dociera do backendu
         const { username, email, password, status } = req.body;
-
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: 'Użytkownik już istnieje' });
-
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new User({ 
             username, 
@@ -106,11 +108,8 @@ router.post('/register', async (req, res) => {
             password: hashedPassword, 
             status: status ? status : 'user'  // Jeśli `status` nie został przesłany, ustaw 'user'
         });
-
         await user.save();
-
-        console.log("Nowy użytkownik zapisany:", user);  // Debug: sprawdź, jaki status ma użytkownik
-
+        // console.log("Nowy użytkownik zapisany:", user);  // Debug: sprawdź, jaki status ma użytkownik
         res.status(201).json({ message: 'Rejestracja zakończona sukcesem', user });
     } catch (error) {
         console.error("Błąd rejestracji:", error);
@@ -129,7 +128,7 @@ router.post('/login', async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
 
-        const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '3h' });
 
         res.json({ token, user: { id: user._id, username: user.username, email: user.email } });
     } catch (error) {
@@ -313,7 +312,6 @@ router.post('/users/entries', authMiddleware, upload.single('image'), async (req
             views: 0,  // Domyślnie 0 wyświetleń
             isPromoted: req.body.isPromoted || false,  // Flaga promowania, jeśli nie podano, to domyślnie false
         });
-
         await newNote.save();
         res.status(201).json({ note: newNote });
     } catch (error) {
@@ -331,7 +329,6 @@ router.put('/users/entries/:noteId', authMiddleware, async (req, res) => {
             { title, body, price },
             { new: true }
         );
-
         if (!updatedNote) return res.status(404).json({ message: 'Notatka nie znaleziona' });
 
         res.json(updatedNote);
@@ -345,18 +342,14 @@ router.delete('/users/entries/:noteId', authMiddleware, async (req, res) => {
     try {
         const { noteId } = req.params;
         const note = await Note.findById(noteId);
-
         if (!note) return res.status(404).json({ message: 'Notatka nie znaleziona' });
-
         // Jeśli notatka zawiera obraz, usuń go z Cloudinary
         if (note.image) {
             const publicId = note.image.split('/').pop().split('.')[0];
             await cloudinary.uploader.destroy(`notatki/${publicId}`);
         }
-
         // Usuń notatkę z bazy danych
         await Note.findByIdAndDelete(noteId);
-
         res.json({ message: 'Notatka usunięta' });
     } catch (error) {
         console.error('Błąd usuwania notatki:', error);
@@ -369,20 +362,16 @@ router.delete('/users/entries/image/:noteId', authMiddleware, async (req, res) =
     try {
         const { noteId } = req.params;
         const note = await Note.findById(noteId);
-
         if (!note) return res.status(404).json({ message: 'Notatka nie znaleziona' });
-        
-        // Sprawdzenie, czy notatka ma obraz
+           // Sprawdzenie, czy notatka ma obraz
         if (note.image) {
             // Wydobycie public_id z URL-a obrazu
             const imageUrl = note.image;
             const publicId = imageUrl.split('/').pop().split('.')[0]; // Pobiera nazwę pliku bez rozszerzenia
-            
             // Usunięcie obrazu z Cloudinary
             await cloudinary.uploader.destroy(`notatki/${publicId}`);
             // await cloudinary.uploader.destroy(publicId);
-
-            console.log(`Obraz ${publicId} usunięty z Cloudinary`);
+            // console.log(`Obraz ${publicId} usunięty z Cloudinary`);
         }
 
         // Usunięcie obrazu z bazy danych
@@ -419,7 +408,7 @@ router.put('/admin/users/:userId', authMiddleware, adminMiddleware, async (req, 
         if (!user) return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
 
         // Debug: Sprawdzamy dane przed zapisaniem
-        console.log("Dane użytkownika przed edycją:", user);
+        // console.log("Dane użytkownika przed edycją:", user);
 
         // Aktualizowanie danych użytkownika
         if (username) user.username = username;
@@ -428,16 +417,13 @@ router.put('/admin/users/:userId', authMiddleware, adminMiddleware, async (req, 
 
         // Jeśli podano nowe hasło, musimy je zahaszować
         if (password) {
-            console.log("Hasło do zaktualizowania:", password);  // Debug
+            // console.log("Hasło do zaktualizowania:", password);  // Debug
             const hashedPassword = await bcrypt.hash(password, 10); // Haszowanie hasła
             user.password = hashedPassword;
         }
-
         await user.save();
-
         // Debug: Sprawdzamy dane po zapisaniu
-        console.log("Zaktualizowany użytkownik:", user);
-
+        // console.log("Zaktualizowany użytkownik:", user);
         res.json({ message: 'Dane użytkownika zostały zaktualizowane', user });
     } catch (error) {
         res.status(500).json({ message: 'Błąd podczas aktualizacji danych użytkownika', details: error });
@@ -480,36 +466,67 @@ router.delete('/admin/users/:userId', authMiddleware, adminMiddleware, async (re
 // ============================================ Message ==================================== //
 
 // Pobieranie wiadomości dla użytkownika
-router.get('/messages/:userId', async (req, res) => {
-    const { userId } = req.params;
+router.get('/user-messages', authMiddleware, async (req, res) => {
     try {
-        // Pobierz wiadomości dla użytkownika (wysłane i odebrane)
+        const userId = req.user.userId; // Zmiana z req.user.id na req.user.userId
+        // console.log('Pobieram wiadomości dla userId: ', userId); // Dodaj logowanie
         const messages = await Message.find({
             $or: [{ senderId: userId }, { receiverId: userId }]
-        }).populate('senderId receiverId', 'username email'); // Opcjonalnie: Dodaj dane nadawcy i odbiorcy
-
+        }).populate('senderId receiverId', 'username'); // Pobierz nazwy użytkowników
+        // console.log('Wiadomości z bazy: ', messages); // Dodaj logowanie
         res.status(200).json(messages);
     } catch (error) {
-        res.status(500).json({ message: 'Wystąpił błąd podczas pobierania wiadomości', error });
+        res.status(500).json({ error: 'Błąd przy pobieraniu wiadomości' });
     }
 });
 
-router.post('/messages', async (req, res) => {
-    const { senderId, receiverId, content } = req.body;
 
-    const message = new Message({
-        senderId,
-        receiverId,
-        content,
-        timestamp: new Date(),
-        status: 'unread'
-    });
-
+router.post('/send-message', async (req, res) => {
     try {
+        // Pobranie tokena z nagłówków
+        const token = req.headers.authorization?.split(' ')[1];
+        if (!token) {
+            return res.status(401).json({ message: "Brak tokena, nieautoryzowany dostęp" });
+        }
+        // Dekodowanie tokena, aby pobrać `senderId`
+        const decoded = jwt.verify(token, 'domyslny_sekret');
+        const senderId = decoded.userId; // Upewnij się, że `userId` jest poprawnym kluczem w tokenie
+        const { receiverId, content, title } = req.body;
+        // Sprawdzenie, czy wszystkie dane są obecne
+        if (!receiverId || !content, !title) {
+            return res.status(400).json({ message: "Brak wymaganych danych" });
+        }
+        const message = new Message({
+            senderId,
+            receiverId,
+            title,
+            content,
+            timestamp: new Date(),
+            status: 'unread'
+        });
+
         await message.save();
-        res.status(201).json(message);
+        res.status(201).json({ message: "Wiadomość wysłana", data: message });
+
     } catch (error) {
-        res.status(500).json({ message: 'Wystąpił błąd podczas wysyłania wiadomości', error });
+        console.error("Błąd podczas wysyłania wiadomości:", error);
+        res.status(500).json({ message: "Wystąpił błąd", error });
+    }
+});
+
+
+router.patch('/message/:id/read', authMiddleware, async (req, res) => {
+    try {
+        const message = await Message.findById(req.params.id);
+        if (!message) {
+        return res.status(404).json({ message: 'Wiadomość nie znaleziona' });
+        }
+        message.status = 'read';
+        await message.save();
+        res.status(200).json({ message: 'Status wiadomości zaktualizowany' });
+    } catch (error) {
+        console.error("Błąd przy aktualizacji statusu:", error);
+        res.status(500).json({ message: 'Błąd przy aktualizacji statusu', error: error.message });
     }
 });
 
@@ -526,9 +543,6 @@ router.delete('/messages/:messageId', async (req, res) => {
         res.status(500).json({ message: 'Wystąpił błąd podczas usuwania wiadomości', error });
     }
 });
-
-
-
 
 
 

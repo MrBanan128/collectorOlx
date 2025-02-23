@@ -26,14 +26,11 @@ const UserSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', UserSchema);
 
-
-
-
-
 // Model dla wiadomości
 const MessageSchema = new Schema({
     senderId: { type: Schema.Types.ObjectId, ref: 'User', required: true },  // ID nadawcy
     receiverId: { type: Schema.Types.ObjectId, ref: 'User', required: true },  // ID odbiorcy
+    title: { type: String, required: true },
     content: { type: String, required: true },  // Treść wiadomości
     timestamp: { type: Date, default: Date.now },  // Data i czas wysłania wiadomości
     status: { type: String, enum: ['unread', 'read'], default: 'unread' }  // Status wiadomości (odczytana/nieodczytana)
