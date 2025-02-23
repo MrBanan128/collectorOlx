@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const subcategories = {
   ],
   Znaczek: [
     { value: "wojskowy", label: "Wojskowy" },
-    { value: "wersonalizowany", label: "Personalizowany" },
+    { value: "personalizowany", label: "Personalizowany" },
     { value: "urzedowy", label: "Urzędowy" }
   ],
   Moneta: [
@@ -31,26 +31,19 @@ const subcategories = {
 };
 
 const CategorySelector = ({ selectedCategory }) => {
-    const navigate = useNavigate();
-    const [showSubcategories, setShowSubcategories] = useState(false);
-  
-    useEffect(() => {
-      setShowSubcategories(!!selectedCategory);
-    }, [selectedCategory]);
-  
-    const handleSubcategoryClick = (subcategory) => {
-      if (subcategory.includes("wszystkie")) {
-        navigate(`/${selectedCategory}`);
-      } else {
-        navigate(`/${selectedCategory}/${subcategory}`);
-      }
-    };
+  const navigate = useNavigate();
 
-  
+  const handleSubcategoryClick = (subcategory) => {
+    if (subcategory.includes("wszystkie")) {
+      navigate(`/${selectedCategory}`);
+    } else {
+      navigate(`/${selectedCategory}/${subcategory}`);
+    }
+  };
 
   return (
     <>
-      {showSubcategories && selectedCategory && (
+      {selectedCategory && (
         <Box mt={4} style={{ textAlign: "center" }}>
           <a
             href=""
