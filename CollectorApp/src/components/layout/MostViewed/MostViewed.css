@@ -7,29 +7,36 @@
   padding: 40px;
   margin: 0;
   background: linear-gradient(
-    143deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(87, 87, 87, 1) 10%,
-    rgba(87, 87, 87, 1) 17%,
-    rgba(121, 121, 121, 0.98) 20%,
-    rgba(83, 83, 83, 1) 28%,
-    rgba(102, 102, 102, 1) 35%,
-    rgba(79, 79, 79, 1) 37%,
-    rgba(99, 99, 99, 1) 42%,
-    rgba(125, 125, 125, 1) 47%,
-    rgba(85, 85, 85, 1) 53%,
-    rgba(111, 111, 111, 1) 57%,
-    rgba(88, 87, 87, 1) 60%,
-    rgba(110, 110, 110, 1) 65%,
-    rgba(110, 107, 107, 1) 70%,
-    rgba(57, 57, 57, 1) 75%,
-    rgba(66, 66, 66, 1) 82%,
-    rgba(36, 36, 36, 0.98) 88%,
-    rgba(64, 63, 63, 0.98) 94%,
-    rgba(83, 83, 83, 0.98) 98%
+    219rad,
+    rgba(255, 250, 217, 1) 1%,
+    rgba(255, 247, 195, 1) 10%,
+    rgba(255, 245, 181, 1) 19%,
+    rgba(255, 247, 193, 1) 20%,
+    rgba(255, 245, 179, 1) 23%,
+    rgba(255, 248, 205, 1) 23%,
+    rgba(255, 245, 179, 1) 31%,
+    rgba(255, 248, 203, 1) 31%,
+    rgba(255, 247, 197, 1) 39%,
+    rgba(255, 246, 189, 1) 47%,
+    rgba(255, 247, 201, 1) 47%,
+    rgba(255, 246, 187, 1) 48%,
+    rgba(255, 247, 193, 1) 54%,
+    rgba(255, 245, 178, 1) 60%,
+    rgba(255, 247, 195, 1) 60%,
+    rgba(255, 245, 181, 1) 63%,
+    rgba(255, 246, 184, 1) 69%,
+    rgba(255, 247, 195, 1) 70%,
+    rgba(255, 245, 180, 1) 74%,
+    rgba(255, 245, 176, 1) 80%,
+    rgba(255, 248, 202, 1) 81%,
+    rgba(255, 245, 173, 1) 85%,
+    rgba(255, 249, 212, 1) 86%,
+    rgba(255, 246, 189, 1) 87%,
+    rgba(255, 244, 167, 1) 88%,
+    rgba(255, 246, 188, 1) 100%
   );
   background-size: 200% 200%;
-  animation: gradientAnimation 20s ease-in-out infinite alternate;
+  animation: gradientAnimation 15s ease-in-out infinite alternate;
 }
 
 @keyframes gradientAnimation {
@@ -67,7 +74,7 @@
 .category-card:hover {
   transform: scale(1.1);
 }
-
+t
 /* Styl obrazu na karcie z wykorzystaniem object-fit */
 .category-image {
   width: 100%;

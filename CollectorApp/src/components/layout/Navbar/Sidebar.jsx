@@ -14,6 +14,7 @@ import {
   MessagesSquare,
   UserRound
 } from 'lucide-react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Sidebar = ({ open, setOpen }) => {
   return (
@@ -41,59 +42,74 @@ const Sidebar = ({ open, setOpen }) => {
               gap={4}
               width="100%" // Ensure Grid takes full width
             >
-              <Box
-                width="100%"
-                height="80px"
-                fontSize="xl"
-                backgroundColor={'white'}
-                color={'black'}
-                rounded={'xl'}
-                justifyItems={'center'}
-                alignContent={'center'}
-              >
-                <House />
-                <Text>Home</Text>
-              </Box>
-              <Box
-                width="100%"
-                height="80px"
-                fontSize="xl"
-                backgroundColor={'white'}
-                color={'black'}
-                rounded={'xl'}
-                justifyItems={'center'}
-                alignContent={'center'}
-              >
-                <MessageCircleMore />
-                <Text>Message</Text>
-              </Box>
-              <Box
-                width="100%"
-                height="80px"
-                fontSize="xl"
-                backgroundColor={'white'}
-                color={'black'}
-                rounded={'xl'}
-                justifyItems={'center'}
-                alignContent={'center'}
-              >
-                <MessagesSquare />
-                <Text>Chat</Text>
-              </Box>
-              <Box
-                width="100%"
-                height="80px"
-                fontSize="xl"
-                backgroundColor={'white'}
-                color={'black'}
-                rounded={'xl'}
-                justifyItems={'center'}
-                alignContent={'center'}
-                direction={'row'}
-              >
-                <UserRound />
-                <Text>Account</Text>
-              </Box>
+              {/* Wrap each Box with a Link */}
+              <Link to="/">
+                <Box
+                  width="100%"
+                  height="80px"
+                  fontSize="xl"
+                  backgroundColor={'white'}
+                  color={'black'}
+                  rounded={'xl'}
+                  justifyItems={'center'}
+                  alignContent={'center'}
+                  _hover={{ bg: 'gray.100' }} // Add hover effect
+                >
+                  <House />
+                  <Text>Home</Text>
+                </Box>
+              </Link>
+
+              <Link to="/message">
+                <Box
+                  width="100%"
+                  height="80px"
+                  fontSize="xl"
+                  backgroundColor={'white'}
+                  color={'black'}
+                  rounded={'xl'}
+                  justifyItems={'center'}
+                  alignContent={'center'}
+                  _hover={{ bg: 'gray.100' }}
+                >
+                  <MessageCircleMore />
+                  <Text>Message</Text>
+                </Box>
+              </Link>
+
+              <Link to="/chat">
+                <Box
+                  width="100%"
+                  height="80px"
+                  fontSize="xl"
+                  backgroundColor={'white'}
+                  color={'black'}
+                  rounded={'xl'}
+                  justifyItems={'center'}
+                  alignContent={'center'}
+                  _hover={{ bg: 'gray.100' }}
+                >
+                  <MessagesSquare />
+                  <Text>Chat</Text>
+                </Box>
+              </Link>
+
+              <Link to="/sign-up">
+                <Box
+                  width="100%"
+                  height="80px"
+                  fontSize="xl"
+                  backgroundColor={'white'}
+                  color={'black'}
+                  rounded={'xl'}
+                  justifyItems={'center'}
+                  alignContent={'center'}
+                  _hover={{ bg: 'gray.100' }}
+                >
+                  <UserRound />
+                  <Text>Account</Text>
+                </Box>
+              </Link>
             </Grid>
           </Flex>
         </DrawerBody>
