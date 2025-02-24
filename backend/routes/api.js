@@ -546,6 +546,26 @@ router.delete('/messages/:messageId', async (req, res) => {
 
 
 
+router.get('/admin-contact', authMiddleware, async (req, res) => {
+    try {
+        const admins = await User.find({ status: 'admin' }, 'username _id'); // Pobiera tylko username i _id adminów
+        res.status(200).json(admins);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd przy pobieraniu administratorów', error });
+    }
+});
+
+router.get('/expert-contact', authMiddleware, async (req, res) => {
+    try {
+        const experts = await User.find({ status: 'expert' }, 'username _id'); // Pobiera tylko username i _id
+        res.status(200).json(experts);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd przy pobieraniu ekspertów', error });
+    }
+});
+
+
 module.exports = router;
+
 
 
