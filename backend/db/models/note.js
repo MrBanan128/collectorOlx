@@ -13,6 +13,10 @@ const NoteSchema = new Schema({
     createdAt: { type: Date, default: Date.now },  // Data utworzenia
     views: { type: Number, default: 0 },  // Liczba wyświetleń
     isPromoted: { type: Boolean, default: false },  // Flaga promowania
+
+    expertStatus: { type: Boolean, default: false }, // Czy został oceniony przez eksperta
+    expertValue: { type: Number, default: null }, // Proponowana wartość przez eksperta
+    expertId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null }, // Kto ocenił   
 });
 
 const Note = mongoose.model('Note', NoteSchema);

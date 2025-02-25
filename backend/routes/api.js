@@ -310,9 +310,9 @@ router.post('/users/entries', authMiddleware, upload.single('image'), async (req
             subcategory: req.body.subcategory, // Zapisujemy podkategorię
             createdAt: new Date(),  // Ustawienie bieżącej daty i godziny
             views: 0,  // Domyślnie 0 wyświetleń
-            isPromoted: req.body.isPromoted || false,  // Flaga promowania, jeśli nie podano, to domyślnie false
+            expertRequest: req.body.expertRequest || false // Nowe pole zamiast isPromoted  // Flaga promowania, jeśli nie podano, to domyślnie false
         });
-        await newNote.save();
+        await newNote.save(); 
         res.status(201).json({ note: newNote });
     } catch (error) {
         res.status(500).json({ message: 'Błąd serwera', details: error });
@@ -357,34 +357,27 @@ router.delete('/users/entries/:noteId', authMiddleware, async (req, res) => {
     }
 });
 
+
+
 // Usuwanie zdjęcia z notatki
 router.delete('/users/entries/image/:noteId', authMiddleware, async (req, res) => {
     try {
         const { noteId } = req.params;
         const note = await Note.findById(noteId);
         if (!note) return res.status(404).json({ message: 'Notatka nie znaleziona' });
-           // Sprawdzenie, czy notatka ma obraz
         if (note.image) {
-            // Wydobycie public_id z URL-a obrazu
             const imageUrl = note.image;
             const publicId = imageUrl.split('/').pop().split('.')[0]; // Pobiera nazwę pliku bez rozszerzenia
-            // Usunięcie obrazu z Cloudinary
             await cloudinary.uploader.destroy(`notatki/${publicId}`);
-            // await cloudinary.uploader.destroy(publicId);
-            // console.log(`Obraz ${publicId} usunięty z Cloudinary`);
         }
-
         // Usunięcie obrazu z bazy danych
         await Note.findByIdAndUpdate(noteId, { image: null });
-
         res.json({ message: 'Zdjęcie usunięte' });
     } catch (error) {
         console.error('Błąd usuwania zdjęcia:', error);
         res.status(500).json({ message: 'Błąd serwera' });
     }
 });
-
-
 
 
 // ======================================= ADMIN ====================================== //

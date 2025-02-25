@@ -257,9 +257,6 @@
 
 
 
-
-
-
 import { useState, useEffect } from "react";
 import { Checkbox } from "../../ui/checkbox";
 import axios from "axios";
@@ -273,7 +270,6 @@ const Users = () => {
   const [editPassword, setEditPassword] = useState("");
   const [editStatus, setEditStatus] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
-  
   // Dodane do obsługi wiadomości
   const [messageTitle, setMessageTitle] = useState("");
   const [messageContent, setMessageContent] = useState("");

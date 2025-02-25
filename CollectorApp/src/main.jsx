@@ -8,11 +8,11 @@ import Home from './routes/Home';
 
 import Test from './testBackend/test';
 import './index.css';
-import Admin from './routes/Admin';
 import Login from './components/layout/Login/Login';
 import Register from './components/layout/Login/Register';
 import ProductsPanel from './routes/userComponents/ProductsPanel';
 import CategorySide from './components/layout/CategoryCarousel/CategorySide';
+import Adds from './routes/Adds';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -23,8 +23,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/test" element={<Test />} />
           <Route path="/Sign-up" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/dashboard/*" element={<Dashboard />} />
+           <Route path='/adds' element={<Adds/>}/>
+          <Route path="/dashboard/" element={<Dashboard />} />
           <Route path="/entry/:id" element={<ProductsPanel />} />
           <Route path="/:category" element={<CategorySide />} />
           <Route path="/:category/:subcategory" element={<CategorySide />} />

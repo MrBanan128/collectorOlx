@@ -38,7 +38,7 @@ const Navbar = ({ background, height }) => {
           <AppLink to="/dashboard">Dashboard</AppLink>
           <AppLink to={'/Sign-up'}>Account</AppLink>
           <AppLink to={'/test'}>Test </AppLink>
-          <AppLink to={'/admin'}>Adds </AppLink>
+          <AppLink to={'/adds'}>Adds </AppLink>
           <MenuButton onClick={handleClick} />
         </Flex>
       </Flex>
