@@ -1,3 +1,9 @@
 * {
   font-family: 'Sawarabi Gothic', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  overflow-x: hidden;
 }

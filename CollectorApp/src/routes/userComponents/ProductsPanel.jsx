@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Box, Button, Image, Text, Textarea, Input } from '@chakra-ui/react';
 import axios from "axios";
 
-
 const EntryPanel = () => {
     const { id } = useParams(); // Pobranie ID wpisu z URL
     const [entry, setEntry] = useState(null);
@@ -44,7 +43,6 @@ const EntryPanel = () => {
                 setError("Brak odbiorcy wiadomości (entry.userId)");
                 return;
             }
-    
             await axios.post("http://localhost:10000/send-message",
                 {
                     receiverId: entry.userId,  // Używamy userId z wpisu
@@ -61,7 +59,6 @@ const EntryPanel = () => {
             setError("Błąd wysyłania wiadomości");
         }
     };
-    
 
     if (error) return <p>Błąd: {error}</p>;
     if (!entry) return <p>Ładowanie...</p>;
