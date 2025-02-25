@@ -57,12 +57,11 @@ const Navbar = ({ background, height }) => {
           <Logo />
         </Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
-          <AppLink to="/">Strona Główna</AppLink>
-          {isLogged && <AppLink to="/dashboard">Profil</AppLink>}
-          {!isLogged && <AppLink to={'/login'}>Zaloguj</AppLink>}
-          {isAdmin && <AppLink to={'/admin'}>Admin</AppLink>}
-          {isExpert && <AppLink to={'/expert'}>Expert</AppLink>}
-
+          <AppLink to="/">Home</AppLink>
+          <AppLink to="/dashboard">Dashboard</AppLink>
+          <AppLink to={'/Sign-up'}>Account</AppLink>
+          <AppLink to={'/test'}>Test </AppLink>
+          <AppLink to={'/admin'}>Adds </AppLink>
           <MenuButton onClick={handleClick} />
         </Flex>
       </Flex>

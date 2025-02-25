@@ -16,22 +16,6 @@ const productItems = [
 ];
 
 const Products = () => {
-  /*
-  const [products, setProducts] = useState([]);
-
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch('http://localhost:10000/users');
-      if (!response.ok) {
-        throw new Error('Server error');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  POBIERANIE PRODUKTOW Z BAZY
-  */
 
   const [selection, setSelection] = useState([]);
 

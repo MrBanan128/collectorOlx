@@ -13,7 +13,11 @@ const Users = () => {
   const [editPassword, setEditPassword] = useState('');
   const [editStatus, setEditStatus] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  const [messageTitle, setMessageTitle] = useState('');
+  const [messageContent, setMessageContent] = useState('');
+  const [selectedUser, setSelectedUser] = useState(null); // Przechowujemy wybranego użytkownika, aby wysłać do niego wiadomość
 
   // Sortowanie użytkowników
   const sortedUsers = [...users].sort((a, b) => {
@@ -103,35 +107,32 @@ const Users = () => {
     }
   };
 
-  // Usuwanie wielu użytkowników
-  const handleBulkDelete = async () => {
+  // Wysyłanie wiadomości
+  const sendMessage = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
       alert('Brak tokenu użytkownika.');
       return;
     }
-
-    if (
-      !window.confirm('Czy na pewno chcesz usunąć zaznaczonych użytkowników?')
-    ) {
-      return;
-    }
-
     try {
       await axios.post(
-        'http://localhost:10000/admin/users/bulk-delete',
-        { userIds: selection },
-        { headers: { Authorization: `Bearer ${token}` } }
+        'http://localhost:10000/send-message',
+        {
+          receiverId: selectedUser._id,
+          title: messageTitle,
+          content: messageContent
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
       );
-
-      setUsers((prevUsers) =>
-        prevUsers.filter((user) => !selection.includes(user._id))
-      );
-      setSelection([]);
-      alert('Zaznaczeni użytkownicy zostali usunięci.');
+      alert('Wiadomość została wysłana.');
+      setMessageTitle('');
+      setMessageContent('');
+      setSelectedUser(null); // Resetujemy wybranego użytkownika
     } catch (error) {
-      console.error('Błąd usuwania użytkowników', error);
-      alert('Nie udało się usunąć użytkowników.');
+      console.error('Błąd wysyłania wiadomości', error);
+      alert('Nie udało się wysłać wiadomości.');
     }
   };
 
@@ -184,10 +185,43 @@ const Users = () => {
     }
   };
 
-  if (!isAdmin) {
-    return <div>Nie masz uprawnień administratora.</div>;
-  }
+  // Wybór użytkownika do wysłania wiadomości
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+    setMessageTitle('');
+    setMessageContent('');
+  };
 
+  // Funkcja usuwania wielu użytkowników
+  const handleBulkDelete = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Brak tokenu użytkownika.');
+      return;
+    }
+
+    if (
+      !window.confirm('Czy na pewno chcesz usunąć zaznaczonych użytkowników?')
+    ) {
+      return;
+    }
+    try {
+      await axios.post(
+        'http://localhost:10000/admin/users/bulk-delete',
+        { userIds: selection },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setUsers((prevUsers) =>
+        prevUsers.filter((user) => !selection.includes(user._id))
+      );
+      setSelection([]); // Resetowanie zaznaczenia
+      alert('Zaznaczeni użytkownicy zostali usunięci.');
+    } catch (error) {
+      console.error('Błąd usuwania użytkowników', error);
+      alert('Nie udało się usunąć użytkowników.');
+    }
+  };
   return (
     <Flex
       width={'100%'}
@@ -580,6 +614,40 @@ const Users = () => {
           ))}
         </tbody>
       </table>
+      {selectedUser && (
+        <div style={{ marginTop: '20px' }}>
+          <h3>Wyślij wiadomość do {selectedUser.username}</h3>
+          <div>
+            <label>Tytuł</label>
+            <input
+              type="text"
+              value={messageTitle}
+              onChange={(e) => setMessageTitle(e.target.value)}
+              placeholder="Tytuł wiadomości"
+              style={{ padding: '.5rem', margin: '.5rem 0', width: '100%' }}
+            />
+          </div>
+          <div>
+            <label>Treść wiadomości</label>
+            <textarea
+              value={messageContent}
+              onChange={(e) => setMessageContent(e.target.value)}
+              placeholder="Treść wiadomości"
+              style={{ padding: '.5rem', margin: '.5rem 0', width: '100%' }}
+            />
+          </div>
+          <button
+            onClick={sendMessage}
+            style={{
+              background: 'blue',
+              color: 'white',
+              padding: '.5rem 1rem'
+            }}
+          >
+            Wyślij wiadomość
+          </button>
+        </div>
+      )}
     </Flex>
   );
 };
