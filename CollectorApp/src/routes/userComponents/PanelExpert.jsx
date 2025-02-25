@@ -1,84 +1,182 @@
-import { useEffect, useState } from 'react';
-import { Box, Button, Input, Textarea } from '@chakra-ui/react';
 
-const PanelExpert = () => {
-    const [entries, setEntries] = useState([]);
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+const ExpertPanel = () => {
+    const [assignedNotes, setAssignedNotes] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [evaluationData, setEvaluationData] = useState({
+        expertName: '',
+        expertBadge: '',
+        expertMessage: '',
+        expertPrice: '',
+    });
+    const [activeNoteId, setActiveNoteId] = useState(null); // Dodajemy stan do śledzenia aktywnej notatki
 
     useEffect(() => {
-        fetchEntriesForExpert();
+        const fetchAssignedNotes = async () => {
+            try {
+                const response = await axios.get("http://localhost:10000/expert/assigned-notes", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                setAssignedNotes(response.data);
+            } catch (error) {
+                console.error("Błąd podczas pobierania notatek:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAssignedNotes();
     }, []);
 
-    const fetchEntriesForExpert = async () => {
-        try {
-            const token = localStorage.getItem('token'); // Pobierz token
-    
-            const response = await fetch('http://localhost:10000/users/entries?sentToExpert=true', {
-                method: 'GET',
-                headers: { 'Authorization': `Bearer ${token}` }, // Dodaj autoryzację
-            });
-    
-            if (!response.ok) throw new Error('Błąd pobierania wpisów');
-    
-            const data = await response.json();
-            
-            // Sprawdź, czy data jest tablicą
-            if (!Array.isArray(data)) {
-                throw new Error('Błędny format danych');
-            }
-    
-            setEntries(data);
-        } catch (error) {
-            console.error('Błąd pobierania wpisów:', error);
-            setEntries([]); // Unikamy błędu `.map()`
-        }
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEvaluationData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
-    
 
-    const handleExpertEvaluation = async (noteId, expertNote) => {
+    const handleSubmit = async (noteId) => {
         try {
-            const token = localStorage.getItem('token'); // 🔥 Dodałem autoryzację
-    
-            const response = await fetch(`http://localhost:10000/users/entries/${noteId}/expert`, {
-                method: 'PUT', // 🔥 POPRAWKA: PUT zamiast POST
-                headers: { 
-                    'Authorization': `Bearer ${token}`, // 🔥 Dodałem token
-                    'Content-Type': 'application/json' 
+            const response = await axios.put(
+                `http://localhost:10000/users/entries/${noteId}`,
+                {
+                    expertEvaluation: evaluationData,
+                    expertRequest: false,
                 },
-                body: JSON.stringify({ 
-                    expertDescription: expertNote, 
-                    expertApproved: true 
-                }),
-            });
-    
-            if (!response.ok) throw new Error('Błąd podczas oceny');
-    
-            setEntries(prev => prev.filter(entry => entry._id !== noteId));
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
+            alert("Ocena została przypisana do notatki!");
+            setEvaluationData({
+                expertName: '',
+                expertBadge: '',
+                expertMessage: '',
+                expertPrice: '',
+            }); // Resetowanie formularza
         } catch (error) {
-            console.error('Błąd oceny:', error);
+            console.error("Błąd podczas wysyłania oceny:", error);
         }
     };
-    
+
+    const handleNoteClick = (noteId) => {
+        // Zmiana aktywnej notatki
+        setActiveNoteId(noteId === activeNoteId ? null : noteId); // Toggle aktywnej notatki
+    };
 
     return (
-        <Box>
-            <h1>Panel eksperta</h1>
-            {entries.length === 0 ? (
-                <p>Brak wpisów do oceny</p>
-            ) : (
-                entries.map((entry) => (
-                    <Box key={entry._id} border="1px solid gray" p={4} mb={4}>
-                        <h4>{entry.title}</h4>
-                        <Textarea defaultValue={entry.body} readOnly />
+        <div style={{ display: 'flex' }}>
+            <div style={{ flex: 1 }}>
+                <h2>Przypisane Notatki</h2>
+                {loading ? (
+                    <p>Ładowanie...</p>
+                ) : assignedNotes.length === 0 ? (
+                    <p>Brak przypisanych notatek.</p>
+                ) : (
+                    <div>
+                        {assignedNotes.map((note) => (
+                            <div 
+                                key={note._id} 
+                                style={{
+                                    border: "solid 1px red", 
+                                    padding: "1rem", 
+                                    margin: "0.5rem",
+                                    cursor: "pointer",
+                                    backgroundColor: activeNoteId === note._id ? "#f0f0f0" : "transparent", // Podświetlenie klikniętego komponentu
+                                }}
+                                onClick={() => handleNoteClick(note._id)} // Kliknięcie komponentu
+                            >
+                                {note.image && (
+                                    <img
+                                        src={note.image}
+                                        alt={note.title}
+                                        style={{ width: "100px", height: "100px" }}
+                                    />
+                                )}
+                                <h3>{note.title}</h3>
+                                <p>{note.body}</p>
+                                {note.price && <p>Cena: {note.price} PLN</p>}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
 
-                        <Input type="number" placeholder="Wprowadź wycenę" onChange={(e) => entry.price = e.target.value} />
-                        <Button onClick={() => handleExpertEvaluation(entry._id, entry.price)} colorScheme="green" mt={2}>
-                            Zatwierdź wycenę
-                        </Button>
-                    </Box>
-                ))
-            )}
-        </Box>
+            {/* Formularz dla aktywnej notatki */}
+            <div style={{ marginLeft: "2rem", width: "300px" }}>
+                {activeNoteId && (
+                    <div>
+                        <h4>Dodaj ocenę eksperta</h4>
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                handleSubmit(activeNoteId); // Przesyłanie danych do notatki
+                            }}
+                        >
+                            <div>
+                                <label>Nazwa eksperta:</label>
+                                <input
+                                    style={{ background: "#333333", border: "solid 1px red", margin: ".2rem" }}
+                                    type="text"
+                                    name="expertName"
+                                    value={evaluationData.expertName}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div>
+                                <label>Odznaka eksperta (URL):</label>
+                                <input
+                                    style={{ background: "#333333", border: "solid 1px red", margin: ".2rem" }}
+                                    type="text"
+                                    name="expertBadge"
+                                    value={evaluationData.expertBadge}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div>
+                                <label>Wiadomość od eksperta:</label>
+                                <textarea
+                                    style={{ background: "#333333", border: "solid 1px red", margin: ".2rem" }}
+                                    name="expertMessage"
+                                    value={evaluationData.expertMessage}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div>
+                                <label>Proponowana cena:</label>
+                                <input
+                                    style={{ background: "#333333", border: "solid 1px red", margin: ".2rem" }}
+                                    type="number"
+                                    name="expertPrice"
+                                    value={evaluationData.expertPrice}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div>
+                                <button 
+                                    type="submit" 
+                                    style={{
+                                        background: "blue", 
+                                        border: "solid 1px red", 
+                                        margin: ".2rem"
+                                    }}
+                                >
+                                    Zatwierdź ocenę
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                )}
+            </div>
+        </div>
     );
 };
 
-export default PanelExpert;
+export default ExpertPanel;

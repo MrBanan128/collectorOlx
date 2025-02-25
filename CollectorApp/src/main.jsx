@@ -24,7 +24,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/Sign-up" element={<Register />} />
           <Route path="/login" element={<Login />} />
            <Route path='/adds' element={<Adds/>}/>
-          <Route path="/dashboard/" element={<Dashboard />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/entry/:id" element={<ProductsPanel />} />
           <Route path="/:category" element={<CategorySide />} />
           <Route path="/:category/:subcategory" element={<CategorySide />} />

@@ -67,6 +67,9 @@ const authMiddleware = async (req, res, next) => {
     
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
+        // const token = jwt.sign({ userId: user._id },JWT_SECRET, { expiresIn: '3h' });
+
+        console.log('Decoded token:', decoded);
         // console.log('Decoded user data in middleware: ', decoded); // Logowanie w middleware
         req.user = decoded; // Przypisanie danych użytkownika
         next();
@@ -74,7 +77,6 @@ const authMiddleware = async (req, res, next) => {
         res.status(401).json({ message: 'Token jest nieprawidłowy' });
     }
 };
-
 
 
 // Middleware do sprawdzania, czy użytkownik jest administratorem
@@ -310,7 +312,6 @@ router.post('/users/entries', authMiddleware, upload.single('image'), async (req
             subcategory: req.body.subcategory, // Zapisujemy podkategorię
             createdAt: new Date(),  // Ustawienie bieżącej daty i godziny
             views: 0,  // Domyślnie 0 wyświetleń
-            expertRequest: req.body.expertRequest || false // Nowe pole zamiast isPromoted  // Flaga promowania, jeśli nie podano, to domyślnie false
         });
         await newNote.save(); 
         res.status(201).json({ note: newNote });
@@ -322,11 +323,18 @@ router.post('/users/entries', authMiddleware, upload.single('image'), async (req
 router.put('/users/entries/:noteId', authMiddleware, async (req, res) => {
     try {
         const { noteId } = req.params;
-        const { title, body, price } = req.body;
+        const { title, body, price, expertRequest, expertId, expertEvaluation } = req.body;  // Dodajemy expertId
 
         const updatedNote = await Note.findByIdAndUpdate(
             noteId,
-            { title, body, price },
+            { 
+                title, 
+                body, 
+                price, 
+                expertRequest, 
+                expertId, // Dodajemy expertId
+                ...(expertEvaluation && { expertEvaluation })  // Dodajemy expertEvaluation tylko jeśli zostało przekazane
+            },
             { new: true }
         );
         if (!updatedNote) return res.status(404).json({ message: 'Notatka nie znaleziona' });
@@ -357,8 +365,6 @@ router.delete('/users/entries/:noteId', authMiddleware, async (req, res) => {
     }
 });
 
-
-
 // Usuwanie zdjęcia z notatki
 router.delete('/users/entries/image/:noteId', authMiddleware, async (req, res) => {
     try {
@@ -378,6 +384,32 @@ router.delete('/users/entries/image/:noteId', authMiddleware, async (req, res) =
         res.status(500).json({ message: 'Błąd serwera' });
     }
 });
+
+
+// ==================================== Expert ======================================= //
+
+
+// Endpoint do pobierania notatek przypisanych do eksperta
+router.get("/expert/assigned-notes", authMiddleware, async (req, res) => {
+    try {
+        console.log('req.user._id:', req.user._id);
+        const expertNotes = await Note.find({
+            expertId: req.user.userId,
+            expertRequest: true,  // Dodano filtr dla expertRequest
+        });
+
+        if (!expertNotes || expertNotes.length === 0) {
+            return res.status(404).json({ message: 'Brak przypisanych notatek.' });
+        }
+
+        res.json(expertNotes);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas pobierania notatek', error });
+    }
+});
+
+
+
 
 
 // ======================================= ADMIN ====================================== //

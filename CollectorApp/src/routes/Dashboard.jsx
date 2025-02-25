@@ -8,8 +8,6 @@ import Message from './userComponents/Message';
 import Admin from '../components/layout/AdminPanel/Users';
 import PanelExpert from './userComponents/PanelExpert';
 import AdminContact from './userComponents/AdminContact';
-import ExpertContact from './userComponents/ExpertContact';
-
 
 const Dashboard = () => {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -65,7 +63,6 @@ const Dashboard = () => {
                 {isAdmin && (<Box as={RouterLink} to="/dashboard/admin-users"
                         border="solid #ffffff 2px" padding=".5rem 1rem">Panel Admin</Box>)}
             </Flex>
-          <ExpertContact/>
             <Routes>
                 <Route path="profile" element={<Profile />} />
                 <Route path="products" element={<Products />} />

@@ -2,11 +2,13 @@
 import { useState, useEffect } from 'react';
 import { Flex, Button, Input, Textarea, Image, Box } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import ExpertContact from './ExpertContact';
 
 const Products = () => {
  
     const [entries, setEntries] = useState([]);
     const [editMode, setEditMode] = useState(null);
+    const [selectedExpert, setSelectedExpert] = useState(null);
     const [editData, setEditData] = useState({ title: '', note: '', price: '' });
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -116,37 +118,6 @@ const Products = () => {
         }
     };
 
-
-
-
-    const sendToExpert = async (noteId) => {
-        const token = localStorage.getItem('token');
-    
-        try {
-            const response = await fetch(`http://localhost:10000/users/entries/${noteId}/send-to-expert`, {
-                method: 'PUT', // 🛠️ POPRAWKA: PUT, nie POST!
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ sentToExpert: true }) // Wysyłamy tylko flagę
-            });
-    
-            if (!response.ok) throw new Error('Błąd podczas wysyłania do eksperta');
-    
-            setEntries(prevEntries =>
-                prevEntries.map(entry =>
-                    entry._id === noteId ? { ...entry, sentToExpert: true } : entry
-                )
-            );
-        } catch (error) {
-            console.error('Błąd wysyłania do eksperta:', error);
-        }
-    };
-    
-    
-
-
     return (
         <Flex margin="50px" direction="column" align="center">
 
@@ -187,6 +158,12 @@ const Products = () => {
                                 </Button>
                             </>
                         ) : (
+                            <>
+                                   
+                                   <Button onClick={() => setSelectedExpert(entry._id)} colorScheme="purple" mt={2}>
+                            Skontaktuj się z ekspertem
+                        </Button>
+                    
                             <Box  
                             key={index} border="1px solid #ccc" padding="10px" marginBottom="10px"
                             onClick={() => navigate(`/entry/${entry._id}`)}
@@ -209,15 +186,11 @@ const Products = () => {
                                 <Button onClick={() => handleDeleteEntry(entry._id)} colorScheme="red" mt={2} ml={2}>
                                     Usuń notatkę
                                 </Button>
-                                {!entry.sentToExpert && (
-                                 <Button onClick={() => sendToExpert(entry._id)} colorScheme="purple" mt={2} ml={2}>
-                                     Wyślij do eksperta
-                                </Button>
-                              )}
-
-
-                            </Box>
-                        )}
+                                
+                            </Box></>
+                        )} 
+                        {selectedExpert=== entry._id && <ExpertContact noteId={entry._id} />}
+                        
                     </Box>
                 ))}
             </Box>

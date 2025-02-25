@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Flex } from "@chakra-ui/react";
 
-const ExpertContact = () => {
+const ExpertContact = ({ noteId }) => {
     const [expert, setExpert] = useState([]);
     const [selectedExpert, setSelectedExpert] = useState(""); // ID wybranego eksperta
     const [title, setTitle] = useState("");
@@ -45,9 +45,10 @@ const ExpertContact = () => {
             setMessage("Tytuł i treść wiadomości są wymagane.");
             return;
         }
-
+    
         setLoading(true);
         try {
+            // Wysłanie wiadomości do eksperta
             await axios.post(
                 "http://localhost:10000/send-message",
                 { receiverId: selectedExpert, title, content },
@@ -57,10 +58,24 @@ const ExpertContact = () => {
                     },
                 }
             );
-            setMessage("Wiadomość została wysłana.");
+            
+            await axios.put(
+                `http://localhost:10000/users/entries/${noteId}`,
+                { 
+                    expertId: selectedExpert,  // Przekazujesz wybrane ID eksperta
+                    expertRequest: true, 
+                }, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
+    
+            setMessage("Wiadomość została wysłana, ekspert został przypisany.");
             setTitle("");
             setContent("");
-            setSelectedExpert(""); // Zresetowanie po wysłaniu wiadomości
+            setSelectedExpert("");
         } catch (error) {
             console.error("Błąd podczas wysyłania wiadomości:", error);
             setMessage("Wystąpił błąd. Spróbuj ponownie.");
@@ -68,6 +83,8 @@ const ExpertContact = () => {
             setLoading(false);
         }
     };
+    
+
 
     return (
         <div className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-md">

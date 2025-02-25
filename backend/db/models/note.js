@@ -12,11 +12,16 @@ const NoteSchema = new Schema({
     subcategory: { type: String, required: true }, // Dodaj pole podkategorii
     createdAt: { type: Date, default: Date.now },  // Data utworzenia
     views: { type: Number, default: 0 },  // Liczba wyświetleń
-    isPromoted: { type: Boolean, default: false },  // Flaga promowania
 
-    expertStatus: { type: Boolean, default: false }, // Czy został oceniony przez eksperta
-    expertValue: { type: Number, default: null }, // Proponowana wartość przez eksperta
-    expertId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null }, // Kto ocenił   
+    expertRequest: {type: Boolean, default: false},  
+    expertId: { type: Schema.Types.ObjectId, ref: 'User', default: null }, // Kto ocenił
+    expertEvaluation: {
+        expertName: { type: String, default: '' }, // Nazwa eksperta
+        expertBadge: { type: String, default: '' }, // Odznaka eksperta (np. URL do zdjęcia)
+        expertMessage: { type: String, default: '' }, // Wiadomość od eksperta
+        expertPrice: { type: Number, default: null }, // Proponowana cena rynkowa
+    },
+    isEvaluated: {type: Boolean, default: false}  
 });
 
 const Note = mongoose.model('Note', NoteSchema);
