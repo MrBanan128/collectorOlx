@@ -1,61 +1,13 @@
 import { useState, useEffect } from 'react';
-import {
-  Flex,
-  Button,
-  Input,
-  Textarea,
-  Image,
-  Box,
-  Heading,
-  Text
-} from '@chakra-ui/react';
+import {Flex, Button, Input,Textarea,Image,Box,Heading,Text} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import ExpertContact from './ExpertContact';
 
 const Products = () => {
-  const [categories, setCategories] = useState([
-    { value: 'Figurka', label: 'Figurka' },
-    { value: 'Znaczek', label: 'Znaczek' },
-    { value: 'Moneta', label: 'Moneta' },
-    { value: 'Karta', label: 'Karta' },
-    { value: 'Inne', label: 'Inne' }
-  ]);
 
-  const [subcategories, setSubcategories] = useState({
-    Figurka: [
-      { value: 'fantasy', label: 'fantasy' },
-      { value: 'miedziana', label: 'Miedziana' },
-      { value: 'porcelanowa', label: 'Porcelanowe' }
-    ],
-    Znaczek: [
-      { value: 'wojskowy', label: 'Wojskowy' },
-      { value: 'personalizowany', label: 'Personalizowany' },
-      { value: 'urzędowy', label: 'Urzędowy' }
-    ],
-    Moneta: [
-      { value: 'złota', label: 'Złota' },
-      { value: 'srebrna', label: 'Srebrna' },
-      { value: 'zabytkowa', label: 'Zabytkowa' }
-    ],
-    Karta: [
-      { value: 'fantasy', label: 'Fantasy' },
-      { value: 'sportowa', label: 'Sportowa' },
-      { value: 'muzyczna', label: 'Muzyczna' }
-    ],
-    Inne: [
-      { value: 'samochody', label: 'Samochody' },
-      { value: 'dzieła sztuki', label: 'Dzieła sztuki' },
-      { value: 'Zastawa stołowa', label: 'Zastawa stołowa' }
-    ]
-  });
-
+  const [selectedExpert, setSelectedExpert] = useState(null);
   const [newData, setNewData] = useState({
-    title: '',
-    note: '',
-    price: '',
-    category: '',
-    subcategory: '',
-    avatar: null
-  });
+    title: '', note: '', price: '', category: '', subcategory: '', avatar: null});
   const [preview, setPreview] = useState(null);
   const [entries, setEntries] = useState([]);
   const [editMode, setEditMode] = useState(null);
@@ -63,6 +15,7 @@ const Products = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -90,60 +43,60 @@ const Products = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewData((prev) => ({ ...prev, [name]: value }));
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setNewData((prev) => ({ ...prev, [name]: value }));
 
-    if (name === 'category') {
-      setNewData((prev) => ({ ...prev, subcategory: '' }));
-    }
-  };
+  //   if (name === 'category') {
+  //     setNewData((prev) => ({ ...prev, subcategory: '' }));
+  //   }
+  // };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setNewData((prev) => ({ ...prev, avatar: file }));
-      setPreview(URL.createObjectURL(file));
-    }
-  };
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setNewData((prev) => ({ ...prev, avatar: file }));
+  //     setPreview(URL.createObjectURL(file));
+  //   }
+  // };
 
-  const handleAddEntry = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token');
+  // const handleAddEntry = async (e) => {
+  //   e.preventDefault();
+  //   const token = localStorage.getItem('token');
 
-    const formData = new FormData();
-    formData.append('title', newData.title);
-    formData.append('body', newData.note);
-    formData.append('price', newData.price);
-    formData.append('category', newData.category);
-    formData.append('subcategory', newData.subcategory);
-    if (newData.avatar) formData.append('image', newData.avatar);
+  //   const formData = new FormData();
+  //   formData.append('title', newData.title);
+  //   formData.append('body', newData.note);
+  //   formData.append('price', newData.price);
+  //   formData.append('category', newData.category);
+  //   formData.append('subcategory', newData.subcategory);
+  //   if (newData.avatar) formData.append('image', newData.avatar);
 
-    try {
-      const response = await fetch('http://localhost:10000/users/entries', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData
-      });
+  //   try {
+  //     const response = await fetch('http://localhost:10000/users/entries', {
+  //       method: 'POST',
+  //       headers: { Authorization: `Bearer ${token}` },
+  //       body: formData
+  //     });
 
-      if (!response.ok) throw new Error('Błąd dodawania wpisu');
+  //     if (!response.ok) throw new Error('Błąd dodawania wpisu');
 
-      const { note } = await response.json();
-      setEntries((prevEntries) => [...prevEntries, note]);
+  //     const { note } = await response.json();
+  //     setEntries((prevEntries) => [...prevEntries, note]);
 
-      setNewData({
-        title: '',
-        note: '',
-        price: '',
-        category: '',
-        subcategory: '',
-        avatar: null
-      });
-      setPreview(null);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  //     setNewData({
+  //       title: '',
+  //       note: '',
+  //       price: '',
+  //       category: '',
+  //       subcategory: '',
+  //       avatar: null
+  //     });
+  //     setPreview(null);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
 
   const handleEditClick = (entry) => {
     setEditMode(entry._id);

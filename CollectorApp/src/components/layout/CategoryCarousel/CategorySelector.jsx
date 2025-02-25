@@ -1,34 +1,8 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { subcategories } from "../../../categories";
 
-const subcategories = {
-  Figurka: [
-    { value: "fantasy", label: "Fantasy" },
-    { value: "miedziana", label: "Miedziana" },
-    { value: "porcelanowa", label: "Porcelanowa" }
-  ],
-  Znaczek: [
-    { value: "wojskowy", label: "Wojskowy" },
-    { value: "personalizowany", label: "Personalizowany" },
-    { value: "urzedowy", label: "Urzędowy" }
-  ],
-  Moneta: [
-    { value: "złota", label: "Złota" },
-    { value: "srebrna", label: "Srebrna" },
-    { value: "zabytkowa", label: "Zabytkowa" }
-  ],
-  Karta: [
-    { value: "fantasy", label: "Fantasy" },
-    { value: "sportowa", label: "sportowa" },
-    { value: "muzyczna", label: "Muzyczna" }
-  ],
-  Inne: [
-    { value: 'samochody', label: 'Samochody' },
-    { value: 'dzieła sztuki', label: 'Dzieła sztuki' },
-    { value: 'Zastawa stołowa', label: 'Zastawa stołowa' }
-  ],
-};
 
 const CategorySelector = ({ selectedCategory }) => {
   const navigate = useNavigate();
