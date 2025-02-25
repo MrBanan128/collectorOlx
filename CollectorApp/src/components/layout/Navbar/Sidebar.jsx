@@ -24,9 +24,9 @@ const Sidebar = ({ open, setOpen }) => {
       onOpenChange={(isOpen) => setOpen(Boolean(isOpen))}
     >
       <DrawerBackdrop />
-      <DrawerContent>
+      <DrawerContent bg="rgba(255, 255, 255, 0.8)">
         <DrawerHeader>
-          <DrawerTitle>Antique Value</DrawerTitle>
+          <DrawerTitle color={'black'}>Antique Value</DrawerTitle>
         </DrawerHeader>
         <DrawerBody>
           {/* Use Flex to center the Grid */}
@@ -46,7 +46,7 @@ const Sidebar = ({ open, setOpen }) => {
               <Link to="/">
                 <Box
                   width="100%"
-                  height="80px"
+                  height="250px"
                   fontSize="xl"
                   backgroundColor={'white'}
                   color={'black'}
@@ -63,7 +63,7 @@ const Sidebar = ({ open, setOpen }) => {
               <Link to="/message">
                 <Box
                   width="100%"
-                  height="80px"
+                  height="250px"
                   fontSize="xl"
                   backgroundColor={'white'}
                   color={'black'}
@@ -80,7 +80,7 @@ const Sidebar = ({ open, setOpen }) => {
               <Link to="/chat">
                 <Box
                   width="100%"
-                  height="80px"
+                  height="250px"
                   fontSize="xl"
                   backgroundColor={'white'}
                   color={'black'}
@@ -97,7 +97,7 @@ const Sidebar = ({ open, setOpen }) => {
               <Link to="/sign-up">
                 <Box
                   width="100%"
-                  height="80px"
+                  height="250px"
                   fontSize="xl"
                   backgroundColor={'white'}
                   color={'black'}

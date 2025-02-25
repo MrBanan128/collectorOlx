@@ -58,6 +58,16 @@ body {
   background-size: 200% 200%;
   animation: gradientAnimation 20s ease-in-out infinite alternate;
 }
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
 .theme-light {
   --brand-primary: rgb(47, 112, 193);
   --brand-secondary: rgb(116, 97, 195);

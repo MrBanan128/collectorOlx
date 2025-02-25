@@ -23,6 +23,12 @@
   min-width: 0;
   padding-left: var(--slide-spacing);
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1); /* Przykład cienia */
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.embla__slide:hover {
+  transform: scale(1.1);
 }
 
 .embla__slide__content {
@@ -40,7 +46,7 @@
 }
 
 .embla__slide__title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: black;
@@ -142,4 +148,22 @@
 
 .css-2hv82h {
   padding-left: 20px;
+}
+
+@media (max-width: 639px) {
+  .embla__controls {
+    width: 98%;
+    color: black;
+  }
+}
+
+@media (640px<width<767px) {
+  .embla {
+    width: 100%;
+    color: black;
+  }
+  .embla__controls {
+    width: 98%;
+    color: black;
+  }
 }
