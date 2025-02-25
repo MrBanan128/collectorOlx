@@ -31,6 +31,7 @@ const Products = () => {
       <Table.Cell backgroundColor="white" color={'black'}>
         <Checkbox
           variant="subtle"
+          style={{ padding: '1rem' }}
           colorPalette="orange" // Use `colorScheme` for Chakra UI colors
           size="lg"
           top="1"
@@ -64,6 +65,7 @@ const Products = () => {
           <Table.Row backgroundColor="gray.300">
             <Table.ColumnHeader>
               <Checkbox
+                style={{ padding: '1rem' }}
                 variant="subtle"
                 top="1"
                 aria-label="Select all rows"

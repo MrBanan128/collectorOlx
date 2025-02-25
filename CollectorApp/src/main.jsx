@@ -1,11 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
-
 import { Provider } from './components/ui/Provider';
 import Dashboard from './routes/Dashboard';
 import Home from './routes/Home';
-
 import Test from './testBackend/test';
 import './index.css';
 import Login from './components/layout/Login/Login';
