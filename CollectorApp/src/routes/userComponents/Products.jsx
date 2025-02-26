@@ -282,6 +282,7 @@ const Products = () => {
             flexDir={'column'}
             width={'100%'}
             rounded={'lg'}
+            color={'white'}
           >
             {editMode === entry._id ? (
               <Flex
