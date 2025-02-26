@@ -85,10 +85,21 @@ const MostViewed = () => {
                       src={entry.image}
                       alt="Obraz"
                       className="category-image"
-                      width="300px" // Ensure the image takes full width of the container
-                      height="300px" // Maintain aspect ratio
+                      width={{
+                        base: '150px',
+                        sm: '200px',
+                        md: '250px',
+                        lg: '300px'
+                      }} // Ensure the image takes full width of the container
+                      height={{
+                        base: '150px',
+                        sm: '200px',
+                        md: '250px',
+                        lg: '300px'
+                      }} // Maintain aspect ratio
                       objectFit="cover" // Ensure the image covers the container
                       borderRadius="md" // Optional: Add rounded corners
+                      justifySelf={'center'}
                     />
                   )}
                   <h3 className="category-title">
