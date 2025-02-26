@@ -1,4 +1,4 @@
-import { Flex, CloseButton } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { Link } from 'react-router';
 import { useState, useEffect } from 'react';
 import MenuButton from './MenuButton';
@@ -39,7 +39,6 @@ const Navbar = ({ background, height }) => {
   return (
     <Flex>
       <Flex
-        marginTop={'0.5rem'}
         zIndex={2222}
         width="100%"
         alignItems="center"

@@ -1,15 +1,7 @@
 import './MostViewed.css';
 import BlurText from '../../ui/blur-text';
 import { useState, useEffect } from 'react';
-import {
-  Flex,
-  Button,
-  Input,
-  Textarea,
-  Image,
-  Box,
-  Spinner
-} from '@chakra-ui/react'; // Dodany Spinner dla ładowania
+import { Flex, Image, Box, Spinner } from '@chakra-ui/react'; // Dodany Spinner dla ładowania
 import { useNavigate } from 'react-router-dom';
 
 const MostViewed = () => {
