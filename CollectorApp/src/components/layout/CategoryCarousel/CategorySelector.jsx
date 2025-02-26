@@ -1,6 +1,7 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { subcategories } from '../../../categories';
+import { NavLink } from 'react-router';
 
 const CategorySelector = ({ selectedCategory }) => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const CategorySelector = ({ selectedCategory }) => {
     <>
       {selectedCategory && (
         <Box mt={4} style={{ textAlign: 'center' }}>
-          <a
+          <p
             href=""
             onClick={() =>
               handleSubcategoryClick(
@@ -31,8 +32,7 @@ const CategorySelector = ({ selectedCategory }) => {
               fontWeight: 'bold',
               textDecoration: 'none',
               fontSize: '18px',
-              color: 'black',
-              cursor: 'pointer',
+              color: 'white',
               padding: '10px',
               borderBottom: '1px solid gray',
               borderRadius: '5px',
@@ -40,7 +40,7 @@ const CategorySelector = ({ selectedCategory }) => {
             }}
           >
             Wybierz podkategorię dla: {selectedCategory}
-          </a>
+          </p>
 
           <div>
             {subcategories[selectedCategory]
@@ -48,22 +48,45 @@ const CategorySelector = ({ selectedCategory }) => {
                 (subcategory) => !subcategory.value.includes('wszystkie')
               )
               .map((subcategory) => (
-                <a
+                <Flex
                   key={subcategory.value}
-                  href=""
-                  onClick={() => handleSubcategoryClick(subcategory.value)}
-                  style={{
-                    display: 'block',
-                    padding: '8px',
-                    textDecoration: 'none',
-                    color: 'black',
-                    fontSize: '20px',
-                    cursor: 'pointer',
-                    fontWeight: 'bold'
-                  }}
+                  alignItems={'center'}
+                  direction={'column'}
                 >
-                  {subcategory.label}
-                </a>
+                  <Box
+                    onClick={() => handleSubcategoryClick(subcategory.value)}
+                    display={'block'}
+                    padding={'8px'}
+                    textDecoration={'none'}
+                    color={'white'}
+                    fontSize={'20px'}
+                    fontWeight={'bold'}
+                  >
+                    {/* <a
+                      href=""
+                      onClick={() => handleSubcategoryClick(subcategory.value)}
+                      style={{
+                        display: 'block',
+                        padding: '8px',
+                        textDecoration: 'none',
+                        color: 'white',
+                        fontSize: '20px',
+                        fontWeight: 'bold'
+                      }}
+                    > */}
+                    <Box
+                      _hover={{
+                        textShadow: '1px 1px 1px white',
+                        bgColor: 'gray.900',
+                        rounded: '3xl',
+                        width: '500px',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      {subcategory.label}
+                    </Box>
+                  </Box>
+                </Flex>
               ))}
           </div>
         </Box>

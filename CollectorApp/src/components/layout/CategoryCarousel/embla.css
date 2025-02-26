@@ -49,7 +49,7 @@
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: black;
+  color: white;
 }
 
 .embla__slide__image {
@@ -72,6 +72,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 0.6rem;
   align-items: center;
+  color: white;
 }
 
 .embla__button {
@@ -111,6 +112,7 @@
   align-self: center;
   color: var(--text-low-contrast);
   font-weight: 600;
+  color: white;
 }
 
 @media (min-width: 768px) {
