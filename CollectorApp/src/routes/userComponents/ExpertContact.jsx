@@ -84,8 +84,6 @@ const ExpertContact = ({ noteId }) => {
         }
     };
     
-
-
     return (
         <div className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-md">
             {message && <p className="text-sm text-red-600">{message}</p>}

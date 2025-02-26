@@ -1,34 +1,18 @@
 import { useState, useEffect } from 'react';
-import {
-  Flex,
-  Button,
-  Input,
-  Textarea,
-  Image,
-  Box,
-  Heading,
-  Text
-} from '@chakra-ui/react';
+import {Flex, Button, Input,Textarea,Image,Box,Heading,Text} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import ExpertContact from './ExpertContact';
 
 const Products = () => {
+
   const [selectedExpert, setSelectedExpert] = useState(null);
-  const [newData, setNewData] = useState({
-    title: '',
-    note: '',
-    price: '',
-    category: '',
-    subcategory: '',
-    avatar: null
-  });
-  const [preview, setPreview] = useState(null);
   const [entries, setEntries] = useState([]);
   const [editMode, setEditMode] = useState(null);
   const [editData, setEditData] = useState({ title: '', note: '', price: '' });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -55,61 +39,6 @@ const Products = () => {
       setError(error.message);
     }
   };
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setNewData((prev) => ({ ...prev, [name]: value }));
-
-  //   if (name === 'category') {
-  //     setNewData((prev) => ({ ...prev, subcategory: '' }));
-  //   }
-  // };
-
-  // const handleFileChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setNewData((prev) => ({ ...prev, avatar: file }));
-  //     setPreview(URL.createObjectURL(file));
-  //   }
-  // };
-
-  // const handleAddEntry = async (e) => {
-  //   e.preventDefault();
-  //   const token = localStorage.getItem('token');
-
-  //   const formData = new FormData();
-  //   formData.append('title', newData.title);
-  //   formData.append('body', newData.note);
-  //   formData.append('price', newData.price);
-  //   formData.append('category', newData.category);
-  //   formData.append('subcategory', newData.subcategory);
-  //   if (newData.avatar) formData.append('image', newData.avatar);
-
-  //   try {
-  //     const response = await fetch('http://localhost:10000/users/entries', {
-  //       method: 'POST',
-  //       headers: { Authorization: `Bearer ${token}` },
-  //       body: formData
-  //     });
-
-  //     if (!response.ok) throw new Error('Błąd dodawania wpisu');
-
-  //     const { note } = await response.json();
-  //     setEntries((prevEntries) => [...prevEntries, note]);
-
-  //     setNewData({
-  //       title: '',
-  //       note: '',
-  //       price: '',
-  //       category: '',
-  //       subcategory: '',
-  //       avatar: null
-  //     });
-  //     setPreview(null);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // };
 
   const handleEditClick = (entry) => {
     setEditMode(entry._id);
@@ -204,69 +133,6 @@ const Products = () => {
 
   return (
     <Flex direction="column" align="center" width={'100%'} overflow="auto">
-      {/* <form
-        onSubmit={handleAddEntry}
-        style={{ maxWidth: '400px', width: '100%' }}
-      >
-        <Input
-          name="title"
-          value={newData.title}
-          onChange={handleInputChange}
-          placeholder="Tytuł wpisu"
-          mb={2}
-        />
-        <Textarea
-          name="note"
-          value={newData.note}
-          onChange={handleInputChange}
-          placeholder="Dodaj notatkę"
-          mb={2}
-        />
-        <Input
-          name="price"
-          type="number"
-          value={newData.price}
-          onChange={handleInputChange}
-          placeholder="Cena"
-          mb={2}
-        />
-        <select
-          name="category"
-          value={newData.category}
-          onChange={handleInputChange}
-          placeholder="Wybierz kategorię"
-        >
-          <option value="">Wybierz kategorię</option>
-          {categories.map((category) => (
-            <option key={category.value} value={category.value}>
-              {category.label}
-            </option>
-          ))}
-        </select>
-
-        {newData.category && (
-          <select
-            name="subcategory"
-            value={newData.subcategory}
-            onChange={handleInputChange}
-            placeholder="Wybierz podkategorię"
-          >
-            <option value="">Wybierz podkategorię</option>
-            {subcategories[newData.category]?.map((subcategory) => (
-              <option key={subcategory.value} value={subcategory.value}>
-                {subcategory.label}
-              </option>
-            ))}
-          </select>
-        )}
-
-        <Input type="file" onChange={handleFileChange} mb={2} />
-        {preview && <Image src={preview} alt="Podgląd" width="100px" mb={2} />}
-        <Button type="submit" colorScheme="blue">
-          Dodaj wpis
-        </Button>
-      </form> */}
-
       <Box mt={5} width="100%" height={'100vh'}>
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
           Moje Ogłoszenia:
@@ -282,7 +148,6 @@ const Products = () => {
             flexDir={'column'}
             width={'100%'}
             rounded={'lg'}
-            color={'white'}
           >
             {editMode === entry._id ? (
               <Flex
@@ -420,6 +285,11 @@ const Products = () => {
                   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)'
                 }}
               >
+                        <Button onClick={() => setSelectedExpert(entry._id)} colorScheme="purple" mt={2}>
+                            Skontaktuj się z ekspertem
+                        </Button>
+                        {selectedExpert=== entry._id && <ExpertContact noteId={entry._id} />}
+                       
                 <Flex onClick={() => navigate(`/entry/${entry._id}`)}>
                   <Flex justifyContent={'center'} alignItems={'center'}>
                     <Image
@@ -448,8 +318,8 @@ const Products = () => {
                   justifyContent={'space-between'}
                   alignItems={'center'}
                   flexDir={'row'}
-                  sm={{ flexDir: 'row' }}
-                >
+                  sm={{ flexDir: 'row' }}>
+
                   {entry.image && (
                     <Button
                       onClick={() => handleDeleteImage(entry._id)}

@@ -29,7 +29,7 @@ const EmblaCarousel = ({ slides = [], options }) => {
   } = usePrevNextButtons(emblaApi || null);
 
   const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi || null);
-
+ 
   return (
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
