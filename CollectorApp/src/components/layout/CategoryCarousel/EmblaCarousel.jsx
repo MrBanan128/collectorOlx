@@ -29,8 +29,7 @@ const EmblaCarousel = ({ slides = [], options }) => {
   } = usePrevNextButtons(emblaApi || null);
 
   const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi || null);
-  console.log('Aktualnie wybrana kategoria:', selectedCategory);
-
+ 
   return (
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
