@@ -1,13 +1,27 @@
 import { useState, useEffect } from 'react';
-import {Flex, Button, Input,Textarea,Image,Box,Heading,Text} from '@chakra-ui/react';
+import {
+  Flex,
+  Button,
+  Input,
+  Textarea,
+  Image,
+  Box,
+  Heading,
+  Text
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import ExpertContact from './ExpertContact';
 
 const Products = () => {
-
   const [selectedExpert, setSelectedExpert] = useState(null);
   const [newData, setNewData] = useState({
-    title: '', note: '', price: '', category: '', subcategory: '', avatar: null});
+    title: '',
+    note: '',
+    price: '',
+    category: '',
+    subcategory: '',
+    avatar: null
+  });
   const [preview, setPreview] = useState(null);
   const [entries, setEntries] = useState([]);
   const [editMode, setEditMode] = useState(null);
@@ -15,7 +29,6 @@ const Products = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -254,7 +267,7 @@ const Products = () => {
         </Button>
       </form> */}
 
-      <Box mt={5} width="100%">
+      <Box mt={5} width="100%" height={'100vh'}>
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
           Moje Ogłoszenia:
         </Heading>
