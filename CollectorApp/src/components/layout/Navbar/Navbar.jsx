@@ -45,7 +45,7 @@ const Navbar = ({ background, height }) => {
         justifyContent="space-between"
         height={height}
         position="fixed"
-        background={background}
+        background={!isVisible ? background : undefined}
         px={4}
         transition="height 0.5s ease, background 0.5s ease"
         roundedBottom={'xl'}
@@ -53,7 +53,6 @@ const Navbar = ({ background, height }) => {
         <Link to="/">{!isVisible && <Logo />}</Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Home</AppLink>
-          <AppLink to="/dashboard">Dashboard</AppLink>
           <AppLink to={'/Sign-up'}>Account</AppLink>
           <AppLink to={'/test'}>Test</AppLink>
           <AppLink to={'/adds'}>Adds</AppLink>

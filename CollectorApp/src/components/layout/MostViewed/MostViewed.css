@@ -54,15 +54,16 @@
 
 /* Styl tytułu */
 .category-title {
-  font-size: 1.5rem;
-  color: #cacaca;
+  font-size: 2rem;
+  color: white;
   margin: 15px 0 10px;
+  font-weight: bold;
 }
 
 /* Styl opisu */
 .category-description {
-  font-size: 1rem;
-  color: #ececec;
+  font-size: 1.3rem;
+  color: white;
   padding: 0 10px 20px;
   margin: 0;
 }

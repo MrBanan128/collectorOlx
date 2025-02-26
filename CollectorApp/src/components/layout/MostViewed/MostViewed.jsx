@@ -1,7 +1,7 @@
 import './MostViewed.css';
 import BlurText from '../../ui/blur-text';
 import { useState, useEffect } from 'react';
-import { Flex, Image, Box, Spinner } from '@chakra-ui/react'; // Dodany Spinner dla ładowania
+import { Grid, GridItem, Flex, Image, Box, Spinner } from '@chakra-ui/react'; // Dodany Spinner dla ładowania
 import { useNavigate } from 'react-router-dom';
 
 const MostViewed = () => {
@@ -59,40 +59,58 @@ const MostViewed = () => {
           <Spinner size="xl" />
         </Flex>
       ) : (
-        <div className="grid-container">
-          <div className="heading-container">
-            {/* Jeśli dane są dostępne, wyświetlamy wpisy */}
-
-            {entries.length > 0 ? (
-              entries.map((entry, index) => (
-                <div key={index} className="category-card">
-                  <Box
-                    onClick={() => navigate(`/entry/${entry._id}`)} // Nawigowanie do szczegółów notatki
-                  >
-                    {entry.image && (
-                      <Image
-                        src={entry.image}
-                        alt="Obraz"
-                        className="category-image"
-                      />
-                    )}
-                    <h3 className="category-title">
-                      {entry.title || 'Bez tytułu'}
-                    </h3>
-                    <p className="category-description">
-                      {entry.body || 'Brak treści'}
-                    </p>
-                    <p className="category-description">
-                      {entry.price || 'Brak ceny'}
-                    </p>
-                  </Box>
-                </div>
-              ))
-            ) : (
+        <Grid
+          templateColumns={{
+            base: '1fr', // 1 column for small screens (base)
+            md: 'repeat(2, 1fr)', // 2 columns for medium screens
+            lg: 'repeat(3, 1fr)' // 3 columns for large screens
+          }}
+          gap={10} // Spacing between grid items
+          className="heading-container"
+          justifyItems={'center'}
+          paddingLeft={'200px'}
+          paddingRight={'200px'}
+          paddingTop={'10px'}
+        >
+          {/* Jeśli dane są dostępne, wyświetlamy wpisy */}
+          {entries.length > 0 ? (
+            entries.map((entry, index) => (
+              <GridItem key={index} className="category-card">
+                <Box
+                  onClick={() => navigate(`/entry/${entry._id}`)} // Nawigowanie do szczegółów notatki
+                  cursor="pointer" // Add pointer cursor for better UX
+                >
+                  {entry.image && (
+                    <Image
+                      src={entry.image}
+                      alt="Obraz"
+                      className="category-image"
+                      width="300px" // Ensure the image takes full width of the container
+                      height="300px" // Maintain aspect ratio
+                      objectFit="cover" // Ensure the image covers the container
+                      borderRadius="md" // Optional: Add rounded corners
+                    />
+                  )}
+                  <h3 className="category-title">
+                    {entry.title || 'Bez tytułu'}
+                  </h3>
+                  <p className="category-description">
+                    {entry.body || 'Brak treści'}
+                  </p>
+                  <p className="category-description">
+                    {entry.price || 'Brak ceny'}
+                  </p>
+                </Box>
+              </GridItem>
+            ))
+          ) : (
+            <GridItem colSpan={{ base: 1, md: 2, lg: 3 }}>
+              {' '}
+              {/* Span all columns when no entries */}
               <p>Brak dostępnych wpisów.</p>
-            )}
-          </div>
-        </div>
+            </GridItem>
+          )}
+        </Grid>
       )}
     </div>
   );

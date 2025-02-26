@@ -19,14 +19,22 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 const Sidebar = ({ open, setOpen }) => {
   return (
     <DrawerRoot
-      size={'full'}
+      size={'md'}
       open={open}
       onOpenChange={(isOpen) => setOpen(Boolean(isOpen))}
     >
       <DrawerBackdrop />
-      <DrawerContent bg="rgba(255, 255, 255, 0.8)">
+      <DrawerContent bg="rgba(4,10,20,255)" offset="4" rounded="md">
         <DrawerHeader>
-          <DrawerTitle color={'black'}>Antique Value</DrawerTitle>
+          <DrawerTitle
+            color={'white'}
+            fontWeight={'bold'}
+            textAlign={'center'}
+            fontSize={'20px'}
+            marginTop={'15px'}
+          >
+            Antique Value
+          </DrawerTitle>
         </DrawerHeader>
         <DrawerBody>
           {/* Use Flex to center the Grid */}
@@ -40,7 +48,7 @@ const Sidebar = ({ open, setOpen }) => {
               templateRows="repeat(2, 1fr)"
               templateColumns="repeat(2, 1fr)"
               gap={4}
-              width="100%" // Ensure Grid takes full width
+              width="90%" // Ensure Grid takes full width
             >
               {/* Wrap each Box with a Link */}
               <Link to="/">
@@ -114,7 +122,12 @@ const Sidebar = ({ open, setOpen }) => {
           </Flex>
         </DrawerBody>
         <DrawerFooter>
-          <Button onClick={() => setOpen(false)} fontWeight={'bold'}>
+          <Button
+            onClick={() => setOpen(false)}
+            fontWeight={'bold'}
+            marginBottom={'8px'}
+            marginRight={'5px'}
+          >
             X
           </Button>
         </DrawerFooter>
