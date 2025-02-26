@@ -203,7 +203,7 @@ const Products = () => {
   };
 
   return (
-    <Flex direction="column" align="center" width={'100%'}>
+    <Flex direction="column" align="center" width={'100%'} overflow="auto">
       {/* <form
         onSubmit={handleAddEntry}
         style={{ maxWidth: '400px', width: '100%' }}
@@ -299,7 +299,9 @@ const Products = () => {
                   <Image
                     src={entry.image}
                     alt="Obraz"
-                    width="100px"
+                    autoresize="true"
+                    width="150px"
+                    height={'250px'}
                     sm={{ width: '150px' }}
                     md={{ width: '200px' }}
                   />
@@ -332,10 +334,12 @@ const Products = () => {
                     fontSize={{ base: '1rem', md: '1.5rem' }}
                     backgroundColor="#333"
                     color="white"
+                    lineHeight={1.5}
                     padding="0.5rem"
                     borderRadius="8px"
                     border="1px solid #555"
                     width="100%"
+                    autoresize="true"
                     _hover={{
                       borderColor: '#888'
                     }}
@@ -417,21 +421,23 @@ const Products = () => {
                 }}
               >
                 <Flex onClick={() => navigate(`/entry/${entry._id}`)}>
-                  <Flex>
+                  <Flex justifyContent={'center'} alignItems={'center'}>
                     <Image
                       src={entry.image}
                       alt="Obraz"
-                      width="100px"
-                      sm={{ width: '150px' }}
+                      minW={'100px'}
+                      height={'200px'}
+                      objectFit={'cover'}
+                      sm={{ minW: '150px', maxW: '150px', height: '200px' }}
                     />
                   </Flex>
                   <Flex flexDir={'column'} ml={2}>
-                    <Heading size={'3xl'} mb={2} sm={{ fontSize: '4xl' }}>
+                    <Heading size={'2xl'} mb={2} sm={{ fontSize: '4xl' }}>
                       {entry.title || 'Bez tytułu'}
                     </Heading>
-                    <Flex flexDir={'column'} sm={{ fontSize: '18px' }}>
+                    <Flex flexDir={'column'} sm={{ fontSize: '14px' }}>
                       <Text>{entry.body || 'Brak treści'}</Text>
-                      <Text>
+                      <Text mt={8} color={'rgb(246, 255, 0)'}>
                         {entry.price + ' PLN' || 'Brak numeru telefonu'}{' '}
                       </Text>
                     </Flex>
