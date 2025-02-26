@@ -1,6 +1,6 @@
 const Header = () => (
   <header>
-    <h1 className="header">Categories</h1>
+    <h1 className="header">Kategorie</h1>
   </header>
 );
 

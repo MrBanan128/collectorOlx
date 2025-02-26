@@ -1,3 +1,7 @@
+/* .container.css-7jugx5 {
+  background-color: #9a9a9a;
+} */
+
 /* Style dla kontenera z kategoriami */
 .categories-container {
   display: flex;
@@ -5,13 +9,9 @@
   gap: 20px;
   justify-content: center;
   padding: 40px;
-  background: rgb(11, 11, 11);
-  background: radial-gradient(
-    circle,
-    rgba(11, 11, 11, 1) 0%,
-    rgba(193, 186, 186, 1) 50%,
-    rgba(9, 9, 9, 1) 100%
-  );
+  margin: 0;
+  background-color: #9a9a9a;
+  box-shadow: inset 1px 1px 15px 8px black;
 }
 
 /* Container for the heading to center it */
@@ -19,11 +19,12 @@
   display: flex;
   align-content: center;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
   flex-wrap: wrap;
   width: 100%;
   text-align: center;
-  margin-bottom: 20px; /* Space between heading and the category cards */
+  margin-bottom: 20px; /*Space between heading and the category cards */
+  background-color: #9a9a9a;
 }
 
 /* Style dla pojedynczej karty */
@@ -35,6 +36,8 @@
   overflow: hidden;
   text-align: center;
   transition: transform 0.3s;
+  max-height: inherit;
+  margin-top: 15px;
 }
 
 .category-card:hover {
@@ -44,7 +47,7 @@
 /* Styl obrazu na karcie z wykorzystaniem object-fit */
 .category-image {
   width: 100%;
-  height: 150px;
+  height: 100%;
   object-fit: contain; /* Zapewnia, że obraz wypełnia przestrzeń bez zniekształceń */
   padding: 5%;
 }
@@ -82,6 +85,10 @@
 @media (min-width: 480px) {
   .heading-container {
     font-size: 3rem;
+    background-color: #9a9a9a;
+  }
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 @media (min-width: 720px) {
@@ -90,5 +97,15 @@
   }
   .heading-container {
     font-size: 3.5rem;
+    background-color: #9a9a9a;
+  }
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

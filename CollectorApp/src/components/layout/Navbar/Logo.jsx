@@ -4,17 +4,17 @@ const Logo = () => {
   return (
     <Flex alignItems={'center'} justifyContent={'center'}>
       <Image
-        width={'60px'}
-        height={'50px'}
+        width={'70px'}
+        height={'70px'}
         rounded={'2xl'}
         src="/AV.png"
         alt="AntiqVal"
         // Ustawienie dla urządzeń > 480px (smartfony i większych)
-        sm={{ width: '70px', height: '60px' }}
+        sm={{ width: '70px', height: '70px' }}
         // Ustawienie dla urządzeń > 768px (tablety i większe)
-        md={{ width: '80px', height: '60px' }}
+        md={{ width: '80px', height: '80px' }}
         // Ustawienie dla urządzeń > 1024px (laptopy i większe)
-        lg={{ width: '90px', height: '70px' }}
+        lg={{ width: '85px', height: '85px' }}
       />
     </Flex>
   );
