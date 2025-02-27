@@ -33,7 +33,8 @@ const Dashboard = () => {
 
         if (data.status === 'admin') {
           setIsAdmin(true);
-        } else if (data.status === 'expert') {
+        }
+        if (data.status === 'expert') {
           setIsExpert(true);
         }
       } catch (error) {

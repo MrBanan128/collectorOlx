@@ -1,161 +1,214 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Flex } from "@chakra-ui/react";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Box, Button, Flex, Input, Text, Textarea } from '@chakra-ui/react';
+import AlertInfo from '../../components/ui/AlertInfo';
 
 const ExpertContact = ({ noteId }) => {
-    const [expert, setExpert] = useState([]);
-    const [selectedExpert, setSelectedExpert] = useState(""); // ID wybranego eksperta
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+  const [expert, setExpert] = useState([]);
+  const [selectedExpert, setSelectedExpert] = useState(''); // ID wybranego eksperta
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
-    useEffect(() => {
-        const fetchExpert = async () => {
-            try {
-                const response = await axios.get("http://localhost:10000/expert-contact", {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                });
-                setExpert(response.data);
-            } catch (error) {
-                console.error("Błąd podczas pobierania ekspertów:", error);
+  useEffect(() => {
+    const fetchExpert = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:10000/expert-contact',
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
             }
-        };
-
-        fetchExpert();
-    }, []);
-
-    const handleExpertClick = (expertId) => {
-        // Zwijamy formularz, jeśli kliknięto na tego samego eksperta
-        if (selectedExpert === expertId) {
-            setSelectedExpert(""); // Zwijamy formularz
-        } else {
-            setSelectedExpert(expertId); // Ustawienie wybranego eksperta po kliknięciu
-        }
+          }
+        );
+        setExpert(response.data);
+      } catch (error) {
+        console.error('Błąd podczas pobierania ekspertów:', error);
+      }
     };
 
-    const sendMessage = async () => {
-        if (!selectedExpert) {
-            setMessage("Wybierz eksperta, do którego chcesz wysłać wiadomość.");
-            return;
+    fetchExpert();
+  }, []);
+
+  const handleExpertClick = (expertId) => {
+    // Zwijamy formularz, jeśli kliknięto na tego samego eksperta
+    if (selectedExpert === expertId) {
+      setSelectedExpert(''); // Zwijamy formularz
+    } else {
+      setSelectedExpert(expertId); // Ustawienie wybranego eksperta po kliknięciu
+    }
+  };
+
+  const sendMessage = async () => {
+    if (!selectedExpert) {
+      setMessage('Wybierz eksperta, do którego chcesz wysłać wiadomość.');
+      return;
+    }
+    if (!title || !content) {
+      setMessage('Tytuł i treść wiadomości są wymagane.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Wysłanie wiadomości do eksperta
+      await axios.post(
+        'http://localhost:10000/send-message',
+        { receiverId: selectedExpert, title, content },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-        if (!title || !content) {
-            setMessage("Tytuł i treść wiadomości są wymagane.");
-            return;
+      );
+
+      await axios.put(
+        `http://localhost:10000/users/entries/${noteId}`,
+        {
+          expertId: selectedExpert, // Przekazujesz wybrane ID eksperta
+          expertRequest: true
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-    
-        setLoading(true);
-        try {
-            // Wysłanie wiadomości do eksperta
-            await axios.post(
-                "http://localhost:10000/send-message",
-                { receiverId: selectedExpert, title, content },
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                }
-            );
-            
-            await axios.put(
-                `http://localhost:10000/users/entries/${noteId}`,
-                { 
-                    expertId: selectedExpert,  // Przekazujesz wybrane ID eksperta
-                    expertRequest: true, 
-                }, 
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                }
-            );
-    
-            setMessage("Wiadomość została wysłana, ekspert został przypisany.");
-            setTitle("");
-            setContent("");
-            setSelectedExpert("");
-        } catch (error) {
-            console.error("Błąd podczas wysyłania wiadomości:", error);
-            setMessage("Wystąpił błąd. Spróbuj ponownie.");
-        } finally {
-            setLoading(false);
-        }
-    };
-    
-    return (
-        <div className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-md">
-            {message && <p className="text-sm text-red-600">{message}</p>}
+      );
 
-            {selectedExpert && (
-                <div className="mb-4">
-                    <h3 className="text-lg text-gray-700">
-                        Wybrany ekspert: {expert.find((exp) => exp._id === selectedExpert)?.username}
-                    </h3>
-                </div>
-            )}
+      setMessage('Wiadomość została wysłana, ekspert został przypisany.');
+      setTitle('');
+      setContent('');
+      setSelectedExpert('');
+    } catch (error) {
+      console.error('Błąd podczas wysyłania wiadomości:', error);
+      setMessage('Wystąpił błąd. Spróbuj ponownie.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            <div className="mb-4">
-                <h3 className="text-lg text-gray-700 mb-2">Wybierz eksperta</h3>
-                <Flex className="list-disc list-inside">
-                    {expert.map((exp) => (
-                        <div
-                            key={exp._id}
-                            onClick={() => handleExpertClick(exp._id)} // Dodanie obsługi kliknięcia
-                            style={{
-                                padding: ".5rem 1rem",
-                                cursor: "pointer",
-                                background: selectedExpert === exp._id ? "#e0f7fa" : "transparent", // Podświetlenie wybranego eksperta
-                            }}
-                            className={`text-gray-800 hover:text-blue-600 ${
-                                selectedExpert === exp._id ? "bg-blue-100" : ""
-                            }`} // Podświetlenie wybranego eksperta
-                        >
-                            {exp.username}
-                        </div>
-                    ))}
-                </Flex>
-            </div>
+  return (
+    <Box
+      maxW="xl"
+      mx="auto"
+      p="6"
+      bg="white"
+      shadow="lg"
+      rounded="2xl"
+      border="1px solid"
+      borderColor="gray.200"
+      md={{ mt: '6', width: '300px' }}
+    >
+      {message && (
+        <AlertInfo message="Wiadomość została wysłana, ekspert został przypisany." />
+      )}
 
-            {selectedExpert && (
-                <>
-                    <div className="mb-4">
-                        <label className="block text-gray-700">Tytuł</label>
-                        <input
-                            style={{ background: "#222222", color: "#fff" }}
-                            type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            className="w-full border rounded-md p-2"
-                            placeholder="Wpisz tytuł wiadomości..."
-                        />
-                    </div>
+      {selectedExpert && (
+        <Box mb="4">
+          <Text fontSize="lg" fontWeight="bold" color="gray.700">
+            Wybrany ekspert:{' '}
+            <Text as="span" color="blue.600" fontWeight="semibold">
+              {expert.find((exp) => exp._id === selectedExpert)?.username}
+            </Text>
+          </Text>
+        </Box>
+      )}
 
-                    <div className="mb-4">
-                        <label className="block text-gray-700">Treść wiadomości</label>
-                        <textarea
-                            style={{ background: "#222222", color: "#fff" }}
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                            className="w-full border rounded-md p-2"
-                            rows="4"
-                            placeholder="Wpisz treść wiadomości..."
-                        ></textarea>
-                    </div>
+      <Box mb="4">
+        <Text fontSize="lg" fontWeight="semibold" color="gray.700" mb="3">
+          Wybierz eksperta
+        </Text>
+        <Flex wrap="wrap" gap={3}>
+          {expert.map((exp) => (
+            <Box
+              key={exp._id}
+              onClick={() => handleExpertClick(exp._id)}
+              px="4"
+              py="2"
+              cursor="pointer"
+              bg={selectedExpert === exp._id ? 'blue.500' : 'gray.100'}
+              color={selectedExpert === exp._id ? 'white' : 'gray.800'}
+              _hover={{
+                bg: 'blue.400',
+                color: 'white',
+                transform: 'scale(1.05)'
+              }}
+              rounded="lg"
+              transition="0.2s ease-in-out"
+              shadow="sm"
+            >
+              {exp.username}
+            </Box>
+          ))}
+        </Flex>
+      </Box>
 
-                    <button
-                        style={{ background: "blue", color: "#fff" }}
-                        onClick={sendMessage}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-md w-full hover:bg-blue-700"
-                        disabled={loading}
-                    >
-                        {loading ? "Wysyłanie..." : "Wyślij wiadomość"}
-                    </button>
-                </>
-            )}
-        </div>
-    );
+      {selectedExpert && (
+        <>
+          <Box mb="4">
+            <Text color="gray.700" fontWeight="semibold" mb="1">
+              Tytuł
+            </Text>
+            <Input
+              color="white"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Wpisz tytuł wiadomości..."
+              border="1px solid"
+              borderColor="gray.500"
+              _placeholder={{ color: 'white' }}
+              bg={
+                'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
+              }
+              rounded="lg"
+              px="3"
+              py="2"
+            />
+          </Box>
+
+          <Box mb="4">
+            <Text color="gray.700" fontWeight="semibold" mb="1">
+              Treść wiadomości
+            </Text>
+            <Textarea
+              color="white"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="Wpisz treść wiadomości..."
+              border="1px solid"
+              borderColor="gray.500"
+              _placeholder={{ color: 'white' }}
+              bg={
+                'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
+              }
+              rounded="lg"
+              px="3"
+              py="2"
+              rows={4}
+            />
+          </Box>
+
+          <Button
+            bg="blue.600"
+            color="white"
+            w="full"
+            py="3"
+            fontSize="lg"
+            fontWeight="bold"
+            _hover={{ bg: 'blue.700', transform: 'scale(1.02)' }}
+            transition="0.2s ease-in-out"
+            onClick={sendMessage}
+            isLoading={loading}
+            shadow="md"
+            rounded="lg"
+          >
+            {loading ? 'Wysyłanie...' : 'Wyślij wiadomość'}
+          </Button>
+        </>
+      )}
+    </Box>
+  );
 };
 
 export default ExpertContact;

@@ -1,10 +1,18 @@
 import { useState, useEffect } from 'react';
-import {Flex, Button, Input,Textarea,Image,Box,Heading,Text} from '@chakra-ui/react';
+import {
+  Flex,
+  Button,
+  Input,
+  Textarea,
+  Image,
+  Box,
+  Heading,
+  Text
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import ExpertContact from './ExpertContact';
 
 const Products = () => {
-
   const [selectedExpert, setSelectedExpert] = useState(null);
   const [entries, setEntries] = useState([]);
   const [editMode, setEditMode] = useState(null);
@@ -12,7 +20,6 @@ const Products = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -132,7 +139,13 @@ const Products = () => {
   };
 
   return (
-    <Flex direction="column" align="center" width={'100%'} overflow="auto">
+    <Flex
+      direction="column"
+      align="center"
+      width={'100%'}
+      overflow="auto"
+      color={'white'}
+    >
       <Box mt={5} width="100%" height={'100vh'}>
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
           Moje Ogłoszenia:
@@ -285,31 +298,28 @@ const Products = () => {
                   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)'
                 }}
               >
-                        <Button onClick={() => setSelectedExpert(entry._id)} colorScheme="purple" mt={2}>
-                            Skontaktuj się z ekspertem
-                        </Button>
-                        {selectedExpert=== entry._id && <ExpertContact noteId={entry._id} />}
-                       
                 <Flex onClick={() => navigate(`/entry/${entry._id}`)}>
                   <Flex justifyContent={'center'} alignItems={'center'}>
                     <Image
                       src={entry.image}
                       alt="Obraz"
                       minW={'100px'}
+                      maxW={'150px'}
                       height={'200px'}
                       objectFit={'cover'}
                       sm={{ minW: '150px', maxW: '150px', height: '200px' }}
+                      style={{ float: 'left', marginRight: '16px' }} // Ustawienie, by zdjęcie "opływał" tekst
                     />
-                  </Flex>
-                  <Flex flexDir={'column'} ml={2}>
-                    <Heading size={'2xl'} mb={2} sm={{ fontSize: '4xl' }}>
-                      {entry.title || 'Bez tytułu'}
-                    </Heading>
-                    <Flex flexDir={'column'} sm={{ fontSize: '14px' }}>
-                      <Text>{entry.body || 'Brak treści'}</Text>
-                      <Text mt={8} color={'rgb(246, 255, 0)'}>
-                        {entry.price + ' PLN' || 'Brak numeru telefonu'}{' '}
-                      </Text>
+                    <Flex flexDir={'column'} ml={2}>
+                      <Heading size={'2xl'} mb={2} sm={{ fontSize: '4xl' }}>
+                        {entry.title || 'Bez tytułu'}
+                      </Heading>
+                      <Flex flexDir={'column'} sm={{ fontSize: '14px' }}>
+                        <Text>{entry.body || 'Brak treści'}</Text>
+                        <Text mt={8} color={'rgb(246, 255, 0)'}>
+                          {entry.price + ' PLN' || 'Brak numeru telefonu'}{' '}
+                        </Text>
+                      </Flex>
                     </Flex>
                   </Flex>
                 </Flex>
@@ -318,68 +328,102 @@ const Products = () => {
                   justifyContent={'space-between'}
                   alignItems={'center'}
                   flexDir={'row'}
-                  sm={{ flexDir: 'row' }}>
-
-                  {entry.image && (
+                  sm={{ flexDir: 'row' }}
+                  wrap={'wrap'}
+                >
+                  <Flex flexDir={'column'} alignItems={'center'}>
+                    {entry.image && (
+                      <Button
+                        onClick={() => handleDeleteImage(entry._id)}
+                        mt={2}
+                        sm={{ fontSize: '14px', width: '200px' }}
+                        style={{
+                          background: '#ff4d4d', // Czerwony kolor tła dla usuwania
+                          color: '#fff', // Biały kolor tekstu
+                          padding: '0.5rem 1rem', // Wygodne wypełnienie
+                          borderRadius: '5px', // Zaokrąglone rogi
+                          border: 'none', // Brak obramowania
+                          cursor: 'pointer', // Kursor wskazujący na kliknięcie
+                          transition: 'background 0.3s ease', // Przejście dla tła
+                          marginBottom: '16px'
+                        }}
+                        _hover={{
+                          background: '#ff1a1a' // Zmiana tła na ciemniejszy czerwony po najechaniu
+                        }}
+                      >
+                        Usuń zdjęcie
+                      </Button>
+                    )}
                     <Button
-                      onClick={() => handleDeleteImage(entry._id)}
+                      onClick={() => handleDeleteEntry(entry._id)}
                       mt={2}
-                      sm={{ fontSize: '14px', width: '150px' }}
+                      sm={{ fontSize: '14px', width: '200px' }}
                       style={{
-                        background: '#ff4d4d', // Czerwony kolor tła dla usuwania
+                        background: '#ff7043', // Pomarańczowe tło dla usuwania notatki
                         color: '#fff', // Biały kolor tekstu
                         padding: '0.5rem 1rem', // Wygodne wypełnienie
                         borderRadius: '5px', // Zaokrąglone rogi
                         border: 'none', // Brak obramowania
                         cursor: 'pointer', // Kursor wskazujący na kliknięcie
-                        transition: 'background 0.3s ease' // Przejście dla tła
+                        transition: 'background 0.3s ease', // Przejście dla tła
+                        marginBottom: '16px'
                       }}
                       _hover={{
-                        background: '#ff1a1a' // Zmiana tła na ciemniejszy czerwony po najechaniu
+                        background: '#e64a19' // Zmiana tła na ciemniejszy pomarańczowy po najechaniu
                       }}
                     >
-                      Usuń zdjęcie
+                      Usuń Ogłoszenie
                     </Button>
+                  </Flex>
+                  <Flex flexDir={'column'} alignItems={'center'}>
+                    <Button
+                      onClick={() => handleEditClick(entry)}
+                      mt={2}
+                      sm={{ fontSize: '14px', width: '200px' }}
+                      style={{
+                        background: '#4CAF50', // Zielone tło dla edycji
+                        color: '#fff', // Biały kolor tekstu
+                        padding: '0.5rem 1rem', // Wygodne wypełnienie
+                        borderRadius: '5px', // Zaokrąglone rogi
+                        border: 'none', // Brak obramowania
+                        cursor: 'pointer', // Kursor wskazujący na kliknięcie
+                        transition: 'background 0.3s ease', // Przejście dla tła
+                        marginBottom: '16px'
+                      }}
+                      _hover={{
+                        background: '#45a049' // Zmiana tła na ciemniejszy zielony po najechaniu
+                      }}
+                    >
+                      Edytuj
+                    </Button>
+                    <Button
+                      onClick={() => setSelectedExpert(entry._id)}
+                      mt={2}
+                      sm={{ fontSize: '14px', width: '200px' }}
+                      style={{
+                        background: 'rgb(0, 17, 255)', // Zielone tło dla edycji
+                        color: '#fff', // Biały kolor tekstu
+                        padding: '0.5rem 1rem', // Wygodne wypełnienie
+                        borderRadius: '5px', // Zaokrąglone rogi
+                        border: 'none', // Brak obramowania
+                        cursor: 'pointer', // Kursor wskazujący na kliknięcie
+                        transition: 'background 0.3s ease', // Przejście dla tła
+                        marginBottom: '16px'
+                      }}
+                      _hover={{
+                        background: '#45a049' // Zmiana tła na ciemniejszy zielony po najechaniu
+                      }}
+                    >
+                      Skontaktuj się z ekspertem
+                    </Button>
+                  </Flex>
+                </Flex>
+                <Flex justifyContent={'center'} alignItems={'center'}>
+                  {selectedExpert === entry._id && (
+                    <Flex mt={2} p={2} rounded={'lg'}>
+                      <ExpertContact noteId={entry._id} />
+                    </Flex>
                   )}
-                  <Button
-                    onClick={() => handleEditClick(entry)}
-                    mt={2}
-                    sm={{ fontSize: '14px', width: '150px' }}
-                    style={{
-                      background: '#4CAF50', // Zielone tło dla edycji
-                      color: '#fff', // Biały kolor tekstu
-                      padding: '0.5rem 1rem', // Wygodne wypełnienie
-                      borderRadius: '5px', // Zaokrąglone rogi
-                      border: 'none', // Brak obramowania
-                      cursor: 'pointer', // Kursor wskazujący na kliknięcie
-                      transition: 'background 0.3s ease' // Przejście dla tła
-                    }}
-                    _hover={{
-                      background: '#45a049' // Zmiana tła na ciemniejszy zielony po najechaniu
-                    }}
-                  >
-                    Edytuj
-                  </Button>
-
-                  <Button
-                    onClick={() => handleDeleteEntry(entry._id)}
-                    mt={2}
-                    sm={{ fontSize: '14px', width: '150px' }}
-                    style={{
-                      background: '#ff7043', // Pomarańczowe tło dla usuwania notatki
-                      color: '#fff', // Biały kolor tekstu
-                      padding: '0.5rem 1rem', // Wygodne wypełnienie
-                      borderRadius: '5px', // Zaokrąglone rogi
-                      border: 'none', // Brak obramowania
-                      cursor: 'pointer', // Kursor wskazujący na kliknięcie
-                      transition: 'background 0.3s ease' // Przejście dla tła
-                    }}
-                    _hover={{
-                      background: '#e64a19' // Zmiana tła na ciemniejszy pomarańczowy po najechaniu
-                    }}
-                  >
-                    Usuń Ogłoszenie
-                  </Button>
                 </Flex>
               </Flex>
             )}
