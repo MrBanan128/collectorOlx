@@ -1,13 +1,6 @@
 import { useState } from 'react';
-import {
-  PrevButton,
-  NextButton,
-  usePrevNextButtons
-} from './EmblaCarouselArrowButtons';
-import {
-  SelectedSnapDisplay,
-  useSelectedSnapDisplay
-} from './EmblaCarouselSelectedSnapDisplay';
+import { PrevButton, NextButton, usePrevNextButtons } from './EmblaCarouselArrowButtons';
+import { SelectedSnapDisplay, useSelectedSnapDisplay } from './EmblaCarouselSelectedSnapDisplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import CategorySelector from './CategorySelector';
 
