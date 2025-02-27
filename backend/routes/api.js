@@ -278,6 +278,28 @@ router.get('/entries', async (req, res) => {
   }
 });
 
+router.get('/entries/category', async (req, res) => {
+    try {
+        const { category, subcategory, limit = 12, offset = 0 } = req.query; // Domyślnie 10 wpisów na stronę
+        
+        let filter = {};
+        if (category) filter.category = category;
+        if (subcategory) filter.subcategory = subcategory;
+
+        const notes = await Note.find(filter)
+            .sort({ views: -1 })  // Sortowanie według popularności (można zmienić)
+            .skip(parseInt(offset)) // Pomijamy wcześniejsze wpisy
+            .limit(parseInt(limit)); // Pobieramy określoną liczbę wpisów
+
+        const totalCount = await Note.countDocuments(filter); // Liczba wszystkich wpisów pasujących do filtru
+
+        res.json({ notes, totalCount }); // Zwracamy wpisy oraz całkowitą liczbę dostępnych
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd pobierania notatek', details: error });
+    }
+});
+
+  
 
 router.get('/users/entries/:noteId', async (req, res) => {
     try {

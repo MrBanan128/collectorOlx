@@ -1,84 +1,84 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Flex, Box, Spinner, Image, Button } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
+import { Box, Button, Spinner, Image, Text } from "@chakra-ui/react";
 
 const CategorySide = () => {
-  const { category, subcategory } = useParams(); // Pobieramy parametry kategorii i podkategorii
-  const [entries, setEntries] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // Stan ładowania
+  const { category, subcategory } = useParams();
   const navigate = useNavigate();
+  
+  const [allEntries, setAllEntries] = useState([]);  // Wszystkie wpisy z backendu
+  const [visibleEntries, setVisibleEntries] = useState([]); // Te, które widzi użytkownik
+  const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(0);  // Ile już pokazano
+
+  const limit = 10; // Po ile dodajemy
 
   useEffect(() => {
-    fetchEntries(); // Pobieramy dane po załadowaniu komponentu
-  }, [category, subcategory]); // Odświeżamy dane, gdy zmienia się kategoria lub podkategoria
+    loadAllEntries();
+  }, [category, subcategory]);
 
-  const fetchEntries = async () => {
+  const loadAllEntries = async () => {
+    setLoading(true);
+
     try {
-      const response = await fetch('http://localhost:10000/entries');
-      if (!response.ok) throw new Error('Błąd pobierania wpisów');
-
+      const response = await fetch(
+        `http://localhost:10000/entries/category?category=${category || ""}&subcategory=${subcategory || ""}`
+      );
       const data = await response.json();
 
-      // Filtrujemy dane na podstawie kategorii i podkategorii
-      const filteredData = data.filter(entry => {
-        const categoryMatch = category ? entry.category === category : true;
-        const subcategoryMatch = subcategory ? entry.subcategory === subcategory : true;
-        return categoryMatch && subcategoryMatch;
-      });
+      if (!data.notes) {
+        setAllEntries([]);
+        setVisibleEntries([]);
+        return;
+      }
 
-      setEntries(filteredData);
-      setLoading(false); // Ustawiamy stan ładowania na false po pobraniu danych
+      setAllEntries(data.notes);
+      setVisibleEntries(data.notes.slice(0, limit)); // Pokazujemy pierwsze 5
+      setOffset(limit); // Aktualizujemy offset
     } catch (error) {
-      console.error('Błąd pobierania danych:', error);
-      setError(error.message);
-      setLoading(false); // Ustawiamy stan ładowania na false w przypadku błędu
+      console.error("Błąd pobierania danych:", error);
+      setAllEntries([]);
+      setVisibleEntries([]);
+    } finally {
+      setLoading(false);
     }
   };
 
+  const loadMore = () => {
+    const nextEntries = allEntries.slice(offset, offset + limit); // Pobieramy kolejne 5
+    setVisibleEntries((prev) => [...prev, ...nextEntries]); // Dodajemy do wyświetlanych
+    setOffset((prev) => prev + limit); // Zwiększamy offset
+  };
+
   return (
-    <Box mt={5} width="100%">
-      <h3>Wpisy:</h3>
+    <Box p={4}>
+      <Text fontSize="2xl" fontWeight="bold" mb={4}>Lista wpisów</Text>
 
-      {/* Przycisk Powrót */}
-      <Button onClick={() => navigate(-1)} colorScheme="teal" mb={4}>
-        Powrót
-      </Button>
+      {loading && <Spinner size="lg" />}
+      {!loading && visibleEntries.length === 0 && <Text>Brak wpisów do wyświetlenia.</Text>}
 
-      {/* Jeśli wystąpił błąd, wyświetlamy komunikat */}
-      {error && <Box color="red.500">Błąd: {error}</Box>}
-
-      {/* Jeśli dane są w trakcie ładowania, wyświetlamy spinner */}
-      {loading ? (
-        <Flex justify="center" mt={5}>
-          <Spinner size="xl" />
-        </Flex>
-      ) : (
-        <Box>
-          {/* Jeśli dane są dostępne, wyświetlamy wpisy */}
-          {entries.length > 0 ? (
-            entries.map((entry, index) => (
-              <Box key={index} border="1px solid #ccc" padding="10px" marginBottom="10px">
-                <Box
-                   onClick={() => navigate(`/entry/${entry._id}`)} // Nawigowanie do szczegółów notatki
-                >
-                  <h4>{entry.title || 'Bez tytułu'}</h4>
-                  <p>{entry.body || 'Brak treści'}</p>
-                  <p>{entry.price || 'Brak ceny'}</p>
-                  {entry.image && <Image src={entry.image} alt="Obraz" width="100px" />}
-                </Box>
-              </Box>
-            ))
-          ) : (
-            <p>Brak dostępnych wpisów.</p>
-          )}
+      {visibleEntries.map((entry) => (
+        <Box key={entry._id || entry.id} border="1px solid #ccc" padding="10px" marginBottom="10px">
+          <Box onClick={() => navigate(`/entry/${entry._id || entry.id}`)}>
+            <h4>{entry.title || 'Bez tytułu'}</h4>
+            <p>{entry.body || 'Brak treści'}</p>
+            <p>{entry.price || 'Brak ceny'}</p>
+            {entry.image && <Image src={entry.image} alt="Obraz" width="100px" />}
+          </Box>
         </Box>
+      ))}
+
+      {offset < allEntries.length && (
+        <Button onClick={loadMore} colorScheme="blue" mt={4}>
+          Pokaż więcej
+        </Button>
       )}
     </Box>
   );
 };
 
 export default CategorySide;
+
+
 
 

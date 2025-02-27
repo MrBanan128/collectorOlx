@@ -1,7 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { subcategories } from '../../../categories';
-import { NavLink } from 'react-router';
 
 const CategorySelector = ({ selectedCategory }) => {
   const navigate = useNavigate();
