@@ -1,7 +1,3 @@
-xedamew334@gawte.com
-
-proton.me
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Flex, Box, Spinner, Image, Text } from '@chakra-ui/react';
@@ -48,7 +44,7 @@ const CategorySide = ({ background, height }) => {
   return (
     <Flex direction="column" minHeight="100vh" backgroundColor="gray.100">
       {/* Navbar at the top */}
-      <Navbar background="gray" height={height} />{' '}
+      <Navbar background="rgba(92, 92, 92,1)" height={height} />{' '}
       {/* Customize height and background as needed */}
       {/* Main Content */}
       <Box flex="1" width="100%" p={4} pt={20}>
@@ -169,8 +165,13 @@ const CategorySide = ({ background, height }) => {
                 </Box>
               ))
             ) : (
-              <Text color={'black'} paddingTop={'60px'} textAlign="center">
-                Brak dostępnych wpisów.
+              <Text
+                color={'black'}
+                paddingTop={'60px'}
+                textAlign="center"
+                fontWeight={'bold'}
+              >
+                Brak przedmiotów.
               </Text>
             )}
           </Box>
