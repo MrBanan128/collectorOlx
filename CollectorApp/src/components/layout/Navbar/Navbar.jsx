@@ -74,9 +74,9 @@ const Navbar = ({ background, height }) => {
           {!isLogged && <AppLink to={'/Sign-up'}>Account</AppLink>}
           <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>
           {!isVisible && <MenuButton onClick={handleClick} />}
-          {isAdmin && <AppLink to={'dashboard/admin-users'}>Admin</AppLink>}
-          {isExpert && <AppLink to={'/expert'}>Expert</AppLink>}
-          {isLogged && <AppLink to={'dashboard/profile'}>Profile</AppLink>}
+          {isAdmin && <AppLink to={'/dashboard/admin-users'}>Admin</AppLink>}
+          {isExpert && <AppLink to={'/dashboard/expert'}>Expert</AppLink>}
+          {isLogged && <AppLink to={'/dashboard/profile'}>Profile</AppLink>}
         </Flex>
       </Flex>
 
