@@ -14,22 +14,40 @@ const Navbar = ({ background, height }) => {
   const [isLogged, setIsLogged] = useState(false); // Stan do przechowywania informacji o zalogowaniu
 
   useEffect(() => {
-    // Odczytujemy dane z localStorage, np. rolę użytkownika
-    const userData = JSON.parse(localStorage.getItem('user')); // Zakładamy, że dane użytkownika są zapisane w localStorage pod kluczem 'user'
-    console.log(userData); //TODO WYSWIETLA NULL
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
 
-    if (userData && userData.role === 'admin') {
-      setIsAdmin(true);
-      console.log('admin');
-    }
-    if (userData && userData.role === 'expert') {
-      setIsExpert(true);
-      console.log('expert');
-    }
-    if (userData !== null) {
-      setIsLogged(true);
-      console.log('logged');
-    }
+      try {
+        const response = await fetch('http://localhost:10000/user-info', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+        if (data && data.status === 'admin') {
+          setIsAdmin(true);
+          console.log('admin');
+        }
+        if (data && data.status === 'expert') {
+          setIsExpert(true);
+          console.log('expert');
+        }
+        if (data !== null) {
+          setIsLogged(true);
+          console.log('logged');
+        }
+      } catch (error) {
+        console.error('Błąd pobierania danych użytkownika:', error);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   const handleClick = () => {
@@ -53,10 +71,12 @@ const Navbar = ({ background, height }) => {
         <Link to="/">{!isVisible && <Logo />}</Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Home</AppLink>
-          <AppLink to={'/Sign-up'}>Account</AppLink>
-          <AppLink to={'/test'}>Test</AppLink>
-          <AppLink to={'/adds'}>Adds</AppLink>
+          {!isLogged && <AppLink to={'/Sign-up'}>Account</AppLink>}
+          <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>
           {!isVisible && <MenuButton onClick={handleClick} />}
+          {isAdmin && <AppLink to={'dashboard/admin-users'}>Admin</AppLink>}
+          {isExpert && <AppLink to={'/expert'}>Expert</AppLink>}
+          {isLogged && <AppLink to={'dashboard/profile'}>Profile</AppLink>}
         </Flex>
       </Flex>
 
