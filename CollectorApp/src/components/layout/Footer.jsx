@@ -27,12 +27,11 @@ const Footer = () => {
             direction={{ base: 'column', md: 'row' }}
             borderLeft={'1px solid gray'}
           >
-            <FooterLink>Regulamin</FooterLink>
-            <FooterLink>Jak działa BLO-EX Collectors</FooterLink>
+            <FooterLink to={'/regulamin'}>Regulamin</FooterLink>
+            <FooterLink>Jak działa Antique Value</FooterLink>
           </Flex>
           <Flex direction={{ base: 'column', md: 'row' }}>
             <FooterLink>Polityka prywatności</FooterLink>
-            <FooterLink>Ustawienia plików cookie</FooterLink>
           </Flex>
         </Flex>
       </Flex>

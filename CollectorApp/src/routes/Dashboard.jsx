@@ -6,8 +6,10 @@ import Profile from './userComponents/Profile';
 import Message from './userComponents/Message';
 import Admin from '../components/layout/AdminPanel/Users';
 import PanelExpert from './userComponents/PanelExpert';
-import AddProduct from './userComponents/AddProduct';
+
 import ArrowBack from '../components/layout/ArrowBack';
+import NotFound from '../components/layout/404';
+
 // import AdminContact from './userComponents/AdminContact';
 
 const Dashboard = () => {
@@ -101,6 +103,7 @@ const Dashboard = () => {
             { to: '/dashboard/profile', label: 'Profil' },
             { to: '/dashboard/products', label: 'Produkty' },
             { to: '/dashboard/message', label: 'Wiadomości' },
+            // { to: '/adds', label: 'Dodaj Ogłoszenie' },
             isExpert && { to: '/dashboard/expert', label: 'Expert' },
             isAdmin && { to: '/dashboard/admin-users', label: 'Admin' }
           ]
@@ -128,10 +131,10 @@ const Dashboard = () => {
       <Routes>
         <Route path="profile" element={<Profile />} />
         <Route path="products" element={<Products />} />
-        <Route path="add-product" element={<AddProduct />} />
         <Route path="message" element={<Message />} />
         {isExpert && <Route path="expert" element={<PanelExpert />} />}
         {isAdmin && <Route path="admin-users" element={<Admin />} />}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Flex>
   );

@@ -249,31 +249,6 @@ const Users = () => {
         >
           Lista użytkowników
         </Heading>
-        <button
-          onClick={handleBulkDelete}
-          disabled={selection.length === 0}
-          style={{
-            marginTop: '2rem', // Wygodne wypełnienie
-            background: '#007bff', // Niebieskie tło
-            color: 'white', // Kolor tekstu na biały
-            padding: '.5rem 1rem', // Wygodne wypełnienie
-            margin: '.5rem', // Odstęp od innych elementów
-            border: 'none', // Brak obramowania
-            borderRadius: '8px', // Zaokrąglone rogi
-            fontSize: '16px', // Wygodny rozmiar czcionki
-            cursor: 'pointer', // Wskaźnik kursora zmienia się na wskazujący
-            transition: 'all 0.3s ease', // Płynne przejście efektów
-            boxShadow: '0 4px 8px rgba(0, 123, 255, 0.4)' // Efekt cienia
-          }}
-          onMouseOver={(e) => {
-            e.target.style.boxShadow = '0 8px 16px rgba(0, 123, 255, 0.6)'; // Zmiana cienia na hover
-          }}
-          onMouseOut={(e) => {
-            e.target.style.boxShadow = '0 4px 8px rgba(0, 123, 255, 0.4)'; // Powrót do początkowego cienia
-          }}
-        >
-          Usuń zaznaczonych użytkowników
-        </button>
       </Flex>
 
       {editingUser && (
@@ -648,6 +623,33 @@ const Users = () => {
           </button>
         </div>
       )}
+      <Flex justifyContent={'center'} alignItems={'center'}>
+        <button
+          onClick={handleBulkDelete}
+          disabled={selection.length === 0}
+          style={{
+            marginTop: '2rem', // Wygodne wypełnienie
+            background: '#007bff', // Niebieskie tło
+            color: 'white', // Kolor tekstu na biały
+            padding: '.5rem 1rem', // Wygodne wypełnienie
+            margin: '.5rem', // Odstęp od innych elementów
+            border: 'none', // Brak obramowania
+            borderRadius: '8px', // Zaokrąglone rogi
+            fontSize: '16px', // Wygodny rozmiar czcionki
+            cursor: 'pointer', // Wskaźnik kursora zmienia się na wskazujący
+            transition: 'all 0.3s ease', // Płynne przejście efektów
+            boxShadow: '0 4px 8px rgba(0, 123, 255, 0.4)' // Efekt cienia
+          }}
+          onMouseOver={(e) => {
+            e.target.style.boxShadow = '0 8px 16px rgba(0, 123, 255, 0.6)'; // Zmiana cienia na hover
+          }}
+          onMouseOut={(e) => {
+            e.target.style.boxShadow = '0 4px 8px rgba(0, 123, 255, 0.4)'; // Powrót do początkowego cienia
+          }}
+        >
+          Usuń zaznaczonych użytkowników
+        </button>
+      </Flex>
     </Flex>
   );
 };
