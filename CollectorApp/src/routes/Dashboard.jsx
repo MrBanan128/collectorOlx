@@ -8,7 +8,8 @@ import Admin from '../components/layout/AdminPanel/Users';
 import PanelExpert from './userComponents/PanelExpert';
 
 import ArrowBack from '../components/layout/ArrowBack';
-import Adds from './Adds';
+import NotFound from '../components/layout/404';
+
 // import AdminContact from './userComponents/AdminContact';
 
 const Dashboard = () => {
@@ -130,10 +131,10 @@ const Dashboard = () => {
       <Routes>
         <Route path="profile" element={<Profile />} />
         <Route path="products" element={<Products />} />
-        <Route path="/adds" element={<Adds />} />
         <Route path="message" element={<Message />} />
         {isExpert && <Route path="expert" element={<PanelExpert />} />}
         {isAdmin && <Route path="admin-users" element={<Admin />} />}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Flex>
   );
