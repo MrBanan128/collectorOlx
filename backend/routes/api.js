@@ -414,17 +414,15 @@ router.delete('/users/entries/image/:noteId', authMiddleware, async (req, res) =
 // Endpoint do pobierania notatek przypisanych do eksperta
 router.get("/expert/assigned-notes", authMiddleware, async (req, res) => {
     try {
-        console.log('req.user._id:', req.user._id);
+        console.log('req.user.userId:', req.user.userId);
         const expertNotes = await Note.find({
             expertId: req.user.userId,
-            expertRequest: true,  // Dodano filtr dla expertRequest
+            expertRequest: true,  // Dodano filtr dla expertRequest 
         });
-
         if (!expertNotes || expertNotes.length === 0) {
             return res.status(404).json({ message: 'Brak przypisanych notatek.' });
         }
-
-        res.json(expertNotes);
+         res.json(expertNotes);
     } catch (error) {
         res.status(500).json({ message: 'Błąd podczas pobierania notatek', error });
     }
