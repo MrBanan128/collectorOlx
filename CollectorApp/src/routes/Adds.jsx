@@ -33,6 +33,10 @@ const Adds = () => {
       navigate('/login');
       return;
     }
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [navigate]);
 
   const handleInputChange = (e) => {
@@ -89,13 +93,26 @@ const Adds = () => {
       setError(error.message);
     }
   };
+  const [scrolled, setScrolled] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > window.innerHeight * 0.2) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
 
   return (
     <Flex
       bgImage="linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%)"
       flexDir={'column'}
     >
-      <Navbar />
+      <Navbar
+        background={scrolled ? 'rgba(92, 92, 92,1)' : 'rgba(92, 92, 92,0)'}
+        height={scrolled ? '84px' : '80px'}
+        width={'100%'}
+      />
       <Flex
         height="100vh"
         direction="column"
@@ -151,6 +168,9 @@ const Adds = () => {
               placeholder="Dodaj notatkę"
               _placeholder={{ color: 'white' }}
               mb={4}
+              lineHeight={1.5}
+              pt={10}
+              pb={10}
               borderColor="gray.500"
               _hover={{ borderColor: 'blue.400' }}
               _focus={{ borderColor: 'blue.600' }}
@@ -249,7 +269,7 @@ const Adds = () => {
               bg={'#2d3778'}
               _hover={{ bg: 'blue.500' }}
             >
-              Dodaj wpis
+              Dodaj Ogłoszenie
             </Button>
           </form>
         </Flex>

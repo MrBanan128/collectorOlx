@@ -7,7 +7,7 @@ import AppLink from './AppLink';
 import Sidebar from './Sidebar';
 
 // Ensure Navbar is correctly defined and exported
-const Navbar = ({ background, height, width, direction, MainDirection}) => {
+const Navbar = ({ background, height, width, direction, MainDirection }) => {
   const [isVisible, setVisible] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false); // Stan do przechowywania informacji o adminie
   const [isExpert, setIsExpert] = useState(false); // Stan do przechowywania informacji o ekspercie
@@ -70,14 +70,20 @@ const Navbar = ({ background, height, width, direction, MainDirection}) => {
         roundedBottom={'xl'}
       >
         <Link to="/">{!isVisible && <Logo />}</Link>
-        <Flex justifyContent="start" gap={3} float="right" px={4} direction={direction}>
-          <AppLink to="/">Home</AppLink>
-          {!isLogged && <AppLink to={'/Sign-up'}>Account</AppLink>}
+        <Flex
+          justifyContent="start"
+          gap={3}
+          float="right"
+          px={4}
+          direction={direction}
+        >
+          <AppLink to="/">Strona Główna</AppLink>
           <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>
+          {!isLogged && <AppLink to={'/Sign-up'}>Zaloguj się</AppLink>}
           {!isVisible && <MenuButton onClick={handleClick} />}
           {isAdmin && <AppLink to={'/dashboard/admin-users'}>Admin</AppLink>}
           {isExpert && <AppLink to={'/dashboard/expert'}>Expert</AppLink>}
-          {isLogged && <AppLink to={'/dashboard/profile'}>Profile</AppLink>}
+          {isLogged && <AppLink to={'/dashboard/profile'}>Profil</AppLink>}
         </Flex>
       </Flex>
 
@@ -86,5 +92,4 @@ const Navbar = ({ background, height, width, direction, MainDirection}) => {
   );
 };
 
-// ✅ Make sure this export is present at the end of the file
 export default Navbar;
