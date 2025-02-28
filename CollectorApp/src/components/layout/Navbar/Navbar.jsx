@@ -79,7 +79,7 @@ const Navbar = ({ background, height, width, direction, MainDirection }) => {
         >
           <AppLink to="/">Strona Główna</AppLink>
           <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>
-          {!isLogged && <AppLink to={'/Sign-up'}>Zaloguj się</AppLink>}
+          {!isLogged && <AppLink to={'/login'}>Zaloguj się</AppLink>}
           {!isVisible && <MenuButton onClick={handleClick} />}
           {isAdmin && <AppLink to={'/dashboard/admin-users'}>Admin</AppLink>}
           {isExpert && <AppLink to={'/dashboard/expert'}>Expert</AppLink>}
