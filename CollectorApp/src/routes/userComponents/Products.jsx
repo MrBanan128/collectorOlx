@@ -314,7 +314,11 @@ const Products = () => {
                       <Heading size={'2xl'} mb={2} sm={{ fontSize: '4xl' }}>
                         {entry.title || 'Bez tytułu'}
                       </Heading>
-                      <Flex flexDir={'column'} sm={{ fontSize: '14px' }}>
+                      <Flex
+                        flexDir={'column'}
+                        w={'95%'}
+                        sm={{ fontSize: '14px', width: '100%' }}
+                      >
                         <Text>{entry.body || 'Brak treści'}</Text>
                         <Text mt={8} color={'rgb(246, 255, 0)'}>
                           {entry.price + ' PLN' || 'Brak numeru telefonu'}{' '}

@@ -73,10 +73,11 @@ const Navbar = ({ background, height }) => {
           <AppLink to="/">Home</AppLink>
           {!isLogged && <AppLink to={'/Sign-up'}>Account</AppLink>}
           <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>
+          {!isLogged && <AppLink to={'/login'}>Zaloguj się</AppLink>}
           {!isVisible && <MenuButton onClick={handleClick} />}
           {isAdmin && <AppLink to={'/dashboard/admin-users'}>Admin</AppLink>}
           {isExpert && <AppLink to={'/dashboard/expert'}>Expert</AppLink>}
-          {isLogged && <AppLink to={'/dashboard/profile'}>Profile</AppLink>}
+          {isLogged && <AppLink to={'/dashboard/profile'}>Profil</AppLink>}
         </Flex>
       </Flex>
 
@@ -85,5 +86,4 @@ const Navbar = ({ background, height }) => {
   );
 };
 
-// ✅ Make sure this export is present at the end of the file
 export default Navbar;

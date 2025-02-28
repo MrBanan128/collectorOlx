@@ -22,7 +22,7 @@ const CategorySide = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:10000/entries/category?category=${category || ""}&subcategory=${subcategory || ""}`
+        `http://localhost:10000/entries/category?category=${category || ''}&subcategory=${subcategory || ''}`
       );
       const data = await response.json();
 
@@ -36,7 +36,7 @@ const CategorySide = () => {
       setVisibleEntries(data.notes.slice(0, limit));
       setOffset(limit);
     } catch (error) {
-      console.error("Błąd pobierania danych:", error);
+      console.error('Błąd pobierania danych:', error);
       setAllEntries([]);
       setVisibleEntries([]);
     } finally {
@@ -131,7 +131,7 @@ const CategorySide = () => {
         )}   
       </Box> 
       
-      <Footer/>
+      {/* <Footer/> */}
     </Box>
   );
 };

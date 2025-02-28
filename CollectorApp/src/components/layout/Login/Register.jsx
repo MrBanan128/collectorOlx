@@ -9,7 +9,7 @@ import {
   Image,
   Text
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'; // Corrected import path for NavLink
 import { FaGoogle, FaFacebook } from 'react-icons/fa'; // Added FaArrowLeft
 
@@ -125,12 +125,19 @@ const Register = () => {
           direction="column"
           textAlign={'center'}
           justifyContent={'center'}
+          mb={10}
           rounded={10}
           marginTop={10}
           overflow={'hidden'}
           border={'5px solid rgb(35, 35, 35)'}
-          height={{ base: 'auto', md: '750px', lg: '700px', xl: '700px' }}
-          maxWidth={{ base: '70%', md: '500px' }}
+          height={{
+            base: 'auto',
+            sm: '600px',
+            md: '640px',
+            lg: '650px',
+            xl: '720px'
+          }}
+          maxWidth={{ base: '70%', sm: '350px', md: '500px' }}
           width="100%"
         >
           {/* Logo */}
@@ -142,24 +149,27 @@ const Register = () => {
             paddingBottom={10}
             maxHeight={{ base: '150px', md: '200px', lg: '250px', xl: '300px' }}
           >
-            <Image
-              width={'50px'}
-              height={'50px'}
-              marginTop={5}
-              rounded={'2xl'}
-              src="/AV.png"
-              alt="AntiqVal"
-              // Ustawienie dla urządzeń > 480px (smartfony i większych)
-              sm={{ width: '70px', height: '70px' }}
-              // Ustawienie dla urządzeń > 768px (tablety i większe)
-              md={{ width: '90px', height: '90px' }}
-              // Ustawienie dla urządzeń > 1024px (laptopy i większe)
-              lg={{ width: '110px', height: '120px' }}
-            />
+            <Link to="/">
+              <Image
+                width={'50px'}
+                height={'50px'}
+                marginTop={5}
+                rounded={'2xl'}
+                src="/AV.png"
+                alt="AntiqVal"
+                // Ustawienie dla urządzeń > 480px (smartfony i większych)
+                sm={{ width: '70px', height: '70px' }}
+                // Ustawienie dla urządzeń > 768px (tablety i większe)
+                md={{ width: '90px', height: '90px' }}
+                // Ustawienie dla urządzeń > 1024px (laptopy i większe)
+                lg={{ width: '100px', height: '100px' }}
+                xl={{ width: '120px', height: '120px' }}
+              />
+            </Link>
             <Flex gap={5} mt={5}>
               <NavLink to="/login">
                 <Heading color={'white'} fontSize={{ base: 'xl', md: '3xl' }}>
-                  Login
+                  Logowanie
                 </Heading>
               </NavLink>
               <NavLink to="/sign-up">
@@ -178,7 +188,6 @@ const Register = () => {
             p={10}
             direction="column"
             width="100%"
-            height="100%"
           >
             <Heading
               color="white"
@@ -205,13 +214,13 @@ const Register = () => {
                 <Flex
                   direction="column"
                   alignItems="center"
-                  gap={{ base: 5, md: 10 }}
+                  gap={{ base: 5, md: 5, xl: 10 }}
                 >
                   <Input
                     type="text"
                     name="username"
                     border={'2px solid rgba(2,9,17,255)'}
-                    placeholder="Username"
+                    placeholder="Nazwa"
                     padding={{ base: 5, sm: 8 }}
                     onChange={handleRegisterChange}
                     _placeholder={{ color: 'rgba(2,9,17,255)' }}
@@ -224,7 +233,7 @@ const Register = () => {
                     type="email"
                     name="email"
                     border={'2px solid rgba(2,9,17,255)'}
-                    placeholder="Email"
+                    placeholder="E-mail"
                     padding={{ base: 5, sm: 8 }}
                     onChange={handleRegisterChange}
                     _placeholder={{ color: 'rgba(2,9,17,255)' }}
@@ -237,7 +246,7 @@ const Register = () => {
                     type="password"
                     name="password"
                     border={'2px solid rgba(2,9,17,255)'}
-                    placeholder="Password"
+                    placeholder="Hasło"
                     padding={{ base: 5, sm: 8 }}
                     onChange={handleRegisterChange}
                     _placeholder={{ color: 'rgba(2,9,17,255)' }}
@@ -250,7 +259,7 @@ const Register = () => {
                     type="password"
                     name="RepeatedPassword"
                     border={'2px solid rgba(2,9,17,255)'}
-                    placeholder="Repeat password"
+                    placeholder="Powtórz hasło"
                     padding={{ base: 5, sm: 8 }}
                     onChange={handleRegisterChange}
                     _placeholder={{ color: 'rgba(2,9,17,255)' }}

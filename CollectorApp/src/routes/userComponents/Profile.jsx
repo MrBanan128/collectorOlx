@@ -173,7 +173,7 @@ const Profile = () => {
               <Button
                 onClick={() => {
                   localStorage.removeItem('token');
-                  navigate('/Sign-up');
+                  navigate('/login');
                 }}
                 size="lg"
                 fontSize="lg"
