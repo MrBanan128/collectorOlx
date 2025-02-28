@@ -81,9 +81,11 @@ const CategorySide = () => {
       />
 
       <Box width="100%" p="12rem 10rem 8rem 15rem"> 
-        <Text fontSize="2.5rem" fontWeight="bold" mb={4}>
-          Wyświetlone ogłoszenia: {visibleEntries.length} / {allEntries.length}
-        </Text>
+      {allEntries.length > 0 && (
+  <Text fontSize="2.5rem" fontWeight="bold" mb={4}>
+    Wyświetlone ogłoszenia: {visibleEntries.length} / {allEntries.length}
+  </Text>
+)}
 
         {loading && <Spinner size="lg" />}
         {!loading && visibleEntries.length === 0 && <Text>Brak wpisów do wyświetlenia.</Text>}
@@ -131,7 +133,7 @@ const CategorySide = () => {
         )}   
       </Box> 
       
-      {/* <Footer/> */}
+      <Footer/>
     </Box>
   );
 };
