@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
   Heading,
-  Box,
   Button,
   Input,
   Textarea,
@@ -141,7 +140,7 @@ const Adds = () => {
             mb={4}
             textAlign="center"
           >
-            Stwórz Produkt
+            Dodaj Ogłoszenie
           </Heading>
 
           <form onSubmit={handleAddEntry} style={{ width: '100%' }}>

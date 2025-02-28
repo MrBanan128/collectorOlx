@@ -9,7 +9,7 @@ import {
   Image,
   Text
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'; // Corrected import path for NavLink
 import { FaGoogle, FaFacebook } from 'react-icons/fa'; // Added FaArrowLeft
 
@@ -84,7 +84,7 @@ const Login = () => {
         position="relative"
         width="100%"
         padding={5}
-        height="100vh"
+        height="100%"
       >
         <Flex
           direction="column"
@@ -93,8 +93,14 @@ const Login = () => {
           rounded={10}
           overflow={'hidden'}
           border={'5px solid rgb(35, 35, 35)'}
-          height={{ base: 'auto', md: '600px', lg: '650px', xl: '700px' }}
-          maxWidth={{ base: '60%', md: '500px' }} // Ustawiłem maxWidth
+          height={{
+            base: 'auto',
+            sm: '600px',
+            md: '640px',
+            lg: '650px',
+            xl: '720px'
+          }}
+          maxWidth={{ base: '70%', sm: '350px', md: '500px' }}
           width="100%"
         >
           {/* Logo */}
@@ -105,20 +111,22 @@ const Login = () => {
             gap={5}
             paddingBottom={10}
           >
-            <Image
-              width={'60px'}
-              height={'60px'}
-              marginTop={10}
-              rounded={'2xl'}
-              src="/AV.png"
-              alt="AntiqVal"
-              // Ustawienie dla urządzeń > 480px (smartfony i większych)
-              sm={{ width: '70px', height: '60px' }}
-              // Ustawienie dla urządzeń > 768px (tablety i większe)
-              md={{ width: '90px', height: '90px' }}
-              // Ustawienie dla urządzeń > 1024px (laptopy i większe)
-              lg={{ width: '110px', height: '120px' }}
-            />
+            <Link to="/">
+              <Image
+                width={'60px'}
+                height={'60px'}
+                marginTop={10}
+                rounded={'2xl'}
+                src="/AV.png"
+                alt="AntiqVal"
+                // Ustawienie dla urządzeń > 480px (smartfony i większych)
+                sm={{ width: '70px', height: '60px' }}
+                // Ustawienie dla urządzeń > 768px (tablety i większe)
+                md={{ width: '90px', height: '90px' }}
+                // Ustawienie dla urządzeń > 1024px (laptopy i większe)
+                lg={{ width: '110px', height: '120px' }}
+              />
+            </Link>
             <Flex gap={5} mt={5}>
               <NavLink to="/login">
                 <Heading color={'white'} fontSize={{ base: 'xl', md: '3xl' }}>
@@ -201,7 +209,8 @@ const Login = () => {
                     backgroundColor="rgba(2,9,17,255)"
                     mt="10px"
                     fontSize={'20px'}
-                    width={'60%'}
+                    minW={'60%'}
+                    width={{ base: '80%', sm: '60%' }}
                     height={'50px'}
                     md={{ marginTop: '40px' }}
                     color={'#cbcdc4'}
@@ -221,32 +230,26 @@ const Login = () => {
             background={'#cbcdc4'}
             paddingBottom={10}
           >
-            <Flex
-              flexDir={'row'}
-              alignItems={'center'}
-              gap={5}
-              onClick={handleGoogleLogin}
-            >
+            <Flex flexDir={'row'} alignItems={'center'} gap={5}>
               <FaGoogle style={{ minWidth: '15px' }} />
               <Button
                 backgroundColor={'rgba(2,9,17,255)'}
                 color={'#cbcdc4'}
                 display={{ base: 'none', sm: 'block' }}
+                width={{ sm: '50%', md: '40%' }}
+                onClick={handleGoogleLogin}
               >
                 Zaloguj się przez Google
               </Button>
             </Flex>
-            <Flex
-              flexDir={'row'}
-              alignItems={'center'}
-              gap={5}
-              onClick={handleFacebookLogin}
-            >
+            <Flex flexDir={'row'} alignItems={'center'} gap={5}>
               <FaFacebook style={{ minWidth: '15px' }} />
               <Button
                 backgroundColor={'rgba(2,9,17,255)'}
                 color={'#cbcdc4'}
                 display={{ base: 'none', sm: 'block' }}
+                width={{ sm: '50%', md: '40%' }}
+                onClick={handleFacebookLogin}
               >
                 Zaloguj się przez Facebooka
               </Button>
