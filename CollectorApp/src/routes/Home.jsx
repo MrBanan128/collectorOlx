@@ -43,6 +43,7 @@ const Home = () => {
         <Navbar
           background={scrolled ? 'rgba(92, 92, 92,1)' : 'rgba(92, 92, 92,0)'}
           height={scrolled ? '84px' : '80px'}
+          width={"100%"} 
         />
       </Box>
 
