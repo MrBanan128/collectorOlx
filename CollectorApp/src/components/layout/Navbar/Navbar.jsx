@@ -7,7 +7,7 @@ import AppLink from './AppLink';
 import Sidebar from './Sidebar';
 
 // Ensure Navbar is correctly defined and exported
-const Navbar = ({ background, height, width, direction, MainDirection}) => {
+const Navbar = ({ background, height }) => {
   const [isVisible, setVisible] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false); // Stan do przechowywania informacji o adminie
   const [isExpert, setIsExpert] = useState(false); // Stan do przechowywania informacji o ekspercie
@@ -58,11 +58,10 @@ const Navbar = ({ background, height, width, direction, MainDirection}) => {
     <Flex>
       <Flex
         zIndex={2222}
-        width={width}
+        width="100%"
         alignItems="center"
         justifyContent="space-between"
         height={height}
-        direction={MainDirection}
         position="fixed"
         background={!isVisible ? background : undefined}
         px={4}
@@ -70,7 +69,7 @@ const Navbar = ({ background, height, width, direction, MainDirection}) => {
         roundedBottom={'xl'}
       >
         <Link to="/">{!isVisible && <Logo />}</Link>
-        <Flex justifyContent="start" gap={3} float="right" px={4} direction={direction}>
+        <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Home</AppLink>
           {!isLogged && <AppLink to={'/Sign-up'}>Account</AppLink>}
           <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>

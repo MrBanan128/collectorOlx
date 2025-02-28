@@ -33,3 +33,4 @@ export const subcategories = {
         { value: 'Zastawa stołowa', label: 'Zastawa stołowa' }
     ]
 };
+

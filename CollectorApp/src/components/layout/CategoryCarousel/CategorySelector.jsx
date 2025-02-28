@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { subcategories } from '../../../categories';
 
@@ -17,6 +17,17 @@ const CategorySelector = ({ selectedCategory }) => {
     <>
       {selectedCategory && (
         <Box mt={4} style={{ textAlign: 'center' }}>
+
+          <Box
+           style={{
+            textAlign:'center',
+            display: 'block',
+            padding: '10px',
+            borderBottom: '1px solid gray',
+            borderRadius: '5px',
+            marginBottom: '10px',
+          }}
+          >
           <p
             href=""
             onClick={() =>
@@ -27,19 +38,17 @@ const CategorySelector = ({ selectedCategory }) => {
               )
             }
             style={{
-              display: 'block',
+              display:'inline',
               fontWeight: 'bold',
               textDecoration: 'none',
               fontSize: '18px',
               color: 'white',
-              padding: '10px',
-              borderBottom: '1px solid gray',
-              borderRadius: '5px',
-              marginBottom: '10px'
+              cursor: 'pointer',
             }}
           >
             Wybierz podkategorię dla: {selectedCategory}
           </p>
+          </Box>
 
           <div>
             {subcategories[selectedCategory]
@@ -61,18 +70,7 @@ const CategorySelector = ({ selectedCategory }) => {
                     fontSize={'20px'}
                     fontWeight={'bold'}
                   >
-                    {/* <a
-                      href=""
-                      onClick={() => handleSubcategoryClick(subcategory.value)}
-                      style={{
-                        display: 'block',
-                        padding: '8px',
-                        textDecoration: 'none',
-                        color: 'white',
-                        fontSize: '20px',
-                        fontWeight: 'bold'
-                      }}
-                    > */}
+
                     <Box
                       _hover={{
                         textShadow: '1px 1px 1px white',
