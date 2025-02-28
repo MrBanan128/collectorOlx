@@ -120,11 +120,11 @@ const Login = () => {
                 src="/AV.png"
                 alt="AntiqVal"
                 // Ustawienie dla urządzeń > 480px (smartfony i większych)
-                sm={{ width: '70px', height: '60px' }}
+                sm={{ width: '70px', height: '70px' }}
                 // Ustawienie dla urządzeń > 768px (tablety i większe)
                 md={{ width: '90px', height: '90px' }}
                 // Ustawienie dla urządzeń > 1024px (laptopy i większe)
-                lg={{ width: '110px', height: '120px' }}
+                lg={{ width: '120px', height: '120px' }}
               />
             </Link>
             <Flex gap={5} mt={5}>
