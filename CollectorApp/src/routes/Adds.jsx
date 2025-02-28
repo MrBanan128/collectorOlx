@@ -11,7 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { categories, subcategories } from '../categories';
 import Navbar from '../components/layout/Navbar/Navbar';
-const Adds = () => {
+const Adds = ({ height }) => {
   const [categoriesEl, setCategories] = useState(categories);
   const [subcategoriesEl, setSubcategories] = useState(subcategories);
   const [newData, setNewData] = useState({
@@ -95,11 +95,11 @@ const Adds = () => {
       bgImage="linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%)"
       flexDir={'column'}
     >
-      <Navbar />
+      <Navbar background="rgba(92, 92, 92,1)" height={height} />
       <Flex
         height="100vh"
         direction="column"
-        color="white"
+        color="black"
         justifyContent="center"
         alignItems="center"
         px={4} // Padding na bokach
@@ -109,7 +109,7 @@ const Adds = () => {
           justifyContent="center"
           alignItems="center"
           flexDir="column"
-          bg="rgba(0, 0, 0, 0.5)" // Dodanie przezroczystości tła
+          bg="rgba(18,	19,	21, 0.95)" // Dodanie przezroczystości tła
           p={6}
           borderRadius="xl" // Zaokrąglone rogi formularza
           boxShadow="lg" // Cień
@@ -119,7 +119,7 @@ const Adds = () => {
             fontSize={{ base: '1.5rem', sm: '2rem', md: '2.5rem' }} // Responsywna wielkość nagłówka
             fontWeight="bold"
             padding="1rem"
-            bg={'#2d3778'}
+            bg={'#545a7e'}
             rounded="xl"
             mb={4}
             textAlign="center"
@@ -132,32 +132,33 @@ const Adds = () => {
               name="title"
               value={newData.title}
               onChange={handleInputChange}
-              placeholder="Tytuł wpisu"
-              _placeholder={{ color: 'white' }}
+              placeholder="Nazwa przedmiotu"
+              _placeholder={{ color: 'black' }}
               mb={4}
               borderColor="gray.500"
               _hover={{ borderColor: 'blue.400' }}
               _focus={{ borderColor: 'blue.600' }}
               size="lg"
               borderRadius="md"
-              bg="gray.700"
-              color="white"
+              bg="whiteAlpha.800"
+              color="black"
               p={4}
+              required
             />
             <Textarea
               name="note"
               value={newData.note}
               onChange={handleInputChange}
-              placeholder="Dodaj notatkę"
-              _placeholder={{ color: 'white' }}
+              placeholder="Krótki opis"
+              _placeholder={{ color: 'black' }}
               mb={4}
               borderColor="gray.500"
               _hover={{ borderColor: 'blue.400' }}
               _focus={{ borderColor: 'blue.600' }}
               size="lg"
               borderRadius="md"
-              bg="gray.700"
-              color="white"
+              bg="whiteAlpha.800"
+              color="black"
               p={4}
             />
             <Input
@@ -166,15 +167,15 @@ const Adds = () => {
               value={newData.price}
               onChange={handleInputChange}
               placeholder="Cena"
-              _placeholder={{ color: 'white' }}
+              _placeholder={{ color: 'black' }}
               mb={4}
-              borderColor="gray.500"
+              borderColor="black"
               _hover={{ borderColor: 'blue.400' }}
               _focus={{ borderColor: 'blue.600' }}
               size="lg"
-              borderRadius="md"
-              bg="gray.700"
-              color="white"
+              borderRadius="lg"
+              bg="whiteAlpha.800"
+              color="black"
               p={4}
             />
             <select
@@ -183,11 +184,11 @@ const Adds = () => {
               onChange={handleInputChange}
               placeholder="Wybierz kategorię"
               style={{
-                backgroundColor: '#2d3748',
-                color: 'white',
+                backgroundColor: 'rgba(255, 255, 255, 0.80',
+                color: 'black',
                 padding: '10px',
                 borderRadius: '8px',
-                border: '1px solid #4a5568',
+                border: '1px solid black',
                 width: '100%',
                 marginBottom: '1rem'
               }}
@@ -207,11 +208,11 @@ const Adds = () => {
                 onChange={handleInputChange}
                 placeholder="Wybierz podkategorię"
                 style={{
-                  backgroundColor: '#2d3748',
-                  color: 'white',
+                  backgroundColor: 'rgba(255, 255, 255, 0.80',
+                  color: 'black',
                   padding: '10px',
                   borderRadius: '8px',
-                  border: '1px solid #4a5568',
+                  border: '1px solid black',
                   width: '100%',
                   marginBottom: '1rem'
                 }}
@@ -234,8 +235,8 @@ const Adds = () => {
               _focus={{ borderColor: 'blue.600' }}
               size="lg"
               borderRadius="md"
-              bg="gray.700"
-              color="white"
+              bg="whiteAlpha.800"
+              color="black"
               p={1}
             />
             {preview && (
@@ -246,8 +247,10 @@ const Adds = () => {
               size="lg"
               width="100%"
               borderRadius="md"
-              bg={'#2d3778'}
+              bg={'red'}
               _hover={{ bg: 'blue.500' }}
+              fontWeight={'bold'}
+              fontSize={'14px'}
             >
               Dodaj wpis
             </Button>

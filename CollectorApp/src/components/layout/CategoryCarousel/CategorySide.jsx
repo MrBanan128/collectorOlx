@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer';
 
-const CategorySide = ({ background, height }) => {
+const CategorySide = ({ height }) => {
   const { category, subcategory } = useParams(); // Get category and subcategory from URL
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
