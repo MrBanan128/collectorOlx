@@ -1,12 +1,12 @@
 import { Link } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
-const FooterLink = ({ children }) => {
+const FooterLink = ({ to, children }) => {
   const navigate = useNavigate();
 
   return (
     <Link
-      onClick={() => navigate(children)}
+      onClick={() => navigate(to)}
       //   backgroundImage={
       //     'linear-gradient(to top, rgb(179, 179, 179) 0.01px, transparent 0.5px)'
       //   }
