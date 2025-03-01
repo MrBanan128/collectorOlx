@@ -177,19 +177,19 @@ const Login = () => {
                   direction="column"
                   alignItems="center"
                   gap={{ base: 5, md: 10 }}
+                  color={'rgba(2,9,17,255)'}
                 >
                   <Input
                     type="email"
                     name="email"
                     border={'2px solid rgba(2,9,17,255)'}
-                    placeholder="Email"
+                    placeholder="E-mail"
                     padding={8}
                     onChange={handleLoginChange}
                     _placeholder={{ color: 'rgba(2,9,17,255)' }}
                     fontSize={'20px'}
                     required
                     width="80%"
-                    color={'rgba(2,9,17,255)'}
                   />
 
                   <Input

@@ -70,8 +70,7 @@ const Navbar = ({ background, height }) => {
       >
         <Link to="/">{!isVisible && <Logo />}</Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
-          <AppLink to="/">Home</AppLink>
-          {!isLogged && <AppLink to={'/Sign-up'}>Account</AppLink>}
+          <AppLink to="/">Strona Główna</AppLink>
           <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>
           {!isLogged && <AppLink to={'/login'}>Zaloguj się</AppLink>}
           {!isVisible && <MenuButton onClick={handleClick} />}
