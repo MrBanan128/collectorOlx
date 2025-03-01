@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Button, Heading } from '@chakra-ui/react';
 
 const ExpertPanel = () => {
   const [assignedNotes, setAssignedNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [evaluationData, setEvaluationData] = useState({
-    expertName: '', expertBadge: '', expertMessage: '', expertPrice: '' });
+    expertName: '',
+    expertBadge: '',
+    expertMessage: '',
+    expertPrice: ''
+  });
   const [activeNoteId, setActiveNoteId] = useState(null); // Dodajemy stan do śledzenia aktywnej notatki
 
   useEffect(() => {
@@ -52,8 +57,13 @@ const ExpertPanel = () => {
           }
         }
       );
-      alert('Ocena została przypisana do notatki!');
-      setEvaluationData({expertName: '', expertBadge: '', expertMessage: '', expertPrice: ''}); // Resetowanie formularza
+
+      setEvaluationData({
+        expertName: '',
+        expertBadge: '',
+        expertMessage: '',
+        expertPrice: ''
+      }); // Resetowanie formularza
     } catch (error) {
       console.error('Błąd podczas wysyłania oceny:', error);
     }
@@ -67,11 +77,13 @@ const ExpertPanel = () => {
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       <div style={{ flex: 1 }}>
-        <h2>Przypisane Notatki</h2>
+        <Heading fontSize={'30px'} color={'white'} padding={'10px'}>
+          Ogłoszenia do Wyceny
+        </Heading>
         {loading ? (
           <p>Ładowanie...</p>
         ) : assignedNotes.length === 0 ? (
-          <p>Brak przypisanych notatek.</p>
+          <p>Brak przedmiotów</p>
         ) : (
           <div>
             {assignedNotes.map((note) => (
@@ -138,7 +150,7 @@ const ExpertPanel = () => {
                   }}
                   type="text"
                   name="expertBadge"
-                  value={evaluationData.expertBadge}
+                  value={evaluationData.expertBadge} // src="/check.png"
                   onChange={handleInputChange}
                 />
               </div>
@@ -158,7 +170,11 @@ const ExpertPanel = () => {
               <div>
                 <label>Proponowana cena:</label>
                 <input
-                  style={{ background: '#333333', border: 'solid 1px red', margin: '.2rem'}}
+                  style={{
+                    background: '#333333',
+                    border: 'solid 1px red',
+                    margin: '.2rem'
+                  }}
                   type="number"
                   name="expertPrice"
                   value={evaluationData.expertPrice}
@@ -166,11 +182,20 @@ const ExpertPanel = () => {
                 />
               </div>
               <div>
-                <button
+                <Button
+                  width={'100%'}
+                  fontSize={'16px'}
+                  color={'white'}
+                  padding={'10px'}
                   type="submit"
-                  style={{ background: 'blue', border: 'solid 1px red', margin: '.2rem' }} >
+                  style={{
+                    background: 'blue',
+                    border: 'solid 1px red',
+                    margin: '.2rem'
+                  }}
+                >
                   Zatwierdź ocenę
-                </button>
+                </Button>
               </div>
             </form>
           </div>

@@ -15,6 +15,7 @@ import Logo from '../components/layout/Navbar/Logo';
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isExpert, setIsExpert] = useState(false);
+  const [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -38,6 +39,9 @@ const Dashboard = () => {
         }
         if (data.status === 'expert') {
           setIsExpert(true);
+        }
+        if (data.status === 'user') {
+          setIsUser(true);
         }
       } catch (error) {
         console.error('Błąd pobierania danych użytkownika:', error);
@@ -114,7 +118,8 @@ const Dashboard = () => {
             { to: '/dashboard/message', label: 'Wiadomości' },
             // { to: '/adds', label: 'Dodaj Ogłoszenie' },
             isExpert && { to: '/dashboard/expert', label: 'Expert' },
-            isAdmin && { to: '/dashboard/admin-users', label: 'Admin' }
+            isAdmin && { to: '/dashboard/admin-users', label: 'Admin' },
+            isUser && { to: '/Adds', label: 'Dodaj Ogłoszenie' }
           ]
             .filter(Boolean)
             .map(({ to, label }) => (

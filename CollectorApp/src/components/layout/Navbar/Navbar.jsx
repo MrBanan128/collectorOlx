@@ -11,6 +11,7 @@ const Navbar = ({ background, height }) => {
   const [isVisible, setVisible] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false); // Stan do przechowywania informacji o adminie
   const [isExpert, setIsExpert] = useState(false); // Stan do przechowywania informacji o ekspercie
+  const [isUser, setIsUser] = useState(false); // Stan do przechowywania informacji o użytkowniku
   const [isLogged, setIsLogged] = useState(false); // Stan do przechowywania informacji o zalogowaniu
 
   useEffect(() => {
@@ -37,6 +38,10 @@ const Navbar = ({ background, height }) => {
         if (data && data.status === 'expert') {
           setIsExpert(true);
           console.log('expert');
+        }
+        if (data && data.status === 'user') {
+          setIsUser(true);
+          console.log('user');
         }
         if (data !== null) {
           setIsLogged(true);
@@ -71,9 +76,9 @@ const Navbar = ({ background, height }) => {
         <Link to="/">{!isVisible && <Logo width={'70px'} />}</Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Strona Główna</AppLink>
-          <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>
           {!isLogged && <AppLink to={'/login'}>Zaloguj się</AppLink>}
           {!isVisible && <MenuButton onClick={handleClick} />}
+          <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>
           {isAdmin && <AppLink to={'/dashboard/admin-users'}>Admin</AppLink>}
           {isExpert && <AppLink to={'/dashboard/expert'}>Expert</AppLink>}
           {isLogged && <AppLink to={'/dashboard/profile'}>Profil</AppLink>}

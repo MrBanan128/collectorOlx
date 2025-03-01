@@ -79,7 +79,7 @@ const Register = () => {
       console.log(data.success);
       console.log(data);
       // If registration is successful, navigate to the login page
-      if (data.success) {
+      if (data) {
         navigate('/login'); // Redirect to login page
       }
     } catch (error) {
