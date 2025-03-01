@@ -68,7 +68,7 @@ const Navbar = ({ background, height }) => {
         transition="height 0.5s ease, background 0.5s ease"
         roundedBottom={'xl'}
       >
-        <Link to="/">{!isVisible && <Logo />}</Link>
+        <Link to="/">{!isVisible && <Logo width={'70px'} />}</Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Strona Główna</AppLink>
           <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>

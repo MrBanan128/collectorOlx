@@ -340,6 +340,8 @@ const Products = () => {
                       <Button
                         onClick={() => handleDeleteImage(entry._id)}
                         mt={2}
+                        fontSize={'12px'}
+                        width={'150px'}
                         sm={{ fontSize: '14px', width: '200px' }}
                         style={{
                           background: '#ff4d4d', // Czerwony kolor tła dla usuwania
@@ -361,6 +363,8 @@ const Products = () => {
                     <Button
                       onClick={() => handleDeleteEntry(entry._id)}
                       mt={2}
+                      fontSize={'12px'}
+                      width={'150px'}
                       sm={{ fontSize: '14px', width: '200px' }}
                       style={{
                         background: '#ff7043', // Pomarańczowe tło dla usuwania notatki
@@ -383,6 +387,8 @@ const Products = () => {
                     <Button
                       onClick={() => handleEditClick(entry)}
                       mt={2}
+                      fontSize={'12px'}
+                      width={'150px'}
                       sm={{ fontSize: '14px', width: '200px' }}
                       style={{
                         background: '#4CAF50', // Zielone tło dla edycji
@@ -403,6 +409,8 @@ const Products = () => {
                     <Button
                       onClick={() => setSelectedExpert(entry._id)}
                       mt={2}
+                      fontSize={'12px'}
+                      width={'150px'}
                       sm={{ fontSize: '14px', width: '200px' }}
                       style={{
                         background: 'rgb(0, 17, 255)', // Zielone tło dla edycji

@@ -1,11 +1,11 @@
 import { Flex, Image } from '@chakra-ui/react';
 
-const Logo = () => {
+const Logo = ({ width, height }) => {
   return (
     <Flex alignItems={'center'} justifyContent={'center'}>
       <Image
-        width={'70px'}
-        height={'70px'}
+        width={width}
+        height={height}
         rounded={'2xl'}
         src="/AV.png"
         alt="AntiqVal"

@@ -65,12 +65,17 @@ const Profile = () => {
     <Flex
       direction="column"
       height="100%"
-      minH={'80vh'} // Zapewnia pełną wysokość okna
+      minH={'90vh'} // Zapewnia pełną wysokość okna
+      minW={'100%'}
       bgImage={'url(/coinFlip.png)'}
-      width={'100vw'}
       backgroundSize={'cover'}
+      backgroundPositionX={'center'}
+      backgroundRepeat={'no-repeat'}
       justifyContent={'center'} // Centruj elementy w pionie
       alignItems={'center'} // Centruj elementy w poziomie
+      sm={{ backgroundPositionX: '60%' }}
+      md={{ backgroundPositionX: '90%' }}
+      lg={{ backgroundPositionX: '100%' }}
     >
       <Flex
         className="container"

@@ -70,10 +70,10 @@ const Dashboard = () => {
         top={0}
         left={0}
         zIndex={2222}
-        padding={'5px'}
+        padding={'10px'}
       >
         <Link to="/">
-          <Logo />
+          <Logo width={'40px'} />
         </Link>
       </Flex>
       <Flex
