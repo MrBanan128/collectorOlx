@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Flex,
   Box,
@@ -24,9 +24,14 @@ const Register = () => {
   });
 
   const [message, setMessage] = useState('');
-
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/dashboard/profile');
+    }
+  }, [navigate]);
   const handleRegister = async (e) => {
     e.preventDefault();
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Flex,
   Box,
@@ -25,6 +25,12 @@ const Login = () => {
   const handleLoginChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
   };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/dashboard/profile');
+    }
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
