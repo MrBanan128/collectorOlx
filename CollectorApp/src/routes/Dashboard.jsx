@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Flex, Box, Heading } from '@chakra-ui/react';
-import { Route, Routes, Link as RouterLink } from 'react-router-dom';
+import { Route, Routes, Link as RouterLink, Link } from 'react-router-dom';
 import Products from './userComponents/Products';
 import Profile from './userComponents/Profile';
 import Message from './userComponents/Message';
 import Admin from '../components/layout/AdminPanel/Users';
 import PanelExpert from './userComponents/PanelExpert';
 
-import ArrowBack from '../components/layout/ArrowBack';
 import NotFound from '../components/layout/404';
+import Logo from '../components/layout/Navbar/Logo';
 
 // import AdminContact from './userComponents/AdminContact';
 
@@ -64,9 +64,18 @@ const Dashboard = () => {
       // overflow="auto"
       overflow={'hidden'}
     >
-      <Box>
-        <ArrowBack />
-      </Box>
+      <Flex
+        justifyContent={'flex-start'}
+        position={'absolute'}
+        top={0}
+        left={0}
+        zIndex={2222}
+        padding={'5px'}
+      >
+        <Link to="/">
+          <Logo />
+        </Link>
+      </Flex>
       <Flex
         direction="column"
         align="center"
