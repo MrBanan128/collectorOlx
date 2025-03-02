@@ -3,9 +3,9 @@ import axios from 'axios';
 import { Box, Button, Flex, Input, Text, Textarea } from '@chakra-ui/react';
 import AlertInfo from '../../components/ui/AlertInfo';
 
-const ExpertContact = ({ noteId }) => {
+const ExpertContact = ({ noteId, setSelectedExpert }) => {
   const [expert, setExpert] = useState([]);
-  const [selectedExpert, setSelectedExpert] = useState(''); // ID wybranego eksperta
+  const [selectedExpert, setSelectedExpertState] = useState(''); // ID wybranego eksperta
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
@@ -34,9 +34,9 @@ const ExpertContact = ({ noteId }) => {
   const handleExpertClick = (expertId) => {
     // Zwijamy formularz, jeśli kliknięto na tego samego eksperta
     if (selectedExpert === expertId) {
-      setSelectedExpert(''); // Zwijamy formularz
+      setSelectedExpertState(''); // Zwijamy formularz
     } else {
-      setSelectedExpert(expertId); // Ustawienie wybranego eksperta po kliknięciu
+      setSelectedExpertState(expertId); // Ustawienie wybranego eksperta po kliknięciu
     }
   };
 
@@ -79,7 +79,9 @@ const ExpertContact = ({ noteId }) => {
       setMessage('Wiadomość została wysłana, ekspert został przypisany.');
       setTitle('');
       setContent('');
-      setSelectedExpert('');
+      setSelectedExpertState('');
+
+      setSelectedExpert(null);
     } catch (error) {
       console.error('Błąd podczas wysyłania wiadomości:', error);
       setMessage('Wystąpił błąd. Spróbuj ponownie.');

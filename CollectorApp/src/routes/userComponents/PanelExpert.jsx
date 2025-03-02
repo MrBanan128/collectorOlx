@@ -153,7 +153,7 @@ const ExpertPanel = () => {
                 borderBottom={'1px solid black'}
                 marginBottom={4}
               >
-                Dodaj ocenę eksperta
+                Dodaj wycenę eksperta
               </Heading>
               <form
                 onSubmit={(e) => {
@@ -168,6 +168,7 @@ const ExpertPanel = () => {
                     </label>
                     <input
                       style={{
+                        borderRadius: '5px',
                         color: 'white',
                         background: '#333333',
                         margin: '.2rem',
@@ -206,6 +207,7 @@ const ExpertPanel = () => {
                     </label>
                     <textarea
                       style={{
+                        borderRadius: '5px',
                         color: 'white',
                         background: '#333333',
                         margin: '.2rem',
@@ -224,6 +226,7 @@ const ExpertPanel = () => {
                     </label>
                     <input
                       style={{
+                        borderRadius: '5px',
                         color: 'white',
                         background: '#333333',
                         margin: '.2rem',
@@ -264,7 +267,7 @@ const ExpertPanel = () => {
                         transform: 'scale(0.98)'
                       }}
                     >
-                      Zatwierdź ocenę
+                      Zatwierdź wycenę
                     </Button>
                   </Flex>
                 </Flex>

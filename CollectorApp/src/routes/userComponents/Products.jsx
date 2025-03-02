@@ -336,7 +336,10 @@ const Products = () => {
                       md={{ mt: '6', width: '300px' }}
                       flexDir={'column'}
                     >
-                      <ExpertContact noteId={entry._id} />
+                      <ExpertContact
+                        noteId={entry._id}
+                        setSelectedExpert={setSelectedExpert}
+                      />
                       <Button
                         bg="red.600"
                         color="white"
