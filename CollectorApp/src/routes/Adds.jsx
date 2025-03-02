@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Heading,
   Button,
@@ -7,6 +7,7 @@ import {
   Image,
   Flex
 } from '@chakra-ui/react';
+import { Toast } from 'primereact/toast';
 import { useNavigate } from 'react-router-dom';
 import { categories, subcategories } from '../categories';
 import Navbar from '../components/layout/Navbar/Navbar';
@@ -25,6 +26,7 @@ const Adds = ({ height }) => {
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const toast = useRef(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -88,6 +90,18 @@ const Adds = ({ height }) => {
         avatar: null
       });
       setPreview(null);
+      toast.current.show({
+        detail: 'Ogłoszenie dodane!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(0, 255, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
+        },
+        className: 'custom-toast'
+      });
     } catch (error) {
       setError(error.message);
     }
@@ -112,6 +126,7 @@ const Adds = ({ height }) => {
         height={scrolled ? '84px' : '80px'}
         width={'100%'}
       />
+      <Toast ref={toast} position="top-right" /> {/* Komponent Toast */}
       <Flex
         height="100vh"
         direction="column"
