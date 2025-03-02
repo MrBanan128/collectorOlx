@@ -89,17 +89,7 @@ const ExpertContact = ({ noteId }) => {
   };
 
   return (
-    <Box
-      maxW="xl"
-      mx="auto"
-      p="6"
-      bg="white"
-      shadow="lg"
-      rounded="2xl"
-      border="1px solid"
-      borderColor="gray.200"
-      md={{ mt: '6', width: '300px' }}
-    >
+    <Box>
       {message && (
         <AlertInfo message="Wiadomość została wysłana, ekspert został przypisany." />
       )}

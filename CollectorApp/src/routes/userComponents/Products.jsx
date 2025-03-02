@@ -66,7 +66,7 @@ const Products = () => {
         command: () => handleDeleteImage(entry._id)
       },
       {
-        label: 'Skontaktuj się z ekspertem',
+        label: 'Poproś eksperta o wycenę',
         icon: 'pi pi-user',
         command: () => setSelectedExpert(entry._id)
       }
@@ -175,6 +175,7 @@ const Products = () => {
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
           Moje Ogłoszenia:
         </Heading>
+
         <Grid
           templateColumns={{
             base: 'repeat(1, 1fr)',
@@ -316,6 +317,47 @@ const Products = () => {
                     </Button>
                   </Flex>
                 </Flex>
+              ) : selectedExpert === entry._id ? (
+                <Flex
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  textAlign={'center'}
+                >
+                  {selectedExpert === entry._id && (
+                    <Flex
+                      maxW="xl"
+                      mx="auto"
+                      p="6"
+                      bg="white"
+                      shadow="lg"
+                      rounded="2xl"
+                      border="1px solid"
+                      borderColor="gray.200"
+                      md={{ mt: '6', width: '300px' }}
+                      flexDir={'column'}
+                    >
+                      <ExpertContact noteId={entry._id} />
+                      <Button
+                        bg="red.600"
+                        color="white"
+                        w="full"
+                        mt={3}
+                        py="3"
+                        fontSize="lg"
+                        fontWeight="bold"
+                        _hover={{ bg: 'red.700', transform: 'scale(1.02)' }}
+                        transition="0.2s ease-in-out"
+                        onClick={() => {
+                          setSelectedExpert(null);
+                        }}
+                        shadow="md"
+                        rounded="lg"
+                      >
+                        Cofnij
+                      </Button>
+                    </Flex>
+                  )}
+                </Flex>
               ) : (
                 <Flex
                   flexDir={'column'}
@@ -393,13 +435,6 @@ const Products = () => {
                       }}
                       menuClassName="custom-dropdown"
                     />
-                  </Flex>
-                  <Flex justifyContent={'center'} alignItems={'center'}>
-                    {selectedExpert === entry._id && (
-                      <Flex mt={2} p={2} rounded={'lg'}>
-                        <ExpertContact noteId={entry._id} />
-                      </Flex>
-                    )}
                   </Flex>
                 </Flex>
               )}
