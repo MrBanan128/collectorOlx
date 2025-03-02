@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Heading } from '@chakra-ui/react';
+import { Button, Flex, Heading, Text } from '@chakra-ui/react';
 
 const ExpertPanel = () => {
   const [assignedNotes, setAssignedNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [evaluationData, setEvaluationData] = useState({
     expertName: '',
-    expertBadge: '',
+    expertBadge: '/verified.png',
     expertMessage: '',
     expertPrice: ''
   });
@@ -75,7 +75,7 @@ const ExpertPanel = () => {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', color: 'white' }}>
       <div style={{ flex: 1 }}>
         <Heading fontSize={'30px'} color={'white'} padding={'10px'}>
           Ogłoszenia do Wyceny
@@ -90,25 +90,42 @@ const ExpertPanel = () => {
               <div
                 key={note._id}
                 style={{
-                  border: 'solid 1px red',
+                  boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',
+                  borderRadius: '5px',
                   padding: '1rem',
                   margin: '0.5rem',
+                  maxWidth: '900px',
                   cursor: 'pointer',
                   backgroundColor:
-                    activeNoteId === note._id ? '#f0f0f0' : 'transparent' // Podświetlenie klikniętego komponentu
+                    activeNoteId === note._id ? '#f0f0f0' : 'transparent',
+                  transform:
+                    activeNoteId === note._id ? 'scale(1.05)' : 'scale(1)',
+                  transition: 'all 0.3s ease-in-out'
                 }}
                 onClick={() => handleNoteClick(note._id)} // Kliknięcie komponentu
               >
-                {note.image && (
-                  <img
-                    src={note.image}
-                    alt={note.title}
-                    style={{ width: '100px', height: '100px' }}
-                  />
-                )}
-                <h3>{note.title}</h3>
-                <p>{note.body}</p>
-                {note.price && <p>Cena: {note.price} PLN</p>}
+                <Flex
+                  direction="row"
+                  gap={4}
+                  style={{
+                    color: activeNoteId === note._id ? 'black' : 'white'
+                  }}
+                >
+                  {note.image && (
+                    <img
+                      src={note.image}
+                      alt={note.title}
+                      style={{ width: '100px', height: '100px' }}
+                    />
+                  )}
+                  <Flex direction="column">
+                    <Heading size={'5xl'} paddingBottom={2}>
+                      {note.title}
+                    </Heading>
+                    <Text>{note.body}</Text>
+                    {note.price && <Text>Cena: {note.price} PLN</Text>}
+                  </Flex>
+                </Flex>
               </div>
             ))}
           </div>
@@ -116,31 +133,55 @@ const ExpertPanel = () => {
       </div>
 
       {/* Formularz dla aktywnej notatki */}
-      <div style={{ marginLeft: '2rem', width: '300px' }}>
+      <Flex>
         {activeNoteId && (
-          <div>
-            <h4>Dodaj ocenę eksperta</h4>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSubmit(activeNoteId); // Przesyłanie danych do notatki
-              }}
-            >
-              <div>
-                <label>Nazwa eksperta:</label>
-                <input
-                  style={{
-                    background: '#333333',
-                    border: 'solid 1px red',
-                    margin: '.2rem'
-                  }}
-                  type="text"
-                  name="expertName"
-                  value={evaluationData.expertName}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
+          <Flex
+            ml={'5rem'}
+            w={'400px'}
+            color={'black'}
+            boxShadow={'lg'}
+            height={'300px'}
+            padding={'1rem'}
+            rounded={'xl'}
+            bg={'gray.200'}
+            alignItems={'center'}
+            justifyContent={'center'}
+          >
+            <Flex direction="column">
+              <Heading
+                size={'3xl'}
+                borderBottom={'1px solid black'}
+                marginBottom={4}
+              >
+                Dodaj ocenę eksperta
+              </Heading>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmit(activeNoteId); // Przesyłanie danych do notatki
+                }}
+              >
+                <Flex direction="column" gap={5}>
+                  <Flex direction="row" justifyContent={'space-between'}>
+                    <label style={{ width: '150px', marginRight: '5px' }}>
+                      Dane eksperta:
+                    </label>
+                    <input
+                      style={{
+                        color: 'white',
+                        background: '#333333',
+                        margin: '.2rem',
+                        width: '100%',
+                        flexGrow: 1,
+                        padding: '10px'
+                      }}
+                      type="text"
+                      name="expertName"
+                      value={evaluationData.expertName}
+                      onChange={handleInputChange}
+                    />
+                  </Flex>
+                  {/* <div>
                 <label>Odznaka eksperta (URL):</label>
                 <input
                   style={{
@@ -153,54 +194,85 @@ const ExpertPanel = () => {
                   value={evaluationData.expertBadge} // src="/check.png"
                   onChange={handleInputChange}
                 />
-              </div>
-              <div>
-                <label>Wiadomość od eksperta:</label>
-                <textarea
-                  style={{
-                    background: '#333333',
-                    border: 'solid 1px red',
-                    margin: '.2rem'
-                  }}
-                  name="expertMessage"
-                  value={evaluationData.expertMessage}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label>Proponowana cena:</label>
-                <input
-                  style={{
-                    background: '#333333',
-                    border: 'solid 1px red',
-                    margin: '.2rem'
-                  }}
-                  type="number"
-                  name="expertPrice"
-                  value={evaluationData.expertPrice}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <Button
-                  width={'100%'}
-                  fontSize={'16px'}
-                  color={'white'}
-                  padding={'10px'}
-                  type="submit"
-                  style={{
-                    background: 'blue',
-                    border: 'solid 1px red',
-                    margin: '.2rem'
-                  }}
-                >
-                  Zatwierdź ocenę
-                </Button>
-              </div>
-            </form>
-          </div>
+              </div> */}
+                  <Flex direction="row" justifyContent={'space-between'}>
+                    <label
+                      style={{
+                        width: '150px',
+                        marginRight: '5px'
+                      }}
+                    >
+                      Wiadomość do klienta:
+                    </label>
+                    <textarea
+                      style={{
+                        color: 'white',
+                        background: '#333333',
+                        margin: '.2rem',
+                        width: '100%',
+                        flexGrow: 1,
+                        padding: '10px'
+                      }}
+                      name="expertMessage"
+                      value={evaluationData.expertMessage}
+                      onChange={handleInputChange}
+                    />
+                  </Flex>
+                  <Flex direction="row" justifyContent={'space-between'}>
+                    <label style={{ width: '150px', marginRight: '5px' }}>
+                      Proponowana cena:
+                    </label>
+                    <input
+                      style={{
+                        color: 'white',
+                        background: '#333333',
+                        margin: '.2rem',
+                        width: '100%',
+                        flexGrow: 1,
+                        padding: '10px'
+                      }}
+                      type="number"
+                      name="expertPrice"
+                      value={evaluationData.expertPrice}
+                      onChange={handleInputChange}
+                    />
+                  </Flex>
+                  <Flex direction="row" justifyContent={'center'}>
+                    <Button
+                      width="60%"
+                      fontSize="16px"
+                      color="white"
+                      padding="10px"
+                      type="submit"
+                      style={{
+                        background: 'blue',
+                        margin: '.2rem',
+                        borderRadius: '8px',
+                        border: 'none',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        transition: 'background 0.3s ease, transform 0.2s ease',
+                        boxShadow: '0 4px 10px rgba(0, 0, 255, 0.3)'
+                      }}
+                      _hover={{
+                        background: 'darkblue',
+                        transform: 'scale(1.05)',
+                        boxShadow: '0 6px 15px rgba(0, 0, 255, 0.5)'
+                      }}
+                      _active={{
+                        background: 'navy',
+                        transform: 'scale(0.98)'
+                      }}
+                    >
+                      Zatwierdź ocenę
+                    </Button>
+                  </Flex>
+                </Flex>
+              </form>
+            </Flex>
+          </Flex>
         )}
-      </div>
+      </Flex>
     </div>
   );
 };
