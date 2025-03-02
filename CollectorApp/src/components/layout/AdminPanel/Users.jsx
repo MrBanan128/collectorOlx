@@ -328,7 +328,7 @@ const Users = () => {
                   }}
                 />
               </Flex>
-              <Flex
+              {/* <Flex
                 justifyContent="space-between"
                 alignItems="center"
                 width={'300px'}
@@ -358,7 +358,7 @@ const Users = () => {
                     transition: 'border-color 0.3s ease' // Przejście dla obramowania
                   }}
                 />
-              </Flex>
+              </Flex> */}
               <Flex
                 justifyContent="space-between"
                 alignItems="center"

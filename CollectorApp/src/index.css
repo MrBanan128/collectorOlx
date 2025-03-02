@@ -7,3 +7,18 @@
 body {
   overflow-x: hidden;
 }
+/* Stylizacja każdego elementu w rozwijanej liście SplitButton */
+.p-menu .p-menuitem {
+  background-color: #1a202c; /* Ciemne tło */
+  color: white; /* Biały tekst */
+  padding: 10px 15px; /* Większy padding */
+  border-radius: 8px; /* Zaokrąglone rogi */
+  transition: background 0.3s ease;
+  margin-bottom: 5px;
+}
+
+/* Efekt hover */
+.p-menu .p-menuitem:hover {
+  background-color: #333;
+  color: #f2f2f2;
+}

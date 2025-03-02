@@ -7,10 +7,12 @@ import {
   Image,
   Box,
   Heading,
-  Text
+  Text,
+  Grid
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import ExpertContact from './ExpertContact';
+import { SplitButton } from 'primereact/splitbutton';
 
 const Products = () => {
   const [selectedExpert, setSelectedExpert] = useState(null);
@@ -46,6 +48,29 @@ const Products = () => {
       setError(error.message);
     }
   };
+  const getMenuItems = (entry) =>
+    [
+      {
+        label: 'Edytuj',
+        icon: 'pi pi-pencil',
+        command: () => handleEditClick(entry)
+      },
+      {
+        label: 'Usuń Ogłoszenie',
+        icon: 'pi pi-trash',
+        command: () => handleDeleteEntry(entry._id)
+      },
+      entry.image && {
+        label: 'Usuń zdjęcie',
+        icon: 'pi pi-image',
+        command: () => handleDeleteImage(entry._id)
+      },
+      {
+        label: 'Skontaktuj się z ekspertem',
+        icon: 'pi pi-user',
+        command: () => setSelectedExpert(entry._id)
+      }
+    ].filter(Boolean); // Usuwa `null` gdy nie ma zdjęcia
 
   const handleEditClick = (entry) => {
     setEditMode(entry._id);
@@ -150,297 +175,226 @@ const Products = () => {
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
           Moje Ogłoszenia:
         </Heading>
-
-        {entries.map((entry, index) => (
-          <Flex
-            key={index}
-            padding="10px"
-            marginBottom="10px"
-            justifyContent={'center'}
-            alignItems={'center'}
-            flexDir={'column'}
-            width={'100%'}
-            rounded={'lg'}
-          >
-            {editMode === entry._id ? (
-              <Flex
-                flexDir={'row'}
-                width={'300px'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-                padding={'10px'}
-                rounded={'xl'}
-                md={{ width: '500px' }}
-              >
-                <Flex>
-                  <Image
-                    src={entry.image}
-                    alt="Obraz"
-                    autoresize="true"
-                    width="150px"
-                    height={'250px'}
-                    sm={{ width: '150px' }}
-                    md={{ width: '200px' }}
-                  />
-                </Flex>
-                <Flex flexDir={'column'} ml={8}>
-                  <Input
-                    name="title"
-                    value={editData.title}
-                    onChange={handleEditInputChange}
-                    placeholder="Edytuj tytuł"
-                    mb={2}
-                    fontSize={{ base: '1rem', md: '2rem' }}
-                    backgroundColor="#333"
-                    color="white"
-                    padding="0.5rem"
-                    borderRadius="8px"
-                    border="1px solid #555"
-                    width="100%"
-                    _hover={{
-                      borderColor: '#888'
-                    }}
-                  />
-
-                  <Textarea
-                    name="note"
-                    value={editData.note}
-                    onChange={handleEditInputChange}
-                    placeholder="Edytuj treść"
-                    mb={2}
-                    fontSize={{ base: '1rem', md: '1.5rem' }}
-                    backgroundColor="#333"
-                    color="white"
-                    lineHeight={1.5}
-                    padding="0.5rem"
-                    borderRadius="8px"
-                    border="1px solid #555"
-                    width="100%"
-                    autoresize="true"
-                    _hover={{
-                      borderColor: '#888'
-                    }}
-                  />
-
-                  <Input
-                    name="price"
-                    type="number"
-                    value={editData.price}
-                    onChange={handleEditInputChange}
-                    placeholder="Edytuj numer telefonu"
-                    mb={2}
-                    fontSize={{ base: '1rem', md: '1.5rem' }}
-                    backgroundColor="#333"
-                    color="white"
-                    padding="0.5rem"
-                    borderRadius="8px"
-                    border="1px solid #555"
-                    width="100%"
-                    _hover={{
-                      borderColor: '#888'
-                    }}
-                  />
-
-                  <Button
-                    onClick={() => handleSaveEdit(entry._id)}
-                    mt={2}
-                    width={'100%'}
-                    style={{
-                      backgroundColor: '#28a745', // Zielony kolor tła (np. dla "Zapisz")
-                      color: 'white', // Biały tekst
-                      border: 'none', // Brak obramowania
-                      borderRadius: '8px', // Zaokrąglone rogi
-                      padding: '0.5rem', // Wewnętrzne odstępy
-                      fontSize: '1rem', // Rozmiar czcionki
-                      cursor: 'pointer', // Zmieniany kursor przy najechaniu
-                      transition: 'all 0.3s ease' // Płynne przejście dla efektów
-                    }}
-                    _hover={{
-                      backgroundColor: '#218838', // Ciemniejszy zielony przy hover
-                      boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Dodany cień przy hover
-                    }}
-                  >
-                    Zapisz
-                  </Button>
-
-                  <Button
-                    onClick={() => setEditMode(null)}
-                    mt={2}
-                    style={{
-                      backgroundColor: '#dc3545', // Czerwony kolor tła (np. dla "Anuluj")
-                      color: 'white', // Biały tekst
-                      border: 'none', // Brak obramowania
-                      borderRadius: '8px', // Zaokrąglone rogi
-                      padding: '0.5rem', // Wewnętrzne odstępy
-                      fontSize: '1rem', // Rozmiar czcionki
-                      cursor: 'pointer', // Zmieniany kursor przy najechaniu
-                      transition: 'all 0.3s ease' // Płynne przejście dla efektów
-                    }}
-                    _hover={{
-                      backgroundColor: '#c82333', // Ciemniejszy czerwony przy hover
-                      boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Dodany cień przy hover
-                    }}
-                  >
-                    Anuluj
-                  </Button>
-                </Flex>
-              </Flex>
-            ) : (
-              <Flex
-                key={index}
-                flexDir={'column'}
-                width={'100%'}
-                padding="10px"
-                marginBottom="10px"
-                rounded={'lg'}
-                style={{
-                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)'
-                }}
-              >
-                <Flex onClick={() => navigate(`/entry/${entry._id}`)}>
-                  <Flex justifyContent={'center'} alignItems={'center'}>
+        <Grid templateColumns={'repeat(3,1fr)'} gap={6} padding={'1rem'}>
+          {entries.map((entry, index) => (
+            <Flex
+              key={index}
+              padding="10px"
+              marginBottom="10px"
+              justifyContent={'center'}
+              alignItems={'center'}
+              flexDir={'column'}
+              width={'100%'}
+              rounded={'lg'}
+            >
+              {editMode === entry._id ? (
+                <Flex
+                  flexDir={'row'}
+                  width={'300px'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
+                  padding={'10px'}
+                  rounded={'xl'}
+                  md={{ width: '500px' }}
+                >
+                  <Flex>
                     <Image
                       src={entry.image}
                       alt="Obraz"
-                      minW={'100px'}
-                      maxW={'150px'}
-                      height={'200px'}
-                      objectFit={'cover'}
-                      sm={{ minW: '150px', maxW: '150px', height: '200px' }}
-                      style={{ float: 'left', marginRight: '16px' }} // Ustawienie, by zdjęcie "opływał" tekst
+                      autoresize="true"
+                      width="150px"
+                      height={'250px'}
+                      sm={{ width: '150px' }}
+                      md={{ width: '200px' }}
                     />
-                    <Flex flexDir={'column'} ml={2}>
-                      <Heading size={'2xl'} mb={2} sm={{ fontSize: '4xl' }}>
-                        {entry.title || 'Bez tytułu'}
-                      </Heading>
-                      <Flex
-                        flexDir={'column'}
-                        w={'95%'}
-                        sm={{ fontSize: '14px', width: '100%' }}
-                      >
-                        <Text>{entry.body || 'Brak treści'}</Text>
-                        <Text mt={8} color={'rgb(246, 255, 0)'}>
-                          {entry.price + ' PLN' || 'Brak numeru telefonu'}{' '}
-                        </Text>
+                  </Flex>
+                  <Flex flexDir={'column'} ml={8}>
+                    <Input
+                      name="title"
+                      value={editData.title}
+                      onChange={handleEditInputChange}
+                      placeholder="Edytuj tytuł"
+                      mb={2}
+                      fontSize={{ base: '1rem', md: '2rem' }}
+                      backgroundColor="#333"
+                      color="white"
+                      padding="0.5rem"
+                      borderRadius="8px"
+                      border="1px solid #555"
+                      width="100%"
+                      _hover={{
+                        borderColor: '#888'
+                      }}
+                    />
+
+                    <Textarea
+                      name="note"
+                      value={editData.note}
+                      onChange={handleEditInputChange}
+                      placeholder="Edytuj treść"
+                      mb={2}
+                      fontSize={{ base: '1rem', md: '1.5rem' }}
+                      backgroundColor="#333"
+                      color="white"
+                      lineHeight={1.5}
+                      padding="0.5rem"
+                      borderRadius="8px"
+                      border="1px solid #555"
+                      width="100%"
+                      autoresize="true"
+                      _hover={{
+                        borderColor: '#888'
+                      }}
+                    />
+
+                    <Input
+                      name="price"
+                      type="number"
+                      value={editData.price}
+                      onChange={handleEditInputChange}
+                      placeholder="Edytuj numer telefonu"
+                      mb={2}
+                      fontSize={{ base: '1rem', md: '1.5rem' }}
+                      backgroundColor="#333"
+                      color="white"
+                      padding="0.5rem"
+                      borderRadius="8px"
+                      border="1px solid #555"
+                      width="100%"
+                      _hover={{
+                        borderColor: '#888'
+                      }}
+                    />
+
+                    <Button
+                      onClick={() => handleSaveEdit(entry._id)}
+                      mt={2}
+                      width={'100%'}
+                      style={{
+                        backgroundColor: '#28a745', // Zielony kolor tła (np. dla "Zapisz")
+                        color: 'white', // Biały tekst
+                        border: 'none', // Brak obramowania
+                        borderRadius: '8px', // Zaokrąglone rogi
+                        padding: '0.5rem', // Wewnętrzne odstępy
+                        fontSize: '1rem', // Rozmiar czcionki
+                        cursor: 'pointer', // Zmieniany kursor przy najechaniu
+                        transition: 'all 0.3s ease' // Płynne przejście dla efektów
+                      }}
+                      _hover={{
+                        backgroundColor: '#218838', // Ciemniejszy zielony przy hover
+                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Dodany cień przy hover
+                      }}
+                    >
+                      Zapisz
+                    </Button>
+
+                    <Button
+                      onClick={() => setEditMode(null)}
+                      mt={2}
+                      style={{
+                        backgroundColor: '#dc3545', // Czerwony kolor tła (np. dla "Anuluj")
+                        color: 'white', // Biały tekst
+                        border: 'none', // Brak obramowania
+                        borderRadius: '8px', // Zaokrąglone rogi
+                        padding: '0.5rem', // Wewnętrzne odstępy
+                        fontSize: '1rem', // Rozmiar czcionki
+                        cursor: 'pointer', // Zmieniany kursor przy najechaniu
+                        transition: 'all 0.3s ease' // Płynne przejście dla efektów
+                      }}
+                      _hover={{
+                        backgroundColor: '#c82333', // Ciemniejszy czerwony przy hover
+                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Dodany cień przy hover
+                      }}
+                    >
+                      Anuluj
+                    </Button>
+                  </Flex>
+                </Flex>
+              ) : (
+                <Flex
+                  key={index}
+                  flexDir={'column'}
+                  width={'100%'}
+                  padding="10px"
+                  marginBottom="10px"
+                  rounded={'lg'}
+                  style={{
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)'
+                  }}
+                >
+                  <Flex onClick={() => navigate(`/entry/${entry._id}`)}>
+                    <Flex justifyContent={'center'} alignItems={'center'}>
+                      <Image
+                        src={entry.image}
+                        alt="Obraz"
+                        minW={'100px'}
+                        maxW={'150px'}
+                        height={'200px'}
+                        objectFit={'cover'}
+                        sm={{ minW: '150px', maxW: '150px', height: '200px' }}
+                        style={{ float: 'left', marginRight: '16px' }} // Ustawienie, by zdjęcie "opływał" tekst
+                      />
+                      <Flex flexDir={'column'} ml={2}>
+                        <Heading size={'2xl'} mb={2} sm={{ fontSize: '4xl' }}>
+                          {entry.title || 'Bez tytułu'}
+                        </Heading>
+                        <Flex
+                          flexDir={'column'}
+                          w={'95%'}
+                          sm={{ fontSize: '14px', width: '100%' }}
+                        >
+                          <Text>{entry.body || 'Brak treści'}</Text>
+                          <Text mt={8} color={'rgb(246, 255, 0)'}>
+                            {entry.price + ' PLN' || 'Brak numeru telefonu'}{' '}
+                          </Text>
+                        </Flex>
                       </Flex>
                     </Flex>
                   </Flex>
-                </Flex>
-                <Flex
-                  mt={2}
-                  justifyContent={'space-between'}
-                  alignItems={'center'}
-                  flexDir={'row'}
-                  sm={{ flexDir: 'row' }}
-                  wrap={'wrap'}
-                >
-                  <Flex flexDir={'column'} alignItems={'center'}>
-                    {entry.image && (
-                      <Button
-                        onClick={() => handleDeleteImage(entry._id)}
-                        mt={2}
-                        fontSize={'12px'}
-                        width={'150px'}
-                        sm={{ fontSize: '14px', width: '200px' }}
-                        style={{
-                          background: '#ff4d4d', // Czerwony kolor tła dla usuwania
-                          color: '#fff', // Biały kolor tekstu
-                          padding: '0.5rem 1rem', // Wygodne wypełnienie
-                          borderRadius: '5px', // Zaokrąglone rogi
-                          border: 'none', // Brak obramowania
-                          cursor: 'pointer', // Kursor wskazujący na kliknięcie
-                          transition: 'background 0.3s ease', // Przejście dla tła
-                          marginBottom: '16px'
-                        }}
-                        _hover={{
-                          background: '#ff1a1a' // Zmiana tła na ciemniejszy czerwony po najechaniu
-                        }}
-                      >
-                        Usuń zdjęcie
-                      </Button>
+                  <Flex
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    bg={'#1a202c'}
+                    rounded={'lg'}
+                    padding={'1rem'}
+                  >
+                    <SplitButton
+                      label="Akcje"
+                      icon="pi pi-cog"
+                      model={getMenuItems(entry)}
+                      className="custom-split-button"
+                      style={{
+                        backgroundColor: '#1a202c',
+                        color: 'white',
+                        borderRadius: '8px',
+                        padding: '0.5rem 1rem',
+                        fontSize: '2rem',
+                        border: 'none',
+                        transition: 'all 0.3s ease',
+                        gap: '10px'
+                      }}
+                      menuStyle={{
+                        backgroundColor: '#1a202c',
+                        borderRadius: '5px',
+                        padding: '1rem ',
+                        color: 'white'
+                      }}
+                      menuClassName="custom-dropdown"
+                    />
+                  </Flex>
+                  <Flex justifyContent={'center'} alignItems={'center'}>
+                    {selectedExpert === entry._id && (
+                      <Flex mt={2} p={2} rounded={'lg'}>
+                        <ExpertContact noteId={entry._id} />
+                      </Flex>
                     )}
-                    <Button
-                      onClick={() => handleDeleteEntry(entry._id)}
-                      mt={2}
-                      fontSize={'12px'}
-                      width={'150px'}
-                      sm={{ fontSize: '14px', width: '200px' }}
-                      style={{
-                        background: '#ff7043', // Pomarańczowe tło dla usuwania notatki
-                        color: '#fff', // Biały kolor tekstu
-                        padding: '0.5rem 1rem', // Wygodne wypełnienie
-                        borderRadius: '5px', // Zaokrąglone rogi
-                        border: 'none', // Brak obramowania
-                        cursor: 'pointer', // Kursor wskazujący na kliknięcie
-                        transition: 'background 0.3s ease', // Przejście dla tła
-                        marginBottom: '16px'
-                      }}
-                      _hover={{
-                        background: '#e64a19' // Zmiana tła na ciemniejszy pomarańczowy po najechaniu
-                      }}
-                    >
-                      Usuń Ogłoszenie
-                    </Button>
-                  </Flex>
-                  <Flex flexDir={'column'} alignItems={'center'}>
-                    <Button
-                      onClick={() => handleEditClick(entry)}
-                      mt={2}
-                      fontSize={'12px'}
-                      width={'150px'}
-                      sm={{ fontSize: '14px', width: '200px' }}
-                      style={{
-                        background: '#4CAF50', // Zielone tło dla edycji
-                        color: '#fff', // Biały kolor tekstu
-                        padding: '0.5rem 1rem', // Wygodne wypełnienie
-                        borderRadius: '5px', // Zaokrąglone rogi
-                        border: 'none', // Brak obramowania
-                        cursor: 'pointer', // Kursor wskazujący na kliknięcie
-                        transition: 'background 0.3s ease', // Przejście dla tła
-                        marginBottom: '16px'
-                      }}
-                      _hover={{
-                        background: '#45a049' // Zmiana tła na ciemniejszy zielony po najechaniu
-                      }}
-                    >
-                      Edytuj
-                    </Button>
-                    <Button
-                      onClick={() => setSelectedExpert(entry._id)}
-                      mt={2}
-                      fontSize={'12px'}
-                      width={'150px'}
-                      sm={{ fontSize: '14px', width: '200px' }}
-                      style={{
-                        background: 'rgb(0, 17, 255)', // Zielone tło dla edycji
-                        color: '#fff', // Biały kolor tekstu
-                        padding: '0.5rem 1rem', // Wygodne wypełnienie
-                        borderRadius: '5px', // Zaokrąglone rogi
-                        border: 'none', // Brak obramowania
-                        cursor: 'pointer', // Kursor wskazujący na kliknięcie
-                        transition: 'background 0.3s ease', // Przejście dla tła
-                        marginBottom: '16px'
-                      }}
-                      _hover={{
-                        background: '#45a049' // Zmiana tła na ciemniejszy zielony po najechaniu
-                      }}
-                    >
-                      Skontaktuj się z ekspertem
-                    </Button>
                   </Flex>
                 </Flex>
-                <Flex justifyContent={'center'} alignItems={'center'}>
-                  {selectedExpert === entry._id && (
-                    <Flex mt={2} p={2} rounded={'lg'}>
-                      <ExpertContact noteId={entry._id} />
-                    </Flex>
-                  )}
-                </Flex>
-              </Flex>
-            )}
-          </Flex>
-        ))}
+              )}
+            </Flex>
+          ))}
+        </Grid>
       </Box>
     </Flex>
   );
