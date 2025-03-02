@@ -1,3 +1,5 @@
+@import 'primeicons/primeicons.css';
+
 * {
   font-family: 'Sawarabi Gothic', sans-serif;
   margin: 0;
@@ -12,13 +14,19 @@ body {
   background-color: #1a202c; /* Ciemne tło */
   color: white; /* Biały tekst */
   padding: 10px 15px; /* Większy padding */
-  border-radius: 8px; /* Zaokrąglone rogi */
+  border-radius: 4px; /* Zaokrąglone rogi */
   transition: background 0.3s ease;
+  margin-top: 5px;
   margin-bottom: 5px;
 }
-
 /* Efekt hover */
 .p-menu .p-menuitem:hover {
   background-color: #333;
   color: #f2f2f2;
+}
+.custom-dropdown .p-menuitem-icon {
+  margin-right: 8px; /* Dostosuj odstęp */
+}
+.p-button-label {
+  margin-left: 10px;
 }

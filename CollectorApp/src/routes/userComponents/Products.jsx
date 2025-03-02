@@ -175,11 +175,19 @@ const Products = () => {
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
           Moje Ogłoszenia:
         </Heading>
-        <Grid templateColumns={'repeat(3,1fr)'} gap={6} padding={'1rem'}>
+        <Grid
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            md: 'repeat(2, 1fr)',
+            lg: 'repeat(2, 1fr)',
+            xl: 'repeat(3, 1fr)'
+          }}
+          gap={6}
+          padding={'1rem'}
+        >
           {entries.map((entry, index) => (
             <Flex
               key={index}
-              padding="10px"
               marginBottom="10px"
               justifyContent={'center'}
               alignItems={'center'}
@@ -189,27 +197,24 @@ const Products = () => {
             >
               {editMode === entry._id ? (
                 <Flex
-                  flexDir={'row'}
-                  width={'300px'}
+                  flexDir={{ base: 'column', md: 'row' }}
+                  width={{ base: '100%', md: '500px' }}
                   justifyContent={'center'}
                   alignItems={'center'}
                   style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
                   padding={'10px'}
                   rounded={'xl'}
-                  md={{ width: '500px' }}
                 >
                   <Flex>
                     <Image
                       src={entry.image}
                       alt="Obraz"
-                      autoresize="true"
-                      width="150px"
+                      width={{ base: '150px', sm: '150px', md: '200px' }}
                       height={'250px'}
-                      sm={{ width: '150px' }}
-                      md={{ width: '200px' }}
+                      objectFit="cover"
                     />
                   </Flex>
-                  <Flex flexDir={'column'} ml={8}>
+                  <Flex flexDir={'column'} ml={8} width={'100%'}>
                     <Input
                       name="title"
                       value={editData.title}
@@ -272,18 +277,18 @@ const Products = () => {
                       mt={2}
                       width={'100%'}
                       style={{
-                        backgroundColor: '#28a745', // Zielony kolor tła (np. dla "Zapisz")
-                        color: 'white', // Biały tekst
-                        border: 'none', // Brak obramowania
-                        borderRadius: '8px', // Zaokrąglone rogi
-                        padding: '0.5rem', // Wewnętrzne odstępy
-                        fontSize: '1rem', // Rozmiar czcionki
-                        cursor: 'pointer', // Zmieniany kursor przy najechaniu
-                        transition: 'all 0.3s ease' // Płynne przejście dla efektów
+                        backgroundColor: '#28a745',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '0.5rem',
+                        fontSize: '1rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease'
                       }}
                       _hover={{
-                        backgroundColor: '#218838', // Ciemniejszy zielony przy hover
-                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Dodany cień przy hover
+                        backgroundColor: '#218838',
+                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)'
                       }}
                     >
                       Zapisz
@@ -293,18 +298,18 @@ const Products = () => {
                       onClick={() => setEditMode(null)}
                       mt={2}
                       style={{
-                        backgroundColor: '#dc3545', // Czerwony kolor tła (np. dla "Anuluj")
-                        color: 'white', // Biały tekst
-                        border: 'none', // Brak obramowania
-                        borderRadius: '8px', // Zaokrąglone rogi
-                        padding: '0.5rem', // Wewnętrzne odstępy
-                        fontSize: '1rem', // Rozmiar czcionki
-                        cursor: 'pointer', // Zmieniany kursor przy najechaniu
-                        transition: 'all 0.3s ease' // Płynne przejście dla efektów
+                        backgroundColor: '#dc3545',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '0.5rem',
+                        fontSize: '1rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease'
                       }}
                       _hover={{
-                        backgroundColor: '#c82333', // Ciemniejszy czerwony przy hover
-                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Dodany cień przy hover
+                        backgroundColor: '#c82333',
+                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)'
                       }}
                     >
                       Anuluj
@@ -313,12 +318,12 @@ const Products = () => {
                 </Flex>
               ) : (
                 <Flex
-                  key={index}
                   flexDir={'column'}
-                  width={'100%'}
+                  width={'90%'}
                   padding="10px"
                   marginBottom="10px"
                   rounded={'lg'}
+                  sm={{ width: '100%' }}
                   style={{
                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)'
                   }}
@@ -333,19 +338,24 @@ const Products = () => {
                         height={'200px'}
                         objectFit={'cover'}
                         sm={{ minW: '150px', maxW: '150px', height: '200px' }}
-                        style={{ float: 'left', marginRight: '16px' }} // Ustawienie, by zdjęcie "opływał" tekst
+                        style={{ float: 'left', marginRight: '16px' }}
                       />
                       <Flex flexDir={'column'} ml={2}>
-                        <Heading size={'2xl'} mb={2} sm={{ fontSize: '4xl' }}>
+                        <Heading size={'4xl'} mb={2} sm={{ fontSize: '4xl' }}>
                           {entry.title || 'Bez tytułu'}
                         </Heading>
                         <Flex
                           flexDir={'column'}
                           w={'95%'}
+                          fontSize={'12px'}
                           sm={{ fontSize: '14px', width: '100%' }}
                         >
                           <Text>{entry.body || 'Brak treści'}</Text>
-                          <Text mt={8} color={'rgb(246, 255, 0)'}>
+                          <Text
+                            mt={8}
+                            color={'rgb(249, 255, 72)'}
+                            fontSize={{ base: '2rem', sm: '3rem' }}
+                          >
                             {entry.price + ' PLN' || 'Brak numeru telefonu'}{' '}
                           </Text>
                         </Flex>
@@ -358,6 +368,7 @@ const Products = () => {
                     bg={'#1a202c'}
                     rounded={'lg'}
                     padding={'1rem'}
+                    h={'50px'}
                   >
                     <SplitButton
                       label="Akcje"
