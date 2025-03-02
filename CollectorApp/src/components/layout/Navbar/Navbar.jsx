@@ -73,7 +73,9 @@ const Navbar = ({ background, height }) => {
         transition="height 0.5s ease, background 0.5s ease"
         roundedBottom={'xl'}
       >
-        <Link to="/">{!isVisible && <Logo width={'70px'} />}</Link>
+        <Link to="/">
+          {!isVisible && <Logo width={'100%'} height={'100%'} />}
+        </Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Strona Główna</AppLink>
           {!isLogged && <AppLink to={'/login'}>Zaloguj się</AppLink>}

@@ -280,7 +280,7 @@ router.get('/entries', async (req, res) => {
 
 router.get('/entries/category', async (req, res) => {
     try {
-        const { category, subcategory, limit = 12, offset = 0 } = req.query; // Domyślnie 10 wpisów na stronę
+        const { category, subcategory, limit = 0, offset = 0 } = req.query; // Domyślnie 10 wpisów na stronę
         
         let filter = {};
         if (category) filter.category = category;

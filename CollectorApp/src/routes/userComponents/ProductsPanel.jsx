@@ -77,6 +77,18 @@ const EntryPanel = () => {
             <Text fontSize="sm" color="gray">Kategoria: {entry.category}</Text>
             <Text fontSize="sm" color="gray">Podkategoria: {entry.subcategory}</Text>
             {entry.image && <Image src={entry.image} alt="Obraz" width="100%" />}
+            
+            <Box position={"absolute"} color={"blue"} fontSize={"2rem"} fontWeight={"600"} zIndex={"999"}>
+                        {entry.expertEvaluation && (
+                                      <Box mt={4}>
+                                        <Text fontSize="lg" fontWeight="bold">{entry.expertEvaluation.expertName || 'Brak eksperta'}</Text>
+                                        <Text><img src={entry.expertEvaluation.expertBadge || 'Brak Odznaka:'} alt="Badge" width="50" /></Text>
+                                        <Text>{entry.expertEvaluation.expertMessage || 'Brak wiadomości'}</Text>
+                                        <Text>{entry.expertEvaluation.expertPrice !== null ? `${entry.expertEvaluation.expertPrice} zł` : 'Brak ceny'}</Text>
+                                      </Box>
+                                    )}
+                          </Box>
+
         </Box>
 
           {/* Formularz wysyłania wiadomości */}
