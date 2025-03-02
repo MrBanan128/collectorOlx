@@ -76,7 +76,7 @@ const CategorySide = () => {
 
   // Grupowanie wpisów według subkategorii
   const groupedEntries = visibleEntries.reduce((acc, entry) => {
-    const sub = entry.subcategory || "Inne";
+    const sub = entry.subcategory || 'Inne';
     if (!acc[sub]) acc[sub] = [];
     acc[sub].push(entry);
     return acc;
@@ -243,11 +243,3 @@ const CategorySide = () => {
 };
 
 export default CategorySide;
-
-
-
-
-
-
-
-
