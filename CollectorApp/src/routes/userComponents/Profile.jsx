@@ -1,23 +1,44 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Flex, Button, Heading, Stack, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Avatar } from '@chakra-ui/react';
+import { Toast } from 'primereact/toast';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const toast = useRef(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+  useEffect(
+    () => {
+      const token = localStorage.getItem('token');
 
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-    fetchUserData();
-  }, [navigate]);
+      if (location.state?.message) {
+        toast.current.show({
+          detail: 'Zalogowano pomyślnie',
+          life: 3000,
+          style: {
+            backgroundColor: 'rgb(0, 255, 0)', // Ciemniejsze tło
+            color: '#000', // Jasny tekst
+            borderRadius: '8px',
+            padding: '1rem',
+            fontSize: '16px'
+          },
+          className: 'custom-toast'
+        });
+      }
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+      fetchUserData();
+    },
+    [navigate],
+    [location.state]
+  );
 
   const fetchUserData = async () => {
     try {
@@ -77,6 +98,7 @@ const Profile = () => {
       md={{ backgroundPositionX: '90%' }}
       lg={{ backgroundPositionX: '100%' }}
     >
+      <Toast ref={toast} position="top-right" />
       <Flex
         className="container"
         direction="column"

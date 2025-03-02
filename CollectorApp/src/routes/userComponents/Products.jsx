@@ -164,14 +164,8 @@ const Products = () => {
   };
 
   return (
-    <Flex
-      direction="column"
-      align="center"
-      width={'100%'}
-      overflow="auto"
-      color={'white'}
-    >
-      <Box mt={5} width="100%" height={'100vh'}>
+    <Flex direction="column" align="center" width={'100%'} color={'white'}>
+      <Box mt={5} width="100%" minH={'100vh'}>
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
           Moje Ogłoszenia:
         </Heading>

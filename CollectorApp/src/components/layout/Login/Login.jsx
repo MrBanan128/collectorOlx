@@ -46,8 +46,10 @@ const Login = () => {
         setToken(data.token);
         localStorage.setItem('token', data.token);
         setMessage('Zalogowano pomyślnie');
-        console.log('Zalogowano pomyślnie' + data.token);
-        navigate('/dashboard/profile');
+
+        navigate('/dashboard/profile', {
+          state: { message: 'Zalogowano pomyślnie', severity: 'success' }
+        });
       } else {
         setMessage(data.message || 'Błąd logowania');
       }
