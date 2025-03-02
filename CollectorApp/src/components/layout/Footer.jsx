@@ -27,11 +27,11 @@ const Footer = () => {
             direction={{ base: 'column', md: 'row' }}
             borderLeft={'1px solid gray'}
           >
-            <FooterLink to={'/regulamin'}>Regulamin</FooterLink>
-            <FooterLink>Jak działa Antique Value</FooterLink>
+            <FooterLink to={'/terms-and-conditions'}>Regulamin</FooterLink>
+            <FooterLink to={'/about'}>Jak działa Antique Value</FooterLink>
           </Flex>
           <Flex direction={{ base: 'column', md: 'row' }}>
-            <FooterLink>Polityka prywatności</FooterLink>
+            <FooterLink to={'/policy'}>Polityka prywatności</FooterLink>
           </Flex>
         </Flex>
       </Flex>
