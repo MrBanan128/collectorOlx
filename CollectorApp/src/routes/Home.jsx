@@ -5,6 +5,7 @@ import Navbar from '../components/layout/Navbar/Navbar';
 import MostViewed from '../components/layout/MostViewed/MostViewed';
 import Carousel from '../components/layout/CategoryCarousel/Carousel';
 import Footer from '../components/layout/Footer';
+import VideoPlayer from './VideoPlayer';
 
 // Animation for letter-by-letter reveal
 const revealAnimation = keyframes`
@@ -20,6 +21,7 @@ const revealAnimation = keyframes`
 
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [showText, setShowText] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > window.innerHeight * 0.2) {
@@ -36,12 +38,26 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowText(true);
+    }, 4000); // 10 sekund
+
+    return () => clearTimeout(timer); // czyszczenie timera, aby uniknąć błędów
+  }, []);
+
   return (
     <Flex flexDirection="column" background="white" overflow="hidden">
       {/* Navbar */}
       <Box>
         <Navbar
-          background={scrolled ? 'rgba(92, 92, 92,1)' : 'rgba(92, 92, 92,0)'}
+          background={
+            scrolled
+              ? `url('../../../assets/backgr.png') no-repeat center center, 
+               linear-gradient(to bottom, #1c212b 50%, #0a1020 100%); 
+               background-blend-mode: overlay;`
+              : 'rgba(92, 92, 92, 0)'
+          }
           height={scrolled ? '84px' : '80px'}
         />
       </Box>
@@ -50,6 +66,9 @@ const Home = () => {
       <Box position="relative" width="100%">
         {/* Text with Animation */}
         <Box
+          background={'rgb(28, 33, 43,.5)'}
+          borderRadius={'2rem'}
+          p={'1rem 2rem'}
           position="absolute"
           zIndex={999}
           left={{ base: '15%', sm: '20%', md: '20%' }}
@@ -80,22 +99,19 @@ const Home = () => {
               </Box>
             ))}
           </Text>
+          <Text
+            fontSize={'2.6rem'}
+            p={'1rem 1rem '}
+            style={{ opacity: showText ? 1 : 0, transition: 'opacity 1s' }}
+          >
+            Dodaj swoje artykuły kolekcjonerskie i poznaj ich wartość rynkową.
+            Łatwe w użyciu narzędzie, które łączy pasjonatów kolekcjonerstwa!
+          </Text>
         </Box>
 
         {/* Background Image */}
-        <Image
-          src="./src/assets/main-page-img.jpeg"
-          alt="background"
-          width="100%"
-          objectFit="cover"
-          height={{
-            base: '300px',
-            sm: '350px',
-            md: '400px',
-            lg: '500px',
-            xl: '700px'
-          }}
-        />
+
+        <VideoPlayer />
       </Box>
 
       {/* Other Sections */}
@@ -107,7 +123,7 @@ const Home = () => {
         className="container"
         style={{
           background:
-            'radial-gradient(circle, rgba(11,11,11,1) 0%, rgba(193,186,186,1) 50%, rgba(9,9,9,1) 100%)'
+            'radial-gradient(circle, #1c212b 0%, #d0c0a3 50%, rgba(9,9,9,1) 100%)'
         }}
       >
         <MostViewed alt={'Znaczek'} src={'/item2.png'}></MostViewed>

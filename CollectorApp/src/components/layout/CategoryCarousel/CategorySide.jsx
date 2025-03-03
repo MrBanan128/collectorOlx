@@ -11,7 +11,6 @@ import ImgDec1 from '../../../assets/imgDec1.png'
 import Backgr from '../../../assets/BlackBack.png'
 
 
-
 const CategorySide = () => {
   const { category, subcategory } = useParams();
   const navigate = useNavigate();
@@ -20,8 +19,7 @@ const CategorySide = () => {
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const limit = 10;
-
+  const limit = 20;
 
   useEffect(() => {
     loadAllEntries();
@@ -82,8 +80,6 @@ const CategorySide = () => {
     return acc;
   }, {});
 
-
-
   const backgroundStyle = {
     // backgroundImage: `linear-gradient(rgb(195, 195, 195), rgb(225, 225, 225)), url(${Backgr})`,
     backgroundImage: `url(${Backgr})`,
@@ -141,7 +137,6 @@ const CategorySide = () => {
            <Text fontSize="2xl" fontWeight="bold" mb={2}>{sub}</Text>
             {/* <Flex direction={subcategory ? "column" : "row"} > */}
              
-
       <AnimatedList 
       items=
       {groupedEntries[sub].map((entry) => (

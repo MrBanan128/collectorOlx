@@ -11,3 +11,48 @@
 body {
   overflow-x: hidden;
 }
+/* Stylizacja każdego elementu w rozwijanej liście SplitButton */
+.p-menu .p-menuitem {
+  background-color: #1a202c; /* Ciemne tło */
+  color: white; /* Biały tekst */
+  padding: 10px 15px; /* Większy padding */
+  border-radius: 4px; /* Zaokrąglone rogi */
+  transition: background 0.3s ease;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+/* Efekt hover */
+.p-menu .p-menuitem:hover {
+  background-color: #333;
+  color: #f2f2f2;
+}
+.custom-dropdown .p-menuitem-icon {
+  margin-right: 8px; /* Dostosuj odstęp */
+}
+.p-button-label {
+  margin-left: 10px;
+}
+
+/* Złoty kolor */
+/* backgroundImage:
+'linear-gradient(45deg, #b88b4a, #ffd700, #b8860b, #fcf3ce, #b88b4a)', // gold */
+
+/* backgroundImage:
+'linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)', miedź */
+
+/* border: 5px solid;
+  border-image: linear-gradient(
+    45deg,
+    #8b3a3a,
+    #b7410e,
+    #fcd9cb,
+    #92400e,
+    #5a2e02
+  );
+  border-image-slice: 1; */
+
+/* 
+  background:
+  url('../../../assets/backgr.png') no-repeat,
+  #1c212b;
+background-blend-mode: overlay; */

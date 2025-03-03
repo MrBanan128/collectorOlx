@@ -210,7 +210,13 @@ const Products = () => {
   };
 
   return (
-    <Flex direction="column" align="center" width={'100%'} color={'white'}>
+    <Flex
+      direction="column"
+      align="center"
+      width={'100%'}
+      color={'white'}
+      overflow="auto"
+    >
       <Toast ref={toast} position="top-right" />
       <Box mt={5} width="100%" minH={'100vh'}>
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
