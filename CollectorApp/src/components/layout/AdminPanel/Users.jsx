@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Checkbox } from '../../ui/checkbox';
 import axios from 'axios';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { GoTriangleDown, GoTriangleUp } from 'react-icons/go';
+import { Toast } from 'primereact/toast';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -13,11 +14,9 @@ const Users = () => {
   const [editPassword, setEditPassword] = useState('');
   const [editStatus, setEditStatus] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const toast = useRef(null);
 
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-  const [messageTitle, setMessageTitle] = useState('');
-  const [messageContent, setMessageContent] = useState('');
-  const [selectedUser, setSelectedUser] = useState(null); // Przechowujemy wybranego użytkownika, aby wysłać do niego wiadomość
 
   // Sortowanie użytkowników
   const sortedUsers = [...users].sort((a, b) => {
@@ -98,41 +97,33 @@ const Users = () => {
       });
 
       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
-      alert('Użytkownik został usunięty.');
+
+      toast.current.show({
+        detail: 'Użytkownik usunięty!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
+        },
+        className: 'custom-toast'
+      });
     } catch (error) {
       console.error('Błąd usuwania użytkownika', error);
-      alert(
-        error.response?.data?.message || 'Nie udało się usunąć użytkownika.'
-      );
-    }
-  };
-
-  // Wysyłanie wiadomości
-  const sendMessage = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('Brak tokenu użytkownika.');
-      return;
-    }
-    try {
-      await axios.post(
-        'http://localhost:10000/send-message',
-        {
-          receiverId: selectedUser._id,
-          title: messageTitle,
-          content: messageContent
+      toast.current.show({
+        detail: 'Nie udało się usunąć użytkownika!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
         },
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
-      );
-      alert('Wiadomość została wysłana.');
-      setMessageTitle('');
-      setMessageContent('');
-      setSelectedUser(null); // Resetujemy wybranego użytkownika
-    } catch (error) {
-      console.error('Błąd wysyłania wiadomości', error);
-      alert('Nie udało się wysłać wiadomości.');
+        className: 'custom-toast'
+      });
     }
   };
 
@@ -175,7 +166,19 @@ const Users = () => {
         )
       );
       setEditingUser(null);
-      alert('Dane użytkownika zostały zaktualizowane.');
+
+      toast.current.show({
+        detail: 'Użytkownik zaktualizowany!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(0, 255, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
+        },
+        className: 'custom-toast'
+      });
     } catch (error) {
       console.error('Błąd aktualizacji użytkownika', error);
       alert(
@@ -183,13 +186,6 @@ const Users = () => {
           'Nie udało się zaktualizować danych użytkownika.'
       );
     }
-  };
-
-  // Wybór użytkownika do wysłania wiadomości
-  const handleUserClick = (user) => {
-    setSelectedUser(user);
-    setMessageTitle('');
-    setMessageContent('');
   };
 
   // Funkcja usuwania wielu użytkowników
@@ -216,10 +212,32 @@ const Users = () => {
         prevUsers.filter((user) => !selection.includes(user._id))
       );
       setSelection([]); // Resetowanie zaznaczenia
-      alert('Zaznaczeni użytkownicy zostali usunięci.');
+      toast.current.show({
+        detail: 'Usunięto zaznaczonych użytkowników!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
+        },
+        className: 'custom-toast'
+      });
     } catch (error) {
       console.error('Błąd usuwania użytkowników', error);
-      alert('Nie udało się usunąć użytkowników.');
+      toast.current.show({
+        detail: 'Nie udało się usunąć zaznaczonych użytkowników.',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
+        },
+        className: 'custom-toast'
+      });
     }
   };
   return (
@@ -234,6 +252,7 @@ const Users = () => {
         'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
       }
     >
+      <Toast ref={toast} position="top-right" />
       <Flex
         justifyContent="center"
         alignItems="center"
@@ -258,8 +277,11 @@ const Users = () => {
           flexDir={'column'}
           textAlign={'left'}
           padding={'2rem'}
+          color={'white'}
         >
-          <h3>Edytuj użytkownika</h3>
+          <h3 style={{ paddingBottom: '10px', fontSize: '20px' }}>
+            Edytuj użytkownika
+          </h3>
           <Box
             padding={'2rem'}
             boxShadow={'0 4px 8px rgba(0, 0, 0, 0.4)'}
@@ -589,40 +611,6 @@ const Users = () => {
           ))}
         </tbody>
       </table>
-      {selectedUser && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Wyślij wiadomość do {selectedUser.username}</h3>
-          <div>
-            <label>Tytuł</label>
-            <input
-              type="text"
-              value={messageTitle}
-              onChange={(e) => setMessageTitle(e.target.value)}
-              placeholder="Tytuł wiadomości"
-              style={{ padding: '.5rem', margin: '.5rem 0', width: '100%' }}
-            />
-          </div>
-          <div>
-            <label>Treść wiadomości</label>
-            <textarea
-              value={messageContent}
-              onChange={(e) => setMessageContent(e.target.value)}
-              placeholder="Treść wiadomości"
-              style={{ padding: '.5rem', margin: '.5rem 0', width: '100%' }}
-            />
-          </div>
-          <button
-            onClick={sendMessage}
-            style={{
-              background: 'blue',
-              color: 'white',
-              padding: '.5rem 1rem'
-            }}
-          >
-            Wyślij wiadomość
-          </button>
-        </div>
-      )}
       <Flex justifyContent={'center'} alignItems={'center'}>
         <button
           onClick={handleBulkDelete}

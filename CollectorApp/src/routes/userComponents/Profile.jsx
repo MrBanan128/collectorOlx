@@ -1,23 +1,45 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Flex, Button, Heading, Stack, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Avatar } from '@chakra-ui/react';
+import { Toast } from 'primereact/toast';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const toast = useRef(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+  useEffect(
+    () => {
+      const token = localStorage.getItem('token');
 
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-    fetchUserData();
-  }, [navigate]);
+      if (location.state?.message) {
+        toast.current.show({
+          detail: 'Zalogowano pomyślnie',
+          life: 3000,
+          style: {
+            backgroundColor: 'rgb(0, 255, 0)', // Ciemniejsze tło
+            color: '#000', // Jasny tekst
+            borderRadius: '8px',
+            padding: '1rem',
+            fontSize: '16px'
+          },
+          className: 'custom-toast'
+        });
+      }
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+      fetchUserData();
+    },
+    [navigate],
+    [location.state]
+  );
 
   const fetchUserData = async () => {
     try {
@@ -60,6 +82,20 @@ const Profile = () => {
       setError(error.message);
     }
   };
+  const confirmDelete = () => {
+    confirmDialog({
+      message:
+        'Czy na pewno chcesz usunąć swoje konto? Tej operacji nie można cofnąć!',
+      header: 'Potwierdzenie usunięcia',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Tak, usuń',
+      accept: handleDeleteAccount,
+      rejectLabel: 'Anuluj',
+      acceptClassName: 'custom-accept-btn', // Własna klasa dla przycisku
+      rejectClassName: 'custom-reject-btn',
+      className: 'custom-dialog' // Własna klasa dla całego dialogu
+    });
+  };
 
   return (
     <Flex
@@ -77,6 +113,7 @@ const Profile = () => {
       md={{ backgroundPositionX: '90%' }}
       lg={{ backgroundPositionX: '100%' }}
     >
+      <Toast ref={toast} position="top-right" />
       <Flex
         className="container"
         direction="column"
@@ -159,8 +196,9 @@ const Profile = () => {
               sm={{ gap: 6 }}
               md={{ gap: 8, marginTop: '15%' }}
             >
+              <ConfirmDialog />
               <Button
-                onClick={handleDeleteAccount}
+                onClick={confirmDelete}
                 size="lg"
                 fontSize="lg"
                 bg="red.600"

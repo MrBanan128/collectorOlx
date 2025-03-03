@@ -16,24 +16,24 @@ import PolitykaPrywatności from './components/layout/Footer/PolitykaPrywatnośc
 import NotFound from './components/layout/404';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Provider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/Sign-up" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/adds" element={<Adds />} />
-          <Route path="/dashboard/*" element={<Dashboard />} />
-          <Route path="/entry/:id" element={<ProductsPanel />} />
-          <Route path="/:category" element={<CategorySide />} />
-          <Route path="/:category/:subcategory" element={<CategorySide />} />
-          <Route path="/terms-and-conditions" element={<Regulamin />} />
-          <Route path="/about" element={<JakDziała />} />
-          <Route path="/policy" element={<PolitykaPrywatności />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  </StrictMode>
+  // <StrictMode>
+  <Provider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/Sign-up" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/adds" element={<Adds />} />
+        <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/entry/:id" element={<ProductsPanel />} />
+        <Route path="/:category" element={<CategorySide />} />
+        <Route path="/:category/:subcategory" element={<CategorySide />} />
+        <Route path="/terms-and-conditions" element={<Regulamin />} />
+        <Route path="/about" element={<JakDziała />} />
+        <Route path="/policy" element={<PolitykaPrywatności />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>
+  // </StrictMode>
 );

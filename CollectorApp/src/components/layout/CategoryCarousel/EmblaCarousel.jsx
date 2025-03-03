@@ -1,6 +1,13 @@
 import { useState } from 'react';
-import { PrevButton, NextButton, usePrevNextButtons } from './EmblaCarouselArrowButtons';
-import { SelectedSnapDisplay, useSelectedSnapDisplay } from './EmblaCarouselSelectedSnapDisplay';
+import {
+  PrevButton,
+  NextButton,
+  usePrevNextButtons
+} from './EmblaCarouselArrowButtons';
+import {
+  SelectedSnapDisplay,
+  useSelectedSnapDisplay
+} from './EmblaCarouselSelectedSnapDisplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import CategorySelector from './CategorySelector';
 
@@ -22,7 +29,7 @@ const EmblaCarousel = ({ slides = [], options }) => {
   } = usePrevNextButtons(emblaApi || null);
 
   const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi || null);
- 
+
   return (
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
@@ -43,12 +50,12 @@ const EmblaCarousel = ({ slides = [], options }) => {
                   className="embla__slide__content"
                   onClick={() => handleCategoryClick(slide.title)}
                 >
-                  <h2 className="embla__slide__title">{slide.title}</h2>
                   <img
                     className="embla__slide__image"
                     src={slide.imageUrl}
                     alt={slide.title}
                   />
+                  <h2 className="embla__slide__title">{slide.title}</h2>
                 </div>
               </div>
             ))

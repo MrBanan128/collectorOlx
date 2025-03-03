@@ -1,4 +1,6 @@
 @import 'primeicons/primeicons.css';
+@import './routes/userComponents/ConfirmDialog.css';
+@import './routes/userComponents/CustomSplitButton.css';
 
 * {
   font-family: 'Sawarabi Gothic', sans-serif;
@@ -30,3 +32,27 @@ body {
 .p-button-label {
   margin-left: 10px;
 }
+
+/* Złoty kolor */
+/* backgroundImage:
+'linear-gradient(45deg, #b88b4a, #ffd700, #b8860b, #fcf3ce, #b88b4a)', // gold */
+
+/* backgroundImage:
+'linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)', miedź */
+
+/* border: 5px solid;
+  border-image: linear-gradient(
+    45deg,
+    #8b3a3a,
+    #b7410e,
+    #fcd9cb,
+    #92400e,
+    #5a2e02
+  );
+  border-image-slice: 1; */
+
+/* 
+  background:
+  url('../../../assets/backgr.png') no-repeat,
+  #1c212b;
+background-blend-mode: overlay; */

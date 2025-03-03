@@ -1,16 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Heading,
-  Button,
   Input,
   Textarea,
-  Image,
-  Flex
+  Flex,
+  Text,
+  Box,
+  Button
 } from '@chakra-ui/react';
+import { Image } from 'primereact/image';
+import { Toast } from 'primereact/toast';
 import { useNavigate } from 'react-router-dom';
 import { categories, subcategories } from '../categories';
 import Navbar from '../components/layout/Navbar/Navbar';
-const Adds = ({ height }) => {
+import { HiUpload } from 'react-icons/hi';
+
+const Adds = () => {
   const [categoriesEl, setCategories] = useState(categories);
   const [subcategoriesEl, setSubcategories] = useState(subcategories);
   const [newData, setNewData] = useState({
@@ -25,6 +30,9 @@ const Adds = ({ height }) => {
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const toast = useRef(null);
+  const titleInputRef = useRef(null);
+  const textInputRef = useRef(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -67,6 +75,22 @@ const Adds = ({ height }) => {
     formData.append('subcategory', newData.subcategory);
     if (newData.avatar) formData.append('image', newData.avatar);
 
+    if (!newData.title || !newData.note || !newData.price) {
+      toast.current.show({
+        detail: 'Pola nie mogą być puste!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px',
+          marginTop: '70px'
+        },
+        className: 'custom-toast'
+      });
+    }
+
     try {
       const response = await fetch('http://localhost:10000/users/entries', {
         method: 'POST',
@@ -88,6 +112,19 @@ const Adds = ({ height }) => {
         avatar: null
       });
       setPreview(null);
+      toast.current.show({
+        detail: 'Ogłoszenie dodane!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(0, 255, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px',
+          marginTop: '70px'
+        },
+        className: 'custom-toast'
+      });
     } catch (error) {
       setError(error.message);
     }
@@ -106,174 +143,266 @@ const Adds = ({ height }) => {
     <Flex
       bgImage="linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%)"
       flexDir={'column'}
+      h={'100%'}
     >
       <Navbar
         background={scrolled ? 'rgba(92, 92, 92,1)' : 'rgba(92, 92, 92,0)'}
         height={scrolled ? '84px' : '80px'}
         width={'100%'}
       />
+      <Toast ref={toast} position="top-right" /> {/* Komponent Toast */}
       <Flex
+        justifyContent={'center'}
+        textAlign={'left'}
         height="100vh"
-        direction="column"
-        color="black"
-        justifyContent="center"
-        alignItems="center"
-        px={4} // Padding na bokach
+        mt={scrolled ? '124px' : '120px'}
       >
-        <Flex
-          mt={{ base: '50px', md: '100px' }} // Mniejsze marginesy na mniejszych ekranach
-          justifyContent="center"
-          alignItems="center"
-          flexDir="column"
-          bg="rgba(18,	19,	21, 0.95)" // Dodanie przezroczystości tła
-          p={6}
-          borderRadius="xl" // Zaokrąglone rogi formularza
-          boxShadow="lg" // Cień
-          width={{ base: '90%', sm: '80%', md: '70%', lg: '60%' }} // Szerokość formularza zależna od rozmiaru ekranu
-        >
-          <Heading
-            fontSize={{ base: '1.5rem', sm: '2rem', md: '2.5rem' }} // Responsywna wielkość nagłówka
-            fontWeight="bold"
-            padding="1rem"
-            bg={'#545a7e'}
-            rounded="xl"
-            mb={4}
-            textAlign="center"
-          >
-            Dodaj Ogłoszenie
-          </Heading>
-
-          <form onSubmit={handleAddEntry} style={{ width: '100%' }}>
-            <Input
-              name="title"
-              value={newData.title}
-              onChange={handleInputChange}
-              placeholder="Nazwa przedmiotu"
-              _placeholder={{ color: 'black' }}
-              mb={4}
-              borderColor="gray.500"
-              _hover={{ borderColor: 'blue.400' }}
-              _focus={{ borderColor: 'blue.600' }}
-              size="lg"
-              borderRadius="md"
-              bg="whiteAlpha.800"
-              color="black"
-              p={4}
-              required
-            />
-            <Textarea
-              name="note"
-              value={newData.note}
-              onChange={handleInputChange}
-              placeholder="Krótki opis"
-              _placeholder={{ color: 'black' }}
-              mb={4}
-              lineHeight={1.5}
-              pt={10}
-              pb={10}
-              borderColor="gray.500"
-              _hover={{ borderColor: 'blue.400' }}
-              _focus={{ borderColor: 'blue.600' }}
-              size="lg"
-              borderRadius="md"
-              bg="whiteAlpha.800"
-              color="black"
-              p={4}
-            />
-            <Input
-              name="price"
-              type="number"
-              value={newData.price}
-              onChange={handleInputChange}
-              placeholder="Cena"
-              _placeholder={{ color: 'black' }}
-              mb={4}
-              borderColor="black"
-              _hover={{ borderColor: 'blue.400' }}
-              _focus={{ borderColor: 'blue.600' }}
-              size="lg"
-              borderRadius="lg"
-              bg="whiteAlpha.800"
-              color="black"
-              p={4}
-            />
-            <select
-              name="category"
-              value={newData.category}
-              onChange={handleInputChange}
-              placeholder="Wybierz kategorię"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.80',
-                color: 'black',
-                padding: '10px',
-                borderRadius: '8px',
-                border: '1px solid black',
-                width: '100%',
-                marginBottom: '1rem'
-              }}
-            >
-              <option value="">Wybierz kategorię</option>
-              {categoriesEl.map((category) => (
-                <option key={category.value} value={category.value}>
-                  {category.label}
-                </option>
-              ))}
-            </select>
-
-            {newData.category && (
-              <select
-                name="subcategory"
-                value={newData.subcategory}
-                onChange={handleInputChange}
-                placeholder="Wybierz podkategorię"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.80',
-                  color: 'black',
-                  padding: '10px',
-                  borderRadius: '8px',
-                  border: '1px solid black',
-                  width: '100%',
-                  marginBottom: '1rem'
-                }}
+        <Flex direction="column" color="white" width={'60%'}>
+          <Flex>
+            <Heading fontSize={'6xl'} pb={20}>
+              Dodaj ogłoszenie
+            </Heading>
+          </Flex>
+          <Flex color={'black'}>
+            <form onSubmit={handleAddEntry} style={{ width: '100%' }}>
+              <Flex
+                bg={'white'}
+                p={12}
+                borderRadius="md"
+                boxShadow="lg"
+                mt={4}
+                flexDirection={'column'}
+                gap={6}
               >
-                <option value="">Wybierz podkategorię</option>
-                {subcategoriesEl[newData.category]?.map((subcategory) => (
-                  <option key={subcategory.value} value={subcategory.value}>
-                    {subcategory.label}
-                  </option>
-                ))}
-              </select>
-            )}
+                <Flex direction="column" gap={2}>
+                  <Text
+                    w={'20%'}
+                    color={'black'}
+                    fontSize={'20px'}
+                    cursor={'pointer'}
+                    onClick={() => titleInputRef.current.focus()}
+                  >
+                    Tytuł ogłoszenia*
+                  </Text>
+                  <Input
+                    name="title"
+                    value={newData.title}
+                    onChange={handleInputChange}
+                    placeholder="Nazwa przedmiotu"
+                    _placeholder={{ color: 'gray.500' }}
+                    rounded={'md'}
+                    p={6}
+                    border={'none'}
+                    bg="#f2f4f5"
+                    color="black"
+                    w={'40%'}
+                    size={'2xl'}
+                    fontSize={'2xl'}
+                    _focus={{ borderBottom: '2px solid black' }}
+                    ref={titleInputRef}
+                  />
+                </Flex>
+                <Flex direction="column">
+                  <Text
+                    w={'20%'}
+                    color={'rgb(150, 150, 150)'}
+                    fontSize={'16px'}
+                    ml={4}
+                  >
+                    Kategoria
+                  </Text>
+                  <select
+                    name="category"
+                    value={newData.category}
+                    onChange={handleInputChange}
+                    placeholder="Wybierz kategorię"
+                    style={{
+                      backgroundColor: '#f2f4f5',
+                      color: 'black',
+                      padding: '10px',
+                      borderRadius: '8px',
+                      border: '1px solid black',
+                      marginBottom: '1rem',
+                      width: '30%'
+                    }}
+                  >
+                    <option value="">Wybierz kategorię</option>
+                    {categoriesEl.map((category) => (
+                      <option key={category.value} value={category.value}>
+                        {category.label}
+                      </option>
+                    ))}
+                  </select>
 
-            <Input
-              type="file"
-              onChange={handleFileChange}
-              mb={4}
-              borderColor="gray.500"
-              _hover={{ borderColor: 'blue.400' }}
-              _focus={{ borderColor: 'blue.600' }}
-              size="lg"
-              borderRadius="md"
-              bg="whiteAlpha.800"
-              color="black"
-              p={1}
-            />
-            {preview && (
-              <Image src={preview} alt="Podgląd" width="100px" mb={4} />
-            )}
-            <Button
-              type="submit"
-              size="lg"
-              width="100%"
-              borderRadius="md"
-              bg={'red'}
-              _hover={{ bg: 'blue.500' }}
-              fontWeight={'bold'}
-              fontSize={'14px'}
-            >
-              Dodaj Ogłoszenie
-            </Button>
-          </form>
+                  {newData.category && (
+                    <Box>
+                      <Text
+                        w={'20%'}
+                        color={'rgb(150, 150, 150)'}
+                        fontSize={'16px'}
+                        ml={4}
+                      >
+                        Podkategoria
+                      </Text>
+                      <select
+                        name="subcategory"
+                        value={newData.subcategory}
+                        onChange={handleInputChange}
+                        placeholder="Wybierz podkategorię"
+                        style={{
+                          backgroundColor: '#f2f4f5',
+                          color: 'black',
+                          padding: '10px',
+                          borderRadius: '8px',
+                          border: '1px solid black',
+                          width: '30%',
+                          marginBottom: '1rem'
+                        }}
+                      >
+                        <option value="">Wybierz podkategorię</option>
+                        {subcategoriesEl[newData.category]?.map(
+                          (subcategory) => (
+                            <option
+                              key={subcategory.value}
+                              value={subcategory.value}
+                            >
+                              {subcategory.label}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </Box>
+                  )}
+                </Flex>
+              </Flex>
+              <Flex
+                bg={'white'}
+                p={12}
+                borderRadius="md"
+                boxShadow="lg"
+                mt={4}
+                flexDirection={'row'}
+                justifyContent={'space-between'}
+                paddingBottom={6}
+              >
+                <Flex direction="column" gap={2}>
+                  <Text
+                    w={'20%'}
+                    color={'black'}
+                    fontSize={'20px'}
+                    cursor={'pointer'}
+                    onClick={() => textInputRef.current.focus()}
+                  >
+                    Opis*
+                  </Text>
+                  <Textarea
+                    name="note"
+                    value={newData.note}
+                    onChange={handleInputChange}
+                    fontSize={'xl'}
+                    placeholder="Wpisz tutaj najważniejsze informacje dotyczące twojego ogłoszenia"
+                    _placeholder={{ color: 'gray.500' }}
+                    lineHeight={1.5}
+                    minH={'150px'}
+                    w={'600px'}
+                    size="lg"
+                    borderRadius="md"
+                    bg="#f2f4f5"
+                    color="black"
+                    p={4}
+                    ref={textInputRef}
+                    _focus={{ borderBottom: '2px solid black' }}
+                  />
+                </Flex>
+                <Flex direction="column" gap={2} alignItems="center">
+                  <Box
+                    position="relative"
+                    cursor="pointer"
+                    bg="#f2f4f5"
+                    padding={4}
+                    rounded={'lg'}
+                    onChange={handleFileChange}
+                  >
+                    <Text>Dodaj zdjęcie</Text>
+                    <Button
+                      as="label"
+                      htmlFor="file-upload"
+                      color="black"
+                      bg="#f2f4f5"
+                      _hover={{ bg: '#adadad' }}
+                      px={4}
+                      py={2}
+                      borderRadius="lg"
+                      shadow={'md'}
+                      fontSize={'xl'}
+                    >
+                      <HiUpload style={{ marginRight: '8px' }} /> Wybierz plik
+                    </Button>
+                    <Input id="file-upload" type="file" display="none" />
+                  </Box>
+
+                  {preview && (
+                    <Box p={'2rem'} borderRadius="md" mb={'1rem'}>
+                      <Image
+                        src={preview}
+                        alt="Podgląd"
+                        width="150px"
+                        mb={4}
+                        preview
+                        indicatorIcon="null"
+                      />
+                    </Box>
+                  )}
+                </Flex>
+              </Flex>
+              <Flex
+                bg={'white'}
+                p={12}
+                borderRadius="md"
+                boxShadow="lg"
+                mt={4}
+                flexDirection={'column'}
+                gap={6}
+              >
+                <Flex>
+                  <Input
+                    name="price"
+                    type="number"
+                    value={newData.price}
+                    onChange={handleInputChange}
+                    minW={'20%'}
+                    w={'20%'}
+                    fontSize={'20px'}
+                    padding={'10px'}
+                    size="2xl"
+                    placeholder="Cena w zł"
+                    _placeholder={{ color: 'gray.500' }}
+                    mb={4}
+                    border={'none'}
+                    bg="#f2f4f5"
+                    d
+                    borderRadius="lg"
+                    color="black"
+                    _focus={{ borderBottom: '2px solid black' }}
+                  />
+                </Flex>
+                <Flex justifyContent="center">
+                  <Button
+                    type="submit"
+                    size="xl"
+                    width="30%"
+                    borderRadius="xl"
+                    bg={'gray.500'}
+                    _hover={{ bg: 'gray.700' }}
+                    fontWeight={'bold'}
+                    fontSize={'20px'}
+                  >
+                    Dodaj Ogłoszenie
+                  </Button>
+                </Flex>
+              </Flex>
+            </form>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>

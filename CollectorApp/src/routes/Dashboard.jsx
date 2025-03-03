@@ -65,8 +65,6 @@ const Dashboard = () => {
         'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
       }
       className="dashboard"
-      // overflow="auto"
-      overflow={'hidden'}
     >
       <Flex
         justifyContent={'flex-start'}
