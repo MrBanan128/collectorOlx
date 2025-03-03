@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Button, Flex, Heading, Text } from '@chakra-ui/react';
+import { Toast } from 'primereact/toast';
 
 const ExpertPanel = () => {
   const [assignedNotes, setAssignedNotes] = useState([]);
@@ -12,6 +13,7 @@ const ExpertPanel = () => {
     expertPrice: ''
   });
   const [activeNoteId, setActiveNoteId] = useState(null); // Dodajemy stan do śledzenia aktywnej notatki
+  const toast = useRef(null);
 
   useEffect(() => {
     const fetchAssignedNotes = async () => {
@@ -44,28 +46,77 @@ const ExpertPanel = () => {
   };
 
   const handleSubmit = async (noteId) => {
-    try {
-      const response = await axios.put(
-        `http://localhost:10000/users/entries/${noteId}`,
-        {
-          expertEvaluation: evaluationData,
-          expertRequest: false
+    if (
+      !evaluationData.expertName ||
+      !evaluationData.expertMessage ||
+      !evaluationData.expertPrice
+    ) {
+      toast.current.show({
+        detail: 'Wypełnij wszystkie pola!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
+        className: 'custom-toast'
+      });
+      return;
+    } else if (evaluationData.expertPrice < 0) {
+      toast.current.show({
+        detail: 'Cena nie może być ujemna!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
+        },
+        className: 'custom-toast'
+      });
+      return;
+    } else {
+      try {
+        const response = await axios.put(
+          `http://localhost:10000/users/entries/${noteId}`,
+          {
+            expertEvaluation: evaluationData,
+            expertRequest: false
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
           }
-        }
-      );
+        );
 
-      setEvaluationData({
-        expertName: '',
-        expertBadge: '',
-        expertMessage: '',
-        expertPrice: ''
-      }); // Resetowanie formularza
-    } catch (error) {
-      console.error('Błąd podczas wysyłania oceny:', error);
+        toast.current.show({
+          detail: 'Wycena została wysłana do klienta!',
+          life: 3000,
+          style: {
+            backgroundColor: 'rgb(0, 255, 0)', // Ciemniejsze tło
+            color: '#000', // Jasny tekst
+            borderRadius: '8px',
+            padding: '1rem',
+            fontSize: '16px'
+          },
+          className: 'custom-toast'
+        });
+
+        setEvaluationData({
+          expertName: '',
+          expertBadge: '',
+          expertMessage: '',
+          expertPrice: ''
+        }); // Resetowanie formularza
+        return true;
+      } catch (error) {
+        console.error('Błąd podczas wysyłania oceny:', error);
+        return false;
+      }
     }
   };
 
@@ -76,6 +127,7 @@ const ExpertPanel = () => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', color: 'white' }}>
+      <Toast ref={toast} />
       <div style={{ flex: 1 }}>
         <Heading fontSize={'30px'} color={'white'} padding={'10px'}>
           Ogłoszenia do Wyceny
@@ -156,9 +208,13 @@ const ExpertPanel = () => {
                 Dodaj wycenę eksperta
               </Heading>
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  handleSubmit(activeNoteId); // Przesyłanie danych do notatki
+
+                  const success = await handleSubmit(activeNoteId);
+                  if (success) {
+                    window.location.reload();
+                  }
                 }}
               >
                 <Flex direction="column" gap={5}>
