@@ -4,5 +4,16 @@
   text-align: center;
   padding: 4rem 2rem 2rem 2rem;
   margin: 0;
-  color: white;
+
+  background-image: linear-gradient(
+    45deg,
+    #8b3a3a,
+    #b7410e,
+    #fcd9cb,
+    #92400e,
+    #5a2e02
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }

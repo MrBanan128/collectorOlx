@@ -1,24 +1,29 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
 import FooterLink from './Navbar/FooterLink';
+import background from '../../assets/backgr.png';
 import { Link } from 'react-router';
 
 const Footer = () => {
   return (
     <Flex
-      backgroundColor={'gray.800'}
+      backgroundImage={`url(${background})`}
+      backgroundRepeat="no-repeat"
+      backgroundColor="#1c212b"
+      backgroundBlendMode="overlay"
+      backgroundSize="cover"
       direction="column"
-      width={'100%'}
-      height={'auto'}
-      w="100%" // Ensures full width
-      minHeight="60px" // Ensures it doesn’t collapse
-      py={0} // Keeps vertical padding only
-      px={[0, 0, 0]} // Adjusts horizontal padding
+      width="100%"
+      height="auto"
+      minHeight="60px"
+      py={0}
+      px={[0, 0, 0]}
+      borderTop="5px solid"
+      borderImage="linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)"
+      borderImageSlice="1"
     >
       <Flex
         align="center"
         justify="space-between"
-        backgroundColor={'gray.800'}
-        // wrap={'wrap'}
         direction={'Column'}
         margin={8}
       >
@@ -41,7 +46,7 @@ const Footer = () => {
         direction={'row'}
         alignItems={'center'}
         justifyContent={'space-between'}
-        backgroundColor={'#cbcdc4'}
+        background="linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)"
       >
         <Flex alignItems={'center'} marginLeft={3}>
           <Link to={'https://x.com/'}>

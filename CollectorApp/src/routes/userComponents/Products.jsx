@@ -171,7 +171,7 @@ const Products = () => {
       overflow="auto"
       color={'white'}
     >
-      <Box mt={5} width="100%" height={'100vh'}>
+      <Box mt={5} width="100%" minHeight={'100vh'}>
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
           Moje Ogłoszenia:
         </Heading>

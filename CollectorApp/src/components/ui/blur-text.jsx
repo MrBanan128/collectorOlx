@@ -25,6 +25,7 @@ const BlurText = ({
     direction === 'top'
       ? {
           filter: 'blur(10px)',
+          //  borderImage="linear-gradient(45deg, #b88b4a, #ffd700, #b8860b, #fcf3ce, #b88b4a)"
           opacity: 0,
           transform: 'translate3d(0,-50px,0)'
         }
@@ -92,7 +93,12 @@ const BlurText = ({
             ...props,
             display: 'inline-block',
             willChange: 'transform, filter, opacity',
-            fontSize: fontSize || 'inherit' // Apply the fontSize prop or fallback to 'inherit'
+            fontSize: fontSize || 'inherit', // Apply the fontSize prop or fallback to 'inherit'
+            backgroundImage:
+              'linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)',
+            backgroundClip: 'text', // Apply background gradient to text
+            WebkitBackgroundClip: 'text', // For webkit-based browsers like Chrome and Safari
+            color: 'transparent' // Make text transparent so background is visible
           }}
         >
           {elements[index] === ' ' ? '\u00A0' : elements[index]}
