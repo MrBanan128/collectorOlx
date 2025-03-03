@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Flex,
   Button,
@@ -22,6 +22,7 @@ const Products = () => {
   const [editData, setEditData] = useState({ title: '', note: '', price: '' });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const toast = useRef(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -112,6 +113,18 @@ const Products = () => {
       );
 
       setEditMode(null);
+      toast.current.show({
+        detail: 'Dane zostały zaktualizowane!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(0, 255, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
+        },
+        className: 'custom-toast'
+      });
     } catch (error) {
       console.error('Błąd aktualizacji notatki:', error);
     }
@@ -137,6 +150,18 @@ const Products = () => {
     } catch (error) {
       console.error('Błąd usuwania notatki:', error);
     }
+    toast.current.show({
+      detail: 'Ogłoszenie zostało usunięte!',
+      life: 3000,
+      style: {
+        backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+        color: '#000', // Jasny tekst
+        borderRadius: '8px',
+        padding: '1rem',
+        fontSize: '16px'
+      },
+      className: 'custom-toast'
+    });
   };
 
   const handleDeleteImage = async (noteId) => {
@@ -159,6 +184,18 @@ const Products = () => {
             : entry
         )
       );
+      toast.current.show({
+        detail: 'Zdjęcie zostało usunięte!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
+        },
+        className: 'custom-toast'
+      });
     } catch (error) {
       console.error('Błąd usuwania zdjęcia:', error.message);
     }
@@ -166,6 +203,7 @@ const Products = () => {
 
   return (
     <Flex direction="column" align="center" width={'100%'} color={'white'}>
+      <Toast ref={toast} position="top-right" />
       <Box mt={5} width="100%" minH={'100vh'}>
         <Heading size={'4xl'} padding={'1rem'} color={'white'}>
           Moje Ogłoszenia:
