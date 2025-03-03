@@ -21,12 +21,11 @@
   transform: translate3d(0, 0, 0);
   flex: 0 0 var(--slide-size);
   min-width: 0;
-  padding-left: var(--slide-spacing);
+  padding: 4px;
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1); /* Przykład cienia */
   cursor: pointer;
   transition: transform 0.3s;
-  border: 5px solid;
-  border-image: linear-gradient(
+  background-image: linear-gradient(
     45deg,
     #8b3a3a,
     #b7410e,
@@ -34,7 +33,7 @@
     #92400e,
     #5a2e02
   );
-  border-image-slice: 1;
+  border-radius: 20rem;
 }
 
 .embla__slide:hover {
@@ -47,14 +46,15 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 1rem;
+  padding: 2rem;
+  overflow: hidden;
   text-align: center;
   background:
     url('../../../assets/backgr.png') no-repeat,
-    #1c212b;
+    #13161d;
   background-blend-mode: overlay;
   backdrop-filter: blur(10px); /* Blur effect */
-  border-radius: 12px; /* Optional: Rounded corners */
+  border-radius: 20rem; /* Optional: Rounded corners */
   border: 1px solid rgba(255, 255, 255, 0.1); /* Optional: Subtle border */
 }
 

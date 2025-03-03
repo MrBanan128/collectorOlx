@@ -15,14 +15,15 @@ const AppLink = ({ children, to }) => {
       textDecoration={'none'}
       _focus={{ outline: 'none' }}
       fontWeight={'bold'}
-      color={active ? 'rgba(77, 134, 209, 1)' : 'white'}
+      color={active ? '#b7410e' : 'white'}
       borderBottom={active ? '2px solid ' : 'none'}
       cursor={'pointer'}
       _hover={{
-        color: 'blue.200',
+        color: '#b7410e',
         borderBottom: '2px solid',
-        borderColor: 'blue.200'
+        borderColor: '#b7410e'
       }}
+      // #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02
       transition={'all ease-in-out 0.3s'}
       role="navigation"
       fontSize={14}

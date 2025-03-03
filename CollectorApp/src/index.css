@@ -48,3 +48,9 @@ body {
     #5a2e02
   );
   border-image-slice: 1; */
+
+/* 
+  background:
+  url('../../../assets/backgr.png') no-repeat,
+  #1c212b;
+background-blend-mode: overlay; */

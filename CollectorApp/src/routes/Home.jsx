@@ -5,6 +5,7 @@ import Navbar from '../components/layout/Navbar/Navbar';
 import MostViewed from '../components/layout/MostViewed/MostViewed';
 import Carousel from '../components/layout/CategoryCarousel/Carousel';
 import Footer from '../components/layout/Footer';
+import VideoPlayer from './VideoPlayer';
 
 // Animation for letter-by-letter reveal
 const revealAnimation = keyframes`
@@ -20,6 +21,7 @@ const revealAnimation = keyframes`
 
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [showText, setShowText] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > window.innerHeight * 0.2) {
@@ -36,6 +38,14 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowText(true);
+    }, 4000); // 10 sekund
+
+    return () => clearTimeout(timer); // czyszczenie timera, aby uniknąć błędów
+  }, []);
+
   return (
     <Flex flexDirection="column" background="white" overflow="hidden">
       {/* Navbar */}
@@ -50,6 +60,9 @@ const Home = () => {
       <Box position="relative" width="100%">
         {/* Text with Animation */}
         <Box
+          background={'rgb(28, 33, 43,.5)'}
+          borderRadius={'2rem'}
+          p={'1rem 2rem'}
           position="absolute"
           zIndex={999}
           left={{ base: '15%', sm: '20%', md: '20%' }}
@@ -80,22 +93,19 @@ const Home = () => {
               </Box>
             ))}
           </Text>
+          <Text
+            fontSize={'2.6rem'}
+            p={'1rem 1rem '}
+            style={{ opacity: showText ? 1 : 0, transition: 'opacity 1s' }}
+          >
+            Dodaj swoje artykuły kolekcjonerskie i poznaj ich wartość rynkową.
+            Łatwe w użyciu narzędzie, które łączy pasjonatów kolekcjonerstwa!
+          </Text>
         </Box>
 
         {/* Background Image */}
-        <Image
-          src="./src/assets/main-page-img.jpeg" //zdjęcie
-          alt="background"
-          width="100%"
-          objectFit="cover"
-          height={{
-            base: '300px',
-            sm: '350px',
-            md: '400px',
-            lg: '500px',
-            xl: '700px'
-          }}
-        />
+
+        <VideoPlayer />
       </Box>
 
       {/* Other Sections */}
