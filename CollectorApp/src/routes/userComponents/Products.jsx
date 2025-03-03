@@ -229,7 +229,7 @@ const Products = () => {
         >
           {entries.map((entry, index) => {
             const wordCount = countWords(entry.body);
-            const isLongText = wordCount > 30;
+            const isLongText = wordCount > 50;
             const shortText =
               entry.body.split(' ').slice(0, 30).join(' ') + '...';
 
