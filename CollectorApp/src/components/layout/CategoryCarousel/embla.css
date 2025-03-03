@@ -25,6 +25,16 @@
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1); /* Przykład cienia */
   cursor: pointer;
   transition: transform 0.3s;
+  border: 5px solid;
+  border-image: linear-gradient(
+    45deg,
+    #8b3a3a,
+    #b7410e,
+    #fcd9cb,
+    #92400e,
+    #5a2e02
+  );
+  border-image-slice: 1;
 }
 
 .embla__slide:hover {
@@ -39,7 +49,10 @@
   height: 100%;
   padding: 1rem;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.2); /* Transparent white background */
+  background:
+    url('../../../assets/backgr.png') no-repeat,
+    #1c212b;
+  background-blend-mode: overlay;
   backdrop-filter: blur(10px); /* Blur effect */
   border-radius: 12px; /* Optional: Rounded corners */
   border: 1px solid rgba(255, 255, 255, 0.1); /* Optional: Subtle border */
@@ -48,7 +61,7 @@
 .embla__slide__title {
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-top: 1rem;
   color: white;
 }
 
@@ -125,7 +138,7 @@
     /* padding-left: 20px; */
   }
   .embla__slide__image {
-    height: 130px; /* Stała wysokość dla wszystkich zdjęć */
+    height: 150px; /* Stała wysokość dla wszystkich zdjęć */
   }
   .embla__controls {
     width: 100%;
@@ -141,7 +154,7 @@
     /* padding-left: 20px; */
   }
   .embla__slide__image {
-    height: 130px; /* Stała wysokość dla wszystkich zdjęć */
+    height: 200px; /* Stała wysokość dla wszystkich zdjęć */
   }
   .embla__controls {
     width: 100%;

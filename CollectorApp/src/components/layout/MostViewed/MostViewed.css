@@ -1,16 +1,15 @@
-/* .container.css-7jugx5 {
-  background-color: #9a9a9a;
-} */
-
-/* Style dla kontenera z kategoriami */
 .categories-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  padding: 40px;
+  padding: 2%;
   margin: 0;
-  background-color: #9a9a9a;
+  background:
+    url('../../../assets/backgr.png') no-repeat,
+    #1c212b;
+  background-blend-mode: overlay;
+  background-size: cover;
   box-shadow: inset 1px 1px 15px 8px black;
 }
 
@@ -24,20 +23,52 @@
   width: 100%;
   text-align: center;
   margin-bottom: 20px; /*Space between heading and the category cards */
-  background-color: #9a9a9a;
+  /* background:
+    url('../../../assets/backgr.png') no-repeat,
+    #d0c0a3; */
+  background:
+    url('../../../assets/backgr.png') no-repeat,
+    #1c212b;
+  background-blend-mode: overlay;
+  background-size: cover;
+  border: 5px solid;
+  border-image-source: linear-gradient(
+    45deg,
+    #8b3a3a,
+    #b7410e,
+    #fcd9cb,
+    #92400e,
+    #5a2e02
+  );
+  border-image-slice: 1;
+  box-shadow: 0 8px 16px rgb(12, 15, 22);
 }
 
 /* Style dla pojedynczej karty */
 .category-card {
-  width: 200px;
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  background: #1c212b;
+  background-size: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgb(28, 33, 43, 1);
   overflow: hidden;
   text-align: center;
   transition: transform 0.3s;
   max-height: inherit;
   margin-top: 15px;
+  background:
+    linear-gradient(
+        to bottom,
+        rgba(3, 8, 18, 1) 0%,
+        rgba(8, 13, 23, 1) 30%,
+        rgba(28, 33, 43, 1) 50%,
+        rgba(78, 83, 93, 0.9) 70%,
+        rgba(8, 13, 23, 1) 100%
+      )
+      padding-box,
+    linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)
+      border-box;
+  border: 4px solid transparent;
 }
 
 .category-card:hover {
@@ -49,23 +80,29 @@
   width: 100%;
   height: 100%;
   object-fit: contain; /* Zapewnia, że obraz wypełnia przestrzeń bez zniekształceń */
-  padding: 5%;
+  padding: 2%;
 }
 
 /* Styl tytułu */
 .category-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: white;
-  margin: 15px 0 10px;
-  font-weight: bold;
+  margin-right: 1rem;
+  font-weight: 500;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: left;
 }
 
 /* Styl opisu */
 .category-description {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: white;
-  padding: 0 10px 20px;
   margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: left;
+  overflow: hidden;
 }
 
 /* Styl linku */
@@ -83,22 +120,31 @@
 .category-link:hover {
   background-color: #0056b3;
 }
+
 @media (min-width: 480px) {
   .heading-container {
     font-size: 3rem;
-    background-color: #9a9a9a;
+    background:
+      url('../../../assets/backgr.png') no-repeat,
+      #1c212b;
+    background-blend-mode: overlay;
+    background-size: cover;
   }
   .grid-container {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat 1fr;
   }
 }
 @media (min-width: 720px) {
   .category-card {
-    width: 300px;
+    width: 280px;
   }
   .heading-container {
     font-size: 3.5rem;
-    background-color: #9a9a9a;
+    background:
+      url('../../../assets/backgr.png') no-repeat,
+      #1c212b;
+    background-blend-mode: overlay;
+    background-size: cover;
   }
   .grid-container {
     grid-template-columns: repeat(2, 1fr);
@@ -108,5 +154,14 @@
 @media (min-width: 1024px) {
   .grid-container {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .category-card {
+    width: 260px;
+  }
+}
+
+@media (min-width: 1250px) {
+  .category-card {
+    width: 300px;
   }
 }

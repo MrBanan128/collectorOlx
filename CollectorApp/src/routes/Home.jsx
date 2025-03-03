@@ -84,7 +84,7 @@ const Home = () => {
 
         {/* Background Image */}
         <Image
-          src="./src/assets/main-page-img.jpeg"
+          src="./src/assets/main-page-img.jpeg" //zdjęcie
           alt="background"
           width="100%"
           objectFit="cover"
@@ -107,7 +107,7 @@ const Home = () => {
         className="container"
         style={{
           background:
-            'radial-gradient(circle, rgba(11,11,11,1) 0%, rgba(193,186,186,1) 50%, rgba(9,9,9,1) 100%)'
+            'radial-gradient(circle, #1c212b 0%, #d0c0a3 50%, rgba(9,9,9,1) 100%)'
         }}
       >
         <MostViewed alt={'Znaczek'} src={'/item2.png'}></MostViewed>
