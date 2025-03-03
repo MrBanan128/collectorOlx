@@ -13,6 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import ExpertContact from './ExpertContact';
 import { SplitButton } from 'primereact/splitbutton';
+import { Toast } from 'primereact/toast';
 
 const Products = () => {
   const [selectedExpert, setSelectedExpert] = useState(null);
@@ -408,26 +409,17 @@ const Products = () => {
                     rounded={'lg'}
                     padding={'1rem'}
                     h={'50px'}
+                    className="custom-button"
                   >
                     <SplitButton
                       label="Akcje"
                       icon="pi pi-cog"
                       model={getMenuItems(entry)}
                       className="custom-split-button"
-                      style={{
-                        backgroundColor: '#1a202c',
-                        color: 'white',
-                        borderRadius: '8px',
-                        padding: '0.5rem 1rem',
-                        fontSize: '2rem',
-                        border: 'none',
-                        transition: 'all 0.3s ease',
-                        gap: '10px'
-                      }}
                       menuStyle={{
                         backgroundColor: '#1a202c',
                         borderRadius: '5px',
-                        padding: '1rem ',
+                        padding: '1rem',
                         color: 'white'
                       }}
                       menuClassName="custom-dropdown"

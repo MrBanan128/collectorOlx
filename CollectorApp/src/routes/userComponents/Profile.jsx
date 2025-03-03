@@ -3,6 +3,7 @@ import { Flex, Button, Heading, Stack, Text } from '@chakra-ui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Avatar } from '@chakra-ui/react';
 import { Toast } from 'primereact/toast';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -80,6 +81,20 @@ const Profile = () => {
     } catch (error) {
       setError(error.message);
     }
+  };
+  const confirmDelete = () => {
+    confirmDialog({
+      message:
+        'Czy na pewno chcesz usunąć swoje konto? Tej operacji nie można cofnąć!',
+      header: 'Potwierdzenie usunięcia',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Tak, usuń',
+      accept: handleDeleteAccount,
+      rejectLabel: 'Anuluj',
+      acceptClassName: 'custom-accept-btn', // Własna klasa dla przycisku
+      rejectClassName: 'custom-reject-btn',
+      className: 'custom-dialog' // Własna klasa dla całego dialogu
+    });
   };
 
   return (
@@ -181,8 +196,9 @@ const Profile = () => {
               sm={{ gap: 6 }}
               md={{ gap: 8, marginTop: '15%' }}
             >
+              <ConfirmDialog />
               <Button
-                onClick={handleDeleteAccount}
+                onClick={confirmDelete}
                 size="lg"
                 fontSize="lg"
                 bg="red.600"

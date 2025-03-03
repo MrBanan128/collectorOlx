@@ -80,7 +80,9 @@ const Register = () => {
       console.log(data);
       // If registration is successful, navigate to the login page
       if (data) {
-        navigate('/login'); // Redirect to login page
+        navigate('/login', {
+          state: { message: 'Zarejestrowano pomyślnie', severity: 'success' }
+        }); // Redirect to login page
       }
     } catch (error) {
       setMessage('Błąd podczas rejestracji');

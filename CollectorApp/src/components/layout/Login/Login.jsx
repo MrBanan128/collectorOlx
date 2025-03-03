@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   Flex,
   Box,
@@ -9,9 +9,10 @@ import {
   Image,
   Text
 } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'; // Corrected import path for NavLink
 import { FaGoogle, FaFacebook } from 'react-icons/fa'; // Added FaArrowLeft
+import { Toast } from 'primereact/toast';
 
 import Aurora from '../../ui/Aurora/Aurora';
 import ArrowBack from '../ArrowBack';
@@ -21,16 +22,37 @@ const Login = () => {
   const [token, setToken] = useState(null);
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const navigate = useNavigate();
+  const location = useLocation();
+  const toast = useRef(null);
 
   const handleLoginChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/dashboard/profile');
-    }
-  }, [navigate]);
+  useEffect(
+    () => {
+      if (location.state?.message) {
+        toast.current.show({
+          detail: 'Zarejestrowano pomyślnie',
+          life: 3000,
+          style: {
+            backgroundColor: 'rgb(0, 255, 0)', // Ciemniejsze tło
+            color: '#000', // Jasny tekst
+            borderRadius: '8px',
+            padding: '1rem',
+            fontSize: '16px'
+          },
+          className: 'custom-toast'
+        });
+      }
+
+      const token = localStorage.getItem('token');
+      if (token) {
+        navigate('/dashboard/profile');
+      }
+    },
+    [navigate],
+    [location.state]
+  );
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -68,6 +90,7 @@ const Login = () => {
 
   return (
     <Box position="relative" width="100vw" height="100vh" overflow="hidden">
+      <Toast ref={toast} position="top-right" />
       {/* Aurora jako tło */}
       <Box
         position="absolute"
