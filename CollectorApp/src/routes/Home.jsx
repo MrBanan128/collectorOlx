@@ -51,7 +51,13 @@ const Home = () => {
       {/* Navbar */}
       <Box>
         <Navbar
-          background={scrolled ? 'rgba(92, 92, 92,1)' : 'rgba(92, 92, 92,0)'}
+          background={
+            scrolled
+              ? `url('../../../assets/backgr.png') no-repeat center center, 
+               linear-gradient(to bottom, #1c212b 50%, #0a1020 100%); 
+               background-blend-mode: overlay;`
+              : 'rgba(92, 92, 92, 0)'
+          }
           height={scrolled ? '84px' : '80px'}
         />
       </Box>

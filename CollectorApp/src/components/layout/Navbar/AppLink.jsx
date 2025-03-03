@@ -23,7 +23,6 @@ const AppLink = ({ children, to }) => {
         borderBottom: '2px solid',
         borderColor: '#b7410e'
       }}
-      // #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02
       transition={'all ease-in-out 0.3s'}
       role="navigation"
       fontSize={14}
