@@ -155,7 +155,7 @@ const Products = () => {
       detail: 'Ogłoszenie zostało usunięte!',
       life: 3000,
       style: {
-        backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+        backgroundColor: 'rgb(255, 140, 0)', // Ciemniejsze tło
         color: '#000', // Jasny tekst
         borderRadius: '8px',
         padding: '1rem',
@@ -189,7 +189,7 @@ const Products = () => {
         detail: 'Zdjęcie zostało usunięte!',
         life: 3000,
         style: {
-          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          backgroundColor: 'rgb(255, 136, 0)', // Ciemniejsze tło
           color: '#000', // Jasny tekst
           borderRadius: '8px',
           padding: '1rem',
@@ -386,6 +386,7 @@ const Products = () => {
                         <ExpertContact
                           noteId={entry._id}
                           setSelectedExpert={setSelectedExpert}
+                          ToastAlert={toast}
                         />
                         <Button
                           bg="red.600"

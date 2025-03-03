@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Box, Button, Flex, Input, Text, Textarea } from '@chakra-ui/react';
 import AlertInfo from '../../components/ui/AlertInfo';
+import { Toast } from 'primereact/toast';
 
-const ExpertContact = ({ noteId, setSelectedExpert }) => {
+const ExpertContact = ({ noteId, setSelectedExpert, ToastAlert }) => {
   const [expert, setExpert] = useState([]);
   const [selectedExpert, setSelectedExpertState] = useState(''); // ID wybranego eksperta
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const toast = useRef(null);
 
   useEffect(() => {
     const fetchExpert = async () => {
@@ -41,15 +43,37 @@ const ExpertContact = ({ noteId, setSelectedExpert }) => {
   };
 
   const sendMessage = async () => {
-    if (!selectedExpert) {
-      setMessage('Wybierz eksperta, do którego chcesz wysłać wiadomość.');
-      return;
-    }
     if (!title || !content) {
-      setMessage('Tytuł i treść wiadomości są wymagane.');
+      if (ToastAlert?.current) {
+        ToastAlert.current.show({
+          detail: 'Treści są wymagane',
+          life: 3000,
+          style: {
+            backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+            color: '#000', // Jasny tekst
+            borderRadius: '8px',
+            padding: '1rem',
+            fontSize: '16px'
+          },
+          className: 'custom-toast'
+        });
+      }
       return;
     }
-
+    if (ToastAlert?.current) {
+      ToastAlert.current.show({
+        detail: 'Pomyślnie wysłano prośbę o wycenę',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(0, 255, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px'
+        },
+        className: 'custom-toast'
+      });
+    }
     setLoading(true);
     try {
       // Wysłanie wiadomości do eksperta
@@ -84,7 +108,20 @@ const ExpertContact = ({ noteId, setSelectedExpert }) => {
       setSelectedExpert(null);
     } catch (error) {
       console.error('Błąd podczas wysyłania wiadomości:', error);
-      setMessage('Wystąpił błąd. Spróbuj ponownie.');
+      if (ToastAlert?.current) {
+        ToastAlert.current.show({
+          detail: 'Wystąpił błąd podczas wysyłania wiadomości',
+          life: 3000,
+          style: {
+            backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+            color: '#000', // Jasny tekst
+            borderRadius: '8px',
+            padding: '1rem',
+            fontSize: '16px'
+          },
+          className: 'custom-toast'
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -92,6 +129,7 @@ const ExpertContact = ({ noteId, setSelectedExpert }) => {
 
   return (
     <Box>
+      <Toast ref={toast} position="top-right" />
       {message && (
         <AlertInfo message="Wiadomość została wysłana, ekspert został przypisany." />
       )}
