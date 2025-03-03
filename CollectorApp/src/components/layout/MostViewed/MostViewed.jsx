@@ -173,7 +173,7 @@ const MostViewed = () => {
                       </h4>
                     </Box>
 
-                    <Box fontSize={'1.6rem'} textAlign={'left'}>
+                    <Box fontSize={'1.6rem'} textAlign={'left'} color={'white'}>
                       Dodano:
                       {entry.createdAt
                         ? format(

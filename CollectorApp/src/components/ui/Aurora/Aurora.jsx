@@ -110,7 +110,7 @@ void main() {
 `;
 
 export default function Aurora(props) {
-  const { colorStops = ['#00d8ff', '#7cff67', '#00d8ff'], amplitude = 1.0 } =
+  const { colorStops = ['#8b3a3a', '#fcd9cb', '#5a2e02'], amplitude = 1.0 } =
     props;
   const propsRef = useRef(props);
   propsRef.current = props;
@@ -123,7 +123,8 @@ export default function Aurora(props) {
 
     const renderer = new Renderer();
     const gl = renderer.gl;
-    gl.clearColor(1, 1, 1, 1);
+    gl.clearColor(1, 1, 1, 1); // RGB konwertowane z rgb(22, 85, 179)
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
     let program;
 

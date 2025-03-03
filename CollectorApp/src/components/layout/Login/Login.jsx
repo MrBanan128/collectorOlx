@@ -101,7 +101,7 @@ const Login = () => {
         style={{ zIndex: '0' }}
       >
         <Aurora
-          colorStops={['#d5d6d6', '#FFFFFF', '#d5d6d6']}
+          colorStops={['#b7410e', '#fcd9cb', '#5a2e02']}
           speed={0.5}
           amplitude={10}
         />
@@ -123,7 +123,7 @@ const Login = () => {
           justifyContent={'center'}
           rounded={10}
           overflow={'hidden'}
-          border={'5px solid rgb(35, 35, 35)'}
+          border={'5px solid #1c212b)'}
           height={{
             base: 'auto',
             sm: '600px',
@@ -136,7 +136,7 @@ const Login = () => {
         >
           {/* Logo */}
           <Flex
-            backgroundColor={'rgba(4,10,20,255)'}
+            backgroundColor={'#1c212b'}
             alignItems="center"
             flexDir={'column'}
             gap={5}
@@ -174,7 +174,9 @@ const Login = () => {
 
           {/* Formularz logowania */}
           <Flex
-            bgImage={'url(/tapeta.jpg)'}
+            bg={
+              'linear-gradient(0deg, rgba(235, 164, 136,0.7) 0%, rgba(183,65,14,0.7) 83%, rgba(122,82,42,0.6) 100%)'
+            }
             p={10}
             direction="column"
             width="100%"
@@ -189,7 +191,7 @@ const Login = () => {
             </Heading>
             {message && (
               <Text
-                color="red"
+                color="#1c212b"
                 fontWeight={'bold'}
                 fontSize={{ base: '16px', sm: '20px' }}
                 textAlign="center"
@@ -208,16 +210,16 @@ const Login = () => {
                   direction="column"
                   alignItems="center"
                   gap={{ base: 5, md: 10 }}
-                  color={'rgba(2,9,17,255)'}
+                  color={'white'}
                 >
                   <Input
                     type="email"
                     name="email"
-                    border={'2px solid rgba(2,9,17,255)'}
+                    border={'3px solid white'}
                     placeholder="E-mail"
                     padding={8}
                     onChange={handleLoginChange}
-                    _placeholder={{ color: 'rgba(2,9,17,255)' }}
+                    _placeholder={{ color: 'white' }}
                     fontSize={'20px'}
                     required
                     width="80%"
@@ -226,25 +228,24 @@ const Login = () => {
                   <Input
                     type="password"
                     name="password"
-                    border={'2px solid rgba(2,9,17,255)'}
+                    border={'3px solid white'}
                     placeholder="Hasło"
                     padding={8}
                     onChange={handleLoginChange}
-                    _placeholder={{ color: 'rgba(2,9,17,255)' }}
+                    _placeholder={{ color: 'white' }}
                     fontSize={'20px'}
                     required
                     width="80%"
                   />
                   <Button
                     type="submit"
-                    backgroundColor="rgba(2,9,17,255)"
+                    backgroundColor="#1c212b"
                     mt="10px"
                     fontSize={'20px'}
                     minW={'60%'}
                     width={{ base: '80%', sm: '60%' }}
                     height={'50px'}
                     md={{ marginTop: '40px' }}
-                    color={'#cbcdc4'}
                   >
                     Zaloguj
                   </Button>
@@ -258,14 +259,19 @@ const Login = () => {
             flexDir={{ base: 'row', sm: 'column' }}
             gap={5}
             padding={5}
-            background={'#cbcdc4'}
+            background={'#1c212b'}
             paddingBottom={10}
           >
-            <Flex flexDir={'row'} alignItems={'center'} gap={5}>
+            <Flex
+              flexDir={'row'}
+              alignItems={'center'}
+              gap={5}
+              color={'rgb(0, 0, 0)'}
+            >
               <FaGoogle style={{ minWidth: '15px' }} />
               <Button
-                backgroundColor={'rgba(2,9,17,255)'}
-                color={'#cbcdc4'}
+                backgroundColor={'rgb(11, 8, 8)'}
+                color={'white'}
                 display={{ base: 'none', sm: 'block' }}
                 width={{ sm: '50%', md: '40%' }}
                 onClick={handleGoogleLogin}
@@ -273,11 +279,16 @@ const Login = () => {
                 Zaloguj się przez Google
               </Button>
             </Flex>
-            <Flex flexDir={'row'} alignItems={'center'} gap={5}>
+            <Flex
+              flexDir={'row'}
+              alignItems={'center'}
+              gap={5}
+              color={'rgb(0, 0, 0)'}
+            >
               <FaFacebook style={{ minWidth: '15px' }} />
               <Button
-                backgroundColor={'rgba(2,9,17,255)'}
-                color={'#cbcdc4'}
+                backgroundColor={'rgb(11, 8, 8)'}
+                color={'white'}
                 display={{ base: 'none', sm: 'block' }}
                 width={{ sm: '50%', md: '40%' }}
                 onClick={handleFacebookLogin}

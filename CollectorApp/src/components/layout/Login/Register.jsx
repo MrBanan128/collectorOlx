@@ -46,19 +46,19 @@ const Register = () => {
     const usernameRegex = /^[a-zA-Z0-9_]{3,}$/; // Alphanumeric and underscores, at least 3 characters
     if (!username || !usernameRegex.test(username)) {
       validationError =
-        'Username must be at least 3 characters and can only contain letters, numbers, and underscores.';
+        'Użytkownik musi mieć minimum 3 znaki i nie zawierać znaków specjalnych';
     }
 
     // Password validation (minimum 8 characters, at least one uppercase letter, one number)
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!password || !passwordRegex.test(password)) {
       validationError =
-        'Password must be at least 8 characters long, include one uppercase letter and one number.';
+        'Hasło musi mieć przynajmniej 8 liter w tym jedna duża oraz jedna liczba';
     }
 
     // Check if the passwords match
     if (password !== RepeatedPassword) {
-      validationError = 'Passwords do not match.';
+      validationError = 'Hasła się nie zgadzają';
     }
 
     // If validation failed, display the message and stop the form submission
@@ -112,7 +112,7 @@ const Register = () => {
         style={{ zIndex: '0' }}
       >
         <Aurora
-          colorStops={['#d5d6d6', '#FFFFFF', '#d5d6d6']}
+          colorStops={['#b7410e', '#fcd9cb', '#5a2e02']}
           speed={0.5}
           amplitude={10}
         />
@@ -136,7 +136,7 @@ const Register = () => {
           rounded={10}
           marginTop={10}
           overflow={'hidden'}
-          border={'5px solid rgb(35, 35, 35)'}
+          border={'5px solid #1c212b)'}
           height={{
             base: 'auto',
             sm: '600px',
@@ -149,7 +149,7 @@ const Register = () => {
         >
           {/* Logo */}
           <Flex
-            backgroundColor={'rgba(4,10,20,255)'}
+            backgroundColor={'#1c212b;'}
             alignItems="center"
             flexDir={'column'}
             gap={5}
@@ -190,11 +190,13 @@ const Register = () => {
           {/* Formularz rejestracji */}
           <Flex
             className="Register-form"
-            bgImage={'url(/tapeta.jpg)'}
-            bgSize="none"
+            bg={
+              'linear-gradient(0deg, rgba(235, 164, 136,0.7) 0%, rgba(183,65,14,0.7) 83%, rgba(122,82,42,0.6) 100%);'
+            }
             p={10}
             direction="column"
             width="100%"
+            height={'100%'}
           >
             <Heading
               color="white"
@@ -206,7 +208,7 @@ const Register = () => {
             </Heading>
             {message && (
               <Text
-                color="red"
+                color="#1c212b"
                 fontWeight={'bold'}
                 fontSize={{ base: '16px', sm: '20px' }}
                 textAlign="center"
@@ -222,67 +224,63 @@ const Register = () => {
                   direction="column"
                   alignItems="center"
                   gap={{ base: 5, md: 5, xl: 10 }}
+                  color={'white'}
                 >
                   <Input
                     type="text"
                     name="username"
-                    border={'2px solid rgba(2,9,17,255)'}
+                    border={'2px solid white'}
                     placeholder="Nazwa"
                     padding={{ base: 5, sm: 8 }}
                     onChange={handleRegisterChange}
-                    _placeholder={{ color: 'rgba(2,9,17,255)' }}
+                    _placeholder={{ color: 'white' }}
                     fontSize={'20px'}
                     required
                     width={{ base: '80%', sm: '80%', md: '90%' }}
-                    color={'rgba(2,9,17,255)'}
                   />
                   <Input
                     type="email"
                     name="email"
-                    border={'2px solid rgba(2,9,17,255)'}
+                    border={'2px solid white'}
                     placeholder="E-mail"
                     padding={{ base: 5, sm: 8 }}
                     onChange={handleRegisterChange}
-                    _placeholder={{ color: 'rgba(2,9,17,255)' }}
+                    _placeholder={{ color: 'white' }}
                     fontSize={'20px'}
                     required
                     width={{ base: '80%', sm: '80%', md: '90%' }}
-                    color={'rgba(2,9,17,255)'}
                   />
                   <Input
                     type="password"
                     name="password"
-                    border={'2px solid rgba(2,9,17,255)'}
+                    border={'2px solid white'}
                     placeholder="Hasło"
                     padding={{ base: 5, sm: 8 }}
                     onChange={handleRegisterChange}
-                    _placeholder={{ color: 'rgba(2,9,17,255)' }}
+                    _placeholder={{ color: 'white' }}
                     fontSize={'20px'}
                     required
                     width={{ base: '80%', sm: '80%', md: '90%' }}
-                    color={'rgba(2,9,17,255)'}
                   />
                   <Input
                     type="password"
                     name="RepeatedPassword"
-                    border={'2px solid rgba(2,9,17,255)'}
+                    border={'2px solid white'}
                     placeholder="Powtórz hasło"
                     padding={{ base: 5, sm: 8 }}
                     onChange={handleRegisterChange}
-                    _placeholder={{ color: 'rgba(2,9,17,255)' }}
+                    _placeholder={{ color: 'white' }}
                     fontSize={'20px'}
                     required
                     width={{ base: '80%', sm: '80%', md: '90%' }}
-                    color={'rgba(2,9,17,255)'}
                   />
                   <Button
                     type="submit"
-                    backgroundColor="rgba(2,9,17,255)"
+                    backgroundColor="#1c212b"
                     mt="10px"
                     fontSize={{ base: '14px', sm: '20px' }}
                     width={{ base: '60%', sm: '60%', md: '70%' }}
                     height={{ base: '40px', sm: '50px' }}
-                    color={'#cbcdc4'}
                   >
                     Zarejestruj
                   </Button>
@@ -296,7 +294,8 @@ const Register = () => {
             flexDir={{ base: 'row', sm: 'column' }}
             gap={5}
             padding={5}
-            background={'#cbcdc4'}
+            background={'#1c212b'}
+            color={'rgb(0, 0, 0)'}
           >
             <Flex
               flexDir={'row'}
@@ -306,8 +305,8 @@ const Register = () => {
             >
               <FaGoogle style={{ minWidth: '15px' }} />
               <Button
-                backgroundColor={'rgba(2,9,17,255)'}
-                color={'#cbcdc4'}
+                backgroundColor={'rgb(0, 0, 0)'}
+                color={'white'}
                 display={{ base: 'none', sm: 'block' }}
                 width={{ sm: '50%', md: '40%' }}
               >
@@ -322,8 +321,8 @@ const Register = () => {
             >
               <FaFacebook style={{ minWidth: '15px' }} />
               <Button
-                backgroundColor={'rgba(2,9,17,255)'}
-                color={'#cbcdc4'}
+                backgroundColor={'rgb(0, 0, 0)'}
+                color={'white'}
                 display={{ base: 'none', sm: 'block' }}
                 width={{ sm: '50%', md: '40%' }}
               >

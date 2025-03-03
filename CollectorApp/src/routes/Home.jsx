@@ -102,6 +102,7 @@ const Home = () => {
           <Text
             fontSize={'2.6rem'}
             p={'1rem 1rem '}
+            color={'white'}
             style={{ opacity: showText ? 1 : 0, transition: 'opacity 1s' }}
           >
             Dodaj swoje artykuły kolekcjonerskie i poznaj ich wartość rynkową.
