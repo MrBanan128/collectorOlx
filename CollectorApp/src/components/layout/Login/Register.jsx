@@ -296,7 +296,7 @@ const Register = () => {
             gap={5}
             padding={5}
             background={'#1c212b'}
-            color={'rgb(0, 0, 0)'}
+            color={'rgb(255, 255, 255)'}
           >
             <Flex
               flexDir={'row'}
@@ -319,7 +319,6 @@ const Register = () => {
               alignItems={'center'}
               gap={5}
               onClick={handleFacebookLogin}
-              color={'white'}
             >
               <FaFacebook style={{ minWidth: '15px' }} />
               <Button

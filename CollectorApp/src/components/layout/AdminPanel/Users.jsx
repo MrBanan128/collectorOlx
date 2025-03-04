@@ -278,13 +278,14 @@ const Users = () => {
           textAlign={'left'}
           padding={'2rem'}
           color={'white'}
+          mt={'2rem'}
         >
           <h3 style={{ paddingBottom: '10px', fontSize: '20px' }}>
             Edytuj użytkownika
           </h3>
           <Box
             padding={'2rem'}
-            boxShadow={'0 4px 8px rgba(0, 0, 0, 0.4)'}
+            boxShadow={'8px 8px 8px 8px rgb(0, 0, 0)'}
             rounded={'2xl'}
           >
             <form onSubmit={(e) => e.preventDefault()}>
@@ -616,23 +617,23 @@ const Users = () => {
           onClick={handleBulkDelete}
           disabled={selection.length === 0}
           style={{
-            marginTop: '2rem', // Wygodne wypełnienie
-            background: '#007bff', // Niebieskie tło
-            color: 'white', // Kolor tekstu na biały
-            padding: '.5rem 1rem', // Wygodne wypełnienie
-            margin: '.5rem', // Odstęp od innych elementów
-            border: 'none', // Brak obramowania
-            borderRadius: '8px', // Zaokrąglone rogi
-            fontSize: '16px', // Wygodny rozmiar czcionki
-            cursor: 'pointer', // Wskaźnik kursora zmienia się na wskazujący
-            transition: 'all 0.3s ease', // Płynne przejście efektów
-            boxShadow: '0 4px 8px rgba(0, 123, 255, 0.4)' // Efekt cienia
+            marginTop: '2rem',
+            background: 'rgb(236, 85, 20)',
+            color: 'white',
+            padding: '.5rem 1rem',
+            margin: '.5rem',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            boxShadow: '4px 4px 10px rgba(236, 85, 20, 0.4)' // Subtelniejszy cień
           }}
           onMouseOver={(e) => {
-            e.target.style.boxShadow = '0 8px 16px rgba(0, 123, 255, 0.6)'; // Zmiana cienia na hover
+            e.target.style.boxShadow = '6px 6px 12px rgba(236, 85, 20, 0.6)'; // Mocniejszy efekt na hover
           }}
           onMouseOut={(e) => {
-            e.target.style.boxShadow = '0 4px 8px rgba(0, 123, 255, 0.4)'; // Powrót do początkowego cienia
+            e.target.style.boxShadow = '4px 4px 10px rgba(236, 85, 20, 0.4)'; // Powrót do pierwotnego efektu
           }}
         >
           Usuń zaznaczonych użytkowników
