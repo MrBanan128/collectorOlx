@@ -7,7 +7,7 @@ import AppLink from './AppLink';
 import Sidebar from './Sidebar';
 
 // Ensure Navbar is correctly defined and exported
-const Navbar = ({ background, height }) => {
+const Navbar = ({ background, height, width }) => {
   const [isVisible, setVisible] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false); // Stan do przechowywania informacji o adminie
   const [isExpert, setIsExpert] = useState(false); // Stan do przechowywania informacji o ekspercie
@@ -74,7 +74,7 @@ const Navbar = ({ background, height }) => {
         roundedBottom={'xl'}
       >
         <Link to="/">
-          {!isVisible && <Logo width={'100%'} height={'100%'} />}
+          {!isVisible && <Logo height={height} width={width} />}
         </Link>
         <Flex justifyContent="start" gap={3} float="right" px={4}>
           <AppLink to="/">Strona Główna</AppLink>

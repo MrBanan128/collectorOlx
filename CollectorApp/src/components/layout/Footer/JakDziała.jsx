@@ -41,7 +41,7 @@ const JakDziała = () => {
       <Box
         maxW="1200px"
         mx="auto"
-        p={{ base: '4rem 1rem', md: '6rem 2rem' }}
+        p={{ base: '4rem 1rem', md: '4rem 1rem' }}
         mt={'5rem'}
       >
         {/* Nagłówek */}

@@ -27,7 +27,7 @@ const PolitykaPrywatnosci = () => {
         background={scrolled ? 'rgba(92, 92, 92,1)' : 'rgba(92, 92, 92,0)'}
         height={scrolled ? '84px' : '80px'}
       />
-      <Box maxW="800px" mx="auto" p="13rem 4rem 6rem 4rem">
+      <Box maxW="800px" mx="auto" p="9rem 0 3rem 0">
         {/* Szary Box tworzący "kartę" */}
         <Box backgroundColor={'#222222'} borderRadius="lg" p={6}>
           <Heading as="h1" size="xl" mb={5} textAlign="center">
