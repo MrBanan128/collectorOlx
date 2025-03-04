@@ -56,7 +56,7 @@ const Home = () => {
               ? `url('../../../assets/backgr.png') no-repeat center center, 
                linear-gradient(to bottom, #1c212b 70%, rgb(8, 13, 23) 100%); 
                background-blend-mode: overlay;`
-              : 'rgba(92, 92, 92, 0)'
+              : 'rgba(28, 33, 43, .5)'
           }
           height={scrolled ? '84px' : '80px'}
         />
