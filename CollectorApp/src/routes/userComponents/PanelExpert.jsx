@@ -126,9 +126,18 @@ const ExpertPanel = () => {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', color: 'white' }}>
+    <div
+      style={{
+        display: 'flex',
+        minHeight: '100vh',
+        color: 'white',
+        width: '100%',
+        backgroundColor: '#1c212b',
+        padding: '1rem'
+      }}
+    >
       <Toast ref={toast} />
-      <div style={{ flex: 1 }}>
+      <Flex flexDir={'column'} alignItems={'center'} gap={4} flex={1}>
         <Heading fontSize={'30px'} color={'white'} padding={'10px'}>
           Ogłoszenia do Wyceny
         </Heading>
@@ -142,14 +151,15 @@ const ExpertPanel = () => {
               <div
                 key={note._id}
                 style={{
-                  boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',
+                  boxShadow: '10px 10px 20px rgba(0, 0, 0, 0.5)',
                   borderRadius: '5px',
-                  padding: '1rem',
-                  margin: '0.5rem',
+                  padding: '2rem',
+                  marginTop: '2rem',
+                  marginBottom: '4rem',
                   maxWidth: '900px',
                   cursor: 'pointer',
                   backgroundColor:
-                    activeNoteId === note._id ? '#f0f0f0' : 'transparent',
+                    activeNoteId === note._id ? '#f0f0f0' : 'rgba(0,0,0,0.4)',
                   transform:
                     activeNoteId === note._id ? 'scale(1.05)' : 'scale(1)',
                   transition: 'all 0.3s ease-in-out'
@@ -182,14 +192,14 @@ const ExpertPanel = () => {
             ))}
           </div>
         )}
-      </div>
+      </Flex>
 
       {/* Formularz dla aktywnej notatki */}
       <Flex>
         {activeNoteId && (
           <Flex
-            ml={'5rem'}
             w={'400px'}
+            mr={'5rem'}
             color={'black'}
             boxShadow={'lg'}
             height={'300px'}
@@ -202,8 +212,9 @@ const ExpertPanel = () => {
             <Flex direction="column">
               <Heading
                 size={'3xl'}
-                borderBottom={'1px solid black'}
+                borderBottom={'1px solid rgb(236, 85, 20)'}
                 marginBottom={4}
+                color={'rgb(236, 85, 20)'}
               >
                 Dodaj wycenę eksperta
               </Heading>
@@ -304,19 +315,19 @@ const ExpertPanel = () => {
                       padding="10px"
                       type="submit"
                       style={{
-                        background: 'blue',
+                        background: 'rgb(236, 85, 20)',
                         margin: '.2rem',
                         borderRadius: '8px',
                         border: 'none',
                         fontWeight: 'bold',
                         cursor: 'pointer',
                         transition: 'background 0.3s ease, transform 0.2s ease',
-                        boxShadow: '0 4px 10px rgba(0, 0, 255, 0.3)'
+                        boxShadow: '0 4px 10px rgba(236, 85, 20,1)'
                       }}
                       _hover={{
                         background: 'darkblue',
                         transform: 'scale(1.05)',
-                        boxShadow: '0 6px 15px rgba(0, 0, 255, 0.5)'
+                        boxShadow: '0 6px 15px rgba(236, 85, 20,1)'
                       }}
                       _active={{
                         background: 'navy',
