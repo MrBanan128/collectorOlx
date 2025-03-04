@@ -8,7 +8,10 @@ const Footer = () => {
     <Flex
       backgroundImage={`url(${background})`}
       backgroundRepeat="no-repeat"
-      backgroundColor="#1c212b"
+      // backgroundColor="#1c212b"
+      background={`url('../../../assets/backgr.png') no-repeat center center, 
+               linear-gradient(to bottom, #1c212b 50%, #0a1020 100%); 
+               background-blend-mode: overlay;`}
       backgroundBlendMode="overlay"
       backgroundSize="cover"
       direction="column"
