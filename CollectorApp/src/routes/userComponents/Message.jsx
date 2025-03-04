@@ -154,215 +154,226 @@ const Message = () => {
       width={'100%'}
       minHeight={'100vh'}
       padding="2rem"
-      flexDir={'row'}
+      flexDir={'column'}
       color={'white'}
+      bg={'#1c212b'}
+      alignItems={'center'}
     >
       <Flex
-        width={'50%'}
-        direction="column"
+        width={'80%'}
+        borderTop={'1px solid #ccc'}
+        padding={'10px'}
         alignItems={'center'}
-        className="messages"
-      >
-        <Flex flexDir={'column'} alignItems={'center'} width={'80%'}>
-          <Heading
-            padding={'20px'}
-            color={'red.500'}
-            fontSize={'2rem'}
-            fontWeight={'700'}
-            md={{ padding: '30px', fontSize: '3rem' }}
-          >
-            Nieprzeczytane
-          </Heading>
-          <Box
-            width="140px"
-            bg="gray.700"
-            p="4"
-            rounded={'xl'}
-            md={{ width: '350px' }}
-          >
-            {unreadMessages.length > 0 ? (
-              unreadMessages.map((msg) => (
-                <Text
-                  key={msg._id}
-                  color="red.300"
-                  cursor="pointer"
-                  textAlign="center"
-                  onClick={() => handleMessageClick(msg._id)}
-                  _hover={{ color: 'white' }}
-                >
-                  {msg.title}
-                </Text>
-              ))
-            ) : (
-              <Text color="gray.400" textAlign="center">
-                Brak wiadomości
-              </Text>
-            )}
-          </Box>
-        </Flex>
-
-        <Flex flexDir={'column'} alignItems={'center'} width={'80%'}>
-          <Heading
-            padding={'20px'}
-            color={'blue.500'}
-            fontSize={'2rem'}
-            fontWeight={'700'}
-            md={{ padding: '30px', fontSize: '3rem' }}
-          >
-            Przeczytane
-          </Heading>
-          <Box
-            width={'140px'}
-            bg="gray.700"
-            p="4"
-            borderRadius="md"
-            md={{ width: '350px' }}
-          >
-            {readMessages.length > 0 ? (
-              readMessages.map((msg) => (
-                <Text
-                  key={msg._id}
-                  color="gray.300"
-                  cursor="pointer"
-                  textAlign="center"
-                  onClick={() => handleMessageClick(msg._id)}
-                  _hover={{ color: 'white' }}
-                >
-                  {msg.title}
-                </Text>
-              ))
-            ) : (
-              <Text color="gray.400" textAlign="center">
-                Brak wiadomości
-              </Text>
-            )}
-          </Box>
-        </Flex>
-      </Flex>
-      <Flex
-        width={'50%'}
-        padding={'20px'}
-        borderLeft="1px solid #ccc"
-        flexDir={'column'}
-        className="message-details"
-      >
-        {selectedMessage ? (
-          <Flex
-            flexDir={'column'}
-            alignItems={'center'}
-            width={'100%'}
-            justifyContent={'center'}
-          >
-            <Heading textAlign="center" fontSize={'2rem'} color={'#60a5fa'}>
-              {formatDate(selectedMessage.timestamp)}
+        justifyContent={'center'}
+      ></Flex>
+      <Flex flexDir={'row'} width={'100%'}>
+        <Flex
+          width={'50%'}
+          direction="column"
+          alignItems={'center'}
+          className="messages"
+        >
+          <Flex flexDir={'column'} alignItems={'center'} width={'80%'}>
+            <Heading
+              padding={'20px'}
+              color={'red.500'}
+              fontSize={'2rem'}
+              fontWeight={'700'}
+              md={{ padding: '30px', fontSize: '3rem' }}
+            >
+              Nieprzeczytane
             </Heading>
-            <Flex flexDir={'column'} alignItems={'center'}>
-              <Heading textAlign={'center'} fontSize={'2rem'} mt={'20px'}>
-                {selectedMessage.content}
-              </Heading>
-            </Flex>
+            <Box
+              width="140px"
+              bg="gray.700"
+              p="4"
+              rounded={'xl'}
+              md={{ width: '350px' }}
+            >
+              {unreadMessages.length > 0 ? (
+                unreadMessages.map((msg) => (
+                  <Text
+                    key={msg._id}
+                    color="red.300"
+                    cursor="pointer"
+                    textAlign="center"
+                    onClick={() => handleMessageClick(msg._id)}
+                    _hover={{ color: 'white' }}
+                  >
+                    {msg.title}
+                  </Text>
+                ))
+              ) : (
+                <Text color="gray.400" textAlign="center">
+                  Brak wiadomości
+                </Text>
+              )}
+            </Box>
           </Flex>
-        ) : (
-          <Flex flexDir={'column'} alignItems={'center'}>
-            <p>Wybierz wiadomość</p>
+
+          <Flex flexDir={'column'} alignItems={'center'} width={'80%'}>
+            <Heading
+              padding={'20px'}
+              color={'blue.500'}
+              fontSize={'2rem'}
+              fontWeight={'700'}
+              md={{ padding: '30px', fontSize: '3rem' }}
+            >
+              Przeczytane
+            </Heading>
+            <Box
+              width={'140px'}
+              bg="gray.700"
+              p="4"
+              borderRadius="md"
+              md={{ width: '350px' }}
+            >
+              {readMessages.length > 0 ? (
+                readMessages.map((msg) => (
+                  <Text
+                    key={msg._id}
+                    color="gray.300"
+                    cursor="pointer"
+                    textAlign="center"
+                    onClick={() => handleMessageClick(msg._id)}
+                    _hover={{ color: 'white' }}
+                  >
+                    {msg.title}
+                  </Text>
+                ))
+              ) : (
+                <Text color="gray.400" textAlign="center">
+                  Brak wiadomości
+                </Text>
+              )}
+            </Box>
           </Flex>
-        )}
-        <Flex>
-          {selectedMessage && (
+        </Flex>
+        <Flex
+          width={'50%'}
+          padding={'20px'}
+          borderLeft="1px solid #ccc"
+          flexDir={'column'}
+          className="message-details"
+        >
+          {selectedMessage ? (
             <Flex
               flexDir={'column'}
-              width={'100%'}
-              mt="20px"
-              gap={'20px'}
               alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
             >
-              <Flex>
-                <Heading
-                  fontSize={'1rem'}
-                  textAlign={'center'}
-                  sm={{ fontSize: '2rem' }}
-                >
-                  Odpowiedz na wiadomość
+              <Heading textAlign="center" fontSize={'2rem'} color={'#60a5fa'}>
+                {formatDate(selectedMessage.timestamp)}
+              </Heading>
+              <Flex flexDir={'column'} alignItems={'center'}>
+                <Heading textAlign={'center'} fontSize={'2rem'} mt={'20px'}>
+                  {selectedMessage.content}
                 </Heading>
               </Flex>
-
-              <form onSubmit={handleReplySubmit}>
-                <Flex
-                  flexDir="column"
-                  gap="12px"
-                  bg="gray.700" // Półprzezroczyste tło
-                  p="20px"
-                  borderRadius="lg"
-                  boxShadow="lg"
-                  maxW="500px"
-                  w="100%"
-                  mx="auto"
-                  md={{ p: '30px', width: '350px', height: '300px' }}
-                >
-                  <Input
-                    bg="white"
-                    color="black"
-                    _placeholder={{ color: 'gray.600' }}
-                    border="2px solid"
-                    borderColor="gray.300"
-                    _focus={{
-                      borderColor: 'blue.400',
-                      boxShadow: '0 0 10px rgba(0, 0, 255, 0.3)'
-                    }}
-                    type="text"
-                    placeholder="Tytuł"
-                    value={replyTitle}
-                    onChange={(e) => setReplyTitle(e.target.value)}
-                    borderRadius="md"
-                    p="10px"
-                    md={{ p: '12px' }}
-                  />
-                  <Textarea
-                    bg="white"
-                    color="black"
-                    _placeholder={{ color: 'gray.600' }}
-                    border="2px solid"
-                    borderColor="gray.300"
-                    _focus={{
-                      borderColor: 'blue.400',
-                      boxShadow: '0 0 10px rgba(0, 0, 255, 0.3)'
-                    }}
-                    placeholder="Treść wiadomości"
-                    value={replyContent}
-                    onChange={(e) => setReplyContent(e.target.value)}
-                    borderRadius="md"
-                    p="20px"
-                    md={{ p: '30px' }}
-                  />
-                  <Button
-                    type="submit"
-                    bgGradient="linear(to-r, blue.500, blue.700)"
-                    color="white"
-                    _hover={{
-                      bgGradient: 'linear(to-r, blue.600, blue.800)',
-                      transform: 'scale(1.05)'
-                    }}
-                    transition="0.2s"
-                    borderRadius="md"
-                    p="12px"
-                  >
-                    Wyślij odpowiedź
-                  </Button>
-                  <Button
-                    onClick={() => handleDeleteMessage(selectedMessage._id)}
-                    bg="red.500"
-                    color="white"
-                    _hover={{ bg: 'red.600', transform: 'scale(1.05)' }}
-                    transition="0.2s"
-                    borderRadius="md"
-                    p="12px"
-                  >
-                    Usuń wiadomość
-                  </Button>
-                </Flex>
-              </form>
+            </Flex>
+          ) : (
+            <Flex flexDir={'column'} alignItems={'center'}>
+              <p>Wybierz wiadomość</p>
             </Flex>
           )}
+          <Flex>
+            {selectedMessage && (
+              <Flex
+                flexDir={'column'}
+                width={'100%'}
+                mt="20px"
+                gap={'20px'}
+                alignItems={'center'}
+              >
+                <Flex>
+                  <Heading
+                    fontSize={'1rem'}
+                    textAlign={'center'}
+                    sm={{ fontSize: '2rem' }}
+                  >
+                    Odpowiedz na wiadomość
+                  </Heading>
+                </Flex>
+
+                <form onSubmit={handleReplySubmit}>
+                  <Flex
+                    flexDir="column"
+                    gap="12px"
+                    bg="gray.700" // Półprzezroczyste tło
+                    p="20px"
+                    borderRadius="lg"
+                    boxShadow="lg"
+                    maxW="500px"
+                    w="100%"
+                    mx="auto"
+                    md={{ p: '30px', width: '350px', height: '300px' }}
+                  >
+                    <Input
+                      bg="white"
+                      color="black"
+                      _placeholder={{ color: 'gray.600' }}
+                      border="2px solid"
+                      borderColor="gray.300"
+                      _focus={{
+                        borderColor: 'blue.400',
+                        boxShadow: '0 0 10px rgba(0, 0, 255, 0.3)'
+                      }}
+                      type="text"
+                      placeholder="Tytuł"
+                      value={replyTitle}
+                      onChange={(e) => setReplyTitle(e.target.value)}
+                      borderRadius="md"
+                      p="10px"
+                      md={{ p: '12px' }}
+                    />
+                    <Textarea
+                      bg="white"
+                      color="black"
+                      _placeholder={{ color: 'gray.600' }}
+                      border="2px solid"
+                      borderColor="gray.300"
+                      _focus={{
+                        borderColor: 'blue.400',
+                        boxShadow: '0 0 10px rgba(0, 0, 255, 0.3)'
+                      }}
+                      placeholder="Treść wiadomości"
+                      value={replyContent}
+                      onChange={(e) => setReplyContent(e.target.value)}
+                      borderRadius="md"
+                      p="20px"
+                      md={{ p: '30px' }}
+                    />
+                    <Button
+                      type="submit"
+                      bgGradient="linear(to-r, blue.500, blue.700)"
+                      color="white"
+                      _hover={{
+                        bgGradient: 'linear(to-r, blue.600, blue.800)',
+                        transform: 'scale(1.05)'
+                      }}
+                      transition="0.2s"
+                      borderRadius="md"
+                      p="12px"
+                    >
+                      Wyślij odpowiedź
+                    </Button>
+                    <Button
+                      onClick={() => handleDeleteMessage(selectedMessage._id)}
+                      bg="red.500"
+                      color="white"
+                      _hover={{ bg: 'red.600', transform: 'scale(1.05)' }}
+                      transition="0.2s"
+                      borderRadius="md"
+                      p="12px"
+                    >
+                      Usuń wiadomość
+                    </Button>
+                  </Flex>
+                </form>
+              </Flex>
+            )}
+          </Flex>
         </Flex>
       </Flex>
     </Flex>

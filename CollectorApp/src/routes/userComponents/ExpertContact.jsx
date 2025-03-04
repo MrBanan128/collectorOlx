@@ -138,7 +138,7 @@ const ExpertContact = ({ noteId, setSelectedExpert, ToastAlert }) => {
         <Box mb="4">
           <Text fontSize="lg" fontWeight="bold" color="gray.700">
             Wybrany ekspert:{' '}
-            <Text as="span" color="blue.600" fontWeight="semibold">
+            <Text as="span" color="#1c212b" fontWeight="semibold">
               {expert.find((exp) => exp._id === selectedExpert)?.username}
             </Text>
           </Text>
@@ -157,10 +157,10 @@ const ExpertContact = ({ noteId, setSelectedExpert, ToastAlert }) => {
               px="4"
               py="2"
               cursor="pointer"
-              bg={selectedExpert === exp._id ? 'blue.500' : 'gray.100'}
+              bg={selectedExpert === exp._id ? '#1c212b' : 'gray.100'}
               color={selectedExpert === exp._id ? 'white' : 'gray.800'}
               _hover={{
-                bg: 'blue.400',
+                bg: '#596375',
                 color: 'white',
                 transform: 'scale(1.05)'
               }}
@@ -188,9 +188,7 @@ const ExpertContact = ({ noteId, setSelectedExpert, ToastAlert }) => {
               border="1px solid"
               borderColor="gray.500"
               _placeholder={{ color: 'white' }}
-              bg={
-                'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
-              }
+              bg={'#1c212b'}
               rounded="lg"
               px="3"
               py="2"
@@ -209,9 +207,7 @@ const ExpertContact = ({ noteId, setSelectedExpert, ToastAlert }) => {
               border="1px solid"
               borderColor="gray.500"
               _placeholder={{ color: 'white' }}
-              bg={
-                'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
-              }
+              bg={'#1c212b'}
               rounded="lg"
               px="3"
               py="2"

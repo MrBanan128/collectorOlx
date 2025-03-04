@@ -216,6 +216,7 @@ const Products = () => {
       width={'100%'}
       color={'white'}
       overflow="auto"
+      bg={'#1a202c'}
     >
       <Toast ref={toast} position="top-right" />
       <Box mt={5} width="100%" minH={'100vh'}>
@@ -248,6 +249,7 @@ const Products = () => {
                 flexDir={'column'}
                 width={'100%'}
                 rounded={'lg'}
+                bg={'black'}
               >
                 {editMode === entry._id ? (
                   <Flex

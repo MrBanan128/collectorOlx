@@ -6,11 +6,8 @@ import Profile from './userComponents/Profile';
 import Message from './userComponents/Message';
 import Admin from '../components/layout/AdminPanel/Users';
 import PanelExpert from './userComponents/PanelExpert';
-
 import NotFound from '../components/layout/404';
 import Logo from '../components/layout/Navbar/Logo';
-
-// import AdminContact from './userComponents/AdminContact';
 
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -53,47 +50,45 @@ const Dashboard = () => {
 
   return (
     <Flex
-      marginTop={'0'}
+      marginTop="0"
       direction="column"
       align="flex-start"
-      justifyContent={'center'}
-      alignItems={'center'}
-      width={'100%'}
-      height={'100%'}
-      minHeight={'100%'}
-      bgImage={
-        'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
-      }
+      justifyContent="center"
+      alignItems="center"
+      width="100%"
+      height="100%"
+      minHeight="100%"
       className="dashboard"
     >
       <Flex
-        justifyContent={'flex-start'}
-        position={'absolute'}
+        justifyContent="flex-start"
+        position="absolute"
         top={0}
         left={0}
         zIndex={2222}
-        padding={'10px'}
+        padding="10px"
       >
         <Link to="/">
-          <Logo width={'40px'} />
+          <Logo width="40px" />
         </Link>
       </Flex>
       <Flex
+        className="dashboard-bg"
         direction="column"
         align="center"
         width="100%"
-        height={'100%'}
-        bgImage={
-          'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
-        }
-        padding={'15px'}
+        height="100%"
+        position="relative"
+        padding="15px"
+        overflow="hidden"
+        bg={'#1c212b'}
       >
         <Heading
-          fontSize={'24px'}
-          color={'white'}
-          paddingBottom={'20px'}
-          textAlign={'center'}
-          width={'100%'}
+          fontSize="24px"
+          color="white"
+          paddingBottom="20px"
+          textAlign="center"
+          width="100%"
           sm={{ fontSize: '32px', padding: '20px' }}
           md={{ fontSize: '40px', padding: '30px' }}
           lg={{ fontSize: '60px', padding: '40px' }}
@@ -101,11 +96,11 @@ const Dashboard = () => {
           Panel użytkownika
         </Heading>
         <Flex
-          fontSize={'12px'}
-          padding={'5px'}
-          gap={'10px'}
+          fontSize="12px"
+          padding="5px"
+          gap="10px"
           direction="row"
-          color={'white'}
+          color="white"
           sm={{ gap: '20px', fontSize: '16px', padding: '10px' }}
           md={{ gap: '30px', fontSize: '20px', padding: '15px' }}
           lg={{ gap: '40px', fontSize: '24px', padding: '20px' }}
@@ -114,7 +109,6 @@ const Dashboard = () => {
             { to: '/dashboard/profile', label: 'Profil' },
             { to: '/dashboard/products', label: 'Produkty' },
             { to: '/dashboard/message', label: 'Wiadomości' },
-            // { to: '/adds', label: 'Dodaj Ogłoszenie' },
             isExpert && { to: '/dashboard/expert', label: 'Expert' },
             isAdmin && { to: '/dashboard/admin-users', label: 'Admin' },
             isUser && { to: '/Adds', label: 'Dodaj Ogłoszenie' }
@@ -127,11 +121,11 @@ const Dashboard = () => {
                 to={to}
                 borderBottom="solid #ffffff 2px"
                 transition="transform 0.3s ease, background 0.3s ease"
-                padding={'10px 10px 0 10px'}
-                rounded={'lg'}
+                padding="10px 10px 0 10px"
+                rounded="lg"
                 _hover={{
                   transform: 'scale(1.2)',
-                  background: 'rgba(0,0,0,0.4)'
+                  background: 'rgba(0,0,0,0.6)'
                 }}
               >
                 {label}

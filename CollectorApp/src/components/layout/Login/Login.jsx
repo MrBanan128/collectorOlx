@@ -246,6 +246,7 @@ const Login = () => {
                     width={{ base: '80%', sm: '60%' }}
                     height={'50px'}
                     md={{ marginTop: '40px' }}
+                    color={'white'}
                   >
                     Zaloguj
                   </Button>
@@ -262,12 +263,7 @@ const Login = () => {
             background={'#1c212b'}
             paddingBottom={10}
           >
-            <Flex
-              flexDir={'row'}
-              alignItems={'center'}
-              gap={5}
-              color={'rgb(0, 0, 0)'}
-            >
+            <Flex flexDir={'row'} alignItems={'center'} gap={5} color={'white'}>
               <FaGoogle style={{ minWidth: '15px' }} />
               <Button
                 backgroundColor={'rgb(11, 8, 8)'}
@@ -279,12 +275,7 @@ const Login = () => {
                 Zaloguj się przez Google
               </Button>
             </Flex>
-            <Flex
-              flexDir={'row'}
-              alignItems={'center'}
-              gap={5}
-              color={'rgb(0, 0, 0)'}
-            >
+            <Flex flexDir={'row'} alignItems={'center'} gap={5} color={'white'}>
               <FaFacebook style={{ minWidth: '15px' }} />
               <Button
                 backgroundColor={'rgb(11, 8, 8)'}

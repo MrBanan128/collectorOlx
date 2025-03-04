@@ -281,6 +281,7 @@ const Register = () => {
                     fontSize={{ base: '14px', sm: '20px' }}
                     width={{ base: '60%', sm: '60%', md: '70%' }}
                     height={{ base: '40px', sm: '50px' }}
+                    color={'white'}
                   >
                     Zarejestruj
                   </Button>
@@ -318,6 +319,7 @@ const Register = () => {
               alignItems={'center'}
               gap={5}
               onClick={handleFacebookLogin}
+              color={'white'}
             >
               <FaFacebook style={{ minWidth: '15px' }} />
               <Button

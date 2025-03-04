@@ -248,9 +248,7 @@ const Users = () => {
       flexDir={'column'}
       backgroundColor={'white'}
       textAlign={'center'}
-      bgImage={
-        'linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%);'
-      }
+      bg={'#1c212b'}
     >
       <Toast ref={toast} position="top-right" />
       <Flex
@@ -260,8 +258,10 @@ const Users = () => {
         gap={'2rem'}
         padding={'2rem'}
         color={'white'}
+        mt={'4rem'}
       >
         <Heading
+          pt={'2rem'}
           fontSize={'30px'}
           sm={{ fontSize: '40px' }}
           md={{ fontSize: '50px' }}
@@ -468,10 +468,10 @@ const Users = () => {
       <table style={{ textAlign: 'left' }}>
         <thead
           style={{
-            borderBottom: '2px solid blue',
-            color: 'blue',
+            borderBottom: '2px solid rgb(236, 85, 20) ',
+            color: 'rgb(236, 85, 20)',
             textAlign: 'left',
-            boxShadow: '0 2px 4px rgba(0, 0, 255, 0.4)', // Cień na dolnej krawędzi
+            boxShadow: '0 2px 4px rgb(236, 85, 20, 0.4)', // Cień na dolnej krawędzi
             padding: '1rem' // Wygodne wypełnienie
           }}
         >

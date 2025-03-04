@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
-import { Flex, Button, Heading, Stack, Text } from '@chakra-ui/react';
+import { Flex, Button, Heading, Stack, Text, Box } from '@chakra-ui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Avatar } from '@chakra-ui/react';
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import LiquidChrome from '../../components/ui/LiquidChrome/LiquidChrome'; // Upewnij się, że masz poprawną ścieżkę do komponentu
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -103,7 +104,7 @@ const Profile = () => {
       height="100%"
       minH={'90vh'} // Zapewnia pełną wysokość okna
       minW={'100%'}
-      bgImage={'url(/coinFlip.png)'}
+      // bgImage={'url(/coinFlip.png)'}
       backgroundSize={'cover'}
       backgroundPositionX={'center'}
       backgroundRepeat={'no-repeat'}
@@ -114,12 +115,27 @@ const Profile = () => {
       lg={{ backgroundPositionX: '100%' }}
     >
       <Toast ref={toast} position="top-right" />
+      <Box
+        position="absolute"
+        top="0"
+        left="0"
+        width="100%"
+        height="100%"
+        zIndex="-1"
+      >
+        <LiquidChrome
+          baseColor={[0.5, 0.18, 0.1]}
+          speed={0.2}
+          amplitude={0.3}
+          interactive={true}
+        />
+      </Box>
       <Flex
         className="container"
         direction="column"
         align="center" // Centruj elementy w poziomie
         justify="start" // Centruj elementy w pionie
-        backgroundColor={'rgba(0, 0, 0, 0.6)'}
+        backgroundColor={'rgba(28, 33, 43,0.7)'}
         filter={'drop-shadow(0 0 5px #000)'}
         width={'200px'}
         height={'200px'}

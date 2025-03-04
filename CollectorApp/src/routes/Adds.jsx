@@ -380,7 +380,6 @@ const Adds = () => {
                     mb={4}
                     border={'none'}
                     bg="#f2f4f5"
-                    d
                     borderRadius="lg"
                     color="black"
                     _focus={{ borderBottom: '2px solid black' }}
