@@ -1,9 +1,15 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Flex } from "@chakra-ui/react";
+import { Flex } from '@chakra-ui/react';
 import './AnimatedList.css';
 
-const AnimatedItem = ({ children, delay = 0, index, onMouseEnter, onClick }) => {
+const AnimatedItem = ({
+  children,
+  delay = 0,
+  index,
+  onMouseEnter,
+  onClick
+}) => {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.5, triggerOnce: false });
   return (
@@ -24,9 +30,21 @@ const AnimatedItem = ({ children, delay = 0, index, onMouseEnter, onClick }) => 
 
 const AnimatedList = ({
   items = [
-    'Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5',
-    'Item 6', 'Item 7', 'Item 8', 'Item 9', 'Item 10',
-    'Item 11', 'Item 12', 'Item 13', 'Item 14', 'Item 15'
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+    'Item 6',
+    'Item 7',
+    'Item 8',
+    'Item 9',
+    'Item 10',
+    'Item 11',
+    'Item 12',
+    'Item 13',
+    'Item 14',
+    'Item 15'
   ],
   onItemSelect,
   showGradients = true,
@@ -42,14 +60,15 @@ const AnimatedList = ({
   const [keyboardNav, setKeyboardNav] = useState(false);
   const [topGradientOpacity, setTopGradientOpacity] = useState(0);
   const [bottomGradientOpacity, setBottomGradientOpacity] = useState(1);
-    const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   const handleScroll = () => {
     if (!listRef.current) return;
     setCanScrollLeft(listRef.current.scrollLeft > 0);
     setCanScrollRight(
-      listRef.current.scrollLeft < listRef.current.scrollWidth - listRef.current.clientWidth
+      listRef.current.scrollLeft <
+        listRef.current.scrollWidth - listRef.current.clientWidth
     );
   };
 
@@ -93,15 +112,11 @@ const AnimatedList = ({
     }
   };
 
-  
-
   return (
     <div className={`scroll-list-container ${className}`}>
-
-     <Flex>
-
-     {!subcategory && (
-          <button 
+      <Flex>
+        {!subcategory && (
+          <button
             className={`arrow left ${canScrollLeft ? '' : 'disabled'}`}
             onClick={() => scrollByAmount(-listRef.current.clientWidth)}
             disabled={!canScrollLeft}
@@ -110,35 +125,36 @@ const AnimatedList = ({
           </button>
         )}
 
-        <Flex direction={subcategory ? "column" : "row"}  
-      
-        // scrollbarWidth={"none"}
-         ref={listRef}
-        className={`scroll-list ${!displayScrollbar ? 'no-scrollbar' : ''}`} 
-       
-        onScroll={handleScroll}>
+        <Flex
+          direction={subcategory ? 'column' : 'row'}
+          // scrollbarWidth={"none"}
+          ref={listRef}
+          className={`scroll-list ${!displayScrollbar ? 'no-scrollbar' : ''}`}
+          onScroll={handleScroll}
+        >
+          {items.map((item, index) => (
+            <AnimatedItem
+              key={index}
+              delay={0.1}
+              index={index}
+              onMouseEnter={() => setSelectedIndex(index)}
+              onClick={() => {
+                setSelectedIndex(index);
+                if (onItemSelect) {
+                  onItemSelect(item, index);
+                }
+              }}
+            >
+              <div
+                className={`item ${selectedIndex === index ? 'selected' : ''} ${itemClassName}`}
+              >
+                <div className="item-text">{item}</div>
+              </div>
+            </AnimatedItem>
+          ))}
+        </Flex>
 
-        {items.map((item, index) => (
-          <AnimatedItem
-            key={index}
-            delay={0.1}
-            index={index}
-            onMouseEnter={() => setSelectedIndex(index)}
-            onClick={() => {
-              setSelectedIndex(index);
-              if (onItemSelect) {
-                onItemSelect(item, index);
-              }
-            }}
-          >
-            <div className={`item ${selectedIndex === index ? 'selected' : ''} ${itemClassName}`}>
-              <div className="item-text">{item}</div>
-            </div>
-          </AnimatedItem>
-        ))}
-      </Flex>
-
-      {!subcategory && (
+        {!subcategory && (
           <button
             className={`arrow right ${canScrollRight ? '' : 'disabled'}`}
             onClick={() => scrollByAmount(listRef.current.clientWidth)}
@@ -147,7 +163,6 @@ const AnimatedList = ({
             ❯
           </button>
         )}
-
       </Flex>
 
       {showGradients && (

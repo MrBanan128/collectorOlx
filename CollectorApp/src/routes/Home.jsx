@@ -54,7 +54,7 @@ const Home = () => {
           background={
             scrolled
               ? `url('../../../assets/backgr.png') no-repeat center center, 
-               linear-gradient(to bottom, #1c212b 50%, #0a1020 100%); 
+               linear-gradient(to bottom, #1c212b 70%, rgb(8, 13, 23) 100%); 
                background-blend-mode: overlay;`
               : 'rgba(92, 92, 92, 0)'
           }
@@ -70,6 +70,7 @@ const Home = () => {
           borderRadius={'2rem'}
           p={'1rem 2rem'}
           position="absolute"
+          transform={'translate(-80px, -150px)'}
           zIndex={999}
           left={{ base: '15%', sm: '20%', md: '20%' }}
           top={{ base: '45%', sm: '45%', md: '40%' }} // Adjusted to position text lower
@@ -101,11 +102,14 @@ const Home = () => {
           </Text>
           <Text
             fontSize={'2.6rem'}
-            p={'1rem 1rem '}
+            p={'1rem 3rem 2rem 1rem'}
             style={{ opacity: showText ? 1 : 0, transition: 'opacity 1s' }}
           >
             Dodaj swoje artykuły kolekcjonerskie i poznaj ich wartość rynkową.
-            Łatwe w użyciu narzędzie, które łączy pasjonatów kolekcjonerstwa!
+            <br />
+            Łatwe w użyciu narzędzie,
+            <br />
+            które łączy pasjonatów kolekcjonerstwa!
           </Text>
         </Box>
 
