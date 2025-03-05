@@ -1,7 +1,10 @@
-import { Flex, Image, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import FooterLink from './Navbar/FooterLink';
 import background from '../../assets/backgr.png';
 import { Link } from 'react-router';
+import { FaSquareXTwitter } from 'react-icons/fa6';
+import { FaLinkedin } from 'react-icons/fa';
+import { FiInstagram } from 'react-icons/fi';
 
 const Footer = () => {
   return (
@@ -31,15 +34,13 @@ const Footer = () => {
         margin={8}
       >
         <Flex gap={2} direction={'row'} align={'center'}>
-          <Flex
-            direction={{ base: 'column', md: 'row' }}
-            borderLeft={'1px solid gray'}
-          >
+          <Flex>
             <FooterLink to={'/terms-and-conditions'}>Regulamin</FooterLink>
             <FooterLink to={'/about'}>Jak działa Antique Value</FooterLink>
           </Flex>
           <Flex direction={{ base: 'column', md: 'row' }}>
             <FooterLink to={'/policy'}>Polityka prywatności</FooterLink>
+            <FooterLink to={'/contact'}>Kontakt</FooterLink>
           </Flex>
         </Flex>
       </Flex>
@@ -51,38 +52,15 @@ const Footer = () => {
         justifyContent={'space-between'}
         background="linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)"
       >
-        <Flex alignItems={'center'} marginLeft={3}>
+        <Flex alignItems={'center'} ml={5} gap={2}>
           <Link to={'https://x.com/'}>
-            <Image
-              marginRight={1}
-              marginBottom={0.4}
-              width={7}
-              height={7}
-              objectFit={'cover'}
-              src="/x_logo.png"
-            ></Image>
+            <FaSquareXTwitter size={'20px'} color="white" />
           </Link>
           <Link to={'https://linkedin.com/'}>
-            <Image
-              marginLeft={3}
-              marginRight={1}
-              marginBottom={0.4}
-              width={9}
-              height={9}
-              objectFit={'cover'}
-              src="/linkedin_logo.png"
-            ></Image>
+            <FaLinkedin size={'20px'} color="white" />
           </Link>
           <Link to={'https://instagram.com/'}>
-            <Image
-              marginLeft={3}
-              marginRight={1}
-              marginBottom={0.4}
-              width={8}
-              height={8}
-              objectFit={'cover'}
-              src="/instagram_logo.png"
-            ></Image>
+            <FiInstagram size={'20px'} color="white" />
           </Link>
         </Flex>
         <Flex>
@@ -90,7 +68,7 @@ const Footer = () => {
             marginRight={5}
             paddingTop={0}
             fontSize={14}
-            color={'black'}
+            color={'white'}
             alignItems={'center'}
             // fontWeight={'bold'}
           >

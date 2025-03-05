@@ -310,6 +310,7 @@ const Users = () => {
                   onChange={(e) => setEditUsername(e.target.value)}
                   style={{
                     background: '#f4f4f4', // Jasnoszare tło
+                    color: 'black', // Czarny kolor tekstu
                     border: '1px solid #ccc', // Szare obramowanie
                     borderRadius: '4px', // Zaokrąglone rogi
                     padding: '0.5rem', // Wygodne wypełnienie
@@ -341,6 +342,7 @@ const Users = () => {
                   onChange={(e) => setEditEmail(e.target.value)}
                   style={{
                     background: '#f4f4f4', // Jasnoszare tło
+                    color: 'black', // Czarny kolor tekstu
                     border: '1px solid #ccc', // Szare obramowanie
                     borderRadius: '4px', // Zaokrąglone rogi
                     padding: '0.5rem', // Wygodne wypełnienie

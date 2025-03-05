@@ -216,7 +216,7 @@ const Products = () => {
       width={'100%'}
       color={'white'}
       overflow="auto"
-      bg={'#1a202c'}
+      bg={'#1c212b'}
     >
       <Toast ref={toast} position="top-right" />
       <Box mt={5} width="100%" minH={'100vh'}>
