@@ -114,9 +114,8 @@ const EntryPanel = () => {
       />
 
       <Box
-        p={'10rem 5%'}
-        background="url('../../assets/backgr.png') no-repeat, rgb(28, 33, 43, 1)"
-        backgroundSize="cover"
+        p={'10rem 10%'}
+        background="linear-gradient(to bottom, rgba(3, 8, 18, 1) 0%, rgba(28, 33, 43, 1) 30%, rgba(78, 83, 93, 0.9) 50%, rgba(78, 83, 93, 0.9) 0%, rgba(8, 13, 23, 1) 100%)"
       >
         {/* return*/}
         <Box
@@ -148,24 +147,31 @@ const EntryPanel = () => {
         <Flex>
           {/* left panel */}
           <Box
-            p={'2rem 5rem'}
+            p={'2rem 8rem'}
             border="5px solid transparent"
             borderImage="linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)"
             borderImageSlice={1}
-            background="url('../../assets/backgr.png') no-repeat, rgb(28, 33, 43, 1)"
+            background="url('../assets/backgr.png') no-repeat, rgb(28, 33, 43, 1)"
             backgroundSize="cover"
             boxShadow={' 0 1px 10px 4px rgb(28, 33, 43, 1)'}
+            minWidth={'68%'}
           >
             {/* Tytół */}
             <Text fontWeight="hairline" fontSize={'2.6rem'} mb={8}>
               {entry.title}
             </Text>
             {/* Zdjęcie */}
-            <Box>
+            <Flex maxHeight={'60vh'} width={'100%'}>
               {entry.image && (
-                <Image src={entry.image} alt="Obraz" width="100%" />
+                <Image
+                  src={entry.image}
+                  alt="Obraz"
+                  width="100%"
+                  height={'auto'}
+                  objectFit={'contain'}
+                />
               )}
-            </Box>
+            </Flex>
             {/* kategorie */}
             <Flex p={'1rem 0'}>
               <Text fontSize="xxl" color="gray" mr={8}>
@@ -194,9 +200,9 @@ const EntryPanel = () => {
             borderImage="linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)"
             borderImageSlice={1}
             boxShadow={' 0 1px 10px 4px rgb(28, 33, 43, 1)'}
-            p={'2rem 3rem'}
+            minWidth={'30%'}
           >
-            <Box>
+            <Box p={'2rem 3rem'}>
               {/* User name */}
               <Text
                 borderBottom={'solid 1px #b7410e'}
@@ -221,7 +227,7 @@ const EntryPanel = () => {
               </Text>
             </Box>
             {/* message area */}
-            <Box mt={10} mb={5} borderBottom={'solid 2px #b7410e'} pb={20}>
+            <Box mt={10} mb={5} p={'0 2rem 3rem'}>
               <Text fontSize="2rem" fontWeight="bold">
                 Wyślij Wiadomość
               </Text>
@@ -233,7 +239,6 @@ const EntryPanel = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 mt={5}
-                minWidth={'280px'}
                 p={8}
                 fontSize={'1.8rem'}
               />
@@ -244,7 +249,7 @@ const EntryPanel = () => {
                 placeholder="Wpisz swoją wiadomość..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                mt={5}
+                mt={8}
                 p={8}
                 fontSize={'1.8rem'}
                 resize="none"
@@ -254,17 +259,18 @@ const EntryPanel = () => {
                 onClick={sendMessage}
                 background={' #92400e'}
                 color="white"
-                mt={2}
+                mt={8}
                 border="2px solid transparent"
                 borderImage="linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)"
                 borderImageSlice={1}
                 fontSize={'1.6rem'}
                 fontWeight={600}
                 _hover={{ background: '#5a2e02' }}
-                p={6}
+                p={8}
                 boxShadow={' 0 1px 10px 4px rgb(28, 33, 43, 1)'}
+                width={'100%'}
               >
-                Wyślij
+                Wyślij wiadomość
               </Button>
               {success && (
                 <Text color="green" mt={2}>
@@ -279,46 +285,52 @@ const EntryPanel = () => {
             </Box>
 
             {/* Expert Part */}
-            <Box
-              color={'#b7410e'}
-              fontSize={'1.6rem'}
-              fontWeight={'600'}
-              mt={'2rem'}
-              // ExpStamp
-            >
-              {entry.expertEvaluation && (
-                <Box mt={4}>
-                  <Box>
+            <Box color={'black'} fontSize={'1.6rem'} fontWeight={'600'}>
+              {entry.expertEvaluation && entry.expertEvaluation.expertName && (
+                <Box pt={4} overflow={'hidden'}>
+                  <Flex
+                    alignContent={'center'}
+                    justifyContent={'space-between'}
+                    boxShadow={' 0 0 10px 6px rgb(8, 13, 23, 1)'}
+                    pl={8}
+                    lineHeight={1.2}
+                    backgroundImage={
+                      'linear-gradient(45deg, #b88b4a, #ffd700, #b8860b, #fcf3ce, #b88b4a)'
+                    }
+                  >
+                    <Box mt={5}>
+                      <Text fontSize="xl" mt={3}>
+                        Wycena Experta:
+                      </Text>
+                      <Text fontWeight="bold" fontSize={'2rem'}>
+                        {entry.expertEvaluation.expertName}
+                      </Text>
+                      <Text fontSize="xl" mt={6}>
+                        Wycenione:
+                      </Text>
+                      <Text fontSize={'2rem'}>
+                        {entry.expertEvaluation.expertPrice !== null
+                          ? `${entry.expertEvaluation.expertPrice} zł`
+                          : ''}
+                      </Text>
+                    </Box>
                     {entry.expertEvaluation.expertBadge ? (
                       <img
                         src={ExpStamp}
                         alt="Badge"
-                        width="100%"
+                        width="130px"
                         height={'100%'}
                       />
-                    ) : (
-                      ''
-                    )}
+                    ) : null}
+                  </Flex>
+                  <Box p={'2rem 3rem'} color={'#ffff'}>
+                    <Text fontSize="xl" mt={3}>
+                      Opis wyceny:
+                    </Text>
+                    <Text fontSize="2rem">
+                      {entry.expertEvaluation.expertMessage}
+                    </Text>
                   </Box>
-                  <Text fontSize="xl" mt={3}>
-                    Wycena Experta:
-                  </Text>
-                  <Text fontWeight="bold">
-                    {entry.expertEvaluation.expertName || ''}
-                  </Text>
-
-                  <Text fontSize="xl" mt={3}>
-                    Opis wyceny:
-                  </Text>
-                  <Text>{entry.expertEvaluation.expertMessage || ''}</Text>
-                  <Text fontSize="xl" mt={3}>
-                    Wycenione:
-                  </Text>
-                  <Text>
-                    {entry.expertEvaluation.expertPrice !== null
-                      ? `${entry.expertEvaluation.expertPrice} zł`
-                      : ''}
-                  </Text>
                 </Box>
               )}
             </Box>

@@ -36,6 +36,11 @@ body {
 /* Złoty kolor */
 /* backgroundImage:
 'linear-gradient(45deg, #b88b4a, #ffd700, #b8860b, #fcf3ce, #b88b4a)', // gold */
+/* 
+  background:
+  url('../../../assets/backgr.png') no-repeat,
+  #1c212b; rgb(28, 33, 43)
+ */
 
 /* backgroundImage:
 'linear-gradient(45deg, #8b3a3a, #b7410e, #fcd9cb, #92400e, #5a2e02)', miedź */
@@ -58,3 +63,8 @@ body {
 background-blend-mode: overlay; */
 
 /* rgb(139, 58, 58), rgb(183, 65, 14), rgb(252, 217, 203), rgb(146, 64, 14), rgb(90, 46, 2);  miedź */
+
+/*  piaskowy beż */
+/* background:
+    url('../../../assets/backgr.png') no-repeat,
+    #d0c0a3; */

@@ -116,9 +116,6 @@ const CategorySide = () => {
               position={'fixed'}
               left={0}
               top={0}
-              // backgroundRepeat="no-repeat"
-              // backgroundSize="cover"
-              // backgroundPosition="center"
             >
               <Image
                 src={CategoryImg}
@@ -135,7 +132,7 @@ const CategorySide = () => {
                 height={'100vh'}
                 position={'absolut'}
                 bottom={0}
-                background={'rgba(28, 33, 43, .7)'}
+                background={'rgba(28, 33, 43, .9)'}
               />
             </Box>
 
@@ -194,7 +191,7 @@ const CategorySide = () => {
                             base: '350px',
                             sm: '200px',
                             md: '250px',
-                            lg: '250px'
+                            lg: '280px'
                           }}
                           position={'relative'}
                           height={{
@@ -216,7 +213,7 @@ const CategorySide = () => {
                               left={50}
                               p={'.2rem 2rem'}
                               clipPath={
-                                'polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 10% 50%)'
+                                'polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 95%, 10% 50%)'
                               }
                             >
                               <Text mr={3}>Wycenione</Text>
@@ -232,7 +229,7 @@ const CategorySide = () => {
                             <Image
                               src={entry.image}
                               alt="Obraz"
-                              minWidth={'250px'}
+                              minWidth={'100%'}
                               height={'100%'}
                               objectFit="cover"
                             />
