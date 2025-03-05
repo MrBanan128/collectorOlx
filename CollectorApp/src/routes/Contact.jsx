@@ -10,9 +10,6 @@ import {
 import Navbar from '../components/layout/Navbar/Navbar';
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { FaPhone } from 'react-icons/fa';
-import { SiGmail } from 'react-icons/si';
-import GoogleMapReact from 'google-map-react';
 import Footer from '../components/layout/Footer';
 
 const Contact = () => {
@@ -220,7 +217,7 @@ const Contact = () => {
                   size="lg"
                   rounded={'2xl'}
                   width="100%"
-                  _hover={{ bg: 'rgb(130, 48, 12)' }}
+                  _hover={{ bg: '#82300c' }}
                   isDisabled={
                     !checked ||
                     errors.user_name ||
@@ -232,22 +229,6 @@ const Contact = () => {
                 </Button>
               </Flex>
             </form>
-
-            {/* <Flex align="top" justify="top" ml={10} flexDir={'column'}>
-              <Flex>
-                <Text>Antique Value</Text>
-              </Flex>
-              <Flex flexDir={'column'} gap={5} mt={10}>
-                <Flex flexDir={'row'} gap={5} ml={10}>
-                  <FaPhone />
-                  <Text>+48 22 533 23 52</Text>
-                </Flex>
-                <Flex flexDir={'row'} gap={5} ml={10}>
-                  <SiGmail />
-                  <Text>Jan.kowalski.199709@gmail.com</Text>
-                </Flex>
-              </Flex>
-            </Flex> */}
           </Flex>
         </Flex>
       </Box>

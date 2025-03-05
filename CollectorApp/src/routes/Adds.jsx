@@ -98,8 +98,7 @@ const Adds = () => {
         },
         className: 'custom-toast'
       });
-    }
-    if (!newData.avatar) {
+    } else if (!newData.avatar) {
       toast.current.show({
         detail: 'Musisz dodać zdjęcie!',
         life: 3000,
@@ -164,11 +163,7 @@ const Adds = () => {
   };
 
   return (
-    <Flex
-      bgImage="linear-gradient(90deg, rgba(105,127,141,1) 0%, rgba(97,120,134,1) 35%, rgba(70,93,109,1) 80%, rgba(58,79,96,1) 100%)"
-      flexDir={'column'}
-      h={'100%'}
-    >
+    <Flex bg={'#1c212b'} flexDir={'column'} h={'100%'}>
       <Navbar
         background={scrolled ? 'rgba(92, 92, 92,1)' : 'rgba(92, 92, 92,0)'}
         height={scrolled ? '84px' : '80px'}
@@ -187,21 +182,25 @@ const Adds = () => {
               Dodaj ogłoszenie
             </Heading>
           </Flex>
-          <Flex color={'black'}>
+          <Flex
+            color={'black'}
+            border={'5px solid #b7410e'}
+            borderRadius="lg"
+            padding={5}
+          >
             <form onSubmit={handleAddEntry} style={{ width: '100%' }}>
               <Flex
                 bg={'white'}
                 p={12}
                 borderRadius="md"
                 boxShadow="lg"
-                mt={4}
                 flexDirection={'column'}
                 gap={6}
               >
                 <Flex direction="column" gap={2}>
                   <Text
                     w={'20%'}
-                    color={'black'}
+                    color={'#b7410e'}
                     fontSize={'20px'}
                     cursor={'pointer'}
                     onClick={() => titleInputRef.current.focus()}
@@ -214,25 +213,19 @@ const Adds = () => {
                     onChange={handleInputChange}
                     placeholder="Nazwa przedmiotu"
                     _placeholder={{ color: 'gray.500' }}
-                    rounded={'md'}
+                    rounded={'xl'}
                     p={6}
-                    border={'none'}
                     bg="#f2f4f5"
                     color="black"
                     w={'40%'}
                     size={'2xl'}
                     fontSize={'2xl'}
-                    _focus={{ borderBottom: '2px solid black' }}
+                    _focus={{ borderColor: ' #b7410e' }}
                     ref={titleInputRef}
                   />
                 </Flex>
                 <Flex direction="column">
-                  <Text
-                    w={'20%'}
-                    color={'rgb(150, 150, 150)'}
-                    fontSize={'16px'}
-                    ml={4}
-                  >
+                  <Text w={'20%'} color={'#b7410e'} fontSize={'16px'} ml={4}>
                     Kategoria
                   </Text>
                   <select
@@ -249,6 +242,7 @@ const Adds = () => {
                       marginBottom: '1rem',
                       width: '30%'
                     }}
+                    _focus={{ borderColor: ' #b7410e' }}
                   >
                     <option value="">Wybierz kategorię</option>
                     {categoriesEl.map((category) => (
@@ -262,7 +256,7 @@ const Adds = () => {
                     <Box>
                       <Text
                         w={'20%'}
-                        color={'rgb(150, 150, 150)'}
+                        color={'#b7410e'}
                         fontSize={'16px'}
                         ml={4}
                       >
@@ -273,6 +267,7 @@ const Adds = () => {
                         value={newData.subcategory}
                         onChange={handleInputChange}
                         placeholder="Wybierz podkategorię"
+                        _focus={{ borderColor: ' #b7410e' }}
                         style={{
                           backgroundColor: '#f2f4f5',
                           color: 'black',
@@ -312,7 +307,7 @@ const Adds = () => {
                 <Flex direction="column" gap={2}>
                   <Text
                     w={'20%'}
-                    color={'black'}
+                    color={'#b7410e'}
                     fontSize={'20px'}
                     cursor={'pointer'}
                     onClick={() => textInputRef.current.focus()}
@@ -330,12 +325,12 @@ const Adds = () => {
                     minH={'150px'}
                     w={'600px'}
                     size="lg"
-                    borderRadius="md"
+                    borderRadius="lg"
+                    _focus={{ borderColor: ' #b7410e' }}
                     bg="#f2f4f5"
                     color="black"
                     p={4}
                     ref={textInputRef}
-                    _focus={{ borderBottom: '2px solid black' }}
                   />
                 </Flex>
                 <Flex direction="column" gap={2} alignItems="center">
@@ -347,7 +342,7 @@ const Adds = () => {
                     rounded={'lg'}
                     onChange={handleFileChange}
                   >
-                    <Text>Dodaj zdjęcie*</Text>
+                    <Text color={'#b7410e'}>Dodaj zdjęcie*</Text>
                     <Button
                       as="label"
                       htmlFor="file-upload"
@@ -391,12 +386,12 @@ const Adds = () => {
                 <Flex flexDir={'column'} gap={2}>
                   <Text
                     w={'80%'}
-                    color={'black'}
+                    color={'#b7410e'}
                     fontSize={'20px'}
-                    borderBottom={'1px solid black'}
+                    borderBottom={'1px solid #b7410e'}
                     marginBottom={'1rem'}
                   >
-                    Jeżeli nie znasz wartości przedmiotu to nie zmieniaj ceny
+                    Jeżeli nie znasz wartości przedmiotu to cene ustaw na 0
                   </Text>
                   <Flex>
                     <Input
@@ -416,7 +411,7 @@ const Adds = () => {
                       bg="#f2f4f5"
                       borderRadius="lg"
                       color="black"
-                      _focus={{ borderBottom: '2px solid black' }}
+                      _focus={{ borderColor: '#b7410e' }}
                     />
                     <Text ml={5} fontSize={'20px'}>
                       PLN
@@ -429,8 +424,8 @@ const Adds = () => {
                     size="xl"
                     width="30%"
                     borderRadius="xl"
-                    bg={'gray.500'}
-                    _hover={{ bg: 'gray.700' }}
+                    bg={'#b7410e'}
+                    _hover={{ bg: '#82300c' }}
                     fontWeight={'bold'}
                     fontSize={'20px'}
                   >
