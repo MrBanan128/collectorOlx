@@ -431,6 +431,30 @@ const Products = () => {
                   >
                     <Flex onClick={() => navigate(`/entry/${entry._id}`)}>
                       <Flex justifyContent={'center'} alignItems={'center'}>
+                        {/* {entry.expertEvaluation?.expertMessage && (
+                          <Flex
+                            color={'#ffffff'}
+                            fontSize={'1.2rem'}
+                            fontWeight={'600'}
+                            position={'absolute'}
+                            background={'red'}
+                            bottom={0}
+                            minWidth={'150px'}
+                            left={50}
+                            p={'.2rem 2rem'}
+                            clipPath={
+                              'polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 10% 50%)'
+                            }
+                          >
+                            <Text mr={3}>Wycenione</Text>
+                            <Text>
+                              {entry.expertEvaluation.expertPrice !== null
+                                ? `${entry.expertEvaluation.expertPrice} zł`
+                                : ''}
+                            </Text>
+                          </Flex>
+                        )} */}
+
                         <Image
                           src={entry.image}
                           alt="Obraz"

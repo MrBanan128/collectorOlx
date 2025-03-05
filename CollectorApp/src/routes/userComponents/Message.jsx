@@ -200,7 +200,10 @@ const Message = () => {
                     onClick={() => handleMessageClick(msg._id)}
                     _hover={{ color: 'white' }}
                   >
-                    {msg.title}
+                    <Text fontSize={'2rem'}>
+                      {msg.senderId?.username || 'Brak nadawcy'}
+                    </Text>
+                    <Text>{msg.title}</Text>
                   </Text>
                 ))
               ) : (
@@ -230,16 +233,21 @@ const Message = () => {
             >
               {readMessages.length > 0 ? (
                 readMessages.map((msg) => (
-                  <Text
+                  <Box
                     key={msg._id}
                     color="gray.300"
                     cursor="pointer"
-                    textAlign="center"
+                    textAlign="left"
+                    p={'.5rem 2rem'}
+                    border={'solid 1px #8b3a3a'}
                     onClick={() => handleMessageClick(msg._id)}
                     _hover={{ color: 'white' }}
                   >
-                    {msg.title}
-                  </Text>
+                    <Text fontSize={'2rem'}>
+                      {msg.senderId?.username || 'Brak nadawcy'}
+                    </Text>
+                    <Text>{msg.title}</Text>
+                  </Box>
                 ))
               ) : (
                 <Text color="gray.400" textAlign="center">
@@ -263,9 +271,13 @@ const Message = () => {
               width={'100%'}
               justifyContent={'center'}
             >
+              <Text fontSize={'3rem'}>
+                {selectedMessage.senderId?.username || 'Brak nadawcy'}
+              </Text>
               <Heading textAlign="center" fontSize={'2rem'} color={'#60a5fa'}>
                 {formatDate(selectedMessage.timestamp)}
               </Heading>
+
               <Flex flexDir={'column'} alignItems={'center'}>
                 <Heading textAlign={'center'} fontSize={'2rem'} mt={'20px'}>
                   {selectedMessage.content}

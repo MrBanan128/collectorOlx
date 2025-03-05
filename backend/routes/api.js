@@ -335,7 +335,7 @@ router.get("/users/entries/:noteId", async (req, res) => {
       noteId,
       { $inc: { views: 1 } }, // Inkrementacja views o 1
       { new: true } // Zwrócenie zaktualizowanego dokumentu
-    );
+    ).populate("userId", "username email"); // Pobranie username i email użytkownika
 
     if (!note)
       return res.status(404).json({ message: "Notatka nie znaleziona" });

@@ -262,17 +262,6 @@ const CategorySide = () => {
                             color: 'rgba(255, 255, 255,1)',
                             background: 'rgba(8, 13, 23, 0.8)',
 
-                            // rgb(139, 58, 58), rgb(183, 65, 14), rgb(252, 217, 203), rgb(146, 64, 14), rgb(90, 46, 2);
-
-                            // background: url('../../../assets/backgr.png') no-repeat;
-                            // background: linear-gradient(
-                            //   to bottom,
-                            //   rgb(28, 33, 43) 0%,
-                            //   rgb(28, 33, 43) 80%,
-                            //   rgb(8, 13, 23) 100%
-                            // );
-                            // background-blend-mode: overlay;
-
                             transition:
                               'transform 1s ease-in-out, background 1s, color 2s'
                           }}
