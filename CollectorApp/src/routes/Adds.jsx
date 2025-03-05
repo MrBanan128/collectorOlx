@@ -46,6 +46,10 @@ const Adds = () => {
     };
   }, [navigate]);
 
+  if (newData.price === '') {
+    setNewData((prev) => ({ ...prev, price: 0 }));
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewData((prev) => ({ ...prev, [name]: value }));
@@ -75,9 +79,29 @@ const Adds = () => {
     formData.append('subcategory', newData.subcategory);
     if (newData.avatar) formData.append('image', newData.avatar);
 
-    if (!newData.title || !newData.note || !newData.price) {
+    if (
+      !newData.title ||
+      !newData.note ||
+      !newData.category ||
+      !newData.subcategory
+    ) {
       toast.current.show({
-        detail: 'Pola nie mogą być puste!',
+        detail: 'Musisz uzupełnić wszystkie pola!',
+        life: 3000,
+        style: {
+          backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
+          color: '#000', // Jasny tekst
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '16px',
+          marginTop: '70px'
+        },
+        className: 'custom-toast'
+      });
+    }
+    if (!newData.avatar) {
+      toast.current.show({
+        detail: 'Musisz dodać zdjęcie!',
         life: 3000,
         style: {
           backgroundColor: 'rgb(255, 0, 0)', // Ciemniejsze tło
@@ -323,7 +347,7 @@ const Adds = () => {
                     rounded={'lg'}
                     onChange={handleFileChange}
                   >
-                    <Text>Dodaj zdjęcie</Text>
+                    <Text>Dodaj zdjęcie*</Text>
                     <Button
                       as="label"
                       htmlFor="file-upload"
@@ -364,26 +388,40 @@ const Adds = () => {
                 flexDirection={'column'}
                 gap={6}
               >
-                <Flex>
-                  <Input
-                    name="price"
-                    type="number"
-                    value={newData.price}
-                    onChange={handleInputChange}
-                    minW={'20%'}
-                    w={'20%'}
+                <Flex flexDir={'column'} gap={2}>
+                  <Text
+                    w={'80%'}
+                    color={'black'}
                     fontSize={'20px'}
-                    padding={'10px'}
-                    size="2xl"
-                    placeholder="Cena w zł"
-                    _placeholder={{ color: 'gray.500' }}
-                    mb={4}
-                    border={'none'}
-                    bg="#f2f4f5"
-                    borderRadius="lg"
-                    color="black"
-                    _focus={{ borderBottom: '2px solid black' }}
-                  />
+                    borderBottom={'1px solid black'}
+                    marginBottom={'1rem'}
+                  >
+                    Jeżeli nie znasz wartości przedmiotu to nie zmieniaj ceny
+                  </Text>
+                  <Flex>
+                    <Input
+                      name="price"
+                      type="number"
+                      value={newData.price}
+                      onChange={handleInputChange}
+                      minW={'20%'}
+                      w={'20%'}
+                      fontSize={'20px'}
+                      padding={'10px'}
+                      size="2xl"
+                      placeholder="Cena w zł"
+                      _placeholder={{ color: 'gray.500' }}
+                      mb={4}
+                      border={'none'}
+                      bg="#f2f4f5"
+                      borderRadius="lg"
+                      color="black"
+                      _focus={{ borderBottom: '2px solid black' }}
+                    />
+                    <Text ml={5} fontSize={'20px'}>
+                      PLN
+                    </Text>
+                  </Flex>
                 </Flex>
                 <Flex justifyContent="center">
                   <Button

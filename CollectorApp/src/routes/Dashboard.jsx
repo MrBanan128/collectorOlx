@@ -107,9 +107,9 @@ const Dashboard = () => {
         >
           {[
             { to: '/dashboard/profile', label: 'Profil' },
-            { to: '/dashboard/products', label: 'Produkty' },
+            { to: '/dashboard/products', label: 'Ogłoszenia' },
             { to: '/dashboard/message', label: 'Wiadomości' },
-            isExpert && { to: '/dashboard/expert', label: 'Expert' },
+            isExpert && { to: '/dashboard/expert', label: 'Ekspert' },
             isAdmin && { to: '/dashboard/admin-users', label: 'Admin' },
             isUser && { to: '/Adds', label: 'Dodaj Ogłoszenie' }
           ]

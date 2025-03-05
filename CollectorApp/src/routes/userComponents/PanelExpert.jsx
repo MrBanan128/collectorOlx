@@ -202,7 +202,7 @@ const ExpertPanel = () => {
             mr={'5rem'}
             color={'black'}
             boxShadow={'lg'}
-            height={'300px'}
+            height={'400px'}
             padding={'1rem'}
             rounded={'xl'}
             bg={'gray.200'}
@@ -249,20 +249,6 @@ const ExpertPanel = () => {
                       onChange={handleInputChange}
                     />
                   </Flex>
-                  {/* <div>
-                <label>Odznaka eksperta (URL):</label>
-                <input
-                  style={{
-                    background: '#333333',
-                    border: 'solid 1px red',
-                    margin: '.2rem'
-                  }}
-                  type="text"
-                  name="expertBadge"
-                  value={evaluationData.expertBadge} // src="/check.png"
-                  onChange={handleInputChange}
-                />
-              </div> */}
                   <Flex direction="row" justifyContent={'space-between'}>
                     <label
                       style={{
@@ -270,7 +256,7 @@ const ExpertPanel = () => {
                         marginRight: '5px'
                       }}
                     >
-                      Wiadomość do klienta:
+                      Notatka o wycenie:
                     </label>
                     <textarea
                       style={{
@@ -279,6 +265,7 @@ const ExpertPanel = () => {
                         background: '#333333',
                         margin: '.2rem',
                         width: '100%',
+                        height: '150px',
                         flexGrow: 1,
                         padding: '10px'
                       }}

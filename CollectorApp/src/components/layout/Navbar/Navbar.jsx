@@ -82,7 +82,7 @@ const Navbar = ({ background, height, width }) => {
           {!isVisible && <MenuButton onClick={handleClick} />}
           <AppLink to={'/adds'}>Dodaj Ogłoszenie</AppLink>
           {isAdmin && <AppLink to={'/dashboard/admin-users'}>Admin</AppLink>}
-          {isExpert && <AppLink to={'/dashboard/expert'}>Expert</AppLink>}
+          {isExpert && <AppLink to={'/dashboard/expert'}>Ekspert</AppLink>}
           {isLogged && <AppLink to={'/dashboard/profile'}>Profil</AppLink>}
         </Flex>
       </Flex>
