@@ -1,28 +1,35 @@
 import { Link } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 const FooterLink = ({ to, children }) => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const active = location.pathname === to;
   return (
     <Link
       onClick={() => navigate(to)}
-      //   backgroundImage={
-      //     'linear-gradient(to top, rgb(179, 179, 179) 0.01px, transparent 0.5px)'
-      //   }
-      paddingRight={4}
-      marginLeft={4}
-      backgroundPosition="center center"
+      textDecoration={'none'}
       _focus={{ outline: 'none' }}
-      _hover={{
-        color: 'blue.400'
-      }}
-      transition={'all ease-in-out 0.4s'}
+      mr={4}
       fontWeight={'bold'}
-      color={'white'}
-      fontSize={{ base: '12px', sm: '16px', md: '20px' }}
-      borderRight={{ base: '1px solid gray', md: '1px solid gray' }}
-      // margin={1}
+      color={active ? '#b7410e' : 'white'}
+      borderBottom={active ? '2px solid ' : 'none'}
+      cursor={'pointer'}
+      _hover={{
+        color: '#b7410e',
+        borderBottom: '2px solid',
+        borderColor: '#b7410e'
+      }}
+      transition={'all ease-in-out 0.3s'}
+      role="navigation"
+      fontSize={14}
+      display={'none'}
+      // Ustawienie dla urządzeń > 480px (smartfony i większych)
+      sm={{ px: 2, display: 'block' }}
+      // Ustawienie dla urządzeń > 768px (tablety i większe)
+      md={{ px: 3, fontSize: 18 }}
+      // Ustawienie dla urządzeń > 1024px (laptopy i większe)
+      lg={{ px: 6, fontSize: 25 }}
     >
       {children}
     </Link>

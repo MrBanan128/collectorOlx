@@ -14,6 +14,7 @@ import Regulamin from './components/layout/Footer/Regulamin';
 import JakDziała from './components/layout/Footer/JakDziała';
 import PolitykaPrywatności from './components/layout/Footer/PolitykaPrywatności';
 import NotFound from './components/layout/404';
+import Contact from './routes/Contact';
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
@@ -30,6 +31,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/:category/:subcategory" element={<CategorySide />} />
         <Route path="/terms-and-conditions" element={<Regulamin />} />
         <Route path="/about" element={<JakDziała />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/policy" element={<PolitykaPrywatności />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
