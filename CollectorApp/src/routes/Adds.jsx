@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { categories, subcategories } from '../categories';
 import Navbar from '../components/layout/Navbar/Navbar';
 import { HiUpload } from 'react-icons/hi';
+import Footer from '../components/layout/Footer';
 
 const Adds = () => {
   const [categoriesEl, setCategories] = useState(categories);
@@ -165,15 +166,21 @@ const Adds = () => {
   return (
     <Flex bg={'#1c212b'} flexDir={'column'} h={'100%'}>
       <Navbar
-        background={scrolled ? 'rgba(92, 92, 92,1)' : 'rgba(92, 92, 92,0)'}
+        background={
+          scrolled
+            ? `url('../../../assets/backgr.png') no-repeat center center, 
+               linear-gradient(to bottom, #1c212b 70%, rgb(8, 13, 23) 100%); 
+               background-blend-mode: overlay;`
+            : 'rgba(28, 33, 43, .5)'
+        }
         height={scrolled ? '84px' : '80px'}
-        width={'100%'}
       />
       <Toast ref={toast} position="top-right" /> {/* Komponent Toast */}
       <Flex
         justifyContent={'center'}
         textAlign={'left'}
-        height="100vh"
+        minHeight="100vh"
+        p={'0 5rem 10rem'}
         mt={scrolled ? '124px' : '120px'}
       >
         <Flex direction="column" color="white" width={'60%'}>
@@ -428,6 +435,8 @@ const Adds = () => {
                     _hover={{ bg: '#82300c' }}
                     fontWeight={'bold'}
                     fontSize={'20px'}
+                    p={8}
+                    color={'#ffff'}
                   >
                     Dodaj Ogłoszenie
                   </Button>
@@ -437,6 +446,7 @@ const Adds = () => {
           </Flex>
         </Flex>
       </Flex>
+      <Footer />
     </Flex>
   );
 };

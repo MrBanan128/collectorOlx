@@ -4,7 +4,7 @@ import Figurka from '../../../assets/ikonF.png';
 import Znaczek from '../../../assets/ikonZ.png';
 import Moneta from '../../../assets/ikonM.png';
 import Karta from '../../../assets/ikonK.png';
-import Inne from '../../../assets/ikonI.webp';
+import Inne from '../../../assets/ikonI.png';
 
 import './base.css';
 import './sandbox.css';

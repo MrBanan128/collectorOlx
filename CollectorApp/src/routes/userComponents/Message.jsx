@@ -176,7 +176,7 @@ const Message = () => {
           <Flex flexDir={'column'} alignItems={'center'} width={'80%'}>
             <Heading
               padding={'20px'}
-              color={'red.500'}
+              color={'#b7410e'}
               fontSize={'2rem'}
               fontWeight={'700'}
               md={{ padding: '30px', fontSize: '3rem' }}
@@ -194,13 +194,16 @@ const Message = () => {
                 unreadMessages.map((msg) => (
                   <Text
                     key={msg._id}
-                    color="red.300"
+                    color="rgb(183, 65, 14)"
+                    filter="brightness(1.5)"
+                    border={'solid 1px rgb(183, 65, 14)'}
+                    textAlign="left"
+                    p={'1rem 2rem'}
                     cursor="pointer"
-                    textAlign="center"
                     onClick={() => handleMessageClick(msg._id)}
                     _hover={{ color: 'white' }}
                   >
-                    <Text fontSize={'2rem'}>
+                    <Text fontSize={'2rem'} lineHeight={1}>
                       {msg.senderId?.username || 'Brak nadawcy'}
                     </Text>
                     <Text>{msg.title}</Text>
@@ -217,7 +220,7 @@ const Message = () => {
           <Flex flexDir={'column'} alignItems={'center'} width={'80%'}>
             <Heading
               padding={'20px'}
-              color={'blue.500'}
+              color={'#ffff'}
               fontSize={'2rem'}
               fontWeight={'700'}
               md={{ padding: '30px', fontSize: '3rem' }}
@@ -238,12 +241,12 @@ const Message = () => {
                     color="gray.300"
                     cursor="pointer"
                     textAlign="left"
-                    p={'.5rem 2rem'}
-                    border={'solid 1px #8b3a3a'}
+                    p={'1rem 2rem'}
+                    border={'solid 1px #ffff'}
                     onClick={() => handleMessageClick(msg._id)}
                     _hover={{ color: 'white' }}
                   >
-                    <Text fontSize={'2rem'}>
+                    <Text fontSize={'2rem'} fontWeight={500} lineHeight={1}>
                       {msg.senderId?.username || 'Brak nadawcy'}
                     </Text>
                     <Text>{msg.title}</Text>
@@ -274,7 +277,12 @@ const Message = () => {
               <Text fontSize={'3rem'}>
                 {selectedMessage.senderId?.username || 'Brak nadawcy'}
               </Text>
-              <Heading textAlign="center" fontSize={'2rem'} color={'#60a5fa'}>
+              <Heading
+                textAlign="center"
+                fontSize={'2rem'}
+                color={'lightgrey'}
+                m={5}
+              >
                 {formatDate(selectedMessage.timestamp)}
               </Heading>
 
@@ -289,7 +297,7 @@ const Message = () => {
               <p>Wybierz wiadomość</p>
             </Flex>
           )}
-          <Flex>
+          <Flex mt={20}>
             {selectedMessage && (
               <Flex
                 flexDir={'column'}
@@ -372,12 +380,13 @@ const Message = () => {
                     </Button>
                     <Button
                       onClick={() => handleDeleteMessage(selectedMessage._id)}
-                      bg="red.500"
+                      bg="#b7410e"
                       color="white"
-                      _hover={{ bg: 'red.600', transform: 'scale(1.05)' }}
+                      _hover={{ bg: '#92400e', transform: 'scale(1.05)' }}
                       transition="0.2s"
                       borderRadius="md"
                       p="12px"
+                      fontSize={15}
                     >
                       Usuń wiadomość
                     </Button>

@@ -48,7 +48,6 @@ const Home = () => {
 
   return (
     <Flex flexDirection="column" background="white" overflow="hidden">
-      {/* Navbar */}
       <Box>
         <Navbar
           background={
